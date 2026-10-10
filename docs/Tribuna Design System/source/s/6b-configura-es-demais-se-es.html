@@ -1,0 +1,109 @@
+
+
+<div style="position: relative; width: 390px; height: 1600px; box-sizing: border-box; padding: 32px 0 32px; background: #07151A; color: #EAF5F2; font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="padding: 12px 20px 8px; font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #5CF2C0">Rolagem e voz</div>
+
+<div style="padding: 12px 20px; border-bottom: 1px solid #143037; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 16px; line-height: 22px; font-weight: 700">Sensibilidade do acompanhamento</div>
+<div role="group" aria-label="Sensibilidade do acompanhamento" style="display: flex; padding: 4px; border-radius: 16px; background: #0F2A31; gap: 4px">
+<button type="button" aria-pressed="false" style="flex: 1; height: 44px; border: 0; border-radius: 12px; background: transparent; color: #EAF5F2; font-family: inherit; font-size: 14px; font-weight: 700">Conservador</button>
+<button type="button" aria-pressed="true" style="flex: 1; height: 44px; border: 0; border-radius: 12px; background: #5CF2C0; color: #04231B; font-family: inherit; font-size: 14px; font-weight: 700">Normal</button>
+<button type="button" aria-pressed="false" style="flex: 1; height: 44px; border: 0; border-radius: 12px; background: transparent; color: #EAF5F2; font-family: inherit; font-size: 14px; font-weight: 700">Ágil</button>
+</div>
+</div>
+
+<div style="padding: 12px 20px; border-bottom: 1px solid #143037; display: flex; flex-direction: column; gap: 4px">
+<label for="b1" style="display: flex; justify-content: space-between; font-size: 16px; line-height: 22px; font-weight: 700"><span>Suavidade da rolagem</span><span style="color: #9FC0C6; font-weight: 500">300 ms</span></label>
+<input id="b1" type="range" min="150" max="600" value="300" style="width: 100%; height: 32px; margin: 0; accent-color: #5CF2C0">
+</div>
+
+<div style="padding: 12px 20px; border-bottom: 1px solid #143037; display: flex; flex-direction: column; gap: 4px">
+<label for="b2" style="display: flex; justify-content: space-between; font-size: 16px; line-height: 22px; font-weight: 700"><span>Velocidade (modo Constante)</span><span style="color: #9FC0C6; font-weight: 500">5</span></label>
+<input id="b2" type="range" min="1" max="10" value="5" style="width: 100%; height: 32px; margin: 0; accent-color: #5CF2C0">
+</div>
+
+<div style="padding: 12px 20px; border-bottom: 1px solid #143037; min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+<label for="b3" style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; line-height: 22px; font-weight: 700">Plano B automático</span><span style="font-size: 14px; line-height: 20px; color: #9FC0C6">Sem fala reconhecida por um tempo, muda para o modo Constante.</span></label>
+<input id="b3" type="checkbox" role="switch" style="flex: 0 0 48px; width: 48px; height: 28px; margin: 0; accent-color: #5CF2C0">
+</div>
+
+<div style="padding: 28px 20px 8px; font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #5CF2C0">Discurso</div>
+
+<div style="padding: 12px 20px; border-bottom: 1px solid #143037; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 16px; line-height: 22px; font-weight: 700">Contagem regressiva</div>
+<div role="group" aria-label="Contagem regressiva" style="display: flex; padding: 4px; border-radius: 16px; background: #0F2A31; gap: 4px">
+<button type="button" aria-pressed="false" style="flex: 1; height: 44px; border: 0; border-radius: 12px; background: transparent; color: #EAF5F2; font-family: inherit; font-size: 14px; font-weight: 700">0 s</button>
+<button type="button" aria-pressed="true" style="flex: 1; height: 44px; border: 0; border-radius: 12px; background: #5CF2C0; color: #04231B; font-family: inherit; font-size: 14px; font-weight: 700">3 s</button>
+<button type="button" aria-pressed="false" style="flex: 1; height: 44px; border: 0; border-radius: 12px; background: transparent; color: #EAF5F2; font-family: inherit; font-size: 14px; font-weight: 700">5 s</button>
+<button type="button" aria-pressed="false" style="flex: 1; height: 44px; border: 0; border-radius: 12px; background: transparent; color: #EAF5F2; font-family: inherit; font-size: 14px; font-weight: 700">10 s</button>
+</div>
+</div>
+
+<div style="padding: 8px 20px; border-bottom: 1px solid #143037; min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+<label for="b4" style="font-size: 16px; line-height: 22px; font-weight: 700">Mostrar o cronômetro</label>
+<input id="b4" type="checkbox" role="switch" checked="" style="flex: 0 0 48px; width: 48px; height: 28px; margin: 0; accent-color: #5CF2C0">
+</div>
+
+<div style="padding: 12px 20px; border-bottom: 1px solid #143037; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; line-height: 22px; font-weight: 700">Tempo-alvo</span><span style="font-size: 14px; line-height: 20px; color: #9FC0C6">Aviso visual aos 5 min (amarelo) e 1 min (vermelho), sem som.</span></div>
+<div style="flex: 0 0 auto; display: flex; align-items: center; gap: 4px">
+<button type="button" aria-label="Diminuir tempo-alvo" style="width: 44px; height: 44px; border: 1px solid #2B5560; border-radius: 22px; background: #0F2A31; color: #EAF5F2; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path></svg></button>
+<span style="min-width: 56px; text-align: center; font-size: 16px; line-height: 22px; font-weight: 700">30 min</span>
+<button type="button" aria-label="Aumentar tempo-alvo" style="width: 44px; height: 44px; border: 1px solid #2B5560; border-radius: 22px; background: #0F2A31; color: #EAF5F2; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5v14"></path></svg></button>
+</div>
+</div>
+
+<div style="padding: 12px 20px; border-bottom: 1px solid #143037; display: flex; flex-direction: column; gap: 4px">
+<label for="b5" style="display: flex; justify-content: space-between; font-size: 16px; line-height: 22px; font-weight: 700"><span>Velocidade média de fala</span><span style="color: #9FC0C6; font-weight: 500">130 palavras/min</span></label>
+<input id="b5" type="range" min="80" max="200" value="130" style="width: 100%; height: 32px; margin: 0; accent-color: #5CF2C0">
+</div>
+
+<div style="padding: 8px 20px; border-bottom: 1px solid #143037; min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+<label for="b6" style="font-size: 16px; line-height: 22px; font-weight: 700">Manter a tela sempre ligada</label>
+<input id="b6" type="checkbox" role="switch" checked="" style="flex: 0 0 48px; width: 48px; height: 28px; margin: 0; accent-color: #5CF2C0">
+</div>
+<div style="padding: 8px 20px; border-bottom: 1px solid #143037; min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+<label for="b7" style="font-size: 16px; line-height: 22px; font-weight: 700">Brilho máximo durante a leitura</label>
+<input id="b7" type="checkbox" role="switch" style="flex: 0 0 48px; width: 48px; height: 28px; margin: 0; accent-color: #5CF2C0">
+</div>
+<div style="padding: 8px 20px; border-bottom: 1px solid #143037; min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+<label for="b8" style="font-size: 16px; line-height: 22px; font-weight: 700">Barra de progresso</label>
+<input id="b8" type="checkbox" role="switch" checked="" style="flex: 0 0 48px; width: 48px; height: 28px; margin: 0; accent-color: #5CF2C0">
+</div>
+
+<div style="padding: 28px 20px 8px; font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #5CF2C0">Controles</div>
+
+<div style="padding: 12px 20px; border-bottom: 1px solid #143037; min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+<label for="b9" style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; line-height: 22px; font-weight: 700">Botões de volume</span><span style="font-size: 14px; line-height: 20px; color: #9FC0C6">Pausar ou retomar e voltar uma frase.</span></label>
+<input id="b9" type="checkbox" role="switch" checked="" style="flex: 0 0 48px; width: 48px; height: 28px; margin: 0; accent-color: #5CF2C0">
+</div>
+<div style="padding: 12px 20px; border-bottom: 1px solid #143037; min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+<label for="b10" style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; line-height: 22px; font-weight: 700">Teclado ou controle Bluetooth</span><span style="font-size: 14px; line-height: 20px; color: #9FC0C6">Espaço pausa; setas avançam e voltam uma frase.</span></label>
+<input id="b10" type="checkbox" role="switch" checked="" style="flex: 0 0 48px; width: 48px; height: 28px; margin: 0; accent-color: #5CF2C0">
+</div>
+<div style="padding: 12px 20px; border-bottom: 1px solid #143037; min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+<label for="b11" style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; line-height: 22px; font-weight: 700">Pinça para ajustar a fonte</span><span style="font-size: 14px; line-height: 20px; color: #9FC0C6">Muda o tamanho do texto ao vivo.</span></label>
+<input id="b11" type="checkbox" role="switch" checked="" style="flex: 0 0 48px; width: 48px; height: 28px; margin: 0; accent-color: #5CF2C0">
+</div>
+<div style="padding: 8px 20px; border-bottom: 1px solid #143037; min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+<label for="b12" style="font-size: 16px; line-height: 22px; font-weight: 700">Vibração ao pausar</label>
+<input id="b12" type="checkbox" role="switch" checked="" style="flex: 0 0 48px; width: 48px; height: 28px; margin: 0; accent-color: #5CF2C0">
+</div>
+
+<div style="padding: 28px 20px 8px; font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #5CF2C0">Sobre</div>
+
+<div style="padding: 12px 20px; border-bottom: 1px solid #143037; min-height: 48px; display: flex; align-items: center; justify-content: space-between">
+<span style="font-size: 16px; line-height: 22px; font-weight: 700">Versão</span>
+<span style="font-size: 16px; line-height: 22px; color: #9FC0C6">[VERSÃO]</span>
+</div>
+<button type="button" style="padding: 12px 20px; border: 0; border-bottom: 1px solid #143037; min-height: 56px; background: transparent; color: #EAF5F2; font-family: inherit; text-align: left; display: flex; align-items: center; justify-content: space-between">
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; line-height: 22px; font-weight: 700">Licenças</span><span style="font-size: 14px; line-height: 20px; color: #9FC0C6">Vosk, Apache 2.0</span></span>
+<svg width="22" height="22" sc-camel-view-box="0 0 24 24" fill="none" stroke="#9FC0C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+</button>
+<div style="padding: 12px 20px; display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 16px; line-height: 22px; font-weight: 700">Privacidade</span>
+<span style="font-size: 14px; line-height: 20px; color: #9FC0C6">Nada sai do aparelho. O texto fica só na memória e nenhum áudio é gravado.</span>
+</div>
+
+</div>

@@ -1,0 +1,90 @@
+/* Tribuna color tokens.
+   Dark ("Petróleo") is the source of truth — every value is copied from the screen mocks.
+   Light ("Papel") is derived in the same hue family; apply with [data-theme="light"]. */
+:root{
+  /* base — petroleum ramp (dark) */
+  --petrol-950:#05141A;--petrol-900:#07151A;--petrol-850:#0F2A31;--petrol-800:#12313A;--petrol-750:#143037;
+  --petrol-700:#173A44;--petrol-690:#1A3840;--petrol-650:#1C444F;--petrol-600:#2B5560;--petrol-500:#3F6A75;--petrol-400:#4F7A85;
+  --petrol-300:#9FC0C6;--petrol-200:#C3DDE0;--petrol-150:#CFE6E9;--petrol-100:#EAF5F2;
+  /* base — brand + signal */
+  --mint-500:#5CF2C0;--mint-ink:#04231B;--mint-700:#0A7F5C;
+  --amber-400:#FFD24A;--amber-900:#5B4B1F;--amber-700:#8A5D00;
+  --coral-400:#FF8A7E;--coral-500:#FF6B5E;--coral-900:#6B3A35;--coral-950:#2A1B19;--coral-700:#B83A2E;
+  --white:#FFFFFF;--black:#000000;
+  /* prompter preset themes (A13) */
+  --preset-yellow:#FFE14D;--preset-green:#5CFF8A;
+
+  /* semantic — dark (default) */
+  --bg-app:var(--petrol-900);
+  --bg-prompt:var(--petrol-950);
+  --surface-1:var(--petrol-850);        /* textarea, cards, segmented track */
+  --surface-track:var(--petrol-850);
+  --surface-sheet:var(--petrol-800);    /* bottom sheet */
+  --surface-2:var(--petrol-700);        /* tonal buttons, pills, nav active */
+  --surface-dialog:var(--petrol-650);
+  --surface-danger:var(--coral-950);
+  --border-1:var(--petrol-600);
+  --border-strong:var(--petrol-400);
+  --divider:var(--petrol-750);
+  --handle:var(--petrol-500);
+  --track:var(--petrol-690);            /* thin progress track */
+  --track-setup:var(--petrol-700);
+  --fg-1:var(--petrol-100);
+  --fg-2:var(--petrol-300);             /* secondary / meta */
+  --fg-soft:var(--petrol-150);
+  --fg-dialog:var(--petrol-200);
+  --fg-disabled:var(--petrol-400);
+  --accent:var(--mint-500);             /* fills */
+  --accent-text:var(--mint-500);        /* accent used as text/outline */
+  --on-accent:var(--mint-ink);
+  --accent-halo:rgba(92,242,192,.28);
+  --warning:var(--amber-400);
+  --warning-border:var(--amber-900);
+  --warning-text:var(--amber-400);
+  --danger:var(--coral-400);
+  --danger-border:var(--coral-900);
+  --danger-ring:var(--coral-500);
+  --scrim:rgba(5,20,26,.62);
+  --prompt-fg:var(--white);
+  --prompt-highlight:var(--mint-500);
+  --prompt-read-opacity:.4; /* @kind other */
+  --prompt-fade:rgba(5,20,26,0);
+  --dialog-border:0; /* @kind other */
+}
+[data-theme="light"]{
+  --bg-app:#F2F7F6;
+  --bg-prompt:#FFFFFF;
+  --surface-1:#FFFFFF;
+  --surface-track:#E1EDEB;
+  --surface-sheet:#FFFFFF;
+  --surface-2:#E1EDEB;
+  --surface-dialog:#FFFFFF;
+  --surface-danger:#FCE9E6;
+  --border-1:#C9DCDC;
+  --border-strong:#8FAEB3;
+  --divider:#DDE9E8;
+  --handle:#B8CDCF;
+  --track:#D6E6E4;
+  --track-setup:#D6E6E4;
+  --fg-1:#07151A;
+  --fg-2:#4A6A71;
+  --fg-soft:#2E4C53;
+  --fg-dialog:#34545B;
+  --fg-disabled:#8FAEB3;
+  --accent:var(--mint-500);
+  --accent-text:var(--mint-700);
+  --on-accent:var(--mint-ink);
+  --accent-halo:rgba(10,127,92,.18);
+  --warning:#F2B705;
+  --warning-border:#E8C96A;
+  --warning-text:var(--amber-700);
+  --danger:var(--coral-700);
+  --danger-border:#F0B9B1;
+  --danger-ring:#E5483A;
+  --scrim:rgba(7,21,26,.40);
+  --prompt-fg:#07151A;
+  --prompt-highlight:var(--mint-700);
+  --prompt-read-opacity:.4; /* @kind other */
+  --prompt-fade:rgba(255,255,255,0);
+  --dialog-border:1px solid #C9DCDC; /* @kind other */
+}

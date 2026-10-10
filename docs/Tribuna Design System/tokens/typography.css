@@ -1,0 +1,30 @@
+:root{
+  --font-display:'Bricolage Grotesque',system-ui,sans-serif;
+  --font-body:'Atkinson Hyperlegible Next',system-ui,sans-serif;
+  --font-serif:Georgia,'Times New Roman',serif;           /* prompter option "Serif" (A2) */
+  --font-mono:ui-monospace,'SF Mono',Menlo,monospace;     /* prompter option "Mono" (A2) */
+  --weight-regular:400;--weight-medium:500;--weight-bold:700;
+
+  /* display — Bricolage 700 */
+  --type-countdown:200px/200px var(--font-display);
+  --type-end:120px/120px var(--font-display);
+  --type-hero:36px/42px var(--font-display);
+  --type-h1:32px/38px var(--font-display);
+  --type-h1-tablet:32px/40px var(--font-display);
+  --type-title:24px/32px var(--font-display);
+  --type-title-sm:22px/28px var(--font-display);
+  /* body — Atkinson */
+  --type-prompt:44px/62px var(--font-body);   /* 44sp × 1.4 default */
+  --type-stat:56px/64px var(--font-body);
+  --type-editor:20px/30px var(--font-body);
+  --type-timer:20px/28px var(--font-body);
+  --type-cta:20px/1 var(--font-body);
+  --type-button-lg:18px/1 var(--font-body);
+  --type-body:16px/22px var(--font-body);
+  --type-paragraph:16px/24px var(--font-body);
+  --type-small:14px/20px var(--font-body);
+  --type-overline:14px/20px var(--font-body);  /* uppercase, .04em, accent */
+  --type-label:13px/16px var(--font-body);
+  --type-caption:12px/16px var(--font-body);
+  --tracking-overline:.04em;
+}

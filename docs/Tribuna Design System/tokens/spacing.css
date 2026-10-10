@@ -1,0 +1,24 @@
+:root{
+  --space-2:2px;--space-4:4px;--space-8:8px;--space-10:10px;--space-12:12px;--space-16:16px;--space-20:20px;
+  --space-24:24px;--space-28:28px;--space-32:32px;--space-40:40px;--space-48:48px;--space-56:56px;
+
+  --radius-2:2px;     /* sheet handle */
+  --radius-6:6px;     /* setup progress */
+  --radius-10:10px;   /* theme swatch tile */
+  --radius-12:12px;   /* segmented item, logo mark */
+  --radius-14:14px;   /* color button, notice, preview */
+  --radius-16:16px;   /* card, textarea, segmented track, primary 56 */
+  --radius-20:20px;   /* main CTA 64 */
+  --radius-24:24px;   /* pill buttons, pause sheet */
+  --radius-28:28px;   /* dialog, quick-settings sheet */
+  --radius-full:999px;
+
+  --hit-min:48px;     /* PRD: 48dp minimum */
+  --control-sm:44px;--control-md:48px;--control-lg:56px;--control-xl:64px;
+  --stroke-hairline:1px;--stroke-swatch:2px;--warning-ring:8px;
+
+  --shadow-none:none;  /* Tribuna is flat: elevation = lighter surface, never drop shadows */
+  --duration-flash:300ms; /* @kind other */   /* word flash after tap-jump */
+  --duration-scroll:300ms; /* @kind other */  /* R5 default, range 150–600 */
+  --ease-scroll:cubic-bezier(.2,0,0,1); /* @kind other */
+}

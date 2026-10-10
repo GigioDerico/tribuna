@@ -1,0 +1,19 @@
+<!-- @dsCard group="Components" viewport="700x340" name="Prompter" subtitle="Prompt text, reading line, timer, mic, pause, warnings" -->
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<style>html,body{margin:0;background:#07151A}body{font-family:var(--font-body)}.pair{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}.pane{padding:20px;background:var(--bg-app);color:var(--fg-1);display:flex;flex-direction:column;gap:14px;position:relative}.lbl{font:var(--type-label);color:var(--fg-2);text-transform:uppercase;letter-spacing:.04em}.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script></head><body><div id="root"></div>
+<script type="text/babel">
+const NS=window.TribunaDesignSystem_cb0bc4;
+const {PromptText,ReadingIndicator,TimerBar,MicIndicator,PausePill,ProgressBar,TimeWarningBorder}=NS;
+function Demo({theme}){return <div style={{margin:-20,height:340,position:'relative',background:'var(--bg-prompt)',overflow:'hidden'}}>
+<TimerBar elapsed={theme==='dark'?'12:04':'25:00'} remaining={theme==='dark'?'17:56':'05:00'} warning={theme==='dark'?'none':'fiveMin'}/>
+<PromptText text="Hoje vamos falar sobre ouvir com atenção. Quem escuta de verdade entende mais." cursor={6} fontSize={32} style={{position:'absolute',top:70,left:0,right:0}}/>
+<ReadingIndicator top={150}/><div style={{position:'absolute',bottom:60,left:0,right:0,display:'flex',justifyContent:'center'}}><PausePill/></div>
+<MicIndicator level={0.8} style={{position:'absolute',left:20,bottom:16}}/><ProgressBar variant="thin" value={41} style={{position:'absolute',left:0,right:0,bottom:0}}/>
+{theme==='light'&&<TimeWarningBorder level="fiveMin"/>}</div>;}
+function Pair(){return <div className="pair"><div className="pane" data-theme="dark"><Demo theme="dark"/></div><div className="pane" data-theme="light"><Demo theme="light"/></div></div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<Pair/>);
+</script></body></html>

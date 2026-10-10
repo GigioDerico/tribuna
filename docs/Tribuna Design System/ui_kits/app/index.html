@@ -1,0 +1,41 @@
+<!-- @dsCard group="App" viewport="1000x920" name="Tribuna Android app" subtitle="Interactive click-through — modo escuro e modo claro" -->
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tribuna — UI kit</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>html,body{margin:0;background:#C9D3D2}body{font-family:var(--font-body);min-height:100vh}.bar{display:flex;justify-content:center;gap:8px;padding:20px 16px 0}.bar button{font:700 14px/1 var(--font-body);height:40px;padding:0 18px;border-radius:20px;border:1px solid #07151A;background:transparent;color:#07151A;cursor:pointer}.bar button[aria-pressed="true"]{background:#07151A;color:#5CF2C0}.stage{display:flex;gap:64px;justify-content:center;padding:28px 24px 48px;transform-origin:top center}.col{display:flex;flex-direction:column;gap:18px;align-items:center}.cap{font:700 13px/16px var(--font-body);color:#07151A;letter-spacing:.04em;text-transform:uppercase;display:flex;gap:8px;align-items:center}.cap button{font:700 12px/1 var(--font-body);border:1px solid #07151A;background:transparent;border-radius:14px;padding:6px 10px;cursor:pointer;color:#07151A;text-transform:none;letter-spacing:0}</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head><body><div id="root"></div>
+<script type="text/babel" src="Onboarding.jsx"></script>
+<script type="text/babel" src="Editor.jsx"></script>
+<script type="text/babel" src="QuickSettings.jsx"></script>
+<script type="text/babel" src="Prompter.jsx"></script>
+<script type="text/babel" src="Settings.jsx"></script>
+<script type="text/babel" src="App.jsx"></script>
+<script type="text/babel">
+function Phone({theme,label,start}){
+  const jump=React.useRef(null);
+  const [k,setK]=React.useState(0);
+  return <div className="col">
+    <div className="cap">{label}<button onClick={()=>jump.current&&jump.current(300)}>5 min</button><button onClick={()=>jump.current&&jump.current(60)}>1 min</button><button onClick={()=>setK(k+1)}>Reiniciar</button></div>
+    <TribunaApp key={k} theme={theme} start={start} jumpRef={jump}/>
+  </div>;
+}
+function Page(){
+  const [view,setView]=React.useState(()=>localStorage.getItem('tribuna-kit-view')||'ambos');
+  const [scale,setScale]=React.useState(1);
+  React.useEffect(()=>{localStorage.setItem('tribuna-kit-view',view);const f=()=>{const need=view==='ambos'?2*410+64+48:460;setScale(Math.min(1,window.innerWidth/need));};f();window.addEventListener('resize',f);return()=>window.removeEventListener('resize',f);},[view]);
+  return <>
+    <div className="bar">{[['escuro','Modo escuro'],['claro','Modo claro'],['ambos','Lado a lado']].map(([v,l])=><button key={v} aria-pressed={view===v} onClick={()=>setView(v)}>{l}</button>)}</div>
+    <div className="stage" style={{transform:'scale('+scale+')',height:(844+120)*scale}}>
+      {view!=='claro'&&<Phone theme="dark" label="Escuro · Petróleo" start="editor"/>}
+      {view!=='escuro'&&<Phone theme="light" label="Claro · Papel" start="editor"/>}
+    </div>
+  </>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Page/>);
+</script>
+</body></html>

@@ -1,0 +1,4 @@
+:root{color-scheme:dark}
+[data-theme="light"]{color-scheme:light}
+a{color:var(--accent-text);font-weight:700}
+a:hover{color:var(--fg-1)}

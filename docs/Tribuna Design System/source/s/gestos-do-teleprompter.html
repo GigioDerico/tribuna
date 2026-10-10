@@ -1,0 +1,85 @@
+
+
+<div style="width: 1000px; height: 1200px; box-sizing: border-box; padding: 64px; background: #07151A; color: #EAF5F2; font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif; display: flex; flex-direction: column; gap: 0; overflow: hidden">
+
+<div style="font-family: 'Bricolage Grotesque', system-ui, sans-serif; font-size: 28px; line-height: 36px; font-weight: 700">Gestos do teleprompter</div>
+<div style="margin-top: 8px; font-size: 14px; line-height: 20px; color: #9FC0C6">Todo gesto tem um único efeito, previsível, em cada estado da leitura.</div>
+
+<sc-raw-table style="margin-top: 32px; width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 14px; line-height: 20px; text-align: left">
+
+<sc-raw-thead>
+<sc-raw-tr style="background: #0F2A31">
+<sc-raw-th style="padding: 12px; font-weight: 700; color: #9FC0C6; border-bottom: 1px solid #2B5560">Gesto</sc-raw-th>
+<sc-raw-th style="padding: 12px; font-weight: 700; color: #5CF2C0; border-bottom: 1px solid #2B5560">Lendo</sc-raw-th>
+<sc-raw-th style="padding: 12px; font-weight: 700; color: #5CF2C0; border-bottom: 1px solid #2B5560">Pausado</sc-raw-th>
+<sc-raw-th style="padding: 12px; font-weight: 700; color: #5CF2C0; border-bottom: 1px solid #2B5560">Contagem regressiva</sc-raw-th>
+</sc-raw-tr>
+</sc-raw-thead>
+<sc-raw-tbody>
+<sc-raw-tr>
+<sc-raw-th style="padding: 12px; font-weight: 700; vertical-align: top; border-bottom: 1px solid #1A3840">Toque em área vazia</sc-raw-th>
+<sc-raw-td style="padding: 12px; vertical-align: top; border-bottom: 1px solid #1A3840">Pausa (mic continua ligado, cursor congela)</sc-raw-td>
+<sc-raw-td style="padding: 12px; vertical-align: top; border-bottom: 1px solid #1A3840">Retoma do cursor atual</sc-raw-td>
+<sc-raw-td style="padding: 12px; vertical-align: top; border-bottom: 1px solid #1A3840">Cancela a contagem e pausa</sc-raw-td>
+</sc-raw-tr>
+<sc-raw-tr>
+<sc-raw-th style="padding: 12px; font-weight: 700; vertical-align: top; border-bottom: 1px solid #1A3840">Toque numa palavra</sc-raw-th>
+<sc-raw-td style="padding: 12px; vertical-align: top; border-bottom: 1px solid #1A3840">Cursor vai para a palavra, rola até a linha de leitura e continua lendo</sc-raw-td>
+<sc-raw-td style="padding: 12px; vertical-align: top; border-bottom: 1px solid #1A3840">Cursor vai para a palavra e retoma</sc-raw-td>
+<sc-raw-td style="padding: 12px; vertical-align: top; border-bottom: 1px solid #1A3840">Cancela a contagem e pausa</sc-raw-td>
+</sc-raw-tr>
+<sc-raw-tr>
+<sc-raw-th style="padding: 12px; font-weight: 700; vertical-align: top; border-bottom: 1px solid #1A3840">Toque longo numa palavra</sc-raw-th>
+<sc-raw-td style="padding: 12px; vertical-align: top; color: #7FABB4; border-bottom: 1px solid #1A3840">—</sc-raw-td>
+<sc-raw-td style="padding: 12px; vertical-align: top; border-bottom: 1px solid #1A3840">Abre o Editor posicionado naquela palavra</sc-raw-td>
+<sc-raw-td style="padding: 12px; vertical-align: top; color: #7FABB4; border-bottom: 1px solid #1A3840">—</sc-raw-td>
+</sc-raw-tr>
+<sc-raw-tr>
+<sc-raw-th style="padding: 12px; font-weight: 700; vertical-align: top; border-bottom: 1px solid #1A3840">Arrastar</sc-raw-th>
+<sc-raw-td style="padding: 12px; vertical-align: top; border-bottom: 1px solid #1A3840">Rolagem manual; leitura suspensa enquanto o dedo está na tela</sc-raw-td>
+<sc-raw-td style="padding: 12px; vertical-align: top; border-bottom: 1px solid #1A3840">Rolagem manual</sc-raw-td>
+<sc-raw-td style="padding: 12px; vertical-align: top; color: #7FABB4; border-bottom: 1px solid #1A3840">—</sc-raw-td>
+</sc-raw-tr>
+<sc-raw-tr>
+<sc-raw-th style="padding: 12px; font-weight: 700; vertical-align: top; border-bottom: 1px solid #1A3840">Soltar após arrastar</sc-raw-th>
+<sc-raw-td style="padding: 12px; vertical-align: top; border-bottom: 1px solid #1A3840">Cursor = primeira palavra na linha de leitura; continua</sc-raw-td>
+<sc-raw-td style="padding: 12px; vertical-align: top; border-bottom: 1px solid #1A3840">Mantém pausado</sc-raw-td>
+<sc-raw-td style="padding: 12px; vertical-align: top; color: #7FABB4; border-bottom: 1px solid #1A3840">—</sc-raw-td>
+</sc-raw-tr>
+<sc-raw-tr>
+<sc-raw-th style="padding: 12px; font-weight: 700; vertical-align: top; border-bottom: 1px solid #1A3840">Pinça</sc-raw-th>
+<sc-raw-td style="padding: 12px; vertical-align: top; border-bottom: 1px solid #1A3840">Ajusta a fonte (P2)</sc-raw-td>
+<sc-raw-td style="padding: 12px; vertical-align: top; border-bottom: 1px solid #1A3840">Ajusta a fonte (P2)</sc-raw-td>
+<sc-raw-td style="padding: 12px; vertical-align: top; color: #7FABB4; border-bottom: 1px solid #1A3840">—</sc-raw-td>
+</sc-raw-tr>
+<sc-raw-tr>
+<sc-raw-th style="padding: 12px; font-weight: 700; vertical-align: top; border-bottom: 1px solid #1A3840">Volume +</sc-raw-th>
+<sc-raw-td style="padding: 12px; vertical-align: top; border-bottom: 1px solid #1A3840">Pausa ou retoma</sc-raw-td>
+<sc-raw-td style="padding: 12px; vertical-align: top; border-bottom: 1px solid #1A3840">Retoma</sc-raw-td>
+<sc-raw-td style="padding: 12px; vertical-align: top; color: #7FABB4; border-bottom: 1px solid #1A3840">—</sc-raw-td>
+</sc-raw-tr>
+<sc-raw-tr>
+<sc-raw-th style="padding: 12px; font-weight: 700; vertical-align: top; border-bottom: 1px solid #1A3840">Volume −</sc-raw-th>
+<sc-raw-td style="padding: 12px; vertical-align: top; border-bottom: 1px solid #1A3840">Volta ao início da frase anterior</sc-raw-td>
+<sc-raw-td style="padding: 12px; vertical-align: top; border-bottom: 1px solid #1A3840">Volta ao início da frase anterior</sc-raw-td>
+<sc-raw-td style="padding: 12px; vertical-align: top; color: #7FABB4; border-bottom: 1px solid #1A3840">—</sc-raw-td>
+</sc-raw-tr>
+<sc-raw-tr>
+<sc-raw-th style="padding: 12px; font-weight: 700; vertical-align: top; border-bottom: 1px solid #1A3840">Voltar (sistema)</sc-raw-th>
+<sc-raw-td style="padding: 12px; vertical-align: top; border-bottom: 1px solid #1A3840">Pausa</sc-raw-td>
+<sc-raw-td style="padding: 12px; vertical-align: top; border-bottom: 1px solid #1A3840">Confirma “Encerrar leitura?”</sc-raw-td>
+<sc-raw-td style="padding: 12px; vertical-align: top; border-bottom: 1px solid #1A3840">Cancela</sc-raw-td>
+</sc-raw-tr>
+</sc-raw-tbody>
+</sc-raw-table>
+
+<div style="margin-top: 40px; font-family: 'Bricolage Grotesque', system-ui, sans-serif; font-size: 20px; line-height: 28px; font-weight: 700">Regras do toque</div>
+<div style="margin-top: 16px; display: flex; flex-direction: column; gap: 12px; font-size: 14px; line-height: 20px">
+<div style="display: flex; gap: 16px"><b style="flex: 0 0 168px">Palavra ou vazio</b><span style="color: #CFE6E9">O toque só conta como palavra se cair dentro do retângulo da palavra, ampliado em 8 dp. Espaço entre linhas, margens e o fim do texto contam como vazio.</span></div>
+<div style="display: flex; gap: 16px"><b style="flex: 0 0 168px">Toque ou arrasto</b><span style="color: #CFE6E9">Movimento acima do touchSlop do sistema vira arrasto; abaixo, toque. Os dois nunca disparam juntos.</span></div>
+<div style="display: flex; gap: 16px"><b style="flex: 0 0 168px">Feedback</b><span style="color: #CFE6E9">Ao saltar para uma palavra, ela pisca no destaque por 300 ms. Ao pausar, vibração curta (opcional, desligável).</span></div>
+<div style="display: flex; gap: 16px"><b style="flex: 0 0 168px">Depois do salto</b><span style="color: #CFE6E9">O motor de voz reinicia a janela de busca a partir da nova posição e ignora os resultados parciais anteriores ao toque.</span></div>
+<div style="display: flex; gap: 16px"><b style="flex: 0 0 168px">Modo Constante (4b-2)</b><span style="color: #CFE6E9">Os mesmos gestos valem. Sem microfone, não há janela de busca de voz: depois de um salto ou de soltar o arrasto, a rolagem automática segue da nova posição, na velocidade escolhida.</span></div>
+</div>
+
+</div>

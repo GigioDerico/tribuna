@@ -1,0 +1,31 @@
+# Gradle / build
+build/
+.gradle/
+local.properties
+.externalNativeBuild/
+.cxx/
+captures/
+
+# IDE (mantém só o que costuma ser compartilhado)
+.idea/*
+!.idea/codeStyles/
+!.idea/inspectionProfiles/
+!.idea/runConfigurations/
+*.iml
+
+# Artefatos e chaves de assinatura
+*.apk
+*.aab
+*.keystore
+*.jks
+
+# Python (ferramentas da Etapa 0)
+__pycache__/
+.venv/
+
+# macOS
+.DS_Store
+
+# Claude Code: só o que é pessoal. .claude/agents/ e .claude/agent-memory/ vão para o git.
+.claude/settings.local.json
+.claude/agent-memory-local/
