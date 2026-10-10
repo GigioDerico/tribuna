@@ -27,6 +27,7 @@ A sessão principal do Claude Code é o **orquestrador**: abre a pasta da tarefa
 ```
 work/
   0001-etapa0-motor-voz/
+    brainstorm.md               (superpowers:brainstorming; opcional, ver Intake)
     spec.md
     change_impact_analysis.md   (só quando a tarefa mexe em contrato)
     impl_plan.md
@@ -46,9 +47,9 @@ Numeração das tarefas: quatro dígitos sequenciais e um nome curto. O orquestr
 ```
 [0. CIA]    arquiteto      só se a tarefa toca contrato do TRD, schema do DataStore ou regra inegociável
    │
-[1. INTAKE] analista ───► spec.md ───► APROVAÇÃO HUMANA
+[1. INTAKE] analista ───► brainstorm.md (superpowers) ───► spec.md ───► APROVAÇÃO HUMANA
    │
-[2. PLAN]   arquiteto ──► impl_plan.md (com revisão de privacidade) ───► APROVAÇÃO HUMANA
+[2. PLAN]   arquiteto ──► impl_plan.md (writing-plans + revisão de privacidade) ───► APROVAÇÃO HUMANA
    │
 [3. BUILD]  motor-voz e/ou interface ──► código + testes; tudo verde localmente
    │
@@ -69,11 +70,13 @@ Obrigatória antes de mudar qualquer um destes: `SpeechEngine`/`SpeechEvent`/`Se
 
 ### 1. Intake
 
-O `analista` escreve o `spec.md`: o que, por quê, requisitos do PRD atendidos, critérios de aceite verificáveis e **fora do escopo** obrigatório. Se o pedido contradiz o PRD, ele propõe a mudança no PRD em vez de inventar. Para itens que já estão no PRD e no TRD (a maior parte da v1), o `spec.md` é curto e aponta para eles.
+O `analista` primeiro roda a skill `superpowers:brainstorming` e grava `brainstorm.md` na pasta da tarefa (não em `docs/superpowers/`). Como o analista não fala direto com o humano, as perguntas da skill vão numa seção "Perguntas ao humano" do `brainstorm.md`; o orquestrador as leva ao humano e devolve as respostas ao analista. O brainstorm é dispensado quando o pedido já está coberto pelo PRD e pelo TRD, ou é mudança trivial. Ele não substitui o spec, que é o que o humano aprova.
+
+Depois, o `analista` escreve o `spec.md`: o que, por quê, requisitos do PRD atendidos, critérios de aceite verificáveis e **fora do escopo** obrigatório. Se o pedido contradiz o PRD, ele propõe a mudança no PRD em vez de inventar. Para itens que já estão no PRD e no TRD (a maior parte da v1), o `spec.md` é curto e aponta para eles.
 
 ### 2. Plan
 
-O `arquiteto` escreve o `impl_plan.md`: arquivos que mudam, ordem (contratos e `align/` → `speech/` → ViewModel → telas), testes a escrever primeiro, como verificar, riscos. Inclui a seção de privacidade: onde o texto do discurso passa, se algum caminho novo pode persistir texto ou áudio, se alguma dependência nova traz permissão. Consulta `REVIEW-QUESTIONS.md` (Q1, Q4, Q5, Q6) e o `opr_register.md` da área.
+O `arquiteto` escreve o `impl_plan.md` com a skill `superpowers:writing-plans`, no formato de `templates/impl_plan.md` e na pasta da tarefa. O passo final da skill (executar o plano) não se aplica: a execução é dos agentes de construção, depois da aprovação humana. O plano traz: arquivos que mudam, ordem (contratos e `align/` → `speech/` → ViewModel → telas), testes a escrever primeiro, como verificar, riscos. Inclui a seção de privacidade: onde o texto do discurso passa, se algum caminho novo pode persistir texto ou áudio, se alguma dependência nova traz permissão. Consulta `REVIEW-QUESTIONS.md` (Q1, Q4, Q5, Q6) e o `opr_register.md` da área.
 
 ### 3. Build
 
