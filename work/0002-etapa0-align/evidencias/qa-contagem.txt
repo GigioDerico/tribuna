@@ -1,0 +1,16 @@
+TEST-io.github.gigioderico.tribuna.etapa0.align.AlignContractShapeTest.xml [4, 0, 0, 0]
+TEST-io.github.gigioderico.tribuna.etapa0.align.AlignerBoundaryTest.xml [27, 0, 0, 0]
+TEST-io.github.gigioderico.tribuna.etapa0.align.AlignerL30Test.xml [1, 0, 0, 0]
+TEST-io.github.gigioderico.tribuna.etapa0.align.AlignerTest.xml [16, 0, 0, 0]
+TEST-io.github.gigioderico.tribuna.etapa0.align.AlignerTrajectoryTest.xml [10, 0, 0, 0]
+TEST-io.github.gigioderico.tribuna.etapa0.align.NormalizerTest.xml [6, 0, 0, 0]
+TEST-io.github.gigioderico.tribuna.etapa0.align.NumberWordsTest.xml [4, 0, 0, 0]
+TEST-io.github.gigioderico.tribuna.etapa0.align.PartialReconcilerTest.xml [10, 0, 0, 0]
+TEST-io.github.gigioderico.tribuna.etapa0.align.SimilarityTest.xml [3, 0, 0, 0]
+TEST-io.github.gigioderico.tribuna.etapa0.align.TokenizerTest.xml [14, 0, 0, 0]
+TEST-io.github.gigioderico.tribuna.etapa0.align.TokenizerTextsTest.xml [2, 0, 0, 0]
+TEST-io.github.gigioderico.tribuna.etapa0.speech.FakeSpeechEngineTest.xml [18, 0, 0, 0]
+TEST-io.github.gigioderico.tribuna.etapa0.speech.SpeechContractShapeTest.xml [3, 0, 0, 0]
+total 118 skipped 0 failures 0 errors 0
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />

@@ -1,0 +1,141 @@
+> Task :build-logic:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :build-logic:pluginDescriptors
+> Task :build-logic:processResources
+> Task :build-logic:compileKotlin
+> Task :build-logic:compileJava NO-SOURCE
+> Task :build-logic:classes
+> Task :build-logic:jar
+> Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :build-logic:pluginUnderTestMetadata
+> Task :build-logic:processTestResources NO-SOURCE
+> Task :core:processResources NO-SOURCE
+> Task :core:processTestFixturesResources NO-SOURCE
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :app:processDebugNavigationResources
+> Task :app:javaPreCompileDebug
+> Task :app:checkDebugAarMetadata
+> Task :app:mapDebugSourceSetPaths
+> Task :app:parseDebugLocalResources
+> Task :app:compileDebugNavigationResources
+> Task :app:generateDebugRFile
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:mergeDebugResources
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :core:processTestResources NO-SOURCE
+> Task :app:preDebugAndroidTestBuild SKIPPED
+> Task :app:javaPreCompileDebugUnitTest
+> Task :core:writeJvmLintModelMetadata
+> Task :app:extractProguardFiles
+
+> Task :app:verifyDebugMergedManifest
+verifyDebugMergedManifest: OK /Users/giorgioderico/Projetos/Tribuna/etapa0/app/build/intermediates/merged_manifest/debug/processDebugMainManifest/AndroidManifest.xml -> android.permission.RECORD_AUDIO
+
+> Task :app:preReleaseBuild UP-TO-DATE
+> Task :app:extractDeepLinksRelease
+> Task :app:processReleaseMainManifest
+
+> Task :app:verifyReleaseMergedManifest
+verifyReleaseMergedManifest: OK /Users/giorgioderico/Projetos/Tribuna/etapa0/app/build/intermediates/merged_manifest/release/processReleaseMainManifest/AndroidManifest.xml -> android.permission.RECORD_AUDIO
+
+> Task :app:verifyMergedManifest
+> Task :app:processDebugManifestForPackage
+> Task :app:loadKtlintReporters
+> Task :core:loadKtlintReporters
+> Task :app:runKtlintCheckOverAndroidTestDebugSourceSet NO-SOURCE
+> Task :app:ktlintAndroidTestDebugSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverAndroidTestReleaseSourceSet NO-SOURCE
+> Task :app:ktlintAndroidTestReleaseSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverAndroidTestSourceSet NO-SOURCE
+> Task :app:ktlintAndroidTestSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverDebugSourceSet NO-SOURCE
+> Task :app:ktlintDebugSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverMainSourceSet NO-SOURCE
+> Task :app:ktlintMainSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverReleaseSourceSet NO-SOURCE
+> Task :app:ktlintReleaseSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverTestDebugSourceSet NO-SOURCE
+> Task :app:ktlintTestDebugSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverTestFixturesDebugSourceSet NO-SOURCE
+> Task :app:ktlintTestFixturesDebugSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverTestFixturesReleaseSourceSet NO-SOURCE
+> Task :app:ktlintTestFixturesReleaseSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverTestFixturesSourceSet NO-SOURCE
+> Task :app:ktlintTestFixturesSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverTestReleaseSourceSet NO-SOURCE
+> Task :app:ktlintTestReleaseSourceSetCheck SKIPPED
+> Task :app:processDebugResources
+> Task :core:compileKotlin
+> Task :core:compileJava NO-SOURCE
+> Task :core:classes UP-TO-DATE
+> Task :core:jar
+> Task :app:compileDebugKotlin NO-SOURCE
+> Task :app:compileDebugJavaWithJavac NO-SOURCE
+> Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :build-logic:compileTestKotlin
+> Task :build-logic:compileTestJava NO-SOURCE
+> Task :build-logic:testClasses UP-TO-DATE
+> Task :app:generateDebugAndroidTestLintModel
+> Task :core:generateJvmMainLintModel
+> Task :app:generateDebugLintReportModel
+> Task :app:lintAnalyzeDebugAndroidTest
+> Task :core:compileTestFixturesKotlin
+> Task :core:compileTestFixturesJava NO-SOURCE
+> Task :core:testFixturesClasses UP-TO-DATE
+> Task :core:testFixturesJar
+> Task :app:compileDebugUnitTestKotlin
+> Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processDebugUnitTestJavaRes
+> Task :build-logic:test
+> Task :app:testDebugUnitTest
+> Task :testDebugUnitTest
+> Task :app:generateDebugUnitTestLintModel
+> Task :core:generateJvmTestLintModel
+> Task :core:compileTestKotlin
+> Task :core:compileTestJava NO-SOURCE
+> Task :core:testClasses UP-TO-DATE
+> Task :app:lintAnalyzeDebugUnitTest
+> Task :app:runKtlintCheckOverTestSourceSet
+> Task :core:runKtlintCheckOverKotlinScripts
+> Task :app:runKtlintCheckOverKotlinScripts
+> Task :core:runKtlintCheckOverTestFixturesSourceSet
+> Task :core:lintAnalyzeJvmMain
+> Task :core:runKtlintCheckOverMainSourceSet
+> Task :core:runKtlintCheckOverTestSourceSet
+> Task :core:lintAnalyzeJvmTest
+> Task :core:test
+> Task :core:testDebugUnitTest
+
+> Task :core:lintReportJvm
+Wrote HTML report to file:///Users/giorgioderico/Projetos/Tribuna/etapa0/core/build/reports/lint-results.html
+Wrote SARIF report to file:///Users/giorgioderico/Projetos/Tribuna/etapa0/core/build/reports/lint-results.sarif
+
+> Task :core:lintJvm
+> Task :core:lint
+> Task :app:ktlintTestSourceSetCheck
+> Task :app:ktlintKotlinScriptCheck
+> Task :app:ktlintCheck
+> Task :core:ktlintKotlinScriptCheck
+> Task :core:ktlintMainSourceSetCheck
+> Task :core:ktlintTestSourceSetCheck
+> Task :core:ktlintTestFixturesSourceSetCheck
+> Task :core:ktlintCheck
+> Task :app:lintAnalyzeDebug
+
+> Task :app:lintReportDebug
+Wrote HTML report to file:///Users/giorgioderico/Projetos/Tribuna/etapa0/app/build/reports/lint-results-debug.html
+Wrote SARIF report to file:///Users/giorgioderico/Projetos/Tribuna/etapa0/app/build/reports/lint-results-debug.sarif
+
+> Task :app:lintDebug
+> Task :app:lint
+
+BUILD SUCCESSFUL in 5s
+69 actionable tasks: 69 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.7.1/userguide/configuration_cache_enabling.html

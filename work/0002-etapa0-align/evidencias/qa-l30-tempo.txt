@@ -1,0 +1,1 @@
+L30 sintético: 3399 chamadas de advance, total 380,7 ms, máximo 20,367 ms (rodada QA, :core:test --rerun-tasks)

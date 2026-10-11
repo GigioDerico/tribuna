@@ -1,0 +1,37 @@
+== android/androidx imports
+exit=1
+== NotImplementedError
+exit=1
+== Ignore/Disabled
+exit=1
+== diff contratos
+       0
+== diff Aligner assinaturas
++            if (short || best.similarity >= params.longThreshold) {
++                if (best.position == state.cursor) {
++        if (misses >= MISSES_FOR_RECOVERY && heard.size >= RECOVERY_WORDS) {
++            if (jump != null) {
++    fun reposition(tokenIndex: Int): AlignState {
++        while (i >= 0 && out.size < needed) {
++        for (position in from..to) {
++            ) {
++        for (position in highWater + 1..tokens.lastIndex) {
++        ) {
++            if (newest < 0 || token < 0) {
++                if (similarity > bestSimilarity + EPSILON) {
++            for (form in forms[token]) {
++                for (x in 0 until used) {
+-    fun reposition(tokenIndex: Int): AlignState =
+== show assinaturas main vs HEAD
+12:class Aligner(
+13:    private val tokens: List<Token>,
+14:    private val params: AlignParams,
+15:) {
+16:    fun advance(
+21:    fun reposition(tokenIndex: Int): AlignState =
+23:class Aligner(
+24:    private val tokens: List<Token>,
+25:    private val params: AlignParams,
+26:) {
+31:    fun advance(
+66:    fun reposition(tokenIndex: Int): AlignState {
