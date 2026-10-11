@@ -1,0 +1,2228 @@
+#numeros=2227
+0	zero	zero
+1	um|uma	um
+2	dois|duas	dois
+3	tres	tres
+4	quatro	quatro
+5	cinco	cinco
+6	seis	seis
+7	sete	sete
+8	oito	oito
+9	nove	nove
+10	dez	dez
+11	onze	onze
+12	doze	doze
+13	treze	treze
+14	catorze|quatorze	catorze|quatorze
+15	quinze	quinze
+16	dezesseis	dezesseis
+17	dezessete	dezessete
+18	dezoito	dezoito
+19	dezenove	dezenove
+20	vinte	vinte
+21	vinte e um|vinte e uma	vinte e um
+22	vinte e dois|vinte e duas	vinte e dois
+23	vinte e tres	vinte e tres
+24	vinte e quatro	vinte e quatro
+25	vinte e cinco	vinte e cinco
+26	vinte e seis	vinte e seis
+27	vinte e sete	vinte e sete
+28	vinte e oito	vinte e oito
+29	vinte e nove	vinte e nove
+30	trinta	trinta
+31	trinta e um|trinta e uma	trinta e um
+32	trinta e dois|trinta e duas	trinta e dois
+33	trinta e tres	trinta e tres
+34	trinta e quatro	trinta e quatro
+35	trinta e cinco	trinta e cinco
+36	trinta e seis	trinta e seis
+37	trinta e sete	trinta e sete
+38	trinta e oito	trinta e oito
+39	trinta e nove	trinta e nove
+40	quarenta	quarenta
+41	quarenta e um|quarenta e uma	quarenta e um
+42	quarenta e dois|quarenta e duas	quarenta e dois
+43	quarenta e tres	quarenta e tres
+44	quarenta e quatro	quarenta e quatro
+45	quarenta e cinco	quarenta e cinco
+46	quarenta e seis	quarenta e seis
+47	quarenta e sete	quarenta e sete
+48	quarenta e oito	quarenta e oito
+49	quarenta e nove	quarenta e nove
+50	cinquenta	cinquenta
+51	cinquenta e um|cinquenta e uma	cinquenta e um
+52	cinquenta e dois|cinquenta e duas	cinquenta e dois
+53	cinquenta e tres	cinquenta e tres
+54	cinquenta e quatro	cinquenta e quatro
+55	cinquenta e cinco	cinquenta e cinco
+56	cinquenta e seis	cinquenta e seis
+57	cinquenta e sete	cinquenta e sete
+58	cinquenta e oito	cinquenta e oito
+59	cinquenta e nove	cinquenta e nove
+60	sessenta	sessenta
+61	sessenta e um|sessenta e uma	sessenta e um
+62	sessenta e dois|sessenta e duas	sessenta e dois
+63	sessenta e tres	sessenta e tres
+64	sessenta e quatro	sessenta e quatro
+65	sessenta e cinco	sessenta e cinco
+66	sessenta e seis	sessenta e seis
+67	sessenta e sete	sessenta e sete
+68	sessenta e oito	sessenta e oito
+69	sessenta e nove	sessenta e nove
+70	setenta	setenta
+71	setenta e um|setenta e uma	setenta e um
+72	setenta e dois|setenta e duas	setenta e dois
+73	setenta e tres	setenta e tres
+74	setenta e quatro	setenta e quatro
+75	setenta e cinco	setenta e cinco
+76	setenta e seis	setenta e seis
+77	setenta e sete	setenta e sete
+78	setenta e oito	setenta e oito
+79	setenta e nove	setenta e nove
+80	oitenta	oitenta
+81	oitenta e um|oitenta e uma	oitenta e um
+82	oitenta e dois|oitenta e duas	oitenta e dois
+83	oitenta e tres	oitenta e tres
+84	oitenta e quatro	oitenta e quatro
+85	oitenta e cinco	oitenta e cinco
+86	oitenta e seis	oitenta e seis
+87	oitenta e sete	oitenta e sete
+88	oitenta e oito	oitenta e oito
+89	oitenta e nove	oitenta e nove
+90	noventa	noventa
+91	noventa e um|noventa e uma	noventa e um
+92	noventa e dois|noventa e duas	noventa e dois
+93	noventa e tres	noventa e tres
+94	noventa e quatro	noventa e quatro
+95	noventa e cinco	noventa e cinco
+96	noventa e seis	noventa e seis
+97	noventa e sete	noventa e sete
+98	noventa e oito	noventa e oito
+99	noventa e nove	noventa e nove
+100	cem	cem
+101	cento e um|cento e uma	cento e um
+102	cento e dois|cento e duas	cento e dois
+103	cento e tres	cento e tres
+104	cento e quatro	cento e quatro
+105	cento e cinco	cento e cinco
+106	cento e seis	cento e seis
+107	cento e sete	cento e sete
+108	cento e oito	cento e oito
+109	cento e nove	cento e nove
+110	cento e dez	cento e dez
+111	cento e onze	cento e onze
+112	cento e doze	cento e doze
+113	cento e treze	cento e treze
+114	cento e catorze|cento e quatorze	cento e catorze|cento e quatorze
+115	cento e quinze	cento e quinze
+116	cento e dezesseis	cento e dezesseis
+117	cento e dezessete	cento e dezessete
+118	cento e dezoito	cento e dezoito
+119	cento e dezenove	cento e dezenove
+120	cento e vinte	cento e vinte
+121	cento e vinte e um|cento e vinte e uma	cento e vinte e um
+122	cento e vinte e dois|cento e vinte e duas	cento e vinte e dois
+123	cento e vinte e tres	cento e vinte e tres
+124	cento e vinte e quatro	cento e vinte e quatro
+125	cento e vinte e cinco	cento e vinte e cinco
+126	cento e vinte e seis	cento e vinte e seis
+127	cento e vinte e sete	cento e vinte e sete
+128	cento e vinte e oito	cento e vinte e oito
+129	cento e vinte e nove	cento e vinte e nove
+130	cento e trinta	cento e trinta
+131	cento e trinta e um|cento e trinta e uma	cento e trinta e um
+132	cento e trinta e dois|cento e trinta e duas	cento e trinta e dois
+133	cento e trinta e tres	cento e trinta e tres
+134	cento e trinta e quatro	cento e trinta e quatro
+135	cento e trinta e cinco	cento e trinta e cinco
+136	cento e trinta e seis	cento e trinta e seis
+137	cento e trinta e sete	cento e trinta e sete
+138	cento e trinta e oito	cento e trinta e oito
+139	cento e trinta e nove	cento e trinta e nove
+140	cento e quarenta	cento e quarenta
+141	cento e quarenta e um|cento e quarenta e uma	cento e quarenta e um
+142	cento e quarenta e dois|cento e quarenta e duas	cento e quarenta e dois
+143	cento e quarenta e tres	cento e quarenta e tres
+144	cento e quarenta e quatro	cento e quarenta e quatro
+145	cento e quarenta e cinco	cento e quarenta e cinco
+146	cento e quarenta e seis	cento e quarenta e seis
+147	cento e quarenta e sete	cento e quarenta e sete
+148	cento e quarenta e oito	cento e quarenta e oito
+149	cento e quarenta e nove	cento e quarenta e nove
+150	cento e cinquenta	cento e cinquenta
+151	cento e cinquenta e um|cento e cinquenta e uma	cento e cinquenta e um
+152	cento e cinquenta e dois|cento e cinquenta e duas	cento e cinquenta e dois
+153	cento e cinquenta e tres	cento e cinquenta e tres
+154	cento e cinquenta e quatro	cento e cinquenta e quatro
+155	cento e cinquenta e cinco	cento e cinquenta e cinco
+156	cento e cinquenta e seis	cento e cinquenta e seis
+157	cento e cinquenta e sete	cento e cinquenta e sete
+158	cento e cinquenta e oito	cento e cinquenta e oito
+159	cento e cinquenta e nove	cento e cinquenta e nove
+160	cento e sessenta	cento e sessenta
+161	cento e sessenta e um|cento e sessenta e uma	cento e sessenta e um
+162	cento e sessenta e dois|cento e sessenta e duas	cento e sessenta e dois
+163	cento e sessenta e tres	cento e sessenta e tres
+164	cento e sessenta e quatro	cento e sessenta e quatro
+165	cento e sessenta e cinco	cento e sessenta e cinco
+166	cento e sessenta e seis	cento e sessenta e seis
+167	cento e sessenta e sete	cento e sessenta e sete
+168	cento e sessenta e oito	cento e sessenta e oito
+169	cento e sessenta e nove	cento e sessenta e nove
+170	cento e setenta	cento e setenta
+171	cento e setenta e um|cento e setenta e uma	cento e setenta e um
+172	cento e setenta e dois|cento e setenta e duas	cento e setenta e dois
+173	cento e setenta e tres	cento e setenta e tres
+174	cento e setenta e quatro	cento e setenta e quatro
+175	cento e setenta e cinco	cento e setenta e cinco
+176	cento e setenta e seis	cento e setenta e seis
+177	cento e setenta e sete	cento e setenta e sete
+178	cento e setenta e oito	cento e setenta e oito
+179	cento e setenta e nove	cento e setenta e nove
+180	cento e oitenta	cento e oitenta
+181	cento e oitenta e um|cento e oitenta e uma	cento e oitenta e um
+182	cento e oitenta e dois|cento e oitenta e duas	cento e oitenta e dois
+183	cento e oitenta e tres	cento e oitenta e tres
+184	cento e oitenta e quatro	cento e oitenta e quatro
+185	cento e oitenta e cinco	cento e oitenta e cinco
+186	cento e oitenta e seis	cento e oitenta e seis
+187	cento e oitenta e sete	cento e oitenta e sete
+188	cento e oitenta e oito	cento e oitenta e oito
+189	cento e oitenta e nove	cento e oitenta e nove
+190	cento e noventa	cento e noventa
+191	cento e noventa e um|cento e noventa e uma	cento e noventa e um
+192	cento e noventa e dois|cento e noventa e duas	cento e noventa e dois
+193	cento e noventa e tres	cento e noventa e tres
+194	cento e noventa e quatro	cento e noventa e quatro
+195	cento e noventa e cinco	cento e noventa e cinco
+196	cento e noventa e seis	cento e noventa e seis
+197	cento e noventa e sete	cento e noventa e sete
+198	cento e noventa e oito	cento e noventa e oito
+199	cento e noventa e nove	cento e noventa e nove
+200	duzentos|duzentas	duzentos
+201	duzentos e um|duzentas e uma	duzentos e um
+202	duzentos e dois|duzentas e duas	duzentos e dois
+203	duzentos e tres|duzentas e tres	duzentos e tres
+204	duzentos e quatro|duzentas e quatro	duzentos e quatro
+205	duzentos e cinco|duzentas e cinco	duzentos e cinco
+206	duzentos e seis|duzentas e seis	duzentos e seis
+207	duzentos e sete|duzentas e sete	duzentos e sete
+208	duzentos e oito|duzentas e oito	duzentos e oito
+209	duzentos e nove|duzentas e nove	duzentos e nove
+210	duzentos e dez|duzentas e dez	duzentos e dez
+211	duzentos e onze|duzentas e onze	duzentos e onze
+212	duzentos e doze|duzentas e doze	duzentos e doze
+213	duzentos e treze|duzentas e treze	duzentos e treze
+214	duzentos e catorze|duzentos e quatorze|duzentas e catorze|duzentas e quatorze	duzentos e catorze|duzentos e quatorze
+215	duzentos e quinze|duzentas e quinze	duzentos e quinze
+216	duzentos e dezesseis|duzentas e dezesseis	duzentos e dezesseis
+217	duzentos e dezessete|duzentas e dezessete	duzentos e dezessete
+218	duzentos e dezoito|duzentas e dezoito	duzentos e dezoito
+219	duzentos e dezenove|duzentas e dezenove	duzentos e dezenove
+220	duzentos e vinte|duzentas e vinte	duzentos e vinte
+221	duzentos e vinte e um|duzentas e vinte e uma	duzentos e vinte e um
+222	duzentos e vinte e dois|duzentas e vinte e duas	duzentos e vinte e dois
+223	duzentos e vinte e tres|duzentas e vinte e tres	duzentos e vinte e tres
+224	duzentos e vinte e quatro|duzentas e vinte e quatro	duzentos e vinte e quatro
+225	duzentos e vinte e cinco|duzentas e vinte e cinco	duzentos e vinte e cinco
+226	duzentos e vinte e seis|duzentas e vinte e seis	duzentos e vinte e seis
+227	duzentos e vinte e sete|duzentas e vinte e sete	duzentos e vinte e sete
+228	duzentos e vinte e oito|duzentas e vinte e oito	duzentos e vinte e oito
+229	duzentos e vinte e nove|duzentas e vinte e nove	duzentos e vinte e nove
+230	duzentos e trinta|duzentas e trinta	duzentos e trinta
+231	duzentos e trinta e um|duzentas e trinta e uma	duzentos e trinta e um
+232	duzentos e trinta e dois|duzentas e trinta e duas	duzentos e trinta e dois
+233	duzentos e trinta e tres|duzentas e trinta e tres	duzentos e trinta e tres
+234	duzentos e trinta e quatro|duzentas e trinta e quatro	duzentos e trinta e quatro
+235	duzentos e trinta e cinco|duzentas e trinta e cinco	duzentos e trinta e cinco
+236	duzentos e trinta e seis|duzentas e trinta e seis	duzentos e trinta e seis
+237	duzentos e trinta e sete|duzentas e trinta e sete	duzentos e trinta e sete
+238	duzentos e trinta e oito|duzentas e trinta e oito	duzentos e trinta e oito
+239	duzentos e trinta e nove|duzentas e trinta e nove	duzentos e trinta e nove
+240	duzentos e quarenta|duzentas e quarenta	duzentos e quarenta
+241	duzentos e quarenta e um|duzentas e quarenta e uma	duzentos e quarenta e um
+242	duzentos e quarenta e dois|duzentas e quarenta e duas	duzentos e quarenta e dois
+243	duzentos e quarenta e tres|duzentas e quarenta e tres	duzentos e quarenta e tres
+244	duzentos e quarenta e quatro|duzentas e quarenta e quatro	duzentos e quarenta e quatro
+245	duzentos e quarenta e cinco|duzentas e quarenta e cinco	duzentos e quarenta e cinco
+246	duzentos e quarenta e seis|duzentas e quarenta e seis	duzentos e quarenta e seis
+247	duzentos e quarenta e sete|duzentas e quarenta e sete	duzentos e quarenta e sete
+248	duzentos e quarenta e oito|duzentas e quarenta e oito	duzentos e quarenta e oito
+249	duzentos e quarenta e nove|duzentas e quarenta e nove	duzentos e quarenta e nove
+250	duzentos e cinquenta|duzentas e cinquenta	duzentos e cinquenta
+251	duzentos e cinquenta e um|duzentas e cinquenta e uma	duzentos e cinquenta e um
+252	duzentos e cinquenta e dois|duzentas e cinquenta e duas	duzentos e cinquenta e dois
+253	duzentos e cinquenta e tres|duzentas e cinquenta e tres	duzentos e cinquenta e tres
+254	duzentos e cinquenta e quatro|duzentas e cinquenta e quatro	duzentos e cinquenta e quatro
+255	duzentos e cinquenta e cinco|duzentas e cinquenta e cinco	duzentos e cinquenta e cinco
+256	duzentos e cinquenta e seis|duzentas e cinquenta e seis	duzentos e cinquenta e seis
+257	duzentos e cinquenta e sete|duzentas e cinquenta e sete	duzentos e cinquenta e sete
+258	duzentos e cinquenta e oito|duzentas e cinquenta e oito	duzentos e cinquenta e oito
+259	duzentos e cinquenta e nove|duzentas e cinquenta e nove	duzentos e cinquenta e nove
+260	duzentos e sessenta|duzentas e sessenta	duzentos e sessenta
+261	duzentos e sessenta e um|duzentas e sessenta e uma	duzentos e sessenta e um
+262	duzentos e sessenta e dois|duzentas e sessenta e duas	duzentos e sessenta e dois
+263	duzentos e sessenta e tres|duzentas e sessenta e tres	duzentos e sessenta e tres
+264	duzentos e sessenta e quatro|duzentas e sessenta e quatro	duzentos e sessenta e quatro
+265	duzentos e sessenta e cinco|duzentas e sessenta e cinco	duzentos e sessenta e cinco
+266	duzentos e sessenta e seis|duzentas e sessenta e seis	duzentos e sessenta e seis
+267	duzentos e sessenta e sete|duzentas e sessenta e sete	duzentos e sessenta e sete
+268	duzentos e sessenta e oito|duzentas e sessenta e oito	duzentos e sessenta e oito
+269	duzentos e sessenta e nove|duzentas e sessenta e nove	duzentos e sessenta e nove
+270	duzentos e setenta|duzentas e setenta	duzentos e setenta
+271	duzentos e setenta e um|duzentas e setenta e uma	duzentos e setenta e um
+272	duzentos e setenta e dois|duzentas e setenta e duas	duzentos e setenta e dois
+273	duzentos e setenta e tres|duzentas e setenta e tres	duzentos e setenta e tres
+274	duzentos e setenta e quatro|duzentas e setenta e quatro	duzentos e setenta e quatro
+275	duzentos e setenta e cinco|duzentas e setenta e cinco	duzentos e setenta e cinco
+276	duzentos e setenta e seis|duzentas e setenta e seis	duzentos e setenta e seis
+277	duzentos e setenta e sete|duzentas e setenta e sete	duzentos e setenta e sete
+278	duzentos e setenta e oito|duzentas e setenta e oito	duzentos e setenta e oito
+279	duzentos e setenta e nove|duzentas e setenta e nove	duzentos e setenta e nove
+280	duzentos e oitenta|duzentas e oitenta	duzentos e oitenta
+281	duzentos e oitenta e um|duzentas e oitenta e uma	duzentos e oitenta e um
+282	duzentos e oitenta e dois|duzentas e oitenta e duas	duzentos e oitenta e dois
+283	duzentos e oitenta e tres|duzentas e oitenta e tres	duzentos e oitenta e tres
+284	duzentos e oitenta e quatro|duzentas e oitenta e quatro	duzentos e oitenta e quatro
+285	duzentos e oitenta e cinco|duzentas e oitenta e cinco	duzentos e oitenta e cinco
+286	duzentos e oitenta e seis|duzentas e oitenta e seis	duzentos e oitenta e seis
+287	duzentos e oitenta e sete|duzentas e oitenta e sete	duzentos e oitenta e sete
+288	duzentos e oitenta e oito|duzentas e oitenta e oito	duzentos e oitenta e oito
+289	duzentos e oitenta e nove|duzentas e oitenta e nove	duzentos e oitenta e nove
+290	duzentos e noventa|duzentas e noventa	duzentos e noventa
+291	duzentos e noventa e um|duzentas e noventa e uma	duzentos e noventa e um
+292	duzentos e noventa e dois|duzentas e noventa e duas	duzentos e noventa e dois
+293	duzentos e noventa e tres|duzentas e noventa e tres	duzentos e noventa e tres
+294	duzentos e noventa e quatro|duzentas e noventa e quatro	duzentos e noventa e quatro
+295	duzentos e noventa e cinco|duzentas e noventa e cinco	duzentos e noventa e cinco
+296	duzentos e noventa e seis|duzentas e noventa e seis	duzentos e noventa e seis
+297	duzentos e noventa e sete|duzentas e noventa e sete	duzentos e noventa e sete
+298	duzentos e noventa e oito|duzentas e noventa e oito	duzentos e noventa e oito
+299	duzentos e noventa e nove|duzentas e noventa e nove	duzentos e noventa e nove
+300	trezentos|trezentas	trezentos
+301	trezentos e um|trezentas e uma	trezentos e um
+302	trezentos e dois|trezentas e duas	trezentos e dois
+303	trezentos e tres|trezentas e tres	trezentos e tres
+304	trezentos e quatro|trezentas e quatro	trezentos e quatro
+305	trezentos e cinco|trezentas e cinco	trezentos e cinco
+306	trezentos e seis|trezentas e seis	trezentos e seis
+307	trezentos e sete|trezentas e sete	trezentos e sete
+308	trezentos e oito|trezentas e oito	trezentos e oito
+309	trezentos e nove|trezentas e nove	trezentos e nove
+310	trezentos e dez|trezentas e dez	trezentos e dez
+311	trezentos e onze|trezentas e onze	trezentos e onze
+312	trezentos e doze|trezentas e doze	trezentos e doze
+313	trezentos e treze|trezentas e treze	trezentos e treze
+314	trezentos e catorze|trezentos e quatorze|trezentas e catorze|trezentas e quatorze	trezentos e catorze|trezentos e quatorze
+315	trezentos e quinze|trezentas e quinze	trezentos e quinze
+316	trezentos e dezesseis|trezentas e dezesseis	trezentos e dezesseis
+317	trezentos e dezessete|trezentas e dezessete	trezentos e dezessete
+318	trezentos e dezoito|trezentas e dezoito	trezentos e dezoito
+319	trezentos e dezenove|trezentas e dezenove	trezentos e dezenove
+320	trezentos e vinte|trezentas e vinte	trezentos e vinte
+321	trezentos e vinte e um|trezentas e vinte e uma	trezentos e vinte e um
+322	trezentos e vinte e dois|trezentas e vinte e duas	trezentos e vinte e dois
+323	trezentos e vinte e tres|trezentas e vinte e tres	trezentos e vinte e tres
+324	trezentos e vinte e quatro|trezentas e vinte e quatro	trezentos e vinte e quatro
+325	trezentos e vinte e cinco|trezentas e vinte e cinco	trezentos e vinte e cinco
+326	trezentos e vinte e seis|trezentas e vinte e seis	trezentos e vinte e seis
+327	trezentos e vinte e sete|trezentas e vinte e sete	trezentos e vinte e sete
+328	trezentos e vinte e oito|trezentas e vinte e oito	trezentos e vinte e oito
+329	trezentos e vinte e nove|trezentas e vinte e nove	trezentos e vinte e nove
+330	trezentos e trinta|trezentas e trinta	trezentos e trinta
+331	trezentos e trinta e um|trezentas e trinta e uma	trezentos e trinta e um
+332	trezentos e trinta e dois|trezentas e trinta e duas	trezentos e trinta e dois
+333	trezentos e trinta e tres|trezentas e trinta e tres	trezentos e trinta e tres
+334	trezentos e trinta e quatro|trezentas e trinta e quatro	trezentos e trinta e quatro
+335	trezentos e trinta e cinco|trezentas e trinta e cinco	trezentos e trinta e cinco
+336	trezentos e trinta e seis|trezentas e trinta e seis	trezentos e trinta e seis
+337	trezentos e trinta e sete|trezentas e trinta e sete	trezentos e trinta e sete
+338	trezentos e trinta e oito|trezentas e trinta e oito	trezentos e trinta e oito
+339	trezentos e trinta e nove|trezentas e trinta e nove	trezentos e trinta e nove
+340	trezentos e quarenta|trezentas e quarenta	trezentos e quarenta
+341	trezentos e quarenta e um|trezentas e quarenta e uma	trezentos e quarenta e um
+342	trezentos e quarenta e dois|trezentas e quarenta e duas	trezentos e quarenta e dois
+343	trezentos e quarenta e tres|trezentas e quarenta e tres	trezentos e quarenta e tres
+344	trezentos e quarenta e quatro|trezentas e quarenta e quatro	trezentos e quarenta e quatro
+345	trezentos e quarenta e cinco|trezentas e quarenta e cinco	trezentos e quarenta e cinco
+346	trezentos e quarenta e seis|trezentas e quarenta e seis	trezentos e quarenta e seis
+347	trezentos e quarenta e sete|trezentas e quarenta e sete	trezentos e quarenta e sete
+348	trezentos e quarenta e oito|trezentas e quarenta e oito	trezentos e quarenta e oito
+349	trezentos e quarenta e nove|trezentas e quarenta e nove	trezentos e quarenta e nove
+350	trezentos e cinquenta|trezentas e cinquenta	trezentos e cinquenta
+351	trezentos e cinquenta e um|trezentas e cinquenta e uma	trezentos e cinquenta e um
+352	trezentos e cinquenta e dois|trezentas e cinquenta e duas	trezentos e cinquenta e dois
+353	trezentos e cinquenta e tres|trezentas e cinquenta e tres	trezentos e cinquenta e tres
+354	trezentos e cinquenta e quatro|trezentas e cinquenta e quatro	trezentos e cinquenta e quatro
+355	trezentos e cinquenta e cinco|trezentas e cinquenta e cinco	trezentos e cinquenta e cinco
+356	trezentos e cinquenta e seis|trezentas e cinquenta e seis	trezentos e cinquenta e seis
+357	trezentos e cinquenta e sete|trezentas e cinquenta e sete	trezentos e cinquenta e sete
+358	trezentos e cinquenta e oito|trezentas e cinquenta e oito	trezentos e cinquenta e oito
+359	trezentos e cinquenta e nove|trezentas e cinquenta e nove	trezentos e cinquenta e nove
+360	trezentos e sessenta|trezentas e sessenta	trezentos e sessenta
+361	trezentos e sessenta e um|trezentas e sessenta e uma	trezentos e sessenta e um
+362	trezentos e sessenta e dois|trezentas e sessenta e duas	trezentos e sessenta e dois
+363	trezentos e sessenta e tres|trezentas e sessenta e tres	trezentos e sessenta e tres
+364	trezentos e sessenta e quatro|trezentas e sessenta e quatro	trezentos e sessenta e quatro
+365	trezentos e sessenta e cinco|trezentas e sessenta e cinco	trezentos e sessenta e cinco
+366	trezentos e sessenta e seis|trezentas e sessenta e seis	trezentos e sessenta e seis
+367	trezentos e sessenta e sete|trezentas e sessenta e sete	trezentos e sessenta e sete
+368	trezentos e sessenta e oito|trezentas e sessenta e oito	trezentos e sessenta e oito
+369	trezentos e sessenta e nove|trezentas e sessenta e nove	trezentos e sessenta e nove
+370	trezentos e setenta|trezentas e setenta	trezentos e setenta
+371	trezentos e setenta e um|trezentas e setenta e uma	trezentos e setenta e um
+372	trezentos e setenta e dois|trezentas e setenta e duas	trezentos e setenta e dois
+373	trezentos e setenta e tres|trezentas e setenta e tres	trezentos e setenta e tres
+374	trezentos e setenta e quatro|trezentas e setenta e quatro	trezentos e setenta e quatro
+375	trezentos e setenta e cinco|trezentas e setenta e cinco	trezentos e setenta e cinco
+376	trezentos e setenta e seis|trezentas e setenta e seis	trezentos e setenta e seis
+377	trezentos e setenta e sete|trezentas e setenta e sete	trezentos e setenta e sete
+378	trezentos e setenta e oito|trezentas e setenta e oito	trezentos e setenta e oito
+379	trezentos e setenta e nove|trezentas e setenta e nove	trezentos e setenta e nove
+380	trezentos e oitenta|trezentas e oitenta	trezentos e oitenta
+381	trezentos e oitenta e um|trezentas e oitenta e uma	trezentos e oitenta e um
+382	trezentos e oitenta e dois|trezentas e oitenta e duas	trezentos e oitenta e dois
+383	trezentos e oitenta e tres|trezentas e oitenta e tres	trezentos e oitenta e tres
+384	trezentos e oitenta e quatro|trezentas e oitenta e quatro	trezentos e oitenta e quatro
+385	trezentos e oitenta e cinco|trezentas e oitenta e cinco	trezentos e oitenta e cinco
+386	trezentos e oitenta e seis|trezentas e oitenta e seis	trezentos e oitenta e seis
+387	trezentos e oitenta e sete|trezentas e oitenta e sete	trezentos e oitenta e sete
+388	trezentos e oitenta e oito|trezentas e oitenta e oito	trezentos e oitenta e oito
+389	trezentos e oitenta e nove|trezentas e oitenta e nove	trezentos e oitenta e nove
+390	trezentos e noventa|trezentas e noventa	trezentos e noventa
+391	trezentos e noventa e um|trezentas e noventa e uma	trezentos e noventa e um
+392	trezentos e noventa e dois|trezentas e noventa e duas	trezentos e noventa e dois
+393	trezentos e noventa e tres|trezentas e noventa e tres	trezentos e noventa e tres
+394	trezentos e noventa e quatro|trezentas e noventa e quatro	trezentos e noventa e quatro
+395	trezentos e noventa e cinco|trezentas e noventa e cinco	trezentos e noventa e cinco
+396	trezentos e noventa e seis|trezentas e noventa e seis	trezentos e noventa e seis
+397	trezentos e noventa e sete|trezentas e noventa e sete	trezentos e noventa e sete
+398	trezentos e noventa e oito|trezentas e noventa e oito	trezentos e noventa e oito
+399	trezentos e noventa e nove|trezentas e noventa e nove	trezentos e noventa e nove
+400	quatrocentos|quatrocentas	quatrocentos
+401	quatrocentos e um|quatrocentas e uma	quatrocentos e um
+402	quatrocentos e dois|quatrocentas e duas	quatrocentos e dois
+403	quatrocentos e tres|quatrocentas e tres	quatrocentos e tres
+404	quatrocentos e quatro|quatrocentas e quatro	quatrocentos e quatro
+405	quatrocentos e cinco|quatrocentas e cinco	quatrocentos e cinco
+406	quatrocentos e seis|quatrocentas e seis	quatrocentos e seis
+407	quatrocentos e sete|quatrocentas e sete	quatrocentos e sete
+408	quatrocentos e oito|quatrocentas e oito	quatrocentos e oito
+409	quatrocentos e nove|quatrocentas e nove	quatrocentos e nove
+410	quatrocentos e dez|quatrocentas e dez	quatrocentos e dez
+411	quatrocentos e onze|quatrocentas e onze	quatrocentos e onze
+412	quatrocentos e doze|quatrocentas e doze	quatrocentos e doze
+413	quatrocentos e treze|quatrocentas e treze	quatrocentos e treze
+414	quatrocentos e catorze|quatrocentos e quatorze|quatrocentas e catorze|quatrocentas e quatorze	quatrocentos e catorze|quatrocentos e quatorze
+415	quatrocentos e quinze|quatrocentas e quinze	quatrocentos e quinze
+416	quatrocentos e dezesseis|quatrocentas e dezesseis	quatrocentos e dezesseis
+417	quatrocentos e dezessete|quatrocentas e dezessete	quatrocentos e dezessete
+418	quatrocentos e dezoito|quatrocentas e dezoito	quatrocentos e dezoito
+419	quatrocentos e dezenove|quatrocentas e dezenove	quatrocentos e dezenove
+420	quatrocentos e vinte|quatrocentas e vinte	quatrocentos e vinte
+421	quatrocentos e vinte e um|quatrocentas e vinte e uma	quatrocentos e vinte e um
+422	quatrocentos e vinte e dois|quatrocentas e vinte e duas	quatrocentos e vinte e dois
+423	quatrocentos e vinte e tres|quatrocentas e vinte e tres	quatrocentos e vinte e tres
+424	quatrocentos e vinte e quatro|quatrocentas e vinte e quatro	quatrocentos e vinte e quatro
+425	quatrocentos e vinte e cinco|quatrocentas e vinte e cinco	quatrocentos e vinte e cinco
+426	quatrocentos e vinte e seis|quatrocentas e vinte e seis	quatrocentos e vinte e seis
+427	quatrocentos e vinte e sete|quatrocentas e vinte e sete	quatrocentos e vinte e sete
+428	quatrocentos e vinte e oito|quatrocentas e vinte e oito	quatrocentos e vinte e oito
+429	quatrocentos e vinte e nove|quatrocentas e vinte e nove	quatrocentos e vinte e nove
+430	quatrocentos e trinta|quatrocentas e trinta	quatrocentos e trinta
+431	quatrocentos e trinta e um|quatrocentas e trinta e uma	quatrocentos e trinta e um
+432	quatrocentos e trinta e dois|quatrocentas e trinta e duas	quatrocentos e trinta e dois
+433	quatrocentos e trinta e tres|quatrocentas e trinta e tres	quatrocentos e trinta e tres
+434	quatrocentos e trinta e quatro|quatrocentas e trinta e quatro	quatrocentos e trinta e quatro
+435	quatrocentos e trinta e cinco|quatrocentas e trinta e cinco	quatrocentos e trinta e cinco
+436	quatrocentos e trinta e seis|quatrocentas e trinta e seis	quatrocentos e trinta e seis
+437	quatrocentos e trinta e sete|quatrocentas e trinta e sete	quatrocentos e trinta e sete
+438	quatrocentos e trinta e oito|quatrocentas e trinta e oito	quatrocentos e trinta e oito
+439	quatrocentos e trinta e nove|quatrocentas e trinta e nove	quatrocentos e trinta e nove
+440	quatrocentos e quarenta|quatrocentas e quarenta	quatrocentos e quarenta
+441	quatrocentos e quarenta e um|quatrocentas e quarenta e uma	quatrocentos e quarenta e um
+442	quatrocentos e quarenta e dois|quatrocentas e quarenta e duas	quatrocentos e quarenta e dois
+443	quatrocentos e quarenta e tres|quatrocentas e quarenta e tres	quatrocentos e quarenta e tres
+444	quatrocentos e quarenta e quatro|quatrocentas e quarenta e quatro	quatrocentos e quarenta e quatro
+445	quatrocentos e quarenta e cinco|quatrocentas e quarenta e cinco	quatrocentos e quarenta e cinco
+446	quatrocentos e quarenta e seis|quatrocentas e quarenta e seis	quatrocentos e quarenta e seis
+447	quatrocentos e quarenta e sete|quatrocentas e quarenta e sete	quatrocentos e quarenta e sete
+448	quatrocentos e quarenta e oito|quatrocentas e quarenta e oito	quatrocentos e quarenta e oito
+449	quatrocentos e quarenta e nove|quatrocentas e quarenta e nove	quatrocentos e quarenta e nove
+450	quatrocentos e cinquenta|quatrocentas e cinquenta	quatrocentos e cinquenta
+451	quatrocentos e cinquenta e um|quatrocentas e cinquenta e uma	quatrocentos e cinquenta e um
+452	quatrocentos e cinquenta e dois|quatrocentas e cinquenta e duas	quatrocentos e cinquenta e dois
+453	quatrocentos e cinquenta e tres|quatrocentas e cinquenta e tres	quatrocentos e cinquenta e tres
+454	quatrocentos e cinquenta e quatro|quatrocentas e cinquenta e quatro	quatrocentos e cinquenta e quatro
+455	quatrocentos e cinquenta e cinco|quatrocentas e cinquenta e cinco	quatrocentos e cinquenta e cinco
+456	quatrocentos e cinquenta e seis|quatrocentas e cinquenta e seis	quatrocentos e cinquenta e seis
+457	quatrocentos e cinquenta e sete|quatrocentas e cinquenta e sete	quatrocentos e cinquenta e sete
+458	quatrocentos e cinquenta e oito|quatrocentas e cinquenta e oito	quatrocentos e cinquenta e oito
+459	quatrocentos e cinquenta e nove|quatrocentas e cinquenta e nove	quatrocentos e cinquenta e nove
+460	quatrocentos e sessenta|quatrocentas e sessenta	quatrocentos e sessenta
+461	quatrocentos e sessenta e um|quatrocentas e sessenta e uma	quatrocentos e sessenta e um
+462	quatrocentos e sessenta e dois|quatrocentas e sessenta e duas	quatrocentos e sessenta e dois
+463	quatrocentos e sessenta e tres|quatrocentas e sessenta e tres	quatrocentos e sessenta e tres
+464	quatrocentos e sessenta e quatro|quatrocentas e sessenta e quatro	quatrocentos e sessenta e quatro
+465	quatrocentos e sessenta e cinco|quatrocentas e sessenta e cinco	quatrocentos e sessenta e cinco
+466	quatrocentos e sessenta e seis|quatrocentas e sessenta e seis	quatrocentos e sessenta e seis
+467	quatrocentos e sessenta e sete|quatrocentas e sessenta e sete	quatrocentos e sessenta e sete
+468	quatrocentos e sessenta e oito|quatrocentas e sessenta e oito	quatrocentos e sessenta e oito
+469	quatrocentos e sessenta e nove|quatrocentas e sessenta e nove	quatrocentos e sessenta e nove
+470	quatrocentos e setenta|quatrocentas e setenta	quatrocentos e setenta
+471	quatrocentos e setenta e um|quatrocentas e setenta e uma	quatrocentos e setenta e um
+472	quatrocentos e setenta e dois|quatrocentas e setenta e duas	quatrocentos e setenta e dois
+473	quatrocentos e setenta e tres|quatrocentas e setenta e tres	quatrocentos e setenta e tres
+474	quatrocentos e setenta e quatro|quatrocentas e setenta e quatro	quatrocentos e setenta e quatro
+475	quatrocentos e setenta e cinco|quatrocentas e setenta e cinco	quatrocentos e setenta e cinco
+476	quatrocentos e setenta e seis|quatrocentas e setenta e seis	quatrocentos e setenta e seis
+477	quatrocentos e setenta e sete|quatrocentas e setenta e sete	quatrocentos e setenta e sete
+478	quatrocentos e setenta e oito|quatrocentas e setenta e oito	quatrocentos e setenta e oito
+479	quatrocentos e setenta e nove|quatrocentas e setenta e nove	quatrocentos e setenta e nove
+480	quatrocentos e oitenta|quatrocentas e oitenta	quatrocentos e oitenta
+481	quatrocentos e oitenta e um|quatrocentas e oitenta e uma	quatrocentos e oitenta e um
+482	quatrocentos e oitenta e dois|quatrocentas e oitenta e duas	quatrocentos e oitenta e dois
+483	quatrocentos e oitenta e tres|quatrocentas e oitenta e tres	quatrocentos e oitenta e tres
+484	quatrocentos e oitenta e quatro|quatrocentas e oitenta e quatro	quatrocentos e oitenta e quatro
+485	quatrocentos e oitenta e cinco|quatrocentas e oitenta e cinco	quatrocentos e oitenta e cinco
+486	quatrocentos e oitenta e seis|quatrocentas e oitenta e seis	quatrocentos e oitenta e seis
+487	quatrocentos e oitenta e sete|quatrocentas e oitenta e sete	quatrocentos e oitenta e sete
+488	quatrocentos e oitenta e oito|quatrocentas e oitenta e oito	quatrocentos e oitenta e oito
+489	quatrocentos e oitenta e nove|quatrocentas e oitenta e nove	quatrocentos e oitenta e nove
+490	quatrocentos e noventa|quatrocentas e noventa	quatrocentos e noventa
+491	quatrocentos e noventa e um|quatrocentas e noventa e uma	quatrocentos e noventa e um
+492	quatrocentos e noventa e dois|quatrocentas e noventa e duas	quatrocentos e noventa e dois
+493	quatrocentos e noventa e tres|quatrocentas e noventa e tres	quatrocentos e noventa e tres
+494	quatrocentos e noventa e quatro|quatrocentas e noventa e quatro	quatrocentos e noventa e quatro
+495	quatrocentos e noventa e cinco|quatrocentas e noventa e cinco	quatrocentos e noventa e cinco
+496	quatrocentos e noventa e seis|quatrocentas e noventa e seis	quatrocentos e noventa e seis
+497	quatrocentos e noventa e sete|quatrocentas e noventa e sete	quatrocentos e noventa e sete
+498	quatrocentos e noventa e oito|quatrocentas e noventa e oito	quatrocentos e noventa e oito
+499	quatrocentos e noventa e nove|quatrocentas e noventa e nove	quatrocentos e noventa e nove
+500	quinhentos|quinhentas	quinhentos
+501	quinhentos e um|quinhentas e uma	quinhentos e um
+502	quinhentos e dois|quinhentas e duas	quinhentos e dois
+503	quinhentos e tres|quinhentas e tres	quinhentos e tres
+504	quinhentos e quatro|quinhentas e quatro	quinhentos e quatro
+505	quinhentos e cinco|quinhentas e cinco	quinhentos e cinco
+506	quinhentos e seis|quinhentas e seis	quinhentos e seis
+507	quinhentos e sete|quinhentas e sete	quinhentos e sete
+508	quinhentos e oito|quinhentas e oito	quinhentos e oito
+509	quinhentos e nove|quinhentas e nove	quinhentos e nove
+510	quinhentos e dez|quinhentas e dez	quinhentos e dez
+511	quinhentos e onze|quinhentas e onze	quinhentos e onze
+512	quinhentos e doze|quinhentas e doze	quinhentos e doze
+513	quinhentos e treze|quinhentas e treze	quinhentos e treze
+514	quinhentos e catorze|quinhentos e quatorze|quinhentas e catorze|quinhentas e quatorze	quinhentos e catorze|quinhentos e quatorze
+515	quinhentos e quinze|quinhentas e quinze	quinhentos e quinze
+516	quinhentos e dezesseis|quinhentas e dezesseis	quinhentos e dezesseis
+517	quinhentos e dezessete|quinhentas e dezessete	quinhentos e dezessete
+518	quinhentos e dezoito|quinhentas e dezoito	quinhentos e dezoito
+519	quinhentos e dezenove|quinhentas e dezenove	quinhentos e dezenove
+520	quinhentos e vinte|quinhentas e vinte	quinhentos e vinte
+521	quinhentos e vinte e um|quinhentas e vinte e uma	quinhentos e vinte e um
+522	quinhentos e vinte e dois|quinhentas e vinte e duas	quinhentos e vinte e dois
+523	quinhentos e vinte e tres|quinhentas e vinte e tres	quinhentos e vinte e tres
+524	quinhentos e vinte e quatro|quinhentas e vinte e quatro	quinhentos e vinte e quatro
+525	quinhentos e vinte e cinco|quinhentas e vinte e cinco	quinhentos e vinte e cinco
+526	quinhentos e vinte e seis|quinhentas e vinte e seis	quinhentos e vinte e seis
+527	quinhentos e vinte e sete|quinhentas e vinte e sete	quinhentos e vinte e sete
+528	quinhentos e vinte e oito|quinhentas e vinte e oito	quinhentos e vinte e oito
+529	quinhentos e vinte e nove|quinhentas e vinte e nove	quinhentos e vinte e nove
+530	quinhentos e trinta|quinhentas e trinta	quinhentos e trinta
+531	quinhentos e trinta e um|quinhentas e trinta e uma	quinhentos e trinta e um
+532	quinhentos e trinta e dois|quinhentas e trinta e duas	quinhentos e trinta e dois
+533	quinhentos e trinta e tres|quinhentas e trinta e tres	quinhentos e trinta e tres
+534	quinhentos e trinta e quatro|quinhentas e trinta e quatro	quinhentos e trinta e quatro
+535	quinhentos e trinta e cinco|quinhentas e trinta e cinco	quinhentos e trinta e cinco
+536	quinhentos e trinta e seis|quinhentas e trinta e seis	quinhentos e trinta e seis
+537	quinhentos e trinta e sete|quinhentas e trinta e sete	quinhentos e trinta e sete
+538	quinhentos e trinta e oito|quinhentas e trinta e oito	quinhentos e trinta e oito
+539	quinhentos e trinta e nove|quinhentas e trinta e nove	quinhentos e trinta e nove
+540	quinhentos e quarenta|quinhentas e quarenta	quinhentos e quarenta
+541	quinhentos e quarenta e um|quinhentas e quarenta e uma	quinhentos e quarenta e um
+542	quinhentos e quarenta e dois|quinhentas e quarenta e duas	quinhentos e quarenta e dois
+543	quinhentos e quarenta e tres|quinhentas e quarenta e tres	quinhentos e quarenta e tres
+544	quinhentos e quarenta e quatro|quinhentas e quarenta e quatro	quinhentos e quarenta e quatro
+545	quinhentos e quarenta e cinco|quinhentas e quarenta e cinco	quinhentos e quarenta e cinco
+546	quinhentos e quarenta e seis|quinhentas e quarenta e seis	quinhentos e quarenta e seis
+547	quinhentos e quarenta e sete|quinhentas e quarenta e sete	quinhentos e quarenta e sete
+548	quinhentos e quarenta e oito|quinhentas e quarenta e oito	quinhentos e quarenta e oito
+549	quinhentos e quarenta e nove|quinhentas e quarenta e nove	quinhentos e quarenta e nove
+550	quinhentos e cinquenta|quinhentas e cinquenta	quinhentos e cinquenta
+551	quinhentos e cinquenta e um|quinhentas e cinquenta e uma	quinhentos e cinquenta e um
+552	quinhentos e cinquenta e dois|quinhentas e cinquenta e duas	quinhentos e cinquenta e dois
+553	quinhentos e cinquenta e tres|quinhentas e cinquenta e tres	quinhentos e cinquenta e tres
+554	quinhentos e cinquenta e quatro|quinhentas e cinquenta e quatro	quinhentos e cinquenta e quatro
+555	quinhentos e cinquenta e cinco|quinhentas e cinquenta e cinco	quinhentos e cinquenta e cinco
+556	quinhentos e cinquenta e seis|quinhentas e cinquenta e seis	quinhentos e cinquenta e seis
+557	quinhentos e cinquenta e sete|quinhentas e cinquenta e sete	quinhentos e cinquenta e sete
+558	quinhentos e cinquenta e oito|quinhentas e cinquenta e oito	quinhentos e cinquenta e oito
+559	quinhentos e cinquenta e nove|quinhentas e cinquenta e nove	quinhentos e cinquenta e nove
+560	quinhentos e sessenta|quinhentas e sessenta	quinhentos e sessenta
+561	quinhentos e sessenta e um|quinhentas e sessenta e uma	quinhentos e sessenta e um
+562	quinhentos e sessenta e dois|quinhentas e sessenta e duas	quinhentos e sessenta e dois
+563	quinhentos e sessenta e tres|quinhentas e sessenta e tres	quinhentos e sessenta e tres
+564	quinhentos e sessenta e quatro|quinhentas e sessenta e quatro	quinhentos e sessenta e quatro
+565	quinhentos e sessenta e cinco|quinhentas e sessenta e cinco	quinhentos e sessenta e cinco
+566	quinhentos e sessenta e seis|quinhentas e sessenta e seis	quinhentos e sessenta e seis
+567	quinhentos e sessenta e sete|quinhentas e sessenta e sete	quinhentos e sessenta e sete
+568	quinhentos e sessenta e oito|quinhentas e sessenta e oito	quinhentos e sessenta e oito
+569	quinhentos e sessenta e nove|quinhentas e sessenta e nove	quinhentos e sessenta e nove
+570	quinhentos e setenta|quinhentas e setenta	quinhentos e setenta
+571	quinhentos e setenta e um|quinhentas e setenta e uma	quinhentos e setenta e um
+572	quinhentos e setenta e dois|quinhentas e setenta e duas	quinhentos e setenta e dois
+573	quinhentos e setenta e tres|quinhentas e setenta e tres	quinhentos e setenta e tres
+574	quinhentos e setenta e quatro|quinhentas e setenta e quatro	quinhentos e setenta e quatro
+575	quinhentos e setenta e cinco|quinhentas e setenta e cinco	quinhentos e setenta e cinco
+576	quinhentos e setenta e seis|quinhentas e setenta e seis	quinhentos e setenta e seis
+577	quinhentos e setenta e sete|quinhentas e setenta e sete	quinhentos e setenta e sete
+578	quinhentos e setenta e oito|quinhentas e setenta e oito	quinhentos e setenta e oito
+579	quinhentos e setenta e nove|quinhentas e setenta e nove	quinhentos e setenta e nove
+580	quinhentos e oitenta|quinhentas e oitenta	quinhentos e oitenta
+581	quinhentos e oitenta e um|quinhentas e oitenta e uma	quinhentos e oitenta e um
+582	quinhentos e oitenta e dois|quinhentas e oitenta e duas	quinhentos e oitenta e dois
+583	quinhentos e oitenta e tres|quinhentas e oitenta e tres	quinhentos e oitenta e tres
+584	quinhentos e oitenta e quatro|quinhentas e oitenta e quatro	quinhentos e oitenta e quatro
+585	quinhentos e oitenta e cinco|quinhentas e oitenta e cinco	quinhentos e oitenta e cinco
+586	quinhentos e oitenta e seis|quinhentas e oitenta e seis	quinhentos e oitenta e seis
+587	quinhentos e oitenta e sete|quinhentas e oitenta e sete	quinhentos e oitenta e sete
+588	quinhentos e oitenta e oito|quinhentas e oitenta e oito	quinhentos e oitenta e oito
+589	quinhentos e oitenta e nove|quinhentas e oitenta e nove	quinhentos e oitenta e nove
+590	quinhentos e noventa|quinhentas e noventa	quinhentos e noventa
+591	quinhentos e noventa e um|quinhentas e noventa e uma	quinhentos e noventa e um
+592	quinhentos e noventa e dois|quinhentas e noventa e duas	quinhentos e noventa e dois
+593	quinhentos e noventa e tres|quinhentas e noventa e tres	quinhentos e noventa e tres
+594	quinhentos e noventa e quatro|quinhentas e noventa e quatro	quinhentos e noventa e quatro
+595	quinhentos e noventa e cinco|quinhentas e noventa e cinco	quinhentos e noventa e cinco
+596	quinhentos e noventa e seis|quinhentas e noventa e seis	quinhentos e noventa e seis
+597	quinhentos e noventa e sete|quinhentas e noventa e sete	quinhentos e noventa e sete
+598	quinhentos e noventa e oito|quinhentas e noventa e oito	quinhentos e noventa e oito
+599	quinhentos e noventa e nove|quinhentas e noventa e nove	quinhentos e noventa e nove
+600	seiscentos|seiscentas	seiscentos
+601	seiscentos e um|seiscentas e uma	seiscentos e um
+602	seiscentos e dois|seiscentas e duas	seiscentos e dois
+603	seiscentos e tres|seiscentas e tres	seiscentos e tres
+604	seiscentos e quatro|seiscentas e quatro	seiscentos e quatro
+605	seiscentos e cinco|seiscentas e cinco	seiscentos e cinco
+606	seiscentos e seis|seiscentas e seis	seiscentos e seis
+607	seiscentos e sete|seiscentas e sete	seiscentos e sete
+608	seiscentos e oito|seiscentas e oito	seiscentos e oito
+609	seiscentos e nove|seiscentas e nove	seiscentos e nove
+610	seiscentos e dez|seiscentas e dez	seiscentos e dez
+611	seiscentos e onze|seiscentas e onze	seiscentos e onze
+612	seiscentos e doze|seiscentas e doze	seiscentos e doze
+613	seiscentos e treze|seiscentas e treze	seiscentos e treze
+614	seiscentos e catorze|seiscentos e quatorze|seiscentas e catorze|seiscentas e quatorze	seiscentos e catorze|seiscentos e quatorze
+615	seiscentos e quinze|seiscentas e quinze	seiscentos e quinze
+616	seiscentos e dezesseis|seiscentas e dezesseis	seiscentos e dezesseis
+617	seiscentos e dezessete|seiscentas e dezessete	seiscentos e dezessete
+618	seiscentos e dezoito|seiscentas e dezoito	seiscentos e dezoito
+619	seiscentos e dezenove|seiscentas e dezenove	seiscentos e dezenove
+620	seiscentos e vinte|seiscentas e vinte	seiscentos e vinte
+621	seiscentos e vinte e um|seiscentas e vinte e uma	seiscentos e vinte e um
+622	seiscentos e vinte e dois|seiscentas e vinte e duas	seiscentos e vinte e dois
+623	seiscentos e vinte e tres|seiscentas e vinte e tres	seiscentos e vinte e tres
+624	seiscentos e vinte e quatro|seiscentas e vinte e quatro	seiscentos e vinte e quatro
+625	seiscentos e vinte e cinco|seiscentas e vinte e cinco	seiscentos e vinte e cinco
+626	seiscentos e vinte e seis|seiscentas e vinte e seis	seiscentos e vinte e seis
+627	seiscentos e vinte e sete|seiscentas e vinte e sete	seiscentos e vinte e sete
+628	seiscentos e vinte e oito|seiscentas e vinte e oito	seiscentos e vinte e oito
+629	seiscentos e vinte e nove|seiscentas e vinte e nove	seiscentos e vinte e nove
+630	seiscentos e trinta|seiscentas e trinta	seiscentos e trinta
+631	seiscentos e trinta e um|seiscentas e trinta e uma	seiscentos e trinta e um
+632	seiscentos e trinta e dois|seiscentas e trinta e duas	seiscentos e trinta e dois
+633	seiscentos e trinta e tres|seiscentas e trinta e tres	seiscentos e trinta e tres
+634	seiscentos e trinta e quatro|seiscentas e trinta e quatro	seiscentos e trinta e quatro
+635	seiscentos e trinta e cinco|seiscentas e trinta e cinco	seiscentos e trinta e cinco
+636	seiscentos e trinta e seis|seiscentas e trinta e seis	seiscentos e trinta e seis
+637	seiscentos e trinta e sete|seiscentas e trinta e sete	seiscentos e trinta e sete
+638	seiscentos e trinta e oito|seiscentas e trinta e oito	seiscentos e trinta e oito
+639	seiscentos e trinta e nove|seiscentas e trinta e nove	seiscentos e trinta e nove
+640	seiscentos e quarenta|seiscentas e quarenta	seiscentos e quarenta
+641	seiscentos e quarenta e um|seiscentas e quarenta e uma	seiscentos e quarenta e um
+642	seiscentos e quarenta e dois|seiscentas e quarenta e duas	seiscentos e quarenta e dois
+643	seiscentos e quarenta e tres|seiscentas e quarenta e tres	seiscentos e quarenta e tres
+644	seiscentos e quarenta e quatro|seiscentas e quarenta e quatro	seiscentos e quarenta e quatro
+645	seiscentos e quarenta e cinco|seiscentas e quarenta e cinco	seiscentos e quarenta e cinco
+646	seiscentos e quarenta e seis|seiscentas e quarenta e seis	seiscentos e quarenta e seis
+647	seiscentos e quarenta e sete|seiscentas e quarenta e sete	seiscentos e quarenta e sete
+648	seiscentos e quarenta e oito|seiscentas e quarenta e oito	seiscentos e quarenta e oito
+649	seiscentos e quarenta e nove|seiscentas e quarenta e nove	seiscentos e quarenta e nove
+650	seiscentos e cinquenta|seiscentas e cinquenta	seiscentos e cinquenta
+651	seiscentos e cinquenta e um|seiscentas e cinquenta e uma	seiscentos e cinquenta e um
+652	seiscentos e cinquenta e dois|seiscentas e cinquenta e duas	seiscentos e cinquenta e dois
+653	seiscentos e cinquenta e tres|seiscentas e cinquenta e tres	seiscentos e cinquenta e tres
+654	seiscentos e cinquenta e quatro|seiscentas e cinquenta e quatro	seiscentos e cinquenta e quatro
+655	seiscentos e cinquenta e cinco|seiscentas e cinquenta e cinco	seiscentos e cinquenta e cinco
+656	seiscentos e cinquenta e seis|seiscentas e cinquenta e seis	seiscentos e cinquenta e seis
+657	seiscentos e cinquenta e sete|seiscentas e cinquenta e sete	seiscentos e cinquenta e sete
+658	seiscentos e cinquenta e oito|seiscentas e cinquenta e oito	seiscentos e cinquenta e oito
+659	seiscentos e cinquenta e nove|seiscentas e cinquenta e nove	seiscentos e cinquenta e nove
+660	seiscentos e sessenta|seiscentas e sessenta	seiscentos e sessenta
+661	seiscentos e sessenta e um|seiscentas e sessenta e uma	seiscentos e sessenta e um
+662	seiscentos e sessenta e dois|seiscentas e sessenta e duas	seiscentos e sessenta e dois
+663	seiscentos e sessenta e tres|seiscentas e sessenta e tres	seiscentos e sessenta e tres
+664	seiscentos e sessenta e quatro|seiscentas e sessenta e quatro	seiscentos e sessenta e quatro
+665	seiscentos e sessenta e cinco|seiscentas e sessenta e cinco	seiscentos e sessenta e cinco
+666	seiscentos e sessenta e seis|seiscentas e sessenta e seis	seiscentos e sessenta e seis
+667	seiscentos e sessenta e sete|seiscentas e sessenta e sete	seiscentos e sessenta e sete
+668	seiscentos e sessenta e oito|seiscentas e sessenta e oito	seiscentos e sessenta e oito
+669	seiscentos e sessenta e nove|seiscentas e sessenta e nove	seiscentos e sessenta e nove
+670	seiscentos e setenta|seiscentas e setenta	seiscentos e setenta
+671	seiscentos e setenta e um|seiscentas e setenta e uma	seiscentos e setenta e um
+672	seiscentos e setenta e dois|seiscentas e setenta e duas	seiscentos e setenta e dois
+673	seiscentos e setenta e tres|seiscentas e setenta e tres	seiscentos e setenta e tres
+674	seiscentos e setenta e quatro|seiscentas e setenta e quatro	seiscentos e setenta e quatro
+675	seiscentos e setenta e cinco|seiscentas e setenta e cinco	seiscentos e setenta e cinco
+676	seiscentos e setenta e seis|seiscentas e setenta e seis	seiscentos e setenta e seis
+677	seiscentos e setenta e sete|seiscentas e setenta e sete	seiscentos e setenta e sete
+678	seiscentos e setenta e oito|seiscentas e setenta e oito	seiscentos e setenta e oito
+679	seiscentos e setenta e nove|seiscentas e setenta e nove	seiscentos e setenta e nove
+680	seiscentos e oitenta|seiscentas e oitenta	seiscentos e oitenta
+681	seiscentos e oitenta e um|seiscentas e oitenta e uma	seiscentos e oitenta e um
+682	seiscentos e oitenta e dois|seiscentas e oitenta e duas	seiscentos e oitenta e dois
+683	seiscentos e oitenta e tres|seiscentas e oitenta e tres	seiscentos e oitenta e tres
+684	seiscentos e oitenta e quatro|seiscentas e oitenta e quatro	seiscentos e oitenta e quatro
+685	seiscentos e oitenta e cinco|seiscentas e oitenta e cinco	seiscentos e oitenta e cinco
+686	seiscentos e oitenta e seis|seiscentas e oitenta e seis	seiscentos e oitenta e seis
+687	seiscentos e oitenta e sete|seiscentas e oitenta e sete	seiscentos e oitenta e sete
+688	seiscentos e oitenta e oito|seiscentas e oitenta e oito	seiscentos e oitenta e oito
+689	seiscentos e oitenta e nove|seiscentas e oitenta e nove	seiscentos e oitenta e nove
+690	seiscentos e noventa|seiscentas e noventa	seiscentos e noventa
+691	seiscentos e noventa e um|seiscentas e noventa e uma	seiscentos e noventa e um
+692	seiscentos e noventa e dois|seiscentas e noventa e duas	seiscentos e noventa e dois
+693	seiscentos e noventa e tres|seiscentas e noventa e tres	seiscentos e noventa e tres
+694	seiscentos e noventa e quatro|seiscentas e noventa e quatro	seiscentos e noventa e quatro
+695	seiscentos e noventa e cinco|seiscentas e noventa e cinco	seiscentos e noventa e cinco
+696	seiscentos e noventa e seis|seiscentas e noventa e seis	seiscentos e noventa e seis
+697	seiscentos e noventa e sete|seiscentas e noventa e sete	seiscentos e noventa e sete
+698	seiscentos e noventa e oito|seiscentas e noventa e oito	seiscentos e noventa e oito
+699	seiscentos e noventa e nove|seiscentas e noventa e nove	seiscentos e noventa e nove
+700	setecentos|setecentas	setecentos
+701	setecentos e um|setecentas e uma	setecentos e um
+702	setecentos e dois|setecentas e duas	setecentos e dois
+703	setecentos e tres|setecentas e tres	setecentos e tres
+704	setecentos e quatro|setecentas e quatro	setecentos e quatro
+705	setecentos e cinco|setecentas e cinco	setecentos e cinco
+706	setecentos e seis|setecentas e seis	setecentos e seis
+707	setecentos e sete|setecentas e sete	setecentos e sete
+708	setecentos e oito|setecentas e oito	setecentos e oito
+709	setecentos e nove|setecentas e nove	setecentos e nove
+710	setecentos e dez|setecentas e dez	setecentos e dez
+711	setecentos e onze|setecentas e onze	setecentos e onze
+712	setecentos e doze|setecentas e doze	setecentos e doze
+713	setecentos e treze|setecentas e treze	setecentos e treze
+714	setecentos e catorze|setecentos e quatorze|setecentas e catorze|setecentas e quatorze	setecentos e catorze|setecentos e quatorze
+715	setecentos e quinze|setecentas e quinze	setecentos e quinze
+716	setecentos e dezesseis|setecentas e dezesseis	setecentos e dezesseis
+717	setecentos e dezessete|setecentas e dezessete	setecentos e dezessete
+718	setecentos e dezoito|setecentas e dezoito	setecentos e dezoito
+719	setecentos e dezenove|setecentas e dezenove	setecentos e dezenove
+720	setecentos e vinte|setecentas e vinte	setecentos e vinte
+721	setecentos e vinte e um|setecentas e vinte e uma	setecentos e vinte e um
+722	setecentos e vinte e dois|setecentas e vinte e duas	setecentos e vinte e dois
+723	setecentos e vinte e tres|setecentas e vinte e tres	setecentos e vinte e tres
+724	setecentos e vinte e quatro|setecentas e vinte e quatro	setecentos e vinte e quatro
+725	setecentos e vinte e cinco|setecentas e vinte e cinco	setecentos e vinte e cinco
+726	setecentos e vinte e seis|setecentas e vinte e seis	setecentos e vinte e seis
+727	setecentos e vinte e sete|setecentas e vinte e sete	setecentos e vinte e sete
+728	setecentos e vinte e oito|setecentas e vinte e oito	setecentos e vinte e oito
+729	setecentos e vinte e nove|setecentas e vinte e nove	setecentos e vinte e nove
+730	setecentos e trinta|setecentas e trinta	setecentos e trinta
+731	setecentos e trinta e um|setecentas e trinta e uma	setecentos e trinta e um
+732	setecentos e trinta e dois|setecentas e trinta e duas	setecentos e trinta e dois
+733	setecentos e trinta e tres|setecentas e trinta e tres	setecentos e trinta e tres
+734	setecentos e trinta e quatro|setecentas e trinta e quatro	setecentos e trinta e quatro
+735	setecentos e trinta e cinco|setecentas e trinta e cinco	setecentos e trinta e cinco
+736	setecentos e trinta e seis|setecentas e trinta e seis	setecentos e trinta e seis
+737	setecentos e trinta e sete|setecentas e trinta e sete	setecentos e trinta e sete
+738	setecentos e trinta e oito|setecentas e trinta e oito	setecentos e trinta e oito
+739	setecentos e trinta e nove|setecentas e trinta e nove	setecentos e trinta e nove
+740	setecentos e quarenta|setecentas e quarenta	setecentos e quarenta
+741	setecentos e quarenta e um|setecentas e quarenta e uma	setecentos e quarenta e um
+742	setecentos e quarenta e dois|setecentas e quarenta e duas	setecentos e quarenta e dois
+743	setecentos e quarenta e tres|setecentas e quarenta e tres	setecentos e quarenta e tres
+744	setecentos e quarenta e quatro|setecentas e quarenta e quatro	setecentos e quarenta e quatro
+745	setecentos e quarenta e cinco|setecentas e quarenta e cinco	setecentos e quarenta e cinco
+746	setecentos e quarenta e seis|setecentas e quarenta e seis	setecentos e quarenta e seis
+747	setecentos e quarenta e sete|setecentas e quarenta e sete	setecentos e quarenta e sete
+748	setecentos e quarenta e oito|setecentas e quarenta e oito	setecentos e quarenta e oito
+749	setecentos e quarenta e nove|setecentas e quarenta e nove	setecentos e quarenta e nove
+750	setecentos e cinquenta|setecentas e cinquenta	setecentos e cinquenta
+751	setecentos e cinquenta e um|setecentas e cinquenta e uma	setecentos e cinquenta e um
+752	setecentos e cinquenta e dois|setecentas e cinquenta e duas	setecentos e cinquenta e dois
+753	setecentos e cinquenta e tres|setecentas e cinquenta e tres	setecentos e cinquenta e tres
+754	setecentos e cinquenta e quatro|setecentas e cinquenta e quatro	setecentos e cinquenta e quatro
+755	setecentos e cinquenta e cinco|setecentas e cinquenta e cinco	setecentos e cinquenta e cinco
+756	setecentos e cinquenta e seis|setecentas e cinquenta e seis	setecentos e cinquenta e seis
+757	setecentos e cinquenta e sete|setecentas e cinquenta e sete	setecentos e cinquenta e sete
+758	setecentos e cinquenta e oito|setecentas e cinquenta e oito	setecentos e cinquenta e oito
+759	setecentos e cinquenta e nove|setecentas e cinquenta e nove	setecentos e cinquenta e nove
+760	setecentos e sessenta|setecentas e sessenta	setecentos e sessenta
+761	setecentos e sessenta e um|setecentas e sessenta e uma	setecentos e sessenta e um
+762	setecentos e sessenta e dois|setecentas e sessenta e duas	setecentos e sessenta e dois
+763	setecentos e sessenta e tres|setecentas e sessenta e tres	setecentos e sessenta e tres
+764	setecentos e sessenta e quatro|setecentas e sessenta e quatro	setecentos e sessenta e quatro
+765	setecentos e sessenta e cinco|setecentas e sessenta e cinco	setecentos e sessenta e cinco
+766	setecentos e sessenta e seis|setecentas e sessenta e seis	setecentos e sessenta e seis
+767	setecentos e sessenta e sete|setecentas e sessenta e sete	setecentos e sessenta e sete
+768	setecentos e sessenta e oito|setecentas e sessenta e oito	setecentos e sessenta e oito
+769	setecentos e sessenta e nove|setecentas e sessenta e nove	setecentos e sessenta e nove
+770	setecentos e setenta|setecentas e setenta	setecentos e setenta
+771	setecentos e setenta e um|setecentas e setenta e uma	setecentos e setenta e um
+772	setecentos e setenta e dois|setecentas e setenta e duas	setecentos e setenta e dois
+773	setecentos e setenta e tres|setecentas e setenta e tres	setecentos e setenta e tres
+774	setecentos e setenta e quatro|setecentas e setenta e quatro	setecentos e setenta e quatro
+775	setecentos e setenta e cinco|setecentas e setenta e cinco	setecentos e setenta e cinco
+776	setecentos e setenta e seis|setecentas e setenta e seis	setecentos e setenta e seis
+777	setecentos e setenta e sete|setecentas e setenta e sete	setecentos e setenta e sete
+778	setecentos e setenta e oito|setecentas e setenta e oito	setecentos e setenta e oito
+779	setecentos e setenta e nove|setecentas e setenta e nove	setecentos e setenta e nove
+780	setecentos e oitenta|setecentas e oitenta	setecentos e oitenta
+781	setecentos e oitenta e um|setecentas e oitenta e uma	setecentos e oitenta e um
+782	setecentos e oitenta e dois|setecentas e oitenta e duas	setecentos e oitenta e dois
+783	setecentos e oitenta e tres|setecentas e oitenta e tres	setecentos e oitenta e tres
+784	setecentos e oitenta e quatro|setecentas e oitenta e quatro	setecentos e oitenta e quatro
+785	setecentos e oitenta e cinco|setecentas e oitenta e cinco	setecentos e oitenta e cinco
+786	setecentos e oitenta e seis|setecentas e oitenta e seis	setecentos e oitenta e seis
+787	setecentos e oitenta e sete|setecentas e oitenta e sete	setecentos e oitenta e sete
+788	setecentos e oitenta e oito|setecentas e oitenta e oito	setecentos e oitenta e oito
+789	setecentos e oitenta e nove|setecentas e oitenta e nove	setecentos e oitenta e nove
+790	setecentos e noventa|setecentas e noventa	setecentos e noventa
+791	setecentos e noventa e um|setecentas e noventa e uma	setecentos e noventa e um
+792	setecentos e noventa e dois|setecentas e noventa e duas	setecentos e noventa e dois
+793	setecentos e noventa e tres|setecentas e noventa e tres	setecentos e noventa e tres
+794	setecentos e noventa e quatro|setecentas e noventa e quatro	setecentos e noventa e quatro
+795	setecentos e noventa e cinco|setecentas e noventa e cinco	setecentos e noventa e cinco
+796	setecentos e noventa e seis|setecentas e noventa e seis	setecentos e noventa e seis
+797	setecentos e noventa e sete|setecentas e noventa e sete	setecentos e noventa e sete
+798	setecentos e noventa e oito|setecentas e noventa e oito	setecentos e noventa e oito
+799	setecentos e noventa e nove|setecentas e noventa e nove	setecentos e noventa e nove
+800	oitocentos|oitocentas	oitocentos
+801	oitocentos e um|oitocentas e uma	oitocentos e um
+802	oitocentos e dois|oitocentas e duas	oitocentos e dois
+803	oitocentos e tres|oitocentas e tres	oitocentos e tres
+804	oitocentos e quatro|oitocentas e quatro	oitocentos e quatro
+805	oitocentos e cinco|oitocentas e cinco	oitocentos e cinco
+806	oitocentos e seis|oitocentas e seis	oitocentos e seis
+807	oitocentos e sete|oitocentas e sete	oitocentos e sete
+808	oitocentos e oito|oitocentas e oito	oitocentos e oito
+809	oitocentos e nove|oitocentas e nove	oitocentos e nove
+810	oitocentos e dez|oitocentas e dez	oitocentos e dez
+811	oitocentos e onze|oitocentas e onze	oitocentos e onze
+812	oitocentos e doze|oitocentas e doze	oitocentos e doze
+813	oitocentos e treze|oitocentas e treze	oitocentos e treze
+814	oitocentos e catorze|oitocentos e quatorze|oitocentas e catorze|oitocentas e quatorze	oitocentos e catorze|oitocentos e quatorze
+815	oitocentos e quinze|oitocentas e quinze	oitocentos e quinze
+816	oitocentos e dezesseis|oitocentas e dezesseis	oitocentos e dezesseis
+817	oitocentos e dezessete|oitocentas e dezessete	oitocentos e dezessete
+818	oitocentos e dezoito|oitocentas e dezoito	oitocentos e dezoito
+819	oitocentos e dezenove|oitocentas e dezenove	oitocentos e dezenove
+820	oitocentos e vinte|oitocentas e vinte	oitocentos e vinte
+821	oitocentos e vinte e um|oitocentas e vinte e uma	oitocentos e vinte e um
+822	oitocentos e vinte e dois|oitocentas e vinte e duas	oitocentos e vinte e dois
+823	oitocentos e vinte e tres|oitocentas e vinte e tres	oitocentos e vinte e tres
+824	oitocentos e vinte e quatro|oitocentas e vinte e quatro	oitocentos e vinte e quatro
+825	oitocentos e vinte e cinco|oitocentas e vinte e cinco	oitocentos e vinte e cinco
+826	oitocentos e vinte e seis|oitocentas e vinte e seis	oitocentos e vinte e seis
+827	oitocentos e vinte e sete|oitocentas e vinte e sete	oitocentos e vinte e sete
+828	oitocentos e vinte e oito|oitocentas e vinte e oito	oitocentos e vinte e oito
+829	oitocentos e vinte e nove|oitocentas e vinte e nove	oitocentos e vinte e nove
+830	oitocentos e trinta|oitocentas e trinta	oitocentos e trinta
+831	oitocentos e trinta e um|oitocentas e trinta e uma	oitocentos e trinta e um
+832	oitocentos e trinta e dois|oitocentas e trinta e duas	oitocentos e trinta e dois
+833	oitocentos e trinta e tres|oitocentas e trinta e tres	oitocentos e trinta e tres
+834	oitocentos e trinta e quatro|oitocentas e trinta e quatro	oitocentos e trinta e quatro
+835	oitocentos e trinta e cinco|oitocentas e trinta e cinco	oitocentos e trinta e cinco
+836	oitocentos e trinta e seis|oitocentas e trinta e seis	oitocentos e trinta e seis
+837	oitocentos e trinta e sete|oitocentas e trinta e sete	oitocentos e trinta e sete
+838	oitocentos e trinta e oito|oitocentas e trinta e oito	oitocentos e trinta e oito
+839	oitocentos e trinta e nove|oitocentas e trinta e nove	oitocentos e trinta e nove
+840	oitocentos e quarenta|oitocentas e quarenta	oitocentos e quarenta
+841	oitocentos e quarenta e um|oitocentas e quarenta e uma	oitocentos e quarenta e um
+842	oitocentos e quarenta e dois|oitocentas e quarenta e duas	oitocentos e quarenta e dois
+843	oitocentos e quarenta e tres|oitocentas e quarenta e tres	oitocentos e quarenta e tres
+844	oitocentos e quarenta e quatro|oitocentas e quarenta e quatro	oitocentos e quarenta e quatro
+845	oitocentos e quarenta e cinco|oitocentas e quarenta e cinco	oitocentos e quarenta e cinco
+846	oitocentos e quarenta e seis|oitocentas e quarenta e seis	oitocentos e quarenta e seis
+847	oitocentos e quarenta e sete|oitocentas e quarenta e sete	oitocentos e quarenta e sete
+848	oitocentos e quarenta e oito|oitocentas e quarenta e oito	oitocentos e quarenta e oito
+849	oitocentos e quarenta e nove|oitocentas e quarenta e nove	oitocentos e quarenta e nove
+850	oitocentos e cinquenta|oitocentas e cinquenta	oitocentos e cinquenta
+851	oitocentos e cinquenta e um|oitocentas e cinquenta e uma	oitocentos e cinquenta e um
+852	oitocentos e cinquenta e dois|oitocentas e cinquenta e duas	oitocentos e cinquenta e dois
+853	oitocentos e cinquenta e tres|oitocentas e cinquenta e tres	oitocentos e cinquenta e tres
+854	oitocentos e cinquenta e quatro|oitocentas e cinquenta e quatro	oitocentos e cinquenta e quatro
+855	oitocentos e cinquenta e cinco|oitocentas e cinquenta e cinco	oitocentos e cinquenta e cinco
+856	oitocentos e cinquenta e seis|oitocentas e cinquenta e seis	oitocentos e cinquenta e seis
+857	oitocentos e cinquenta e sete|oitocentas e cinquenta e sete	oitocentos e cinquenta e sete
+858	oitocentos e cinquenta e oito|oitocentas e cinquenta e oito	oitocentos e cinquenta e oito
+859	oitocentos e cinquenta e nove|oitocentas e cinquenta e nove	oitocentos e cinquenta e nove
+860	oitocentos e sessenta|oitocentas e sessenta	oitocentos e sessenta
+861	oitocentos e sessenta e um|oitocentas e sessenta e uma	oitocentos e sessenta e um
+862	oitocentos e sessenta e dois|oitocentas e sessenta e duas	oitocentos e sessenta e dois
+863	oitocentos e sessenta e tres|oitocentas e sessenta e tres	oitocentos e sessenta e tres
+864	oitocentos e sessenta e quatro|oitocentas e sessenta e quatro	oitocentos e sessenta e quatro
+865	oitocentos e sessenta e cinco|oitocentas e sessenta e cinco	oitocentos e sessenta e cinco
+866	oitocentos e sessenta e seis|oitocentas e sessenta e seis	oitocentos e sessenta e seis
+867	oitocentos e sessenta e sete|oitocentas e sessenta e sete	oitocentos e sessenta e sete
+868	oitocentos e sessenta e oito|oitocentas e sessenta e oito	oitocentos e sessenta e oito
+869	oitocentos e sessenta e nove|oitocentas e sessenta e nove	oitocentos e sessenta e nove
+870	oitocentos e setenta|oitocentas e setenta	oitocentos e setenta
+871	oitocentos e setenta e um|oitocentas e setenta e uma	oitocentos e setenta e um
+872	oitocentos e setenta e dois|oitocentas e setenta e duas	oitocentos e setenta e dois
+873	oitocentos e setenta e tres|oitocentas e setenta e tres	oitocentos e setenta e tres
+874	oitocentos e setenta e quatro|oitocentas e setenta e quatro	oitocentos e setenta e quatro
+875	oitocentos e setenta e cinco|oitocentas e setenta e cinco	oitocentos e setenta e cinco
+876	oitocentos e setenta e seis|oitocentas e setenta e seis	oitocentos e setenta e seis
+877	oitocentos e setenta e sete|oitocentas e setenta e sete	oitocentos e setenta e sete
+878	oitocentos e setenta e oito|oitocentas e setenta e oito	oitocentos e setenta e oito
+879	oitocentos e setenta e nove|oitocentas e setenta e nove	oitocentos e setenta e nove
+880	oitocentos e oitenta|oitocentas e oitenta	oitocentos e oitenta
+881	oitocentos e oitenta e um|oitocentas e oitenta e uma	oitocentos e oitenta e um
+882	oitocentos e oitenta e dois|oitocentas e oitenta e duas	oitocentos e oitenta e dois
+883	oitocentos e oitenta e tres|oitocentas e oitenta e tres	oitocentos e oitenta e tres
+884	oitocentos e oitenta e quatro|oitocentas e oitenta e quatro	oitocentos e oitenta e quatro
+885	oitocentos e oitenta e cinco|oitocentas e oitenta e cinco	oitocentos e oitenta e cinco
+886	oitocentos e oitenta e seis|oitocentas e oitenta e seis	oitocentos e oitenta e seis
+887	oitocentos e oitenta e sete|oitocentas e oitenta e sete	oitocentos e oitenta e sete
+888	oitocentos e oitenta e oito|oitocentas e oitenta e oito	oitocentos e oitenta e oito
+889	oitocentos e oitenta e nove|oitocentas e oitenta e nove	oitocentos e oitenta e nove
+890	oitocentos e noventa|oitocentas e noventa	oitocentos e noventa
+891	oitocentos e noventa e um|oitocentas e noventa e uma	oitocentos e noventa e um
+892	oitocentos e noventa e dois|oitocentas e noventa e duas	oitocentos e noventa e dois
+893	oitocentos e noventa e tres|oitocentas e noventa e tres	oitocentos e noventa e tres
+894	oitocentos e noventa e quatro|oitocentas e noventa e quatro	oitocentos e noventa e quatro
+895	oitocentos e noventa e cinco|oitocentas e noventa e cinco	oitocentos e noventa e cinco
+896	oitocentos e noventa e seis|oitocentas e noventa e seis	oitocentos e noventa e seis
+897	oitocentos e noventa e sete|oitocentas e noventa e sete	oitocentos e noventa e sete
+898	oitocentos e noventa e oito|oitocentas e noventa e oito	oitocentos e noventa e oito
+899	oitocentos e noventa e nove|oitocentas e noventa e nove	oitocentos e noventa e nove
+900	novecentos|novecentas	novecentos
+901	novecentos e um|novecentas e uma	novecentos e um
+902	novecentos e dois|novecentas e duas	novecentos e dois
+903	novecentos e tres|novecentas e tres	novecentos e tres
+904	novecentos e quatro|novecentas e quatro	novecentos e quatro
+905	novecentos e cinco|novecentas e cinco	novecentos e cinco
+906	novecentos e seis|novecentas e seis	novecentos e seis
+907	novecentos e sete|novecentas e sete	novecentos e sete
+908	novecentos e oito|novecentas e oito	novecentos e oito
+909	novecentos e nove|novecentas e nove	novecentos e nove
+910	novecentos e dez|novecentas e dez	novecentos e dez
+911	novecentos e onze|novecentas e onze	novecentos e onze
+912	novecentos e doze|novecentas e doze	novecentos e doze
+913	novecentos e treze|novecentas e treze	novecentos e treze
+914	novecentos e catorze|novecentos e quatorze|novecentas e catorze|novecentas e quatorze	novecentos e catorze|novecentos e quatorze
+915	novecentos e quinze|novecentas e quinze	novecentos e quinze
+916	novecentos e dezesseis|novecentas e dezesseis	novecentos e dezesseis
+917	novecentos e dezessete|novecentas e dezessete	novecentos e dezessete
+918	novecentos e dezoito|novecentas e dezoito	novecentos e dezoito
+919	novecentos e dezenove|novecentas e dezenove	novecentos e dezenove
+920	novecentos e vinte|novecentas e vinte	novecentos e vinte
+921	novecentos e vinte e um|novecentas e vinte e uma	novecentos e vinte e um
+922	novecentos e vinte e dois|novecentas e vinte e duas	novecentos e vinte e dois
+923	novecentos e vinte e tres|novecentas e vinte e tres	novecentos e vinte e tres
+924	novecentos e vinte e quatro|novecentas e vinte e quatro	novecentos e vinte e quatro
+925	novecentos e vinte e cinco|novecentas e vinte e cinco	novecentos e vinte e cinco
+926	novecentos e vinte e seis|novecentas e vinte e seis	novecentos e vinte e seis
+927	novecentos e vinte e sete|novecentas e vinte e sete	novecentos e vinte e sete
+928	novecentos e vinte e oito|novecentas e vinte e oito	novecentos e vinte e oito
+929	novecentos e vinte e nove|novecentas e vinte e nove	novecentos e vinte e nove
+930	novecentos e trinta|novecentas e trinta	novecentos e trinta
+931	novecentos e trinta e um|novecentas e trinta e uma	novecentos e trinta e um
+932	novecentos e trinta e dois|novecentas e trinta e duas	novecentos e trinta e dois
+933	novecentos e trinta e tres|novecentas e trinta e tres	novecentos e trinta e tres
+934	novecentos e trinta e quatro|novecentas e trinta e quatro	novecentos e trinta e quatro
+935	novecentos e trinta e cinco|novecentas e trinta e cinco	novecentos e trinta e cinco
+936	novecentos e trinta e seis|novecentas e trinta e seis	novecentos e trinta e seis
+937	novecentos e trinta e sete|novecentas e trinta e sete	novecentos e trinta e sete
+938	novecentos e trinta e oito|novecentas e trinta e oito	novecentos e trinta e oito
+939	novecentos e trinta e nove|novecentas e trinta e nove	novecentos e trinta e nove
+940	novecentos e quarenta|novecentas e quarenta	novecentos e quarenta
+941	novecentos e quarenta e um|novecentas e quarenta e uma	novecentos e quarenta e um
+942	novecentos e quarenta e dois|novecentas e quarenta e duas	novecentos e quarenta e dois
+943	novecentos e quarenta e tres|novecentas e quarenta e tres	novecentos e quarenta e tres
+944	novecentos e quarenta e quatro|novecentas e quarenta e quatro	novecentos e quarenta e quatro
+945	novecentos e quarenta e cinco|novecentas e quarenta e cinco	novecentos e quarenta e cinco
+946	novecentos e quarenta e seis|novecentas e quarenta e seis	novecentos e quarenta e seis
+947	novecentos e quarenta e sete|novecentas e quarenta e sete	novecentos e quarenta e sete
+948	novecentos e quarenta e oito|novecentas e quarenta e oito	novecentos e quarenta e oito
+949	novecentos e quarenta e nove|novecentas e quarenta e nove	novecentos e quarenta e nove
+950	novecentos e cinquenta|novecentas e cinquenta	novecentos e cinquenta
+951	novecentos e cinquenta e um|novecentas e cinquenta e uma	novecentos e cinquenta e um
+952	novecentos e cinquenta e dois|novecentas e cinquenta e duas	novecentos e cinquenta e dois
+953	novecentos e cinquenta e tres|novecentas e cinquenta e tres	novecentos e cinquenta e tres
+954	novecentos e cinquenta e quatro|novecentas e cinquenta e quatro	novecentos e cinquenta e quatro
+955	novecentos e cinquenta e cinco|novecentas e cinquenta e cinco	novecentos e cinquenta e cinco
+956	novecentos e cinquenta e seis|novecentas e cinquenta e seis	novecentos e cinquenta e seis
+957	novecentos e cinquenta e sete|novecentas e cinquenta e sete	novecentos e cinquenta e sete
+958	novecentos e cinquenta e oito|novecentas e cinquenta e oito	novecentos e cinquenta e oito
+959	novecentos e cinquenta e nove|novecentas e cinquenta e nove	novecentos e cinquenta e nove
+960	novecentos e sessenta|novecentas e sessenta	novecentos e sessenta
+961	novecentos e sessenta e um|novecentas e sessenta e uma	novecentos e sessenta e um
+962	novecentos e sessenta e dois|novecentas e sessenta e duas	novecentos e sessenta e dois
+963	novecentos e sessenta e tres|novecentas e sessenta e tres	novecentos e sessenta e tres
+964	novecentos e sessenta e quatro|novecentas e sessenta e quatro	novecentos e sessenta e quatro
+965	novecentos e sessenta e cinco|novecentas e sessenta e cinco	novecentos e sessenta e cinco
+966	novecentos e sessenta e seis|novecentas e sessenta e seis	novecentos e sessenta e seis
+967	novecentos e sessenta e sete|novecentas e sessenta e sete	novecentos e sessenta e sete
+968	novecentos e sessenta e oito|novecentas e sessenta e oito	novecentos e sessenta e oito
+969	novecentos e sessenta e nove|novecentas e sessenta e nove	novecentos e sessenta e nove
+970	novecentos e setenta|novecentas e setenta	novecentos e setenta
+971	novecentos e setenta e um|novecentas e setenta e uma	novecentos e setenta e um
+972	novecentos e setenta e dois|novecentas e setenta e duas	novecentos e setenta e dois
+973	novecentos e setenta e tres|novecentas e setenta e tres	novecentos e setenta e tres
+974	novecentos e setenta e quatro|novecentas e setenta e quatro	novecentos e setenta e quatro
+975	novecentos e setenta e cinco|novecentas e setenta e cinco	novecentos e setenta e cinco
+976	novecentos e setenta e seis|novecentas e setenta e seis	novecentos e setenta e seis
+977	novecentos e setenta e sete|novecentas e setenta e sete	novecentos e setenta e sete
+978	novecentos e setenta e oito|novecentas e setenta e oito	novecentos e setenta e oito
+979	novecentos e setenta e nove|novecentas e setenta e nove	novecentos e setenta e nove
+980	novecentos e oitenta|novecentas e oitenta	novecentos e oitenta
+981	novecentos e oitenta e um|novecentas e oitenta e uma	novecentos e oitenta e um
+982	novecentos e oitenta e dois|novecentas e oitenta e duas	novecentos e oitenta e dois
+983	novecentos e oitenta e tres|novecentas e oitenta e tres	novecentos e oitenta e tres
+984	novecentos e oitenta e quatro|novecentas e oitenta e quatro	novecentos e oitenta e quatro
+985	novecentos e oitenta e cinco|novecentas e oitenta e cinco	novecentos e oitenta e cinco
+986	novecentos e oitenta e seis|novecentas e oitenta e seis	novecentos e oitenta e seis
+987	novecentos e oitenta e sete|novecentas e oitenta e sete	novecentos e oitenta e sete
+988	novecentos e oitenta e oito|novecentas e oitenta e oito	novecentos e oitenta e oito
+989	novecentos e oitenta e nove|novecentas e oitenta e nove	novecentos e oitenta e nove
+990	novecentos e noventa|novecentas e noventa	novecentos e noventa
+991	novecentos e noventa e um|novecentas e noventa e uma	novecentos e noventa e um
+992	novecentos e noventa e dois|novecentas e noventa e duas	novecentos e noventa e dois
+993	novecentos e noventa e tres|novecentas e noventa e tres	novecentos e noventa e tres
+994	novecentos e noventa e quatro|novecentas e noventa e quatro	novecentos e noventa e quatro
+995	novecentos e noventa e cinco|novecentas e noventa e cinco	novecentos e noventa e cinco
+996	novecentos e noventa e seis|novecentas e noventa e seis	novecentos e noventa e seis
+997	novecentos e noventa e sete|novecentas e noventa e sete	novecentos e noventa e sete
+998	novecentos e noventa e oito|novecentas e noventa e oito	novecentos e noventa e oito
+999	novecentos e noventa e nove|novecentas e noventa e nove	novecentos e noventa e nove
+1000	mil	mil
+1001	mil e um|mil e uma	mil e um
+1002	mil e dois|mil e duas	mil e dois
+1003	mil e tres	mil e tres
+1004	mil e quatro	mil e quatro
+1005	mil e cinco	mil e cinco
+1006	mil e seis	mil e seis
+1007	mil e sete	mil e sete
+1008	mil e oito	mil e oito
+1009	mil e nove	mil e nove
+1010	mil e dez	mil e dez
+1011	mil e onze	mil e onze
+1012	mil e doze	mil e doze
+1013	mil e treze	mil e treze
+1014	mil e catorze|mil e quatorze	mil e catorze|mil e quatorze
+1015	mil e quinze	mil e quinze
+1016	mil e dezesseis	mil e dezesseis
+1017	mil e dezessete	mil e dezessete
+1018	mil e dezoito	mil e dezoito
+1019	mil e dezenove	mil e dezenove
+1020	mil e vinte	mil e vinte
+1021	mil e vinte e um|mil e vinte e uma	mil e vinte e um
+1022	mil e vinte e dois|mil e vinte e duas	mil e vinte e dois
+1023	mil e vinte e tres	mil e vinte e tres
+1024	mil e vinte e quatro	mil e vinte e quatro
+1025	mil e vinte e cinco	mil e vinte e cinco
+1026	mil e vinte e seis	mil e vinte e seis
+1027	mil e vinte e sete	mil e vinte e sete
+1028	mil e vinte e oito	mil e vinte e oito
+1029	mil e vinte e nove	mil e vinte e nove
+1030	mil e trinta	mil e trinta
+1031	mil e trinta e um|mil e trinta e uma	mil e trinta e um
+1032	mil e trinta e dois|mil e trinta e duas	mil e trinta e dois
+1033	mil e trinta e tres	mil e trinta e tres
+1034	mil e trinta e quatro	mil e trinta e quatro
+1035	mil e trinta e cinco	mil e trinta e cinco
+1036	mil e trinta e seis	mil e trinta e seis
+1037	mil e trinta e sete	mil e trinta e sete
+1038	mil e trinta e oito	mil e trinta e oito
+1039	mil e trinta e nove	mil e trinta e nove
+1040	mil e quarenta	mil e quarenta
+1041	mil e quarenta e um|mil e quarenta e uma	mil e quarenta e um
+1042	mil e quarenta e dois|mil e quarenta e duas	mil e quarenta e dois
+1043	mil e quarenta e tres	mil e quarenta e tres
+1044	mil e quarenta e quatro	mil e quarenta e quatro
+1045	mil e quarenta e cinco	mil e quarenta e cinco
+1046	mil e quarenta e seis	mil e quarenta e seis
+1047	mil e quarenta e sete	mil e quarenta e sete
+1048	mil e quarenta e oito	mil e quarenta e oito
+1049	mil e quarenta e nove	mil e quarenta e nove
+1050	mil e cinquenta	mil e cinquenta
+1051	mil e cinquenta e um|mil e cinquenta e uma	mil e cinquenta e um
+1052	mil e cinquenta e dois|mil e cinquenta e duas	mil e cinquenta e dois
+1053	mil e cinquenta e tres	mil e cinquenta e tres
+1054	mil e cinquenta e quatro	mil e cinquenta e quatro
+1055	mil e cinquenta e cinco	mil e cinquenta e cinco
+1056	mil e cinquenta e seis	mil e cinquenta e seis
+1057	mil e cinquenta e sete	mil e cinquenta e sete
+1058	mil e cinquenta e oito	mil e cinquenta e oito
+1059	mil e cinquenta e nove	mil e cinquenta e nove
+1060	mil e sessenta	mil e sessenta
+1061	mil e sessenta e um|mil e sessenta e uma	mil e sessenta e um
+1062	mil e sessenta e dois|mil e sessenta e duas	mil e sessenta e dois
+1063	mil e sessenta e tres	mil e sessenta e tres
+1064	mil e sessenta e quatro	mil e sessenta e quatro
+1065	mil e sessenta e cinco	mil e sessenta e cinco
+1066	mil e sessenta e seis	mil e sessenta e seis
+1067	mil e sessenta e sete	mil e sessenta e sete
+1068	mil e sessenta e oito	mil e sessenta e oito
+1069	mil e sessenta e nove	mil e sessenta e nove
+1070	mil e setenta	mil e setenta
+1071	mil e setenta e um|mil e setenta e uma	mil e setenta e um
+1072	mil e setenta e dois|mil e setenta e duas	mil e setenta e dois
+1073	mil e setenta e tres	mil e setenta e tres
+1074	mil e setenta e quatro	mil e setenta e quatro
+1075	mil e setenta e cinco	mil e setenta e cinco
+1076	mil e setenta e seis	mil e setenta e seis
+1077	mil e setenta e sete	mil e setenta e sete
+1078	mil e setenta e oito	mil e setenta e oito
+1079	mil e setenta e nove	mil e setenta e nove
+1080	mil e oitenta	mil e oitenta
+1081	mil e oitenta e um|mil e oitenta e uma	mil e oitenta e um
+1082	mil e oitenta e dois|mil e oitenta e duas	mil e oitenta e dois
+1083	mil e oitenta e tres	mil e oitenta e tres
+1084	mil e oitenta e quatro	mil e oitenta e quatro
+1085	mil e oitenta e cinco	mil e oitenta e cinco
+1086	mil e oitenta e seis	mil e oitenta e seis
+1087	mil e oitenta e sete	mil e oitenta e sete
+1088	mil e oitenta e oito	mil e oitenta e oito
+1089	mil e oitenta e nove	mil e oitenta e nove
+1090	mil e noventa	mil e noventa
+1091	mil e noventa e um|mil e noventa e uma	mil e noventa e um
+1092	mil e noventa e dois|mil e noventa e duas	mil e noventa e dois
+1093	mil e noventa e tres	mil e noventa e tres
+1094	mil e noventa e quatro	mil e noventa e quatro
+1095	mil e noventa e cinco	mil e noventa e cinco
+1096	mil e noventa e seis	mil e noventa e seis
+1097	mil e noventa e sete	mil e noventa e sete
+1098	mil e noventa e oito	mil e noventa e oito
+1099	mil e noventa e nove	mil e noventa e nove
+1100	mil e cem	mil e cem
+1101	mil cento e um|mil cento e uma	mil cento e um
+1102	mil cento e dois|mil cento e duas	mil cento e dois
+1103	mil cento e tres	mil cento e tres
+1104	mil cento e quatro	mil cento e quatro
+1105	mil cento e cinco	mil cento e cinco
+1106	mil cento e seis	mil cento e seis
+1107	mil cento e sete	mil cento e sete
+1108	mil cento e oito	mil cento e oito
+1109	mil cento e nove	mil cento e nove
+1110	mil cento e dez	mil cento e dez
+1111	mil cento e onze	mil cento e onze
+1112	mil cento e doze	mil cento e doze
+1113	mil cento e treze	mil cento e treze
+1114	mil cento e catorze|mil cento e quatorze	mil cento e catorze|mil cento e quatorze
+1115	mil cento e quinze	mil cento e quinze
+1116	mil cento e dezesseis	mil cento e dezesseis
+1117	mil cento e dezessete	mil cento e dezessete
+1118	mil cento e dezoito	mil cento e dezoito
+1119	mil cento e dezenove	mil cento e dezenove
+1120	mil cento e vinte	mil cento e vinte
+1121	mil cento e vinte e um|mil cento e vinte e uma	mil cento e vinte e um
+1122	mil cento e vinte e dois|mil cento e vinte e duas	mil cento e vinte e dois
+1123	mil cento e vinte e tres	mil cento e vinte e tres
+1124	mil cento e vinte e quatro	mil cento e vinte e quatro
+1125	mil cento e vinte e cinco	mil cento e vinte e cinco
+1126	mil cento e vinte e seis	mil cento e vinte e seis
+1127	mil cento e vinte e sete	mil cento e vinte e sete
+1128	mil cento e vinte e oito	mil cento e vinte e oito
+1129	mil cento e vinte e nove	mil cento e vinte e nove
+1130	mil cento e trinta	mil cento e trinta
+1131	mil cento e trinta e um|mil cento e trinta e uma	mil cento e trinta e um
+1132	mil cento e trinta e dois|mil cento e trinta e duas	mil cento e trinta e dois
+1133	mil cento e trinta e tres	mil cento e trinta e tres
+1134	mil cento e trinta e quatro	mil cento e trinta e quatro
+1135	mil cento e trinta e cinco	mil cento e trinta e cinco
+1136	mil cento e trinta e seis	mil cento e trinta e seis
+1137	mil cento e trinta e sete	mil cento e trinta e sete
+1138	mil cento e trinta e oito	mil cento e trinta e oito
+1139	mil cento e trinta e nove	mil cento e trinta e nove
+1140	mil cento e quarenta	mil cento e quarenta
+1141	mil cento e quarenta e um|mil cento e quarenta e uma	mil cento e quarenta e um
+1142	mil cento e quarenta e dois|mil cento e quarenta e duas	mil cento e quarenta e dois
+1143	mil cento e quarenta e tres	mil cento e quarenta e tres
+1144	mil cento e quarenta e quatro	mil cento e quarenta e quatro
+1145	mil cento e quarenta e cinco	mil cento e quarenta e cinco
+1146	mil cento e quarenta e seis	mil cento e quarenta e seis
+1147	mil cento e quarenta e sete	mil cento e quarenta e sete
+1148	mil cento e quarenta e oito	mil cento e quarenta e oito
+1149	mil cento e quarenta e nove	mil cento e quarenta e nove
+1150	mil cento e cinquenta	mil cento e cinquenta
+1151	mil cento e cinquenta e um|mil cento e cinquenta e uma	mil cento e cinquenta e um
+1152	mil cento e cinquenta e dois|mil cento e cinquenta e duas	mil cento e cinquenta e dois
+1153	mil cento e cinquenta e tres	mil cento e cinquenta e tres
+1154	mil cento e cinquenta e quatro	mil cento e cinquenta e quatro
+1155	mil cento e cinquenta e cinco	mil cento e cinquenta e cinco
+1156	mil cento e cinquenta e seis	mil cento e cinquenta e seis
+1157	mil cento e cinquenta e sete	mil cento e cinquenta e sete
+1158	mil cento e cinquenta e oito	mil cento e cinquenta e oito
+1159	mil cento e cinquenta e nove	mil cento e cinquenta e nove
+1160	mil cento e sessenta	mil cento e sessenta
+1161	mil cento e sessenta e um|mil cento e sessenta e uma	mil cento e sessenta e um
+1162	mil cento e sessenta e dois|mil cento e sessenta e duas	mil cento e sessenta e dois
+1163	mil cento e sessenta e tres	mil cento e sessenta e tres
+1164	mil cento e sessenta e quatro	mil cento e sessenta e quatro
+1165	mil cento e sessenta e cinco	mil cento e sessenta e cinco
+1166	mil cento e sessenta e seis	mil cento e sessenta e seis
+1167	mil cento e sessenta e sete	mil cento e sessenta e sete
+1168	mil cento e sessenta e oito	mil cento e sessenta e oito
+1169	mil cento e sessenta e nove	mil cento e sessenta e nove
+1170	mil cento e setenta	mil cento e setenta
+1171	mil cento e setenta e um|mil cento e setenta e uma	mil cento e setenta e um
+1172	mil cento e setenta e dois|mil cento e setenta e duas	mil cento e setenta e dois
+1173	mil cento e setenta e tres	mil cento e setenta e tres
+1174	mil cento e setenta e quatro	mil cento e setenta e quatro
+1175	mil cento e setenta e cinco	mil cento e setenta e cinco
+1176	mil cento e setenta e seis	mil cento e setenta e seis
+1177	mil cento e setenta e sete	mil cento e setenta e sete
+1178	mil cento e setenta e oito	mil cento e setenta e oito
+1179	mil cento e setenta e nove	mil cento e setenta e nove
+1180	mil cento e oitenta	mil cento e oitenta
+1181	mil cento e oitenta e um|mil cento e oitenta e uma	mil cento e oitenta e um
+1182	mil cento e oitenta e dois|mil cento e oitenta e duas	mil cento e oitenta e dois
+1183	mil cento e oitenta e tres	mil cento e oitenta e tres
+1184	mil cento e oitenta e quatro	mil cento e oitenta e quatro
+1185	mil cento e oitenta e cinco	mil cento e oitenta e cinco
+1186	mil cento e oitenta e seis	mil cento e oitenta e seis
+1187	mil cento e oitenta e sete	mil cento e oitenta e sete
+1188	mil cento e oitenta e oito	mil cento e oitenta e oito
+1189	mil cento e oitenta e nove	mil cento e oitenta e nove
+1190	mil cento e noventa	mil cento e noventa
+1191	mil cento e noventa e um|mil cento e noventa e uma	mil cento e noventa e um
+1192	mil cento e noventa e dois|mil cento e noventa e duas	mil cento e noventa e dois
+1193	mil cento e noventa e tres	mil cento e noventa e tres
+1194	mil cento e noventa e quatro	mil cento e noventa e quatro
+1195	mil cento e noventa e cinco	mil cento e noventa e cinco
+1196	mil cento e noventa e seis	mil cento e noventa e seis
+1197	mil cento e noventa e sete	mil cento e noventa e sete
+1198	mil cento e noventa e oito	mil cento e noventa e oito
+1199	mil cento e noventa e nove	mil cento e noventa e nove
+1200	mil e duzentos|mil e duzentas	mil e duzentos
+1201	mil duzentos e um|mil duzentas e uma	mil duzentos e um
+1202	mil duzentos e dois|mil duzentas e duas	mil duzentos e dois
+1203	mil duzentos e tres|mil duzentas e tres	mil duzentos e tres
+1204	mil duzentos e quatro|mil duzentas e quatro	mil duzentos e quatro
+1205	mil duzentos e cinco|mil duzentas e cinco	mil duzentos e cinco
+1206	mil duzentos e seis|mil duzentas e seis	mil duzentos e seis
+1207	mil duzentos e sete|mil duzentas e sete	mil duzentos e sete
+1208	mil duzentos e oito|mil duzentas e oito	mil duzentos e oito
+1209	mil duzentos e nove|mil duzentas e nove	mil duzentos e nove
+1210	mil duzentos e dez|mil duzentas e dez	mil duzentos e dez
+1211	mil duzentos e onze|mil duzentas e onze	mil duzentos e onze
+1212	mil duzentos e doze|mil duzentas e doze	mil duzentos e doze
+1213	mil duzentos e treze|mil duzentas e treze	mil duzentos e treze
+1214	mil duzentos e catorze|mil duzentos e quatorze|mil duzentas e catorze|mil duzentas e quatorze	mil duzentos e catorze|mil duzentos e quatorze
+1215	mil duzentos e quinze|mil duzentas e quinze	mil duzentos e quinze
+1216	mil duzentos e dezesseis|mil duzentas e dezesseis	mil duzentos e dezesseis
+1217	mil duzentos e dezessete|mil duzentas e dezessete	mil duzentos e dezessete
+1218	mil duzentos e dezoito|mil duzentas e dezoito	mil duzentos e dezoito
+1219	mil duzentos e dezenove|mil duzentas e dezenove	mil duzentos e dezenove
+1220	mil duzentos e vinte|mil duzentas e vinte	mil duzentos e vinte
+1221	mil duzentos e vinte e um|mil duzentas e vinte e uma	mil duzentos e vinte e um
+1222	mil duzentos e vinte e dois|mil duzentas e vinte e duas	mil duzentos e vinte e dois
+1223	mil duzentos e vinte e tres|mil duzentas e vinte e tres	mil duzentos e vinte e tres
+1224	mil duzentos e vinte e quatro|mil duzentas e vinte e quatro	mil duzentos e vinte e quatro
+1225	mil duzentos e vinte e cinco|mil duzentas e vinte e cinco	mil duzentos e vinte e cinco
+1226	mil duzentos e vinte e seis|mil duzentas e vinte e seis	mil duzentos e vinte e seis
+1227	mil duzentos e vinte e sete|mil duzentas e vinte e sete	mil duzentos e vinte e sete
+1228	mil duzentos e vinte e oito|mil duzentas e vinte e oito	mil duzentos e vinte e oito
+1229	mil duzentos e vinte e nove|mil duzentas e vinte e nove	mil duzentos e vinte e nove
+1230	mil duzentos e trinta|mil duzentas e trinta	mil duzentos e trinta
+1231	mil duzentos e trinta e um|mil duzentas e trinta e uma	mil duzentos e trinta e um
+1232	mil duzentos e trinta e dois|mil duzentas e trinta e duas	mil duzentos e trinta e dois
+1233	mil duzentos e trinta e tres|mil duzentas e trinta e tres	mil duzentos e trinta e tres
+1234	mil duzentos e trinta e quatro|mil duzentas e trinta e quatro	mil duzentos e trinta e quatro
+1235	mil duzentos e trinta e cinco|mil duzentas e trinta e cinco	mil duzentos e trinta e cinco
+1236	mil duzentos e trinta e seis|mil duzentas e trinta e seis	mil duzentos e trinta e seis
+1237	mil duzentos e trinta e sete|mil duzentas e trinta e sete	mil duzentos e trinta e sete
+1238	mil duzentos e trinta e oito|mil duzentas e trinta e oito	mil duzentos e trinta e oito
+1239	mil duzentos e trinta e nove|mil duzentas e trinta e nove	mil duzentos e trinta e nove
+1240	mil duzentos e quarenta|mil duzentas e quarenta	mil duzentos e quarenta
+1241	mil duzentos e quarenta e um|mil duzentas e quarenta e uma	mil duzentos e quarenta e um
+1242	mil duzentos e quarenta e dois|mil duzentas e quarenta e duas	mil duzentos e quarenta e dois
+1243	mil duzentos e quarenta e tres|mil duzentas e quarenta e tres	mil duzentos e quarenta e tres
+1244	mil duzentos e quarenta e quatro|mil duzentas e quarenta e quatro	mil duzentos e quarenta e quatro
+1245	mil duzentos e quarenta e cinco|mil duzentas e quarenta e cinco	mil duzentos e quarenta e cinco
+1246	mil duzentos e quarenta e seis|mil duzentas e quarenta e seis	mil duzentos e quarenta e seis
+1247	mil duzentos e quarenta e sete|mil duzentas e quarenta e sete	mil duzentos e quarenta e sete
+1248	mil duzentos e quarenta e oito|mil duzentas e quarenta e oito	mil duzentos e quarenta e oito
+1249	mil duzentos e quarenta e nove|mil duzentas e quarenta e nove	mil duzentos e quarenta e nove
+1250	mil duzentos e cinquenta|mil duzentas e cinquenta	mil duzentos e cinquenta
+1251	mil duzentos e cinquenta e um|mil duzentas e cinquenta e uma	mil duzentos e cinquenta e um
+1252	mil duzentos e cinquenta e dois|mil duzentas e cinquenta e duas	mil duzentos e cinquenta e dois
+1253	mil duzentos e cinquenta e tres|mil duzentas e cinquenta e tres	mil duzentos e cinquenta e tres
+1254	mil duzentos e cinquenta e quatro|mil duzentas e cinquenta e quatro	mil duzentos e cinquenta e quatro
+1255	mil duzentos e cinquenta e cinco|mil duzentas e cinquenta e cinco	mil duzentos e cinquenta e cinco
+1256	mil duzentos e cinquenta e seis|mil duzentas e cinquenta e seis	mil duzentos e cinquenta e seis
+1257	mil duzentos e cinquenta e sete|mil duzentas e cinquenta e sete	mil duzentos e cinquenta e sete
+1258	mil duzentos e cinquenta e oito|mil duzentas e cinquenta e oito	mil duzentos e cinquenta e oito
+1259	mil duzentos e cinquenta e nove|mil duzentas e cinquenta e nove	mil duzentos e cinquenta e nove
+1260	mil duzentos e sessenta|mil duzentas e sessenta	mil duzentos e sessenta
+1261	mil duzentos e sessenta e um|mil duzentas e sessenta e uma	mil duzentos e sessenta e um
+1262	mil duzentos e sessenta e dois|mil duzentas e sessenta e duas	mil duzentos e sessenta e dois
+1263	mil duzentos e sessenta e tres|mil duzentas e sessenta e tres	mil duzentos e sessenta e tres
+1264	mil duzentos e sessenta e quatro|mil duzentas e sessenta e quatro	mil duzentos e sessenta e quatro
+1265	mil duzentos e sessenta e cinco|mil duzentas e sessenta e cinco	mil duzentos e sessenta e cinco
+1266	mil duzentos e sessenta e seis|mil duzentas e sessenta e seis	mil duzentos e sessenta e seis
+1267	mil duzentos e sessenta e sete|mil duzentas e sessenta e sete	mil duzentos e sessenta e sete
+1268	mil duzentos e sessenta e oito|mil duzentas e sessenta e oito	mil duzentos e sessenta e oito
+1269	mil duzentos e sessenta e nove|mil duzentas e sessenta e nove	mil duzentos e sessenta e nove
+1270	mil duzentos e setenta|mil duzentas e setenta	mil duzentos e setenta
+1271	mil duzentos e setenta e um|mil duzentas e setenta e uma	mil duzentos e setenta e um
+1272	mil duzentos e setenta e dois|mil duzentas e setenta e duas	mil duzentos e setenta e dois
+1273	mil duzentos e setenta e tres|mil duzentas e setenta e tres	mil duzentos e setenta e tres
+1274	mil duzentos e setenta e quatro|mil duzentas e setenta e quatro	mil duzentos e setenta e quatro
+1275	mil duzentos e setenta e cinco|mil duzentas e setenta e cinco	mil duzentos e setenta e cinco
+1276	mil duzentos e setenta e seis|mil duzentas e setenta e seis	mil duzentos e setenta e seis
+1277	mil duzentos e setenta e sete|mil duzentas e setenta e sete	mil duzentos e setenta e sete
+1278	mil duzentos e setenta e oito|mil duzentas e setenta e oito	mil duzentos e setenta e oito
+1279	mil duzentos e setenta e nove|mil duzentas e setenta e nove	mil duzentos e setenta e nove
+1280	mil duzentos e oitenta|mil duzentas e oitenta	mil duzentos e oitenta
+1281	mil duzentos e oitenta e um|mil duzentas e oitenta e uma	mil duzentos e oitenta e um
+1282	mil duzentos e oitenta e dois|mil duzentas e oitenta e duas	mil duzentos e oitenta e dois
+1283	mil duzentos e oitenta e tres|mil duzentas e oitenta e tres	mil duzentos e oitenta e tres
+1284	mil duzentos e oitenta e quatro|mil duzentas e oitenta e quatro	mil duzentos e oitenta e quatro
+1285	mil duzentos e oitenta e cinco|mil duzentas e oitenta e cinco	mil duzentos e oitenta e cinco
+1286	mil duzentos e oitenta e seis|mil duzentas e oitenta e seis	mil duzentos e oitenta e seis
+1287	mil duzentos e oitenta e sete|mil duzentas e oitenta e sete	mil duzentos e oitenta e sete
+1288	mil duzentos e oitenta e oito|mil duzentas e oitenta e oito	mil duzentos e oitenta e oito
+1289	mil duzentos e oitenta e nove|mil duzentas e oitenta e nove	mil duzentos e oitenta e nove
+1290	mil duzentos e noventa|mil duzentas e noventa	mil duzentos e noventa
+1291	mil duzentos e noventa e um|mil duzentas e noventa e uma	mil duzentos e noventa e um
+1292	mil duzentos e noventa e dois|mil duzentas e noventa e duas	mil duzentos e noventa e dois
+1293	mil duzentos e noventa e tres|mil duzentas e noventa e tres	mil duzentos e noventa e tres
+1294	mil duzentos e noventa e quatro|mil duzentas e noventa e quatro	mil duzentos e noventa e quatro
+1295	mil duzentos e noventa e cinco|mil duzentas e noventa e cinco	mil duzentos e noventa e cinco
+1296	mil duzentos e noventa e seis|mil duzentas e noventa e seis	mil duzentos e noventa e seis
+1297	mil duzentos e noventa e sete|mil duzentas e noventa e sete	mil duzentos e noventa e sete
+1298	mil duzentos e noventa e oito|mil duzentas e noventa e oito	mil duzentos e noventa e oito
+1299	mil duzentos e noventa e nove|mil duzentas e noventa e nove	mil duzentos e noventa e nove
+1300	mil e trezentos|mil e trezentas	mil e trezentos
+1301	mil trezentos e um|mil trezentas e uma	mil trezentos e um
+1302	mil trezentos e dois|mil trezentas e duas	mil trezentos e dois
+1303	mil trezentos e tres|mil trezentas e tres	mil trezentos e tres
+1304	mil trezentos e quatro|mil trezentas e quatro	mil trezentos e quatro
+1305	mil trezentos e cinco|mil trezentas e cinco	mil trezentos e cinco
+1306	mil trezentos e seis|mil trezentas e seis	mil trezentos e seis
+1307	mil trezentos e sete|mil trezentas e sete	mil trezentos e sete
+1308	mil trezentos e oito|mil trezentas e oito	mil trezentos e oito
+1309	mil trezentos e nove|mil trezentas e nove	mil trezentos e nove
+1310	mil trezentos e dez|mil trezentas e dez	mil trezentos e dez
+1311	mil trezentos e onze|mil trezentas e onze	mil trezentos e onze
+1312	mil trezentos e doze|mil trezentas e doze	mil trezentos e doze
+1313	mil trezentos e treze|mil trezentas e treze	mil trezentos e treze
+1314	mil trezentos e catorze|mil trezentos e quatorze|mil trezentas e catorze|mil trezentas e quatorze	mil trezentos e catorze|mil trezentos e quatorze
+1315	mil trezentos e quinze|mil trezentas e quinze	mil trezentos e quinze
+1316	mil trezentos e dezesseis|mil trezentas e dezesseis	mil trezentos e dezesseis
+1317	mil trezentos e dezessete|mil trezentas e dezessete	mil trezentos e dezessete
+1318	mil trezentos e dezoito|mil trezentas e dezoito	mil trezentos e dezoito
+1319	mil trezentos e dezenove|mil trezentas e dezenove	mil trezentos e dezenove
+1320	mil trezentos e vinte|mil trezentas e vinte	mil trezentos e vinte
+1321	mil trezentos e vinte e um|mil trezentas e vinte e uma	mil trezentos e vinte e um
+1322	mil trezentos e vinte e dois|mil trezentas e vinte e duas	mil trezentos e vinte e dois
+1323	mil trezentos e vinte e tres|mil trezentas e vinte e tres	mil trezentos e vinte e tres
+1324	mil trezentos e vinte e quatro|mil trezentas e vinte e quatro	mil trezentos e vinte e quatro
+1325	mil trezentos e vinte e cinco|mil trezentas e vinte e cinco	mil trezentos e vinte e cinco
+1326	mil trezentos e vinte e seis|mil trezentas e vinte e seis	mil trezentos e vinte e seis
+1327	mil trezentos e vinte e sete|mil trezentas e vinte e sete	mil trezentos e vinte e sete
+1328	mil trezentos e vinte e oito|mil trezentas e vinte e oito	mil trezentos e vinte e oito
+1329	mil trezentos e vinte e nove|mil trezentas e vinte e nove	mil trezentos e vinte e nove
+1330	mil trezentos e trinta|mil trezentas e trinta	mil trezentos e trinta
+1331	mil trezentos e trinta e um|mil trezentas e trinta e uma	mil trezentos e trinta e um
+1332	mil trezentos e trinta e dois|mil trezentas e trinta e duas	mil trezentos e trinta e dois
+1333	mil trezentos e trinta e tres|mil trezentas e trinta e tres	mil trezentos e trinta e tres
+1334	mil trezentos e trinta e quatro|mil trezentas e trinta e quatro	mil trezentos e trinta e quatro
+1335	mil trezentos e trinta e cinco|mil trezentas e trinta e cinco	mil trezentos e trinta e cinco
+1336	mil trezentos e trinta e seis|mil trezentas e trinta e seis	mil trezentos e trinta e seis
+1337	mil trezentos e trinta e sete|mil trezentas e trinta e sete	mil trezentos e trinta e sete
+1338	mil trezentos e trinta e oito|mil trezentas e trinta e oito	mil trezentos e trinta e oito
+1339	mil trezentos e trinta e nove|mil trezentas e trinta e nove	mil trezentos e trinta e nove
+1340	mil trezentos e quarenta|mil trezentas e quarenta	mil trezentos e quarenta
+1341	mil trezentos e quarenta e um|mil trezentas e quarenta e uma	mil trezentos e quarenta e um
+1342	mil trezentos e quarenta e dois|mil trezentas e quarenta e duas	mil trezentos e quarenta e dois
+1343	mil trezentos e quarenta e tres|mil trezentas e quarenta e tres	mil trezentos e quarenta e tres
+1344	mil trezentos e quarenta e quatro|mil trezentas e quarenta e quatro	mil trezentos e quarenta e quatro
+1345	mil trezentos e quarenta e cinco|mil trezentas e quarenta e cinco	mil trezentos e quarenta e cinco
+1346	mil trezentos e quarenta e seis|mil trezentas e quarenta e seis	mil trezentos e quarenta e seis
+1347	mil trezentos e quarenta e sete|mil trezentas e quarenta e sete	mil trezentos e quarenta e sete
+1348	mil trezentos e quarenta e oito|mil trezentas e quarenta e oito	mil trezentos e quarenta e oito
+1349	mil trezentos e quarenta e nove|mil trezentas e quarenta e nove	mil trezentos e quarenta e nove
+1350	mil trezentos e cinquenta|mil trezentas e cinquenta	mil trezentos e cinquenta
+1351	mil trezentos e cinquenta e um|mil trezentas e cinquenta e uma	mil trezentos e cinquenta e um
+1352	mil trezentos e cinquenta e dois|mil trezentas e cinquenta e duas	mil trezentos e cinquenta e dois
+1353	mil trezentos e cinquenta e tres|mil trezentas e cinquenta e tres	mil trezentos e cinquenta e tres
+1354	mil trezentos e cinquenta e quatro|mil trezentas e cinquenta e quatro	mil trezentos e cinquenta e quatro
+1355	mil trezentos e cinquenta e cinco|mil trezentas e cinquenta e cinco	mil trezentos e cinquenta e cinco
+1356	mil trezentos e cinquenta e seis|mil trezentas e cinquenta e seis	mil trezentos e cinquenta e seis
+1357	mil trezentos e cinquenta e sete|mil trezentas e cinquenta e sete	mil trezentos e cinquenta e sete
+1358	mil trezentos e cinquenta e oito|mil trezentas e cinquenta e oito	mil trezentos e cinquenta e oito
+1359	mil trezentos e cinquenta e nove|mil trezentas e cinquenta e nove	mil trezentos e cinquenta e nove
+1360	mil trezentos e sessenta|mil trezentas e sessenta	mil trezentos e sessenta
+1361	mil trezentos e sessenta e um|mil trezentas e sessenta e uma	mil trezentos e sessenta e um
+1362	mil trezentos e sessenta e dois|mil trezentas e sessenta e duas	mil trezentos e sessenta e dois
+1363	mil trezentos e sessenta e tres|mil trezentas e sessenta e tres	mil trezentos e sessenta e tres
+1364	mil trezentos e sessenta e quatro|mil trezentas e sessenta e quatro	mil trezentos e sessenta e quatro
+1365	mil trezentos e sessenta e cinco|mil trezentas e sessenta e cinco	mil trezentos e sessenta e cinco
+1366	mil trezentos e sessenta e seis|mil trezentas e sessenta e seis	mil trezentos e sessenta e seis
+1367	mil trezentos e sessenta e sete|mil trezentas e sessenta e sete	mil trezentos e sessenta e sete
+1368	mil trezentos e sessenta e oito|mil trezentas e sessenta e oito	mil trezentos e sessenta e oito
+1369	mil trezentos e sessenta e nove|mil trezentas e sessenta e nove	mil trezentos e sessenta e nove
+1370	mil trezentos e setenta|mil trezentas e setenta	mil trezentos e setenta
+1371	mil trezentos e setenta e um|mil trezentas e setenta e uma	mil trezentos e setenta e um
+1372	mil trezentos e setenta e dois|mil trezentas e setenta e duas	mil trezentos e setenta e dois
+1373	mil trezentos e setenta e tres|mil trezentas e setenta e tres	mil trezentos e setenta e tres
+1374	mil trezentos e setenta e quatro|mil trezentas e setenta e quatro	mil trezentos e setenta e quatro
+1375	mil trezentos e setenta e cinco|mil trezentas e setenta e cinco	mil trezentos e setenta e cinco
+1376	mil trezentos e setenta e seis|mil trezentas e setenta e seis	mil trezentos e setenta e seis
+1377	mil trezentos e setenta e sete|mil trezentas e setenta e sete	mil trezentos e setenta e sete
+1378	mil trezentos e setenta e oito|mil trezentas e setenta e oito	mil trezentos e setenta e oito
+1379	mil trezentos e setenta e nove|mil trezentas e setenta e nove	mil trezentos e setenta e nove
+1380	mil trezentos e oitenta|mil trezentas e oitenta	mil trezentos e oitenta
+1381	mil trezentos e oitenta e um|mil trezentas e oitenta e uma	mil trezentos e oitenta e um
+1382	mil trezentos e oitenta e dois|mil trezentas e oitenta e duas	mil trezentos e oitenta e dois
+1383	mil trezentos e oitenta e tres|mil trezentas e oitenta e tres	mil trezentos e oitenta e tres
+1384	mil trezentos e oitenta e quatro|mil trezentas e oitenta e quatro	mil trezentos e oitenta e quatro
+1385	mil trezentos e oitenta e cinco|mil trezentas e oitenta e cinco	mil trezentos e oitenta e cinco
+1386	mil trezentos e oitenta e seis|mil trezentas e oitenta e seis	mil trezentos e oitenta e seis
+1387	mil trezentos e oitenta e sete|mil trezentas e oitenta e sete	mil trezentos e oitenta e sete
+1388	mil trezentos e oitenta e oito|mil trezentas e oitenta e oito	mil trezentos e oitenta e oito
+1389	mil trezentos e oitenta e nove|mil trezentas e oitenta e nove	mil trezentos e oitenta e nove
+1390	mil trezentos e noventa|mil trezentas e noventa	mil trezentos e noventa
+1391	mil trezentos e noventa e um|mil trezentas e noventa e uma	mil trezentos e noventa e um
+1392	mil trezentos e noventa e dois|mil trezentas e noventa e duas	mil trezentos e noventa e dois
+1393	mil trezentos e noventa e tres|mil trezentas e noventa e tres	mil trezentos e noventa e tres
+1394	mil trezentos e noventa e quatro|mil trezentas e noventa e quatro	mil trezentos e noventa e quatro
+1395	mil trezentos e noventa e cinco|mil trezentas e noventa e cinco	mil trezentos e noventa e cinco
+1396	mil trezentos e noventa e seis|mil trezentas e noventa e seis	mil trezentos e noventa e seis
+1397	mil trezentos e noventa e sete|mil trezentas e noventa e sete	mil trezentos e noventa e sete
+1398	mil trezentos e noventa e oito|mil trezentas e noventa e oito	mil trezentos e noventa e oito
+1399	mil trezentos e noventa e nove|mil trezentas e noventa e nove	mil trezentos e noventa e nove
+1400	mil e quatrocentos|mil e quatrocentas	mil e quatrocentos
+1401	mil quatrocentos e um|mil quatrocentas e uma	mil quatrocentos e um
+1402	mil quatrocentos e dois|mil quatrocentas e duas	mil quatrocentos e dois
+1403	mil quatrocentos e tres|mil quatrocentas e tres	mil quatrocentos e tres
+1404	mil quatrocentos e quatro|mil quatrocentas e quatro	mil quatrocentos e quatro
+1405	mil quatrocentos e cinco|mil quatrocentas e cinco	mil quatrocentos e cinco
+1406	mil quatrocentos e seis|mil quatrocentas e seis	mil quatrocentos e seis
+1407	mil quatrocentos e sete|mil quatrocentas e sete	mil quatrocentos e sete
+1408	mil quatrocentos e oito|mil quatrocentas e oito	mil quatrocentos e oito
+1409	mil quatrocentos e nove|mil quatrocentas e nove	mil quatrocentos e nove
+1410	mil quatrocentos e dez|mil quatrocentas e dez	mil quatrocentos e dez
+1411	mil quatrocentos e onze|mil quatrocentas e onze	mil quatrocentos e onze
+1412	mil quatrocentos e doze|mil quatrocentas e doze	mil quatrocentos e doze
+1413	mil quatrocentos e treze|mil quatrocentas e treze	mil quatrocentos e treze
+1414	mil quatrocentos e catorze|mil quatrocentos e quatorze|mil quatrocentas e catorze|mil quatrocentas e quatorze	mil quatrocentos e catorze|mil quatrocentos e quatorze
+1415	mil quatrocentos e quinze|mil quatrocentas e quinze	mil quatrocentos e quinze
+1416	mil quatrocentos e dezesseis|mil quatrocentas e dezesseis	mil quatrocentos e dezesseis
+1417	mil quatrocentos e dezessete|mil quatrocentas e dezessete	mil quatrocentos e dezessete
+1418	mil quatrocentos e dezoito|mil quatrocentas e dezoito	mil quatrocentos e dezoito
+1419	mil quatrocentos e dezenove|mil quatrocentas e dezenove	mil quatrocentos e dezenove
+1420	mil quatrocentos e vinte|mil quatrocentas e vinte	mil quatrocentos e vinte
+1421	mil quatrocentos e vinte e um|mil quatrocentas e vinte e uma	mil quatrocentos e vinte e um
+1422	mil quatrocentos e vinte e dois|mil quatrocentas e vinte e duas	mil quatrocentos e vinte e dois
+1423	mil quatrocentos e vinte e tres|mil quatrocentas e vinte e tres	mil quatrocentos e vinte e tres
+1424	mil quatrocentos e vinte e quatro|mil quatrocentas e vinte e quatro	mil quatrocentos e vinte e quatro
+1425	mil quatrocentos e vinte e cinco|mil quatrocentas e vinte e cinco	mil quatrocentos e vinte e cinco
+1426	mil quatrocentos e vinte e seis|mil quatrocentas e vinte e seis	mil quatrocentos e vinte e seis
+1427	mil quatrocentos e vinte e sete|mil quatrocentas e vinte e sete	mil quatrocentos e vinte e sete
+1428	mil quatrocentos e vinte e oito|mil quatrocentas e vinte e oito	mil quatrocentos e vinte e oito
+1429	mil quatrocentos e vinte e nove|mil quatrocentas e vinte e nove	mil quatrocentos e vinte e nove
+1430	mil quatrocentos e trinta|mil quatrocentas e trinta	mil quatrocentos e trinta
+1431	mil quatrocentos e trinta e um|mil quatrocentas e trinta e uma	mil quatrocentos e trinta e um
+1432	mil quatrocentos e trinta e dois|mil quatrocentas e trinta e duas	mil quatrocentos e trinta e dois
+1433	mil quatrocentos e trinta e tres|mil quatrocentas e trinta e tres	mil quatrocentos e trinta e tres
+1434	mil quatrocentos e trinta e quatro|mil quatrocentas e trinta e quatro	mil quatrocentos e trinta e quatro
+1435	mil quatrocentos e trinta e cinco|mil quatrocentas e trinta e cinco	mil quatrocentos e trinta e cinco
+1436	mil quatrocentos e trinta e seis|mil quatrocentas e trinta e seis	mil quatrocentos e trinta e seis
+1437	mil quatrocentos e trinta e sete|mil quatrocentas e trinta e sete	mil quatrocentos e trinta e sete
+1438	mil quatrocentos e trinta e oito|mil quatrocentas e trinta e oito	mil quatrocentos e trinta e oito
+1439	mil quatrocentos e trinta e nove|mil quatrocentas e trinta e nove	mil quatrocentos e trinta e nove
+1440	mil quatrocentos e quarenta|mil quatrocentas e quarenta	mil quatrocentos e quarenta
+1441	mil quatrocentos e quarenta e um|mil quatrocentas e quarenta e uma	mil quatrocentos e quarenta e um
+1442	mil quatrocentos e quarenta e dois|mil quatrocentas e quarenta e duas	mil quatrocentos e quarenta e dois
+1443	mil quatrocentos e quarenta e tres|mil quatrocentas e quarenta e tres	mil quatrocentos e quarenta e tres
+1444	mil quatrocentos e quarenta e quatro|mil quatrocentas e quarenta e quatro	mil quatrocentos e quarenta e quatro
+1445	mil quatrocentos e quarenta e cinco|mil quatrocentas e quarenta e cinco	mil quatrocentos e quarenta e cinco
+1446	mil quatrocentos e quarenta e seis|mil quatrocentas e quarenta e seis	mil quatrocentos e quarenta e seis
+1447	mil quatrocentos e quarenta e sete|mil quatrocentas e quarenta e sete	mil quatrocentos e quarenta e sete
+1448	mil quatrocentos e quarenta e oito|mil quatrocentas e quarenta e oito	mil quatrocentos e quarenta e oito
+1449	mil quatrocentos e quarenta e nove|mil quatrocentas e quarenta e nove	mil quatrocentos e quarenta e nove
+1450	mil quatrocentos e cinquenta|mil quatrocentas e cinquenta	mil quatrocentos e cinquenta
+1451	mil quatrocentos e cinquenta e um|mil quatrocentas e cinquenta e uma	mil quatrocentos e cinquenta e um
+1452	mil quatrocentos e cinquenta e dois|mil quatrocentas e cinquenta e duas	mil quatrocentos e cinquenta e dois
+1453	mil quatrocentos e cinquenta e tres|mil quatrocentas e cinquenta e tres	mil quatrocentos e cinquenta e tres
+1454	mil quatrocentos e cinquenta e quatro|mil quatrocentas e cinquenta e quatro	mil quatrocentos e cinquenta e quatro
+1455	mil quatrocentos e cinquenta e cinco|mil quatrocentas e cinquenta e cinco	mil quatrocentos e cinquenta e cinco
+1456	mil quatrocentos e cinquenta e seis|mil quatrocentas e cinquenta e seis	mil quatrocentos e cinquenta e seis
+1457	mil quatrocentos e cinquenta e sete|mil quatrocentas e cinquenta e sete	mil quatrocentos e cinquenta e sete
+1458	mil quatrocentos e cinquenta e oito|mil quatrocentas e cinquenta e oito	mil quatrocentos e cinquenta e oito
+1459	mil quatrocentos e cinquenta e nove|mil quatrocentas e cinquenta e nove	mil quatrocentos e cinquenta e nove
+1460	mil quatrocentos e sessenta|mil quatrocentas e sessenta	mil quatrocentos e sessenta
+1461	mil quatrocentos e sessenta e um|mil quatrocentas e sessenta e uma	mil quatrocentos e sessenta e um
+1462	mil quatrocentos e sessenta e dois|mil quatrocentas e sessenta e duas	mil quatrocentos e sessenta e dois
+1463	mil quatrocentos e sessenta e tres|mil quatrocentas e sessenta e tres	mil quatrocentos e sessenta e tres
+1464	mil quatrocentos e sessenta e quatro|mil quatrocentas e sessenta e quatro	mil quatrocentos e sessenta e quatro
+1465	mil quatrocentos e sessenta e cinco|mil quatrocentas e sessenta e cinco	mil quatrocentos e sessenta e cinco
+1466	mil quatrocentos e sessenta e seis|mil quatrocentas e sessenta e seis	mil quatrocentos e sessenta e seis
+1467	mil quatrocentos e sessenta e sete|mil quatrocentas e sessenta e sete	mil quatrocentos e sessenta e sete
+1468	mil quatrocentos e sessenta e oito|mil quatrocentas e sessenta e oito	mil quatrocentos e sessenta e oito
+1469	mil quatrocentos e sessenta e nove|mil quatrocentas e sessenta e nove	mil quatrocentos e sessenta e nove
+1470	mil quatrocentos e setenta|mil quatrocentas e setenta	mil quatrocentos e setenta
+1471	mil quatrocentos e setenta e um|mil quatrocentas e setenta e uma	mil quatrocentos e setenta e um
+1472	mil quatrocentos e setenta e dois|mil quatrocentas e setenta e duas	mil quatrocentos e setenta e dois
+1473	mil quatrocentos e setenta e tres|mil quatrocentas e setenta e tres	mil quatrocentos e setenta e tres
+1474	mil quatrocentos e setenta e quatro|mil quatrocentas e setenta e quatro	mil quatrocentos e setenta e quatro
+1475	mil quatrocentos e setenta e cinco|mil quatrocentas e setenta e cinco	mil quatrocentos e setenta e cinco
+1476	mil quatrocentos e setenta e seis|mil quatrocentas e setenta e seis	mil quatrocentos e setenta e seis
+1477	mil quatrocentos e setenta e sete|mil quatrocentas e setenta e sete	mil quatrocentos e setenta e sete
+1478	mil quatrocentos e setenta e oito|mil quatrocentas e setenta e oito	mil quatrocentos e setenta e oito
+1479	mil quatrocentos e setenta e nove|mil quatrocentas e setenta e nove	mil quatrocentos e setenta e nove
+1480	mil quatrocentos e oitenta|mil quatrocentas e oitenta	mil quatrocentos e oitenta
+1481	mil quatrocentos e oitenta e um|mil quatrocentas e oitenta e uma	mil quatrocentos e oitenta e um
+1482	mil quatrocentos e oitenta e dois|mil quatrocentas e oitenta e duas	mil quatrocentos e oitenta e dois
+1483	mil quatrocentos e oitenta e tres|mil quatrocentas e oitenta e tres	mil quatrocentos e oitenta e tres
+1484	mil quatrocentos e oitenta e quatro|mil quatrocentas e oitenta e quatro	mil quatrocentos e oitenta e quatro
+1485	mil quatrocentos e oitenta e cinco|mil quatrocentas e oitenta e cinco	mil quatrocentos e oitenta e cinco
+1486	mil quatrocentos e oitenta e seis|mil quatrocentas e oitenta e seis	mil quatrocentos e oitenta e seis
+1487	mil quatrocentos e oitenta e sete|mil quatrocentas e oitenta e sete	mil quatrocentos e oitenta e sete
+1488	mil quatrocentos e oitenta e oito|mil quatrocentas e oitenta e oito	mil quatrocentos e oitenta e oito
+1489	mil quatrocentos e oitenta e nove|mil quatrocentas e oitenta e nove	mil quatrocentos e oitenta e nove
+1490	mil quatrocentos e noventa|mil quatrocentas e noventa	mil quatrocentos e noventa
+1491	mil quatrocentos e noventa e um|mil quatrocentas e noventa e uma	mil quatrocentos e noventa e um
+1492	mil quatrocentos e noventa e dois|mil quatrocentas e noventa e duas	mil quatrocentos e noventa e dois
+1493	mil quatrocentos e noventa e tres|mil quatrocentas e noventa e tres	mil quatrocentos e noventa e tres
+1494	mil quatrocentos e noventa e quatro|mil quatrocentas e noventa e quatro	mil quatrocentos e noventa e quatro
+1495	mil quatrocentos e noventa e cinco|mil quatrocentas e noventa e cinco	mil quatrocentos e noventa e cinco
+1496	mil quatrocentos e noventa e seis|mil quatrocentas e noventa e seis	mil quatrocentos e noventa e seis
+1497	mil quatrocentos e noventa e sete|mil quatrocentas e noventa e sete	mil quatrocentos e noventa e sete
+1498	mil quatrocentos e noventa e oito|mil quatrocentas e noventa e oito	mil quatrocentos e noventa e oito
+1499	mil quatrocentos e noventa e nove|mil quatrocentas e noventa e nove	mil quatrocentos e noventa e nove
+1500	mil e quinhentos|mil e quinhentas	mil e quinhentos
+1501	mil quinhentos e um|mil quinhentas e uma	mil quinhentos e um
+1502	mil quinhentos e dois|mil quinhentas e duas	mil quinhentos e dois
+1503	mil quinhentos e tres|mil quinhentas e tres	mil quinhentos e tres
+1504	mil quinhentos e quatro|mil quinhentas e quatro	mil quinhentos e quatro
+1505	mil quinhentos e cinco|mil quinhentas e cinco	mil quinhentos e cinco
+1506	mil quinhentos e seis|mil quinhentas e seis	mil quinhentos e seis
+1507	mil quinhentos e sete|mil quinhentas e sete	mil quinhentos e sete
+1508	mil quinhentos e oito|mil quinhentas e oito	mil quinhentos e oito
+1509	mil quinhentos e nove|mil quinhentas e nove	mil quinhentos e nove
+1510	mil quinhentos e dez|mil quinhentas e dez	mil quinhentos e dez
+1511	mil quinhentos e onze|mil quinhentas e onze	mil quinhentos e onze
+1512	mil quinhentos e doze|mil quinhentas e doze	mil quinhentos e doze
+1513	mil quinhentos e treze|mil quinhentas e treze	mil quinhentos e treze
+1514	mil quinhentos e catorze|mil quinhentos e quatorze|mil quinhentas e catorze|mil quinhentas e quatorze	mil quinhentos e catorze|mil quinhentos e quatorze
+1515	mil quinhentos e quinze|mil quinhentas e quinze	mil quinhentos e quinze
+1516	mil quinhentos e dezesseis|mil quinhentas e dezesseis	mil quinhentos e dezesseis
+1517	mil quinhentos e dezessete|mil quinhentas e dezessete	mil quinhentos e dezessete
+1518	mil quinhentos e dezoito|mil quinhentas e dezoito	mil quinhentos e dezoito
+1519	mil quinhentos e dezenove|mil quinhentas e dezenove	mil quinhentos e dezenove
+1520	mil quinhentos e vinte|mil quinhentas e vinte	mil quinhentos e vinte
+1521	mil quinhentos e vinte e um|mil quinhentas e vinte e uma	mil quinhentos e vinte e um
+1522	mil quinhentos e vinte e dois|mil quinhentas e vinte e duas	mil quinhentos e vinte e dois
+1523	mil quinhentos e vinte e tres|mil quinhentas e vinte e tres	mil quinhentos e vinte e tres
+1524	mil quinhentos e vinte e quatro|mil quinhentas e vinte e quatro	mil quinhentos e vinte e quatro
+1525	mil quinhentos e vinte e cinco|mil quinhentas e vinte e cinco	mil quinhentos e vinte e cinco
+1526	mil quinhentos e vinte e seis|mil quinhentas e vinte e seis	mil quinhentos e vinte e seis
+1527	mil quinhentos e vinte e sete|mil quinhentas e vinte e sete	mil quinhentos e vinte e sete
+1528	mil quinhentos e vinte e oito|mil quinhentas e vinte e oito	mil quinhentos e vinte e oito
+1529	mil quinhentos e vinte e nove|mil quinhentas e vinte e nove	mil quinhentos e vinte e nove
+1530	mil quinhentos e trinta|mil quinhentas e trinta	mil quinhentos e trinta
+1531	mil quinhentos e trinta e um|mil quinhentas e trinta e uma	mil quinhentos e trinta e um
+1532	mil quinhentos e trinta e dois|mil quinhentas e trinta e duas	mil quinhentos e trinta e dois
+1533	mil quinhentos e trinta e tres|mil quinhentas e trinta e tres	mil quinhentos e trinta e tres
+1534	mil quinhentos e trinta e quatro|mil quinhentas e trinta e quatro	mil quinhentos e trinta e quatro
+1535	mil quinhentos e trinta e cinco|mil quinhentas e trinta e cinco	mil quinhentos e trinta e cinco
+1536	mil quinhentos e trinta e seis|mil quinhentas e trinta e seis	mil quinhentos e trinta e seis
+1537	mil quinhentos e trinta e sete|mil quinhentas e trinta e sete	mil quinhentos e trinta e sete
+1538	mil quinhentos e trinta e oito|mil quinhentas e trinta e oito	mil quinhentos e trinta e oito
+1539	mil quinhentos e trinta e nove|mil quinhentas e trinta e nove	mil quinhentos e trinta e nove
+1540	mil quinhentos e quarenta|mil quinhentas e quarenta	mil quinhentos e quarenta
+1541	mil quinhentos e quarenta e um|mil quinhentas e quarenta e uma	mil quinhentos e quarenta e um
+1542	mil quinhentos e quarenta e dois|mil quinhentas e quarenta e duas	mil quinhentos e quarenta e dois
+1543	mil quinhentos e quarenta e tres|mil quinhentas e quarenta e tres	mil quinhentos e quarenta e tres
+1544	mil quinhentos e quarenta e quatro|mil quinhentas e quarenta e quatro	mil quinhentos e quarenta e quatro
+1545	mil quinhentos e quarenta e cinco|mil quinhentas e quarenta e cinco	mil quinhentos e quarenta e cinco
+1546	mil quinhentos e quarenta e seis|mil quinhentas e quarenta e seis	mil quinhentos e quarenta e seis
+1547	mil quinhentos e quarenta e sete|mil quinhentas e quarenta e sete	mil quinhentos e quarenta e sete
+1548	mil quinhentos e quarenta e oito|mil quinhentas e quarenta e oito	mil quinhentos e quarenta e oito
+1549	mil quinhentos e quarenta e nove|mil quinhentas e quarenta e nove	mil quinhentos e quarenta e nove
+1550	mil quinhentos e cinquenta|mil quinhentas e cinquenta	mil quinhentos e cinquenta
+1551	mil quinhentos e cinquenta e um|mil quinhentas e cinquenta e uma	mil quinhentos e cinquenta e um
+1552	mil quinhentos e cinquenta e dois|mil quinhentas e cinquenta e duas	mil quinhentos e cinquenta e dois
+1553	mil quinhentos e cinquenta e tres|mil quinhentas e cinquenta e tres	mil quinhentos e cinquenta e tres
+1554	mil quinhentos e cinquenta e quatro|mil quinhentas e cinquenta e quatro	mil quinhentos e cinquenta e quatro
+1555	mil quinhentos e cinquenta e cinco|mil quinhentas e cinquenta e cinco	mil quinhentos e cinquenta e cinco
+1556	mil quinhentos e cinquenta e seis|mil quinhentas e cinquenta e seis	mil quinhentos e cinquenta e seis
+1557	mil quinhentos e cinquenta e sete|mil quinhentas e cinquenta e sete	mil quinhentos e cinquenta e sete
+1558	mil quinhentos e cinquenta e oito|mil quinhentas e cinquenta e oito	mil quinhentos e cinquenta e oito
+1559	mil quinhentos e cinquenta e nove|mil quinhentas e cinquenta e nove	mil quinhentos e cinquenta e nove
+1560	mil quinhentos e sessenta|mil quinhentas e sessenta	mil quinhentos e sessenta
+1561	mil quinhentos e sessenta e um|mil quinhentas e sessenta e uma	mil quinhentos e sessenta e um
+1562	mil quinhentos e sessenta e dois|mil quinhentas e sessenta e duas	mil quinhentos e sessenta e dois
+1563	mil quinhentos e sessenta e tres|mil quinhentas e sessenta e tres	mil quinhentos e sessenta e tres
+1564	mil quinhentos e sessenta e quatro|mil quinhentas e sessenta e quatro	mil quinhentos e sessenta e quatro
+1565	mil quinhentos e sessenta e cinco|mil quinhentas e sessenta e cinco	mil quinhentos e sessenta e cinco
+1566	mil quinhentos e sessenta e seis|mil quinhentas e sessenta e seis	mil quinhentos e sessenta e seis
+1567	mil quinhentos e sessenta e sete|mil quinhentas e sessenta e sete	mil quinhentos e sessenta e sete
+1568	mil quinhentos e sessenta e oito|mil quinhentas e sessenta e oito	mil quinhentos e sessenta e oito
+1569	mil quinhentos e sessenta e nove|mil quinhentas e sessenta e nove	mil quinhentos e sessenta e nove
+1570	mil quinhentos e setenta|mil quinhentas e setenta	mil quinhentos e setenta
+1571	mil quinhentos e setenta e um|mil quinhentas e setenta e uma	mil quinhentos e setenta e um
+1572	mil quinhentos e setenta e dois|mil quinhentas e setenta e duas	mil quinhentos e setenta e dois
+1573	mil quinhentos e setenta e tres|mil quinhentas e setenta e tres	mil quinhentos e setenta e tres
+1574	mil quinhentos e setenta e quatro|mil quinhentas e setenta e quatro	mil quinhentos e setenta e quatro
+1575	mil quinhentos e setenta e cinco|mil quinhentas e setenta e cinco	mil quinhentos e setenta e cinco
+1576	mil quinhentos e setenta e seis|mil quinhentas e setenta e seis	mil quinhentos e setenta e seis
+1577	mil quinhentos e setenta e sete|mil quinhentas e setenta e sete	mil quinhentos e setenta e sete
+1578	mil quinhentos e setenta e oito|mil quinhentas e setenta e oito	mil quinhentos e setenta e oito
+1579	mil quinhentos e setenta e nove|mil quinhentas e setenta e nove	mil quinhentos e setenta e nove
+1580	mil quinhentos e oitenta|mil quinhentas e oitenta	mil quinhentos e oitenta
+1581	mil quinhentos e oitenta e um|mil quinhentas e oitenta e uma	mil quinhentos e oitenta e um
+1582	mil quinhentos e oitenta e dois|mil quinhentas e oitenta e duas	mil quinhentos e oitenta e dois
+1583	mil quinhentos e oitenta e tres|mil quinhentas e oitenta e tres	mil quinhentos e oitenta e tres
+1584	mil quinhentos e oitenta e quatro|mil quinhentas e oitenta e quatro	mil quinhentos e oitenta e quatro
+1585	mil quinhentos e oitenta e cinco|mil quinhentas e oitenta e cinco	mil quinhentos e oitenta e cinco
+1586	mil quinhentos e oitenta e seis|mil quinhentas e oitenta e seis	mil quinhentos e oitenta e seis
+1587	mil quinhentos e oitenta e sete|mil quinhentas e oitenta e sete	mil quinhentos e oitenta e sete
+1588	mil quinhentos e oitenta e oito|mil quinhentas e oitenta e oito	mil quinhentos e oitenta e oito
+1589	mil quinhentos e oitenta e nove|mil quinhentas e oitenta e nove	mil quinhentos e oitenta e nove
+1590	mil quinhentos e noventa|mil quinhentas e noventa	mil quinhentos e noventa
+1591	mil quinhentos e noventa e um|mil quinhentas e noventa e uma	mil quinhentos e noventa e um
+1592	mil quinhentos e noventa e dois|mil quinhentas e noventa e duas	mil quinhentos e noventa e dois
+1593	mil quinhentos e noventa e tres|mil quinhentas e noventa e tres	mil quinhentos e noventa e tres
+1594	mil quinhentos e noventa e quatro|mil quinhentas e noventa e quatro	mil quinhentos e noventa e quatro
+1595	mil quinhentos e noventa e cinco|mil quinhentas e noventa e cinco	mil quinhentos e noventa e cinco
+1596	mil quinhentos e noventa e seis|mil quinhentas e noventa e seis	mil quinhentos e noventa e seis
+1597	mil quinhentos e noventa e sete|mil quinhentas e noventa e sete	mil quinhentos e noventa e sete
+1598	mil quinhentos e noventa e oito|mil quinhentas e noventa e oito	mil quinhentos e noventa e oito
+1599	mil quinhentos e noventa e nove|mil quinhentas e noventa e nove	mil quinhentos e noventa e nove
+1600	mil e seiscentos|mil e seiscentas	mil e seiscentos
+1601	mil seiscentos e um|mil seiscentas e uma	mil seiscentos e um
+1602	mil seiscentos e dois|mil seiscentas e duas	mil seiscentos e dois
+1603	mil seiscentos e tres|mil seiscentas e tres	mil seiscentos e tres
+1604	mil seiscentos e quatro|mil seiscentas e quatro	mil seiscentos e quatro
+1605	mil seiscentos e cinco|mil seiscentas e cinco	mil seiscentos e cinco
+1606	mil seiscentos e seis|mil seiscentas e seis	mil seiscentos e seis
+1607	mil seiscentos e sete|mil seiscentas e sete	mil seiscentos e sete
+1608	mil seiscentos e oito|mil seiscentas e oito	mil seiscentos e oito
+1609	mil seiscentos e nove|mil seiscentas e nove	mil seiscentos e nove
+1610	mil seiscentos e dez|mil seiscentas e dez	mil seiscentos e dez
+1611	mil seiscentos e onze|mil seiscentas e onze	mil seiscentos e onze
+1612	mil seiscentos e doze|mil seiscentas e doze	mil seiscentos e doze
+1613	mil seiscentos e treze|mil seiscentas e treze	mil seiscentos e treze
+1614	mil seiscentos e catorze|mil seiscentos e quatorze|mil seiscentas e catorze|mil seiscentas e quatorze	mil seiscentos e catorze|mil seiscentos e quatorze
+1615	mil seiscentos e quinze|mil seiscentas e quinze	mil seiscentos e quinze
+1616	mil seiscentos e dezesseis|mil seiscentas e dezesseis	mil seiscentos e dezesseis
+1617	mil seiscentos e dezessete|mil seiscentas e dezessete	mil seiscentos e dezessete
+1618	mil seiscentos e dezoito|mil seiscentas e dezoito	mil seiscentos e dezoito
+1619	mil seiscentos e dezenove|mil seiscentas e dezenove	mil seiscentos e dezenove
+1620	mil seiscentos e vinte|mil seiscentas e vinte	mil seiscentos e vinte
+1621	mil seiscentos e vinte e um|mil seiscentas e vinte e uma	mil seiscentos e vinte e um
+1622	mil seiscentos e vinte e dois|mil seiscentas e vinte e duas	mil seiscentos e vinte e dois
+1623	mil seiscentos e vinte e tres|mil seiscentas e vinte e tres	mil seiscentos e vinte e tres
+1624	mil seiscentos e vinte e quatro|mil seiscentas e vinte e quatro	mil seiscentos e vinte e quatro
+1625	mil seiscentos e vinte e cinco|mil seiscentas e vinte e cinco	mil seiscentos e vinte e cinco
+1626	mil seiscentos e vinte e seis|mil seiscentas e vinte e seis	mil seiscentos e vinte e seis
+1627	mil seiscentos e vinte e sete|mil seiscentas e vinte e sete	mil seiscentos e vinte e sete
+1628	mil seiscentos e vinte e oito|mil seiscentas e vinte e oito	mil seiscentos e vinte e oito
+1629	mil seiscentos e vinte e nove|mil seiscentas e vinte e nove	mil seiscentos e vinte e nove
+1630	mil seiscentos e trinta|mil seiscentas e trinta	mil seiscentos e trinta
+1631	mil seiscentos e trinta e um|mil seiscentas e trinta e uma	mil seiscentos e trinta e um
+1632	mil seiscentos e trinta e dois|mil seiscentas e trinta e duas	mil seiscentos e trinta e dois
+1633	mil seiscentos e trinta e tres|mil seiscentas e trinta e tres	mil seiscentos e trinta e tres
+1634	mil seiscentos e trinta e quatro|mil seiscentas e trinta e quatro	mil seiscentos e trinta e quatro
+1635	mil seiscentos e trinta e cinco|mil seiscentas e trinta e cinco	mil seiscentos e trinta e cinco
+1636	mil seiscentos e trinta e seis|mil seiscentas e trinta e seis	mil seiscentos e trinta e seis
+1637	mil seiscentos e trinta e sete|mil seiscentas e trinta e sete	mil seiscentos e trinta e sete
+1638	mil seiscentos e trinta e oito|mil seiscentas e trinta e oito	mil seiscentos e trinta e oito
+1639	mil seiscentos e trinta e nove|mil seiscentas e trinta e nove	mil seiscentos e trinta e nove
+1640	mil seiscentos e quarenta|mil seiscentas e quarenta	mil seiscentos e quarenta
+1641	mil seiscentos e quarenta e um|mil seiscentas e quarenta e uma	mil seiscentos e quarenta e um
+1642	mil seiscentos e quarenta e dois|mil seiscentas e quarenta e duas	mil seiscentos e quarenta e dois
+1643	mil seiscentos e quarenta e tres|mil seiscentas e quarenta e tres	mil seiscentos e quarenta e tres
+1644	mil seiscentos e quarenta e quatro|mil seiscentas e quarenta e quatro	mil seiscentos e quarenta e quatro
+1645	mil seiscentos e quarenta e cinco|mil seiscentas e quarenta e cinco	mil seiscentos e quarenta e cinco
+1646	mil seiscentos e quarenta e seis|mil seiscentas e quarenta e seis	mil seiscentos e quarenta e seis
+1647	mil seiscentos e quarenta e sete|mil seiscentas e quarenta e sete	mil seiscentos e quarenta e sete
+1648	mil seiscentos e quarenta e oito|mil seiscentas e quarenta e oito	mil seiscentos e quarenta e oito
+1649	mil seiscentos e quarenta e nove|mil seiscentas e quarenta e nove	mil seiscentos e quarenta e nove
+1650	mil seiscentos e cinquenta|mil seiscentas e cinquenta	mil seiscentos e cinquenta
+1651	mil seiscentos e cinquenta e um|mil seiscentas e cinquenta e uma	mil seiscentos e cinquenta e um
+1652	mil seiscentos e cinquenta e dois|mil seiscentas e cinquenta e duas	mil seiscentos e cinquenta e dois
+1653	mil seiscentos e cinquenta e tres|mil seiscentas e cinquenta e tres	mil seiscentos e cinquenta e tres
+1654	mil seiscentos e cinquenta e quatro|mil seiscentas e cinquenta e quatro	mil seiscentos e cinquenta e quatro
+1655	mil seiscentos e cinquenta e cinco|mil seiscentas e cinquenta e cinco	mil seiscentos e cinquenta e cinco
+1656	mil seiscentos e cinquenta e seis|mil seiscentas e cinquenta e seis	mil seiscentos e cinquenta e seis
+1657	mil seiscentos e cinquenta e sete|mil seiscentas e cinquenta e sete	mil seiscentos e cinquenta e sete
+1658	mil seiscentos e cinquenta e oito|mil seiscentas e cinquenta e oito	mil seiscentos e cinquenta e oito
+1659	mil seiscentos e cinquenta e nove|mil seiscentas e cinquenta e nove	mil seiscentos e cinquenta e nove
+1660	mil seiscentos e sessenta|mil seiscentas e sessenta	mil seiscentos e sessenta
+1661	mil seiscentos e sessenta e um|mil seiscentas e sessenta e uma	mil seiscentos e sessenta e um
+1662	mil seiscentos e sessenta e dois|mil seiscentas e sessenta e duas	mil seiscentos e sessenta e dois
+1663	mil seiscentos e sessenta e tres|mil seiscentas e sessenta e tres	mil seiscentos e sessenta e tres
+1664	mil seiscentos e sessenta e quatro|mil seiscentas e sessenta e quatro	mil seiscentos e sessenta e quatro
+1665	mil seiscentos e sessenta e cinco|mil seiscentas e sessenta e cinco	mil seiscentos e sessenta e cinco
+1666	mil seiscentos e sessenta e seis|mil seiscentas e sessenta e seis	mil seiscentos e sessenta e seis
+1667	mil seiscentos e sessenta e sete|mil seiscentas e sessenta e sete	mil seiscentos e sessenta e sete
+1668	mil seiscentos e sessenta e oito|mil seiscentas e sessenta e oito	mil seiscentos e sessenta e oito
+1669	mil seiscentos e sessenta e nove|mil seiscentas e sessenta e nove	mil seiscentos e sessenta e nove
+1670	mil seiscentos e setenta|mil seiscentas e setenta	mil seiscentos e setenta
+1671	mil seiscentos e setenta e um|mil seiscentas e setenta e uma	mil seiscentos e setenta e um
+1672	mil seiscentos e setenta e dois|mil seiscentas e setenta e duas	mil seiscentos e setenta e dois
+1673	mil seiscentos e setenta e tres|mil seiscentas e setenta e tres	mil seiscentos e setenta e tres
+1674	mil seiscentos e setenta e quatro|mil seiscentas e setenta e quatro	mil seiscentos e setenta e quatro
+1675	mil seiscentos e setenta e cinco|mil seiscentas e setenta e cinco	mil seiscentos e setenta e cinco
+1676	mil seiscentos e setenta e seis|mil seiscentas e setenta e seis	mil seiscentos e setenta e seis
+1677	mil seiscentos e setenta e sete|mil seiscentas e setenta e sete	mil seiscentos e setenta e sete
+1678	mil seiscentos e setenta e oito|mil seiscentas e setenta e oito	mil seiscentos e setenta e oito
+1679	mil seiscentos e setenta e nove|mil seiscentas e setenta e nove	mil seiscentos e setenta e nove
+1680	mil seiscentos e oitenta|mil seiscentas e oitenta	mil seiscentos e oitenta
+1681	mil seiscentos e oitenta e um|mil seiscentas e oitenta e uma	mil seiscentos e oitenta e um
+1682	mil seiscentos e oitenta e dois|mil seiscentas e oitenta e duas	mil seiscentos e oitenta e dois
+1683	mil seiscentos e oitenta e tres|mil seiscentas e oitenta e tres	mil seiscentos e oitenta e tres
+1684	mil seiscentos e oitenta e quatro|mil seiscentas e oitenta e quatro	mil seiscentos e oitenta e quatro
+1685	mil seiscentos e oitenta e cinco|mil seiscentas e oitenta e cinco	mil seiscentos e oitenta e cinco
+1686	mil seiscentos e oitenta e seis|mil seiscentas e oitenta e seis	mil seiscentos e oitenta e seis
+1687	mil seiscentos e oitenta e sete|mil seiscentas e oitenta e sete	mil seiscentos e oitenta e sete
+1688	mil seiscentos e oitenta e oito|mil seiscentas e oitenta e oito	mil seiscentos e oitenta e oito
+1689	mil seiscentos e oitenta e nove|mil seiscentas e oitenta e nove	mil seiscentos e oitenta e nove
+1690	mil seiscentos e noventa|mil seiscentas e noventa	mil seiscentos e noventa
+1691	mil seiscentos e noventa e um|mil seiscentas e noventa e uma	mil seiscentos e noventa e um
+1692	mil seiscentos e noventa e dois|mil seiscentas e noventa e duas	mil seiscentos e noventa e dois
+1693	mil seiscentos e noventa e tres|mil seiscentas e noventa e tres	mil seiscentos e noventa e tres
+1694	mil seiscentos e noventa e quatro|mil seiscentas e noventa e quatro	mil seiscentos e noventa e quatro
+1695	mil seiscentos e noventa e cinco|mil seiscentas e noventa e cinco	mil seiscentos e noventa e cinco
+1696	mil seiscentos e noventa e seis|mil seiscentas e noventa e seis	mil seiscentos e noventa e seis
+1697	mil seiscentos e noventa e sete|mil seiscentas e noventa e sete	mil seiscentos e noventa e sete
+1698	mil seiscentos e noventa e oito|mil seiscentas e noventa e oito	mil seiscentos e noventa e oito
+1699	mil seiscentos e noventa e nove|mil seiscentas e noventa e nove	mil seiscentos e noventa e nove
+1700	mil e setecentos|mil e setecentas	mil e setecentos
+1701	mil setecentos e um|mil setecentas e uma	mil setecentos e um
+1702	mil setecentos e dois|mil setecentas e duas	mil setecentos e dois
+1703	mil setecentos e tres|mil setecentas e tres	mil setecentos e tres
+1704	mil setecentos e quatro|mil setecentas e quatro	mil setecentos e quatro
+1705	mil setecentos e cinco|mil setecentas e cinco	mil setecentos e cinco
+1706	mil setecentos e seis|mil setecentas e seis	mil setecentos e seis
+1707	mil setecentos e sete|mil setecentas e sete	mil setecentos e sete
+1708	mil setecentos e oito|mil setecentas e oito	mil setecentos e oito
+1709	mil setecentos e nove|mil setecentas e nove	mil setecentos e nove
+1710	mil setecentos e dez|mil setecentas e dez	mil setecentos e dez
+1711	mil setecentos e onze|mil setecentas e onze	mil setecentos e onze
+1712	mil setecentos e doze|mil setecentas e doze	mil setecentos e doze
+1713	mil setecentos e treze|mil setecentas e treze	mil setecentos e treze
+1714	mil setecentos e catorze|mil setecentos e quatorze|mil setecentas e catorze|mil setecentas e quatorze	mil setecentos e catorze|mil setecentos e quatorze
+1715	mil setecentos e quinze|mil setecentas e quinze	mil setecentos e quinze
+1716	mil setecentos e dezesseis|mil setecentas e dezesseis	mil setecentos e dezesseis
+1717	mil setecentos e dezessete|mil setecentas e dezessete	mil setecentos e dezessete
+1718	mil setecentos e dezoito|mil setecentas e dezoito	mil setecentos e dezoito
+1719	mil setecentos e dezenove|mil setecentas e dezenove	mil setecentos e dezenove
+1720	mil setecentos e vinte|mil setecentas e vinte	mil setecentos e vinte
+1721	mil setecentos e vinte e um|mil setecentas e vinte e uma	mil setecentos e vinte e um
+1722	mil setecentos e vinte e dois|mil setecentas e vinte e duas	mil setecentos e vinte e dois
+1723	mil setecentos e vinte e tres|mil setecentas e vinte e tres	mil setecentos e vinte e tres
+1724	mil setecentos e vinte e quatro|mil setecentas e vinte e quatro	mil setecentos e vinte e quatro
+1725	mil setecentos e vinte e cinco|mil setecentas e vinte e cinco	mil setecentos e vinte e cinco
+1726	mil setecentos e vinte e seis|mil setecentas e vinte e seis	mil setecentos e vinte e seis
+1727	mil setecentos e vinte e sete|mil setecentas e vinte e sete	mil setecentos e vinte e sete
+1728	mil setecentos e vinte e oito|mil setecentas e vinte e oito	mil setecentos e vinte e oito
+1729	mil setecentos e vinte e nove|mil setecentas e vinte e nove	mil setecentos e vinte e nove
+1730	mil setecentos e trinta|mil setecentas e trinta	mil setecentos e trinta
+1731	mil setecentos e trinta e um|mil setecentas e trinta e uma	mil setecentos e trinta e um
+1732	mil setecentos e trinta e dois|mil setecentas e trinta e duas	mil setecentos e trinta e dois
+1733	mil setecentos e trinta e tres|mil setecentas e trinta e tres	mil setecentos e trinta e tres
+1734	mil setecentos e trinta e quatro|mil setecentas e trinta e quatro	mil setecentos e trinta e quatro
+1735	mil setecentos e trinta e cinco|mil setecentas e trinta e cinco	mil setecentos e trinta e cinco
+1736	mil setecentos e trinta e seis|mil setecentas e trinta e seis	mil setecentos e trinta e seis
+1737	mil setecentos e trinta e sete|mil setecentas e trinta e sete	mil setecentos e trinta e sete
+1738	mil setecentos e trinta e oito|mil setecentas e trinta e oito	mil setecentos e trinta e oito
+1739	mil setecentos e trinta e nove|mil setecentas e trinta e nove	mil setecentos e trinta e nove
+1740	mil setecentos e quarenta|mil setecentas e quarenta	mil setecentos e quarenta
+1741	mil setecentos e quarenta e um|mil setecentas e quarenta e uma	mil setecentos e quarenta e um
+1742	mil setecentos e quarenta e dois|mil setecentas e quarenta e duas	mil setecentos e quarenta e dois
+1743	mil setecentos e quarenta e tres|mil setecentas e quarenta e tres	mil setecentos e quarenta e tres
+1744	mil setecentos e quarenta e quatro|mil setecentas e quarenta e quatro	mil setecentos e quarenta e quatro
+1745	mil setecentos e quarenta e cinco|mil setecentas e quarenta e cinco	mil setecentos e quarenta e cinco
+1746	mil setecentos e quarenta e seis|mil setecentas e quarenta e seis	mil setecentos e quarenta e seis
+1747	mil setecentos e quarenta e sete|mil setecentas e quarenta e sete	mil setecentos e quarenta e sete
+1748	mil setecentos e quarenta e oito|mil setecentas e quarenta e oito	mil setecentos e quarenta e oito
+1749	mil setecentos e quarenta e nove|mil setecentas e quarenta e nove	mil setecentos e quarenta e nove
+1750	mil setecentos e cinquenta|mil setecentas e cinquenta	mil setecentos e cinquenta
+1751	mil setecentos e cinquenta e um|mil setecentas e cinquenta e uma	mil setecentos e cinquenta e um
+1752	mil setecentos e cinquenta e dois|mil setecentas e cinquenta e duas	mil setecentos e cinquenta e dois
+1753	mil setecentos e cinquenta e tres|mil setecentas e cinquenta e tres	mil setecentos e cinquenta e tres
+1754	mil setecentos e cinquenta e quatro|mil setecentas e cinquenta e quatro	mil setecentos e cinquenta e quatro
+1755	mil setecentos e cinquenta e cinco|mil setecentas e cinquenta e cinco	mil setecentos e cinquenta e cinco
+1756	mil setecentos e cinquenta e seis|mil setecentas e cinquenta e seis	mil setecentos e cinquenta e seis
+1757	mil setecentos e cinquenta e sete|mil setecentas e cinquenta e sete	mil setecentos e cinquenta e sete
+1758	mil setecentos e cinquenta e oito|mil setecentas e cinquenta e oito	mil setecentos e cinquenta e oito
+1759	mil setecentos e cinquenta e nove|mil setecentas e cinquenta e nove	mil setecentos e cinquenta e nove
+1760	mil setecentos e sessenta|mil setecentas e sessenta	mil setecentos e sessenta
+1761	mil setecentos e sessenta e um|mil setecentas e sessenta e uma	mil setecentos e sessenta e um
+1762	mil setecentos e sessenta e dois|mil setecentas e sessenta e duas	mil setecentos e sessenta e dois
+1763	mil setecentos e sessenta e tres|mil setecentas e sessenta e tres	mil setecentos e sessenta e tres
+1764	mil setecentos e sessenta e quatro|mil setecentas e sessenta e quatro	mil setecentos e sessenta e quatro
+1765	mil setecentos e sessenta e cinco|mil setecentas e sessenta e cinco	mil setecentos e sessenta e cinco
+1766	mil setecentos e sessenta e seis|mil setecentas e sessenta e seis	mil setecentos e sessenta e seis
+1767	mil setecentos e sessenta e sete|mil setecentas e sessenta e sete	mil setecentos e sessenta e sete
+1768	mil setecentos e sessenta e oito|mil setecentas e sessenta e oito	mil setecentos e sessenta e oito
+1769	mil setecentos e sessenta e nove|mil setecentas e sessenta e nove	mil setecentos e sessenta e nove
+1770	mil setecentos e setenta|mil setecentas e setenta	mil setecentos e setenta
+1771	mil setecentos e setenta e um|mil setecentas e setenta e uma	mil setecentos e setenta e um
+1772	mil setecentos e setenta e dois|mil setecentas e setenta e duas	mil setecentos e setenta e dois
+1773	mil setecentos e setenta e tres|mil setecentas e setenta e tres	mil setecentos e setenta e tres
+1774	mil setecentos e setenta e quatro|mil setecentas e setenta e quatro	mil setecentos e setenta e quatro
+1775	mil setecentos e setenta e cinco|mil setecentas e setenta e cinco	mil setecentos e setenta e cinco
+1776	mil setecentos e setenta e seis|mil setecentas e setenta e seis	mil setecentos e setenta e seis
+1777	mil setecentos e setenta e sete|mil setecentas e setenta e sete	mil setecentos e setenta e sete
+1778	mil setecentos e setenta e oito|mil setecentas e setenta e oito	mil setecentos e setenta e oito
+1779	mil setecentos e setenta e nove|mil setecentas e setenta e nove	mil setecentos e setenta e nove
+1780	mil setecentos e oitenta|mil setecentas e oitenta	mil setecentos e oitenta
+1781	mil setecentos e oitenta e um|mil setecentas e oitenta e uma	mil setecentos e oitenta e um
+1782	mil setecentos e oitenta e dois|mil setecentas e oitenta e duas	mil setecentos e oitenta e dois
+1783	mil setecentos e oitenta e tres|mil setecentas e oitenta e tres	mil setecentos e oitenta e tres
+1784	mil setecentos e oitenta e quatro|mil setecentas e oitenta e quatro	mil setecentos e oitenta e quatro
+1785	mil setecentos e oitenta e cinco|mil setecentas e oitenta e cinco	mil setecentos e oitenta e cinco
+1786	mil setecentos e oitenta e seis|mil setecentas e oitenta e seis	mil setecentos e oitenta e seis
+1787	mil setecentos e oitenta e sete|mil setecentas e oitenta e sete	mil setecentos e oitenta e sete
+1788	mil setecentos e oitenta e oito|mil setecentas e oitenta e oito	mil setecentos e oitenta e oito
+1789	mil setecentos e oitenta e nove|mil setecentas e oitenta e nove	mil setecentos e oitenta e nove
+1790	mil setecentos e noventa|mil setecentas e noventa	mil setecentos e noventa
+1791	mil setecentos e noventa e um|mil setecentas e noventa e uma	mil setecentos e noventa e um
+1792	mil setecentos e noventa e dois|mil setecentas e noventa e duas	mil setecentos e noventa e dois
+1793	mil setecentos e noventa e tres|mil setecentas e noventa e tres	mil setecentos e noventa e tres
+1794	mil setecentos e noventa e quatro|mil setecentas e noventa e quatro	mil setecentos e noventa e quatro
+1795	mil setecentos e noventa e cinco|mil setecentas e noventa e cinco	mil setecentos e noventa e cinco
+1796	mil setecentos e noventa e seis|mil setecentas e noventa e seis	mil setecentos e noventa e seis
+1797	mil setecentos e noventa e sete|mil setecentas e noventa e sete	mil setecentos e noventa e sete
+1798	mil setecentos e noventa e oito|mil setecentas e noventa e oito	mil setecentos e noventa e oito
+1799	mil setecentos e noventa e nove|mil setecentas e noventa e nove	mil setecentos e noventa e nove
+1800	mil e oitocentos|mil e oitocentas	mil e oitocentos
+1801	mil oitocentos e um|mil oitocentas e uma	mil oitocentos e um
+1802	mil oitocentos e dois|mil oitocentas e duas	mil oitocentos e dois
+1803	mil oitocentos e tres|mil oitocentas e tres	mil oitocentos e tres
+1804	mil oitocentos e quatro|mil oitocentas e quatro	mil oitocentos e quatro
+1805	mil oitocentos e cinco|mil oitocentas e cinco	mil oitocentos e cinco
+1806	mil oitocentos e seis|mil oitocentas e seis	mil oitocentos e seis
+1807	mil oitocentos e sete|mil oitocentas e sete	mil oitocentos e sete
+1808	mil oitocentos e oito|mil oitocentas e oito	mil oitocentos e oito
+1809	mil oitocentos e nove|mil oitocentas e nove	mil oitocentos e nove
+1810	mil oitocentos e dez|mil oitocentas e dez	mil oitocentos e dez
+1811	mil oitocentos e onze|mil oitocentas e onze	mil oitocentos e onze
+1812	mil oitocentos e doze|mil oitocentas e doze	mil oitocentos e doze
+1813	mil oitocentos e treze|mil oitocentas e treze	mil oitocentos e treze
+1814	mil oitocentos e catorze|mil oitocentos e quatorze|mil oitocentas e catorze|mil oitocentas e quatorze	mil oitocentos e catorze|mil oitocentos e quatorze
+1815	mil oitocentos e quinze|mil oitocentas e quinze	mil oitocentos e quinze
+1816	mil oitocentos e dezesseis|mil oitocentas e dezesseis	mil oitocentos e dezesseis
+1817	mil oitocentos e dezessete|mil oitocentas e dezessete	mil oitocentos e dezessete
+1818	mil oitocentos e dezoito|mil oitocentas e dezoito	mil oitocentos e dezoito
+1819	mil oitocentos e dezenove|mil oitocentas e dezenove	mil oitocentos e dezenove
+1820	mil oitocentos e vinte|mil oitocentas e vinte	mil oitocentos e vinte
+1821	mil oitocentos e vinte e um|mil oitocentas e vinte e uma	mil oitocentos e vinte e um
+1822	mil oitocentos e vinte e dois|mil oitocentas e vinte e duas	mil oitocentos e vinte e dois
+1823	mil oitocentos e vinte e tres|mil oitocentas e vinte e tres	mil oitocentos e vinte e tres
+1824	mil oitocentos e vinte e quatro|mil oitocentas e vinte e quatro	mil oitocentos e vinte e quatro
+1825	mil oitocentos e vinte e cinco|mil oitocentas e vinte e cinco	mil oitocentos e vinte e cinco
+1826	mil oitocentos e vinte e seis|mil oitocentas e vinte e seis	mil oitocentos e vinte e seis
+1827	mil oitocentos e vinte e sete|mil oitocentas e vinte e sete	mil oitocentos e vinte e sete
+1828	mil oitocentos e vinte e oito|mil oitocentas e vinte e oito	mil oitocentos e vinte e oito
+1829	mil oitocentos e vinte e nove|mil oitocentas e vinte e nove	mil oitocentos e vinte e nove
+1830	mil oitocentos e trinta|mil oitocentas e trinta	mil oitocentos e trinta
+1831	mil oitocentos e trinta e um|mil oitocentas e trinta e uma	mil oitocentos e trinta e um
+1832	mil oitocentos e trinta e dois|mil oitocentas e trinta e duas	mil oitocentos e trinta e dois
+1833	mil oitocentos e trinta e tres|mil oitocentas e trinta e tres	mil oitocentos e trinta e tres
+1834	mil oitocentos e trinta e quatro|mil oitocentas e trinta e quatro	mil oitocentos e trinta e quatro
+1835	mil oitocentos e trinta e cinco|mil oitocentas e trinta e cinco	mil oitocentos e trinta e cinco
+1836	mil oitocentos e trinta e seis|mil oitocentas e trinta e seis	mil oitocentos e trinta e seis
+1837	mil oitocentos e trinta e sete|mil oitocentas e trinta e sete	mil oitocentos e trinta e sete
+1838	mil oitocentos e trinta e oito|mil oitocentas e trinta e oito	mil oitocentos e trinta e oito
+1839	mil oitocentos e trinta e nove|mil oitocentas e trinta e nove	mil oitocentos e trinta e nove
+1840	mil oitocentos e quarenta|mil oitocentas e quarenta	mil oitocentos e quarenta
+1841	mil oitocentos e quarenta e um|mil oitocentas e quarenta e uma	mil oitocentos e quarenta e um
+1842	mil oitocentos e quarenta e dois|mil oitocentas e quarenta e duas	mil oitocentos e quarenta e dois
+1843	mil oitocentos e quarenta e tres|mil oitocentas e quarenta e tres	mil oitocentos e quarenta e tres
+1844	mil oitocentos e quarenta e quatro|mil oitocentas e quarenta e quatro	mil oitocentos e quarenta e quatro
+1845	mil oitocentos e quarenta e cinco|mil oitocentas e quarenta e cinco	mil oitocentos e quarenta e cinco
+1846	mil oitocentos e quarenta e seis|mil oitocentas e quarenta e seis	mil oitocentos e quarenta e seis
+1847	mil oitocentos e quarenta e sete|mil oitocentas e quarenta e sete	mil oitocentos e quarenta e sete
+1848	mil oitocentos e quarenta e oito|mil oitocentas e quarenta e oito	mil oitocentos e quarenta e oito
+1849	mil oitocentos e quarenta e nove|mil oitocentas e quarenta e nove	mil oitocentos e quarenta e nove
+1850	mil oitocentos e cinquenta|mil oitocentas e cinquenta	mil oitocentos e cinquenta
+1851	mil oitocentos e cinquenta e um|mil oitocentas e cinquenta e uma	mil oitocentos e cinquenta e um
+1852	mil oitocentos e cinquenta e dois|mil oitocentas e cinquenta e duas	mil oitocentos e cinquenta e dois
+1853	mil oitocentos e cinquenta e tres|mil oitocentas e cinquenta e tres	mil oitocentos e cinquenta e tres
+1854	mil oitocentos e cinquenta e quatro|mil oitocentas e cinquenta e quatro	mil oitocentos e cinquenta e quatro
+1855	mil oitocentos e cinquenta e cinco|mil oitocentas e cinquenta e cinco	mil oitocentos e cinquenta e cinco
+1856	mil oitocentos e cinquenta e seis|mil oitocentas e cinquenta e seis	mil oitocentos e cinquenta e seis
+1857	mil oitocentos e cinquenta e sete|mil oitocentas e cinquenta e sete	mil oitocentos e cinquenta e sete
+1858	mil oitocentos e cinquenta e oito|mil oitocentas e cinquenta e oito	mil oitocentos e cinquenta e oito
+1859	mil oitocentos e cinquenta e nove|mil oitocentas e cinquenta e nove	mil oitocentos e cinquenta e nove
+1860	mil oitocentos e sessenta|mil oitocentas e sessenta	mil oitocentos e sessenta
+1861	mil oitocentos e sessenta e um|mil oitocentas e sessenta e uma	mil oitocentos e sessenta e um
+1862	mil oitocentos e sessenta e dois|mil oitocentas e sessenta e duas	mil oitocentos e sessenta e dois
+1863	mil oitocentos e sessenta e tres|mil oitocentas e sessenta e tres	mil oitocentos e sessenta e tres
+1864	mil oitocentos e sessenta e quatro|mil oitocentas e sessenta e quatro	mil oitocentos e sessenta e quatro
+1865	mil oitocentos e sessenta e cinco|mil oitocentas e sessenta e cinco	mil oitocentos e sessenta e cinco
+1866	mil oitocentos e sessenta e seis|mil oitocentas e sessenta e seis	mil oitocentos e sessenta e seis
+1867	mil oitocentos e sessenta e sete|mil oitocentas e sessenta e sete	mil oitocentos e sessenta e sete
+1868	mil oitocentos e sessenta e oito|mil oitocentas e sessenta e oito	mil oitocentos e sessenta e oito
+1869	mil oitocentos e sessenta e nove|mil oitocentas e sessenta e nove	mil oitocentos e sessenta e nove
+1870	mil oitocentos e setenta|mil oitocentas e setenta	mil oitocentos e setenta
+1871	mil oitocentos e setenta e um|mil oitocentas e setenta e uma	mil oitocentos e setenta e um
+1872	mil oitocentos e setenta e dois|mil oitocentas e setenta e duas	mil oitocentos e setenta e dois
+1873	mil oitocentos e setenta e tres|mil oitocentas e setenta e tres	mil oitocentos e setenta e tres
+1874	mil oitocentos e setenta e quatro|mil oitocentas e setenta e quatro	mil oitocentos e setenta e quatro
+1875	mil oitocentos e setenta e cinco|mil oitocentas e setenta e cinco	mil oitocentos e setenta e cinco
+1876	mil oitocentos e setenta e seis|mil oitocentas e setenta e seis	mil oitocentos e setenta e seis
+1877	mil oitocentos e setenta e sete|mil oitocentas e setenta e sete	mil oitocentos e setenta e sete
+1878	mil oitocentos e setenta e oito|mil oitocentas e setenta e oito	mil oitocentos e setenta e oito
+1879	mil oitocentos e setenta e nove|mil oitocentas e setenta e nove	mil oitocentos e setenta e nove
+1880	mil oitocentos e oitenta|mil oitocentas e oitenta	mil oitocentos e oitenta
+1881	mil oitocentos e oitenta e um|mil oitocentas e oitenta e uma	mil oitocentos e oitenta e um
+1882	mil oitocentos e oitenta e dois|mil oitocentas e oitenta e duas	mil oitocentos e oitenta e dois
+1883	mil oitocentos e oitenta e tres|mil oitocentas e oitenta e tres	mil oitocentos e oitenta e tres
+1884	mil oitocentos e oitenta e quatro|mil oitocentas e oitenta e quatro	mil oitocentos e oitenta e quatro
+1885	mil oitocentos e oitenta e cinco|mil oitocentas e oitenta e cinco	mil oitocentos e oitenta e cinco
+1886	mil oitocentos e oitenta e seis|mil oitocentas e oitenta e seis	mil oitocentos e oitenta e seis
+1887	mil oitocentos e oitenta e sete|mil oitocentas e oitenta e sete	mil oitocentos e oitenta e sete
+1888	mil oitocentos e oitenta e oito|mil oitocentas e oitenta e oito	mil oitocentos e oitenta e oito
+1889	mil oitocentos e oitenta e nove|mil oitocentas e oitenta e nove	mil oitocentos e oitenta e nove
+1890	mil oitocentos e noventa|mil oitocentas e noventa	mil oitocentos e noventa
+1891	mil oitocentos e noventa e um|mil oitocentas e noventa e uma	mil oitocentos e noventa e um
+1892	mil oitocentos e noventa e dois|mil oitocentas e noventa e duas	mil oitocentos e noventa e dois
+1893	mil oitocentos e noventa e tres|mil oitocentas e noventa e tres	mil oitocentos e noventa e tres
+1894	mil oitocentos e noventa e quatro|mil oitocentas e noventa e quatro	mil oitocentos e noventa e quatro
+1895	mil oitocentos e noventa e cinco|mil oitocentas e noventa e cinco	mil oitocentos e noventa e cinco
+1896	mil oitocentos e noventa e seis|mil oitocentas e noventa e seis	mil oitocentos e noventa e seis
+1897	mil oitocentos e noventa e sete|mil oitocentas e noventa e sete	mil oitocentos e noventa e sete
+1898	mil oitocentos e noventa e oito|mil oitocentas e noventa e oito	mil oitocentos e noventa e oito
+1899	mil oitocentos e noventa e nove|mil oitocentas e noventa e nove	mil oitocentos e noventa e nove
+1900	mil e novecentos|mil e novecentas	mil e novecentos
+1901	mil novecentos e um|mil novecentas e uma	mil novecentos e um
+1902	mil novecentos e dois|mil novecentas e duas	mil novecentos e dois
+1903	mil novecentos e tres|mil novecentas e tres	mil novecentos e tres
+1904	mil novecentos e quatro|mil novecentas e quatro	mil novecentos e quatro
+1905	mil novecentos e cinco|mil novecentas e cinco	mil novecentos e cinco
+1906	mil novecentos e seis|mil novecentas e seis	mil novecentos e seis
+1907	mil novecentos e sete|mil novecentas e sete	mil novecentos e sete
+1908	mil novecentos e oito|mil novecentas e oito	mil novecentos e oito
+1909	mil novecentos e nove|mil novecentas e nove	mil novecentos e nove
+1910	mil novecentos e dez|mil novecentas e dez	mil novecentos e dez
+1911	mil novecentos e onze|mil novecentas e onze	mil novecentos e onze
+1912	mil novecentos e doze|mil novecentas e doze	mil novecentos e doze
+1913	mil novecentos e treze|mil novecentas e treze	mil novecentos e treze
+1914	mil novecentos e catorze|mil novecentos e quatorze|mil novecentas e catorze|mil novecentas e quatorze	mil novecentos e catorze|mil novecentos e quatorze
+1915	mil novecentos e quinze|mil novecentas e quinze	mil novecentos e quinze
+1916	mil novecentos e dezesseis|mil novecentas e dezesseis	mil novecentos e dezesseis
+1917	mil novecentos e dezessete|mil novecentas e dezessete	mil novecentos e dezessete
+1918	mil novecentos e dezoito|mil novecentas e dezoito	mil novecentos e dezoito
+1919	mil novecentos e dezenove|mil novecentas e dezenove	mil novecentos e dezenove
+1920	mil novecentos e vinte|mil novecentas e vinte	mil novecentos e vinte
+1921	mil novecentos e vinte e um|mil novecentas e vinte e uma	mil novecentos e vinte e um
+1922	mil novecentos e vinte e dois|mil novecentas e vinte e duas	mil novecentos e vinte e dois
+1923	mil novecentos e vinte e tres|mil novecentas e vinte e tres	mil novecentos e vinte e tres
+1924	mil novecentos e vinte e quatro|mil novecentas e vinte e quatro	mil novecentos e vinte e quatro
+1925	mil novecentos e vinte e cinco|mil novecentas e vinte e cinco	mil novecentos e vinte e cinco
+1926	mil novecentos e vinte e seis|mil novecentas e vinte e seis	mil novecentos e vinte e seis
+1927	mil novecentos e vinte e sete|mil novecentas e vinte e sete	mil novecentos e vinte e sete
+1928	mil novecentos e vinte e oito|mil novecentas e vinte e oito	mil novecentos e vinte e oito
+1929	mil novecentos e vinte e nove|mil novecentas e vinte e nove	mil novecentos e vinte e nove
+1930	mil novecentos e trinta|mil novecentas e trinta	mil novecentos e trinta
+1931	mil novecentos e trinta e um|mil novecentas e trinta e uma	mil novecentos e trinta e um
+1932	mil novecentos e trinta e dois|mil novecentas e trinta e duas	mil novecentos e trinta e dois
+1933	mil novecentos e trinta e tres|mil novecentas e trinta e tres	mil novecentos e trinta e tres
+1934	mil novecentos e trinta e quatro|mil novecentas e trinta e quatro	mil novecentos e trinta e quatro
+1935	mil novecentos e trinta e cinco|mil novecentas e trinta e cinco	mil novecentos e trinta e cinco
+1936	mil novecentos e trinta e seis|mil novecentas e trinta e seis	mil novecentos e trinta e seis
+1937	mil novecentos e trinta e sete|mil novecentas e trinta e sete	mil novecentos e trinta e sete
+1938	mil novecentos e trinta e oito|mil novecentas e trinta e oito	mil novecentos e trinta e oito
+1939	mil novecentos e trinta e nove|mil novecentas e trinta e nove	mil novecentos e trinta e nove
+1940	mil novecentos e quarenta|mil novecentas e quarenta	mil novecentos e quarenta
+1941	mil novecentos e quarenta e um|mil novecentas e quarenta e uma	mil novecentos e quarenta e um
+1942	mil novecentos e quarenta e dois|mil novecentas e quarenta e duas	mil novecentos e quarenta e dois
+1943	mil novecentos e quarenta e tres|mil novecentas e quarenta e tres	mil novecentos e quarenta e tres
+1944	mil novecentos e quarenta e quatro|mil novecentas e quarenta e quatro	mil novecentos e quarenta e quatro
+1945	mil novecentos e quarenta e cinco|mil novecentas e quarenta e cinco	mil novecentos e quarenta e cinco
+1946	mil novecentos e quarenta e seis|mil novecentas e quarenta e seis	mil novecentos e quarenta e seis
+1947	mil novecentos e quarenta e sete|mil novecentas e quarenta e sete	mil novecentos e quarenta e sete
+1948	mil novecentos e quarenta e oito|mil novecentas e quarenta e oito	mil novecentos e quarenta e oito
+1949	mil novecentos e quarenta e nove|mil novecentas e quarenta e nove	mil novecentos e quarenta e nove
+1950	mil novecentos e cinquenta|mil novecentas e cinquenta	mil novecentos e cinquenta
+1951	mil novecentos e cinquenta e um|mil novecentas e cinquenta e uma	mil novecentos e cinquenta e um
+1952	mil novecentos e cinquenta e dois|mil novecentas e cinquenta e duas	mil novecentos e cinquenta e dois
+1953	mil novecentos e cinquenta e tres|mil novecentas e cinquenta e tres	mil novecentos e cinquenta e tres
+1954	mil novecentos e cinquenta e quatro|mil novecentas e cinquenta e quatro	mil novecentos e cinquenta e quatro
+1955	mil novecentos e cinquenta e cinco|mil novecentas e cinquenta e cinco	mil novecentos e cinquenta e cinco
+1956	mil novecentos e cinquenta e seis|mil novecentas e cinquenta e seis	mil novecentos e cinquenta e seis
+1957	mil novecentos e cinquenta e sete|mil novecentas e cinquenta e sete	mil novecentos e cinquenta e sete
+1958	mil novecentos e cinquenta e oito|mil novecentas e cinquenta e oito	mil novecentos e cinquenta e oito
+1959	mil novecentos e cinquenta e nove|mil novecentas e cinquenta e nove	mil novecentos e cinquenta e nove
+1960	mil novecentos e sessenta|mil novecentas e sessenta	mil novecentos e sessenta
+1961	mil novecentos e sessenta e um|mil novecentas e sessenta e uma	mil novecentos e sessenta e um
+1962	mil novecentos e sessenta e dois|mil novecentas e sessenta e duas	mil novecentos e sessenta e dois
+1963	mil novecentos e sessenta e tres|mil novecentas e sessenta e tres	mil novecentos e sessenta e tres
+1964	mil novecentos e sessenta e quatro|mil novecentas e sessenta e quatro	mil novecentos e sessenta e quatro
+1965	mil novecentos e sessenta e cinco|mil novecentas e sessenta e cinco	mil novecentos e sessenta e cinco
+1966	mil novecentos e sessenta e seis|mil novecentas e sessenta e seis	mil novecentos e sessenta e seis
+1967	mil novecentos e sessenta e sete|mil novecentas e sessenta e sete	mil novecentos e sessenta e sete
+1968	mil novecentos e sessenta e oito|mil novecentas e sessenta e oito	mil novecentos e sessenta e oito
+1969	mil novecentos e sessenta e nove|mil novecentas e sessenta e nove	mil novecentos e sessenta e nove
+1970	mil novecentos e setenta|mil novecentas e setenta	mil novecentos e setenta
+1971	mil novecentos e setenta e um|mil novecentas e setenta e uma	mil novecentos e setenta e um
+1972	mil novecentos e setenta e dois|mil novecentas e setenta e duas	mil novecentos e setenta e dois
+1973	mil novecentos e setenta e tres|mil novecentas e setenta e tres	mil novecentos e setenta e tres
+1974	mil novecentos e setenta e quatro|mil novecentas e setenta e quatro	mil novecentos e setenta e quatro
+1975	mil novecentos e setenta e cinco|mil novecentas e setenta e cinco	mil novecentos e setenta e cinco
+1976	mil novecentos e setenta e seis|mil novecentas e setenta e seis	mil novecentos e setenta e seis
+1977	mil novecentos e setenta e sete|mil novecentas e setenta e sete	mil novecentos e setenta e sete
+1978	mil novecentos e setenta e oito|mil novecentas e setenta e oito	mil novecentos e setenta e oito
+1979	mil novecentos e setenta e nove|mil novecentas e setenta e nove	mil novecentos e setenta e nove
+1980	mil novecentos e oitenta|mil novecentas e oitenta	mil novecentos e oitenta
+1981	mil novecentos e oitenta e um|mil novecentas e oitenta e uma	mil novecentos e oitenta e um
+1982	mil novecentos e oitenta e dois|mil novecentas e oitenta e duas	mil novecentos e oitenta e dois
+1983	mil novecentos e oitenta e tres|mil novecentas e oitenta e tres	mil novecentos e oitenta e tres
+1984	mil novecentos e oitenta e quatro|mil novecentas e oitenta e quatro	mil novecentos e oitenta e quatro
+1985	mil novecentos e oitenta e cinco|mil novecentas e oitenta e cinco	mil novecentos e oitenta e cinco
+1986	mil novecentos e oitenta e seis|mil novecentas e oitenta e seis	mil novecentos e oitenta e seis
+1987	mil novecentos e oitenta e sete|mil novecentas e oitenta e sete	mil novecentos e oitenta e sete
+1988	mil novecentos e oitenta e oito|mil novecentas e oitenta e oito	mil novecentos e oitenta e oito
+1989	mil novecentos e oitenta e nove|mil novecentas e oitenta e nove	mil novecentos e oitenta e nove
+1990	mil novecentos e noventa|mil novecentas e noventa	mil novecentos e noventa
+1991	mil novecentos e noventa e um|mil novecentas e noventa e uma	mil novecentos e noventa e um
+1992	mil novecentos e noventa e dois|mil novecentas e noventa e duas	mil novecentos e noventa e dois
+1993	mil novecentos e noventa e tres|mil novecentas e noventa e tres	mil novecentos e noventa e tres
+1994	mil novecentos e noventa e quatro|mil novecentas e noventa e quatro	mil novecentos e noventa e quatro
+1995	mil novecentos e noventa e cinco|mil novecentas e noventa e cinco	mil novecentos e noventa e cinco
+1996	mil novecentos e noventa e seis|mil novecentas e noventa e seis	mil novecentos e noventa e seis
+1997	mil novecentos e noventa e sete|mil novecentas e noventa e sete	mil novecentos e noventa e sete
+1998	mil novecentos e noventa e oito|mil novecentas e noventa e oito	mil novecentos e noventa e oito
+1999	mil novecentos e noventa e nove|mil novecentas e noventa e nove	mil novecentos e noventa e nove
+2000	dois mil|duas mil	dois mil
+2001	dois mil e um|duas mil e uma	dois mil e um
+2002	dois mil e dois|duas mil e duas	dois mil e dois
+2003	dois mil e tres|duas mil e tres	dois mil e tres
+2004	dois mil e quatro|duas mil e quatro	dois mil e quatro
+2005	dois mil e cinco|duas mil e cinco	dois mil e cinco
+2006	dois mil e seis|duas mil e seis	dois mil e seis
+2007	dois mil e sete|duas mil e sete	dois mil e sete
+2008	dois mil e oito|duas mil e oito	dois mil e oito
+2009	dois mil e nove|duas mil e nove	dois mil e nove
+2010	dois mil e dez|duas mil e dez	dois mil e dez
+2011	dois mil e onze|duas mil e onze	dois mil e onze
+2012	dois mil e doze|duas mil e doze	dois mil e doze
+2013	dois mil e treze|duas mil e treze	dois mil e treze
+2014	dois mil e catorze|dois mil e quatorze|duas mil e catorze|duas mil e quatorze	dois mil e catorze|dois mil e quatorze
+2015	dois mil e quinze|duas mil e quinze	dois mil e quinze
+2016	dois mil e dezesseis|duas mil e dezesseis	dois mil e dezesseis
+2017	dois mil e dezessete|duas mil e dezessete	dois mil e dezessete
+2018	dois mil e dezoito|duas mil e dezoito	dois mil e dezoito
+2019	dois mil e dezenove|duas mil e dezenove	dois mil e dezenove
+2020	dois mil e vinte|duas mil e vinte	dois mil e vinte
+2021	dois mil e vinte e um|duas mil e vinte e uma	dois mil e vinte e um
+2022	dois mil e vinte e dois|duas mil e vinte e duas	dois mil e vinte e dois
+2023	dois mil e vinte e tres|duas mil e vinte e tres	dois mil e vinte e tres
+2024	dois mil e vinte e quatro|duas mil e vinte e quatro	dois mil e vinte e quatro
+2025	dois mil e vinte e cinco|duas mil e vinte e cinco	dois mil e vinte e cinco
+2026	dois mil e vinte e seis|duas mil e vinte e seis	dois mil e vinte e seis
+2027	dois mil e vinte e sete|duas mil e vinte e sete	dois mil e vinte e sete
+2028	dois mil e vinte e oito|duas mil e vinte e oito	dois mil e vinte e oito
+2029	dois mil e vinte e nove|duas mil e vinte e nove	dois mil e vinte e nove
+2030	dois mil e trinta|duas mil e trinta	dois mil e trinta
+2031	dois mil e trinta e um|duas mil e trinta e uma	dois mil e trinta e um
+2032	dois mil e trinta e dois|duas mil e trinta e duas	dois mil e trinta e dois
+2033	dois mil e trinta e tres|duas mil e trinta e tres	dois mil e trinta e tres
+2034	dois mil e trinta e quatro|duas mil e trinta e quatro	dois mil e trinta e quatro
+2035	dois mil e trinta e cinco|duas mil e trinta e cinco	dois mil e trinta e cinco
+2036	dois mil e trinta e seis|duas mil e trinta e seis	dois mil e trinta e seis
+2037	dois mil e trinta e sete|duas mil e trinta e sete	dois mil e trinta e sete
+2038	dois mil e trinta e oito|duas mil e trinta e oito	dois mil e trinta e oito
+2039	dois mil e trinta e nove|duas mil e trinta e nove	dois mil e trinta e nove
+2040	dois mil e quarenta|duas mil e quarenta	dois mil e quarenta
+2041	dois mil e quarenta e um|duas mil e quarenta e uma	dois mil e quarenta e um
+2042	dois mil e quarenta e dois|duas mil e quarenta e duas	dois mil e quarenta e dois
+2043	dois mil e quarenta e tres|duas mil e quarenta e tres	dois mil e quarenta e tres
+2044	dois mil e quarenta e quatro|duas mil e quarenta e quatro	dois mil e quarenta e quatro
+2045	dois mil e quarenta e cinco|duas mil e quarenta e cinco	dois mil e quarenta e cinco
+2046	dois mil e quarenta e seis|duas mil e quarenta e seis	dois mil e quarenta e seis
+2047	dois mil e quarenta e sete|duas mil e quarenta e sete	dois mil e quarenta e sete
+2048	dois mil e quarenta e oito|duas mil e quarenta e oito	dois mil e quarenta e oito
+2049	dois mil e quarenta e nove|duas mil e quarenta e nove	dois mil e quarenta e nove
+2050	dois mil e cinquenta|duas mil e cinquenta	dois mil e cinquenta
+2051	dois mil e cinquenta e um|duas mil e cinquenta e uma	dois mil e cinquenta e um
+2052	dois mil e cinquenta e dois|duas mil e cinquenta e duas	dois mil e cinquenta e dois
+2053	dois mil e cinquenta e tres|duas mil e cinquenta e tres	dois mil e cinquenta e tres
+2054	dois mil e cinquenta e quatro|duas mil e cinquenta e quatro	dois mil e cinquenta e quatro
+2055	dois mil e cinquenta e cinco|duas mil e cinquenta e cinco	dois mil e cinquenta e cinco
+2056	dois mil e cinquenta e seis|duas mil e cinquenta e seis	dois mil e cinquenta e seis
+2057	dois mil e cinquenta e sete|duas mil e cinquenta e sete	dois mil e cinquenta e sete
+2058	dois mil e cinquenta e oito|duas mil e cinquenta e oito	dois mil e cinquenta e oito
+2059	dois mil e cinquenta e nove|duas mil e cinquenta e nove	dois mil e cinquenta e nove
+2060	dois mil e sessenta|duas mil e sessenta	dois mil e sessenta
+2061	dois mil e sessenta e um|duas mil e sessenta e uma	dois mil e sessenta e um
+2062	dois mil e sessenta e dois|duas mil e sessenta e duas	dois mil e sessenta e dois
+2063	dois mil e sessenta e tres|duas mil e sessenta e tres	dois mil e sessenta e tres
+2064	dois mil e sessenta e quatro|duas mil e sessenta e quatro	dois mil e sessenta e quatro
+2065	dois mil e sessenta e cinco|duas mil e sessenta e cinco	dois mil e sessenta e cinco
+2066	dois mil e sessenta e seis|duas mil e sessenta e seis	dois mil e sessenta e seis
+2067	dois mil e sessenta e sete|duas mil e sessenta e sete	dois mil e sessenta e sete
+2068	dois mil e sessenta e oito|duas mil e sessenta e oito	dois mil e sessenta e oito
+2069	dois mil e sessenta e nove|duas mil e sessenta e nove	dois mil e sessenta e nove
+2070	dois mil e setenta|duas mil e setenta	dois mil e setenta
+2071	dois mil e setenta e um|duas mil e setenta e uma	dois mil e setenta e um
+2072	dois mil e setenta e dois|duas mil e setenta e duas	dois mil e setenta e dois
+2073	dois mil e setenta e tres|duas mil e setenta e tres	dois mil e setenta e tres
+2074	dois mil e setenta e quatro|duas mil e setenta e quatro	dois mil e setenta e quatro
+2075	dois mil e setenta e cinco|duas mil e setenta e cinco	dois mil e setenta e cinco
+2076	dois mil e setenta e seis|duas mil e setenta e seis	dois mil e setenta e seis
+2077	dois mil e setenta e sete|duas mil e setenta e sete	dois mil e setenta e sete
+2078	dois mil e setenta e oito|duas mil e setenta e oito	dois mil e setenta e oito
+2079	dois mil e setenta e nove|duas mil e setenta e nove	dois mil e setenta e nove
+2080	dois mil e oitenta|duas mil e oitenta	dois mil e oitenta
+2081	dois mil e oitenta e um|duas mil e oitenta e uma	dois mil e oitenta e um
+2082	dois mil e oitenta e dois|duas mil e oitenta e duas	dois mil e oitenta e dois
+2083	dois mil e oitenta e tres|duas mil e oitenta e tres	dois mil e oitenta e tres
+2084	dois mil e oitenta e quatro|duas mil e oitenta e quatro	dois mil e oitenta e quatro
+2085	dois mil e oitenta e cinco|duas mil e oitenta e cinco	dois mil e oitenta e cinco
+2086	dois mil e oitenta e seis|duas mil e oitenta e seis	dois mil e oitenta e seis
+2087	dois mil e oitenta e sete|duas mil e oitenta e sete	dois mil e oitenta e sete
+2088	dois mil e oitenta e oito|duas mil e oitenta e oito	dois mil e oitenta e oito
+2089	dois mil e oitenta e nove|duas mil e oitenta e nove	dois mil e oitenta e nove
+2090	dois mil e noventa|duas mil e noventa	dois mil e noventa
+2091	dois mil e noventa e um|duas mil e noventa e uma	dois mil e noventa e um
+2092	dois mil e noventa e dois|duas mil e noventa e duas	dois mil e noventa e dois
+2093	dois mil e noventa e tres|duas mil e noventa e tres	dois mil e noventa e tres
+2094	dois mil e noventa e quatro|duas mil e noventa e quatro	dois mil e noventa e quatro
+2095	dois mil e noventa e cinco|duas mil e noventa e cinco	dois mil e noventa e cinco
+2096	dois mil e noventa e seis|duas mil e noventa e seis	dois mil e noventa e seis
+2097	dois mil e noventa e sete|duas mil e noventa e sete	dois mil e noventa e sete
+2098	dois mil e noventa e oito|duas mil e noventa e oito	dois mil e noventa e oito
+2099	dois mil e noventa e nove|duas mil e noventa e nove	dois mil e noventa e nove
+2100	dois mil e cem|duas mil e cem	dois mil e cem
+2000	dois mil|duas mil	dois mil
+2001	dois mil e um|duas mil e uma	dois mil e um
+2014	dois mil e catorze|dois mil e quatorze|duas mil e catorze|duas mil e quatorze	dois mil e catorze|dois mil e quatorze
+2099	dois mil e noventa e nove|duas mil e noventa e nove	dois mil e noventa e nove
+2100	dois mil e cem|duas mil e cem	dois mil e cem
+2101	dois mil cento e um|duas mil cento e uma	dois mil cento e um
+2114	dois mil cento e catorze|dois mil cento e quatorze|duas mil cento e catorze|duas mil cento e quatorze	dois mil cento e catorze|dois mil cento e quatorze
+2200	dois mil e duzentos|duas mil e duzentas	dois mil e duzentos
+2999	dois mil novecentos e noventa e nove|duas mil novecentas e noventa e nove	dois mil novecentos e noventa e nove
+3000	tres mil	tres mil
+3001	tres mil e um|tres mil e uma	tres mil e um
+3014	tres mil e catorze|tres mil e quatorze	tres mil e catorze|tres mil e quatorze
+3099	tres mil e noventa e nove	tres mil e noventa e nove
+3100	tres mil e cem	tres mil e cem
+3101	tres mil cento e um|tres mil cento e uma	tres mil cento e um
+3114	tres mil cento e catorze|tres mil cento e quatorze	tres mil cento e catorze|tres mil cento e quatorze
+3200	tres mil e duzentos|tres mil e duzentas	tres mil e duzentos
+3999	tres mil novecentos e noventa e nove|tres mil novecentas e noventa e nove	tres mil novecentos e noventa e nove
+10000	dez mil	dez mil
+10001	dez mil e um|dez mil e uma	dez mil e um
+10014	dez mil e catorze|dez mil e quatorze	dez mil e catorze|dez mil e quatorze
+10099	dez mil e noventa e nove	dez mil e noventa e nove
+10100	dez mil e cem	dez mil e cem
+10101	dez mil cento e um|dez mil cento e uma	dez mil cento e um
+10114	dez mil cento e catorze|dez mil cento e quatorze	dez mil cento e catorze|dez mil cento e quatorze
+10200	dez mil e duzentos|dez mil e duzentas	dez mil e duzentos
+10999	dez mil novecentos e noventa e nove|dez mil novecentas e noventa e nove	dez mil novecentos e noventa e nove
+11000	onze mil	onze mil
+11001	onze mil e um|onze mil e uma	onze mil e um
+11014	onze mil e catorze|onze mil e quatorze	onze mil e catorze|onze mil e quatorze
+11099	onze mil e noventa e nove	onze mil e noventa e nove
+11100	onze mil e cem	onze mil e cem
+11101	onze mil cento e um|onze mil cento e uma	onze mil cento e um
+11114	onze mil cento e catorze|onze mil cento e quatorze	onze mil cento e catorze|onze mil cento e quatorze
+11200	onze mil e duzentos|onze mil e duzentas	onze mil e duzentos
+11999	onze mil novecentos e noventa e nove|onze mil novecentas e noventa e nove	onze mil novecentos e noventa e nove
+14000	catorze mil|quatorze mil	catorze mil|quatorze mil
+14001	catorze mil e um|quatorze mil e um|catorze mil e uma|quatorze mil e uma	catorze mil e um|quatorze mil e um
+14014	catorze mil e catorze|quatorze mil e quatorze	catorze mil e catorze|quatorze mil e quatorze
+14099	catorze mil e noventa e nove|quatorze mil e noventa e nove	catorze mil e noventa e nove|quatorze mil e noventa e nove
+14100	catorze mil e cem|quatorze mil e cem	catorze mil e cem|quatorze mil e cem
+14101	catorze mil cento e um|quatorze mil cento e um|catorze mil cento e uma|quatorze mil cento e uma	catorze mil cento e um|quatorze mil cento e um
+14114	catorze mil cento e catorze|quatorze mil cento e quatorze	catorze mil cento e catorze|quatorze mil cento e quatorze
+14200	catorze mil e duzentos|quatorze mil e duzentos|catorze mil e duzentas|quatorze mil e duzentas	catorze mil e duzentos|quatorze mil e duzentos
+14999	catorze mil novecentos e noventa e nove|quatorze mil novecentos e noventa e nove|catorze mil novecentas e noventa e nove|quatorze mil novecentas e noventa e nove	catorze mil novecentos e noventa e nove|quatorze mil novecentos e noventa e nove
+16000	dezesseis mil	dezesseis mil
+16001	dezesseis mil e um|dezesseis mil e uma	dezesseis mil e um
+16014	dezesseis mil e catorze|dezesseis mil e quatorze	dezesseis mil e catorze|dezesseis mil e quatorze
+16099	dezesseis mil e noventa e nove	dezesseis mil e noventa e nove
+16100	dezesseis mil e cem	dezesseis mil e cem
+16101	dezesseis mil cento e um|dezesseis mil cento e uma	dezesseis mil cento e um
+16114	dezesseis mil cento e catorze|dezesseis mil cento e quatorze	dezesseis mil cento e catorze|dezesseis mil cento e quatorze
+16200	dezesseis mil e duzentos|dezesseis mil e duzentas	dezesseis mil e duzentos
+16999	dezesseis mil novecentos e noventa e nove|dezesseis mil novecentas e noventa e nove	dezesseis mil novecentos e noventa e nove
+20000	vinte mil	vinte mil
+20001	vinte mil e um|vinte mil e uma	vinte mil e um
+20014	vinte mil e catorze|vinte mil e quatorze	vinte mil e catorze|vinte mil e quatorze
+20099	vinte mil e noventa e nove	vinte mil e noventa e nove
+20100	vinte mil e cem	vinte mil e cem
+20101	vinte mil cento e um|vinte mil cento e uma	vinte mil cento e um
+20114	vinte mil cento e catorze|vinte mil cento e quatorze	vinte mil cento e catorze|vinte mil cento e quatorze
+20200	vinte mil e duzentos|vinte mil e duzentas	vinte mil e duzentos
+20999	vinte mil novecentos e noventa e nove|vinte mil novecentas e noventa e nove	vinte mil novecentos e noventa e nove
+21000	vinte e um mil|vinte e uma mil	vinte e um mil
+21001	vinte e um mil e um|vinte e uma mil e uma	vinte e um mil e um
+21014	vinte e um mil e catorze|vinte e um mil e quatorze|vinte e uma mil e catorze|vinte e uma mil e quatorze	vinte e um mil e catorze|vinte e um mil e quatorze
+21099	vinte e um mil e noventa e nove|vinte e uma mil e noventa e nove	vinte e um mil e noventa e nove
+21100	vinte e um mil e cem|vinte e uma mil e cem	vinte e um mil e cem
+21101	vinte e um mil cento e um|vinte e uma mil cento e uma	vinte e um mil cento e um
+21114	vinte e um mil cento e catorze|vinte e um mil cento e quatorze|vinte e uma mil cento e catorze|vinte e uma mil cento e quatorze	vinte e um mil cento e catorze|vinte e um mil cento e quatorze
+21200	vinte e um mil e duzentos|vinte e uma mil e duzentas	vinte e um mil e duzentos
+21999	vinte e um mil novecentos e noventa e nove|vinte e uma mil novecentas e noventa e nove	vinte e um mil novecentos e noventa e nove
+100000	cem mil	cem mil
+100001	cem mil e um|cem mil e uma	cem mil e um
+100014	cem mil e catorze|cem mil e quatorze	cem mil e catorze|cem mil e quatorze
+100099	cem mil e noventa e nove	cem mil e noventa e nove
+100100	cem mil e cem	cem mil e cem
+100101	cem mil cento e um|cem mil cento e uma	cem mil cento e um
+100114	cem mil cento e catorze|cem mil cento e quatorze	cem mil cento e catorze|cem mil cento e quatorze
+100200	cem mil e duzentos|cem mil e duzentas	cem mil e duzentos
+100999	cem mil novecentos e noventa e nove|cem mil novecentas e noventa e nove	cem mil novecentos e noventa e nove
+101000	cento e um mil|cento e uma mil	cento e um mil
+101001	cento e um mil e um|cento e uma mil e uma	cento e um mil e um
+101014	cento e um mil e catorze|cento e um mil e quatorze|cento e uma mil e catorze|cento e uma mil e quatorze	cento e um mil e catorze|cento e um mil e quatorze
+101099	cento e um mil e noventa e nove|cento e uma mil e noventa e nove	cento e um mil e noventa e nove
+101100	cento e um mil e cem|cento e uma mil e cem	cento e um mil e cem
+101101	cento e um mil cento e um|cento e uma mil cento e uma	cento e um mil cento e um
+101114	cento e um mil cento e catorze|cento e um mil cento e quatorze|cento e uma mil cento e catorze|cento e uma mil cento e quatorze	cento e um mil cento e catorze|cento e um mil cento e quatorze
+101200	cento e um mil e duzentos|cento e uma mil e duzentas	cento e um mil e duzentos
+101999	cento e um mil novecentos e noventa e nove|cento e uma mil novecentas e noventa e nove	cento e um mil novecentos e noventa e nove
+114000	cento e catorze mil|cento e quatorze mil	cento e catorze mil|cento e quatorze mil
+114001	cento e catorze mil e um|cento e quatorze mil e um|cento e catorze mil e uma|cento e quatorze mil e uma	cento e catorze mil e um|cento e quatorze mil e um
+114014	cento e catorze mil e catorze|cento e quatorze mil e quatorze	cento e catorze mil e catorze|cento e quatorze mil e quatorze
+114099	cento e catorze mil e noventa e nove|cento e quatorze mil e noventa e nove	cento e catorze mil e noventa e nove|cento e quatorze mil e noventa e nove
+114100	cento e catorze mil e cem|cento e quatorze mil e cem	cento e catorze mil e cem|cento e quatorze mil e cem
+114101	cento e catorze mil cento e um|cento e quatorze mil cento e um|cento e catorze mil cento e uma|cento e quatorze mil cento e uma	cento e catorze mil cento e um|cento e quatorze mil cento e um
+114114	cento e catorze mil cento e catorze|cento e quatorze mil cento e quatorze	cento e catorze mil cento e catorze|cento e quatorze mil cento e quatorze
+114200	cento e catorze mil e duzentos|cento e quatorze mil e duzentos|cento e catorze mil e duzentas|cento e quatorze mil e duzentas	cento e catorze mil e duzentos|cento e quatorze mil e duzentos
+114999	cento e catorze mil novecentos e noventa e nove|cento e quatorze mil novecentos e noventa e nove|cento e catorze mil novecentas e noventa e nove|cento e quatorze mil novecentas e noventa e nove	cento e catorze mil novecentos e noventa e nove|cento e quatorze mil novecentos e noventa e nove
+200000	duzentos mil|duzentas mil	duzentos mil
+200001	duzentos mil e um|duzentas mil e uma	duzentos mil e um
+200014	duzentos mil e catorze|duzentos mil e quatorze|duzentas mil e catorze|duzentas mil e quatorze	duzentos mil e catorze|duzentos mil e quatorze
+200099	duzentos mil e noventa e nove|duzentas mil e noventa e nove	duzentos mil e noventa e nove
+200100	duzentos mil e cem|duzentas mil e cem	duzentos mil e cem
+200101	duzentos mil cento e um|duzentas mil cento e uma	duzentos mil cento e um
+200114	duzentos mil cento e catorze|duzentos mil cento e quatorze|duzentas mil cento e catorze|duzentas mil cento e quatorze	duzentos mil cento e catorze|duzentos mil cento e quatorze
+200200	duzentos mil e duzentos|duzentas mil e duzentas	duzentos mil e duzentos
+200999	duzentos mil novecentos e noventa e nove|duzentas mil novecentas e noventa e nove	duzentos mil novecentos e noventa e nove
+201000	duzentos e um mil|duzentas e uma mil	duzentos e um mil
+201001	duzentos e um mil e um|duzentas e uma mil e uma	duzentos e um mil e um
+201014	duzentos e um mil e catorze|duzentos e um mil e quatorze|duzentas e uma mil e catorze|duzentas e uma mil e quatorze	duzentos e um mil e catorze|duzentos e um mil e quatorze
+201099	duzentos e um mil e noventa e nove|duzentas e uma mil e noventa e nove	duzentos e um mil e noventa e nove
+201100	duzentos e um mil e cem|duzentas e uma mil e cem	duzentos e um mil e cem
+201101	duzentos e um mil cento e um|duzentas e uma mil cento e uma	duzentos e um mil cento e um
+201114	duzentos e um mil cento e catorze|duzentos e um mil cento e quatorze|duzentas e uma mil cento e catorze|duzentas e uma mil cento e quatorze	duzentos e um mil cento e catorze|duzentos e um mil cento e quatorze
+201200	duzentos e um mil e duzentos|duzentas e uma mil e duzentas	duzentos e um mil e duzentos
+201999	duzentos e um mil novecentos e noventa e nove|duzentas e uma mil novecentas e noventa e nove	duzentos e um mil novecentos e noventa e nove
+999000	novecentos e noventa e nove mil|novecentas e noventa e nove mil	novecentos e noventa e nove mil
+999001	novecentos e noventa e nove mil e um|novecentas e noventa e nove mil e uma	novecentos e noventa e nove mil e um
+999014	novecentos e noventa e nove mil e catorze|novecentos e noventa e nove mil e quatorze|novecentas e noventa e nove mil e catorze|novecentas e noventa e nove mil e quatorze	novecentos e noventa e nove mil e catorze|novecentos e noventa e nove mil e quatorze
+999099	novecentos e noventa e nove mil e noventa e nove|novecentas e noventa e nove mil e noventa e nove	novecentos e noventa e nove mil e noventa e nove
+999100	novecentos e noventa e nove mil e cem|novecentas e noventa e nove mil e cem	novecentos e noventa e nove mil e cem
+999101	novecentos e noventa e nove mil cento e um|novecentas e noventa e nove mil cento e uma	novecentos e noventa e nove mil cento e um
+999114	novecentos e noventa e nove mil cento e catorze|novecentos e noventa e nove mil cento e quatorze|novecentas e noventa e nove mil cento e catorze|novecentas e noventa e nove mil cento e quatorze	novecentos e noventa e nove mil cento e catorze|novecentos e noventa e nove mil cento e quatorze
+999200	novecentos e noventa e nove mil e duzentos|novecentas e noventa e nove mil e duzentas	novecentos e noventa e nove mil e duzentos
+999999	novecentos e noventa e nove mil novecentos e noventa e nove|novecentas e noventa e nove mil novecentas e noventa e nove	novecentos e noventa e nove mil novecentos e noventa e nove
