@@ -300,4 +300,40 @@ class VoskEngineSessionTest {
             h.feed()
             assertTrue(decoder.closed)
         }
+
+    @Test
+    fun erroDoReconhecedorComSessaoTrocadaNoMeioDoBloco_saiComOIdAntigo() =
+        runTest {
+            // C1 (Q2, rodada 2): o accept lança depois que a sessão trocou; o Error sai com o id do reconhecedor
+            // que falhou, nunca com o da sessão atual do motor nem com o último id emitido.
+            val h = EngineHarness(this)
+            h.open()
+            val first = h.engine.beginSession()
+            val old = h.factory.created.single()
+            old.failOnAccept = true
+            var second: SessionId? = null
+            old.onAccept = {
+                old.onAccept = null
+                h.engine.endSession()
+                second = h.engine.beginSession()
+            }
+            h.feed()
+            assertEquals(listOf(SpeechEvent.Error(first, EngineError.Internal)), h.recognitionEvents())
+            assertNotEquals(first, second)
+            assertTrue(old.closed)
+        }
+
+    @Test
+    fun release_fechaOReconhecedorGuardadoDaEstrategiaReset() =
+        runTest {
+            // OPR-028: sem isto, cada troca de estratégia ou de fonte vaza um Recognizer nativo.
+            val h = EngineHarness(this, strategy = RecognizerStrategy.Reset)
+            h.open()
+            h.engine.beginSession()
+            h.engine.endSession()
+            val decoder = h.factory.created.single()
+            assertFalse(decoder.closed)
+            h.engine.release()
+            assertTrue(decoder.closed)
+        }
 }

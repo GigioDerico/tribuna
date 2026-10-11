@@ -1,5 +1,6 @@
 package io.github.gigioderico.tribuna.etapa0.speech
 
+import io.github.gigioderico.tribuna.etapa0.TestFiles
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -117,5 +118,77 @@ class ModelInstallerTest {
         assertFalse(ModelVersion.needsCopy("v1", " v1 "))
         assertTrue(ModelVersion.needsCopy("v1", "v0"))
         assertTrue(ModelVersion.needsCopy("v1", null))
+    }
+
+    private fun install(
+        files: File,
+        tree: AssetTree,
+    ): ModelLoadException = runCatching { ModelInstaller(tree, files).install() }.exceptionOrNull() as ModelLoadException
+
+    @Test
+    fun falhaGenericaDeIOAoLerOUuid_devolveModelMissing() {
+        val tree =
+            object : AssetTree {
+                override fun list(path: String): List<String> = emptyList()
+
+                override fun open(path: String): InputStream = throw IOException("falha simulada")
+            }
+        assertEquals(EngineError.ModelMissing, install(tmp.newFolder("files"), tree).error)
+    }
+
+    @Test
+    fun uuidVazio_devolveModelMissing() {
+        assertEquals(EngineError.ModelMissing, install(tmp.newFolder("files"), DirAssetTree(assets(""))).error)
+    }
+
+    @Test
+    fun uuidSoComEspacos_devolveModelMissing() {
+        assertEquals(EngineError.ModelMissing, install(tmp.newFolder("files"), DirAssetTree(assets("   "))).error)
+    }
+
+    @Test
+    fun copiaInterrompidaAnterior_naoVazaParaOModeloNovo() {
+        val files = tmp.newFolder("files")
+        File(files, "model-pt.tmp").apply { mkdirs() }
+        File(files, "model-pt.tmp/sobra.bin").writeText("lixo")
+        ModelInstaller(DirAssetTree(assets("v1")), files).install()
+        assertFalse(File(files, "model-pt/sobra.bin").exists())
+        assertFalse(File(files, "model-pt.tmp").exists())
+    }
+
+    @Test
+    fun uuidEAbertoDuasVezes_aSegundaPorUltimo() {
+        val opened = mutableListOf<String>()
+        val inner = DirAssetTree(assets("v1"))
+        val tree =
+            object : AssetTree {
+                override fun list(path: String): List<String> = inner.list(path)
+
+                override fun open(path: String): InputStream = inner.open(path).also { opened += path }
+            }
+        ModelInstaller(tree, tmp.newFolder("files")).install()
+        assertEquals(2, opened.count { it == "model-pt/uuid" })
+        assertEquals("model-pt/uuid", opened.last())
+    }
+
+    @Test
+    fun uuidComAcentoEEspacos_eLidoEmUtf8EAparado() {
+        val files = tmp.newFolder("files")
+        val tree = DirAssetTree(assets("  modelo-ação v1  "))
+        assertEquals("modelo-ação v1", ModelInstaller(tree, files).install().id)
+        assertFalse(ModelInstaller(tree, files).install().copied)
+    }
+
+    @Test
+    fun needsCopy_ignoraQuebraDeLinhaEEspacosDaOrigem() {
+        assertFalse(ModelVersion.needsCopy("v1\n", "v1"))
+        assertFalse(ModelVersion.needsCopy(" v1 ", "v1"))
+    }
+
+    @Test
+    fun nomesDoModeloNosAssetsReais_sao_osDasConstantes() {
+        assertEquals("model-pt", ModelInstaller.MODEL_DIR)
+        assertEquals("model-pt", TestFiles.modelDir.name)
+        assertTrue(File(TestFiles.modelDir, ModelInstaller.UUID).isFile)
     }
 }

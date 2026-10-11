@@ -5,6 +5,8 @@ import io.github.gigioderico.tribuna.etapa0.speech.EngineError
 import io.github.gigioderico.tribuna.etapa0.speech.SessionId
 import io.github.gigioderico.tribuna.etapa0.speech.SpeechEvent
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertThrows
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /** D7 e D11: formato dos arquivos (cabeçalhos de D7 e de TESTES-ETAPA0) e leitura de volta das hipóteses. */
@@ -86,5 +88,75 @@ class ExportFilesTest {
                 HypothesisRow(6, null, "error", listOf("MicUnavailable"), true),
             )
         assertEquals(listOf("ouvir", "uma", "habilidade"), ExportFiles.replayAccepted(rows))
+    }
+
+    @Test
+    fun metaKeys_sao_asDeD11_literais() {
+        assertEquals(
+            listOf(
+                "app_version",
+                "vosk_android_version",
+                "model_id",
+                "text_id",
+                "preset",
+                "vocabulary",
+                "recognizer_strategy",
+                "audio_source",
+                "wav_name",
+                "level_threshold",
+                "animation_ms",
+                "install_ms",
+                "prepare_ms",
+                "device_model",
+                "android_version",
+            ),
+            ExportFiles.META_KEYS,
+        )
+    }
+
+    @Test
+    fun meta_chaveAusente_viraValorVazio_eTerminaComQuebraDeLinha() {
+        val meta = ExportFiles.meta(mapOf("app_version" to "0.0.1", "android_version" to "16 (API 36)"))
+        assertTrue(meta.startsWith("app_version=0.0.1\nvosk_android_version=\nmodel_id=\n"))
+        assertTrue(meta.endsWith("device_model=\nandroid_version=16 (API 36)\n"))
+        assertEquals(15, meta.lines().filter { it.isNotEmpty() }.size)
+    }
+
+    @Test
+    fun hipoteses_aspasNasPalavras_saoDobradas_eVoltam() {
+        val rows =
+            listOf(
+                HypothesisRow(10L, 1L, Recording.KIND_PARTIAL, listOf("a\"b", "c"), true),
+                HypothesisRow(20L, 1L, Recording.KIND_FINAL, emptyList(), false),
+                HypothesisRow(30L, 2L, Recording.KIND_PARTIAL, listOf("x"), true),
+            )
+        val csv = ExportFiles.hypotheses(rows)
+        assertEquals("10,1,partial,\"a\"\"b c\",1", csv.lines()[1])
+        assertEquals("20,1,final,\"\",0", csv.lines()[2])
+        assertEquals(rows, ExportFiles.readHypotheses(csv))
+    }
+
+    @Test
+    fun hipoteses_linhaSemParDeAspas_falhaNaLeitura() {
+        val header = ExportFiles.HYPOTHESES_HEADER
+        assertThrows(IllegalArgumentException::class.java) { ExportFiles.readHypotheses("$header\n1,1,partial,ouvir,1\n") }
+        assertThrows(IllegalArgumentException::class.java) { ExportFiles.readHypotheses("$header\n1,1,partial,\"ouvir,1\n") }
+        assertThrows(IllegalArgumentException::class.java) { ExportFiles.readHypotheses("cabecalho errado\n") }
+    }
+
+    @Test
+    fun hipoteses_erroComSessao_guardaOIdDaSessao() {
+        val rec = recording()
+        rec.hypothesis(1_100L, SpeechEvent.Error(SessionId(5), EngineError.Internal), accepted = true)
+        rec.hypothesis(1_200L, SpeechEvent.Error(null, EngineError.MicUnavailable), accepted = true)
+        assertEquals(listOf(5L, null), rec.hypotheses.map { it.session })
+        assertEquals(listOf("Internal", "MicUnavailable"), rec.hypotheses.map { it.words.single() })
+        assertEquals("100,5,error,\"Internal\",1", ExportFiles.hypotheses(rec.hypotheses).lines()[1])
+    }
+
+    @Test
+    fun linhasVaziasNoFinalDoCsv_saoIgnoradasNaLeitura() {
+        val rows = listOf(HypothesisRow(10L, 1L, Recording.KIND_PARTIAL, listOf("a"), true))
+        assertEquals(rows, ExportFiles.readHypotheses(ExportFiles.hypotheses(rows) + "\n\n"))
     }
 }

@@ -13,6 +13,7 @@ class FakeDecoder(
     var resets = 0
     var resultCalls = 0
     var closed = false
+    var closeCalls = 0
 
     override fun accept(
         samples: ShortArray,
@@ -38,6 +39,7 @@ class FakeDecoder(
 
     override fun close() {
         closed = true
+        closeCalls++
     }
 }
 

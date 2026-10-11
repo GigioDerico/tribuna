@@ -47,4 +47,49 @@ class VoskJsonTest {
     fun gramatica_escapaAspasEBarra() {
         assertEquals("[\"a\\\"b\",\"c\\\\d\"]", VoskJson.grammar(listOf("a\"b", "c\\d")))
     }
+
+    @Test
+    fun espacosAoRedorDosDoisPontos_variam() {
+        assertEquals(listOf("ouvir"), VoskJson.words("{\"partial\":\"ouvir\"}"))
+        assertEquals(listOf("ouvir", "bem"), VoskJson.words("{\"text\":\"ouvir bem\"}"))
+        assertEquals(listOf("ouvir"), VoskJson.words("{\"partial\"  :  \"ouvir\"}"))
+        assertEquals(listOf("ouvir"), VoskJson.words("{\"text\"\n:\t\"ouvir\"}"))
+    }
+
+    @Test
+    fun espacosRepetidosNoTexto_naoViramPalavraVazia() {
+        assertEquals(listOf("a", "b"), VoskJson.words("{\"text\" : \" a  b \"}"))
+    }
+
+    @Test
+    fun escapesDeUmCaractere_saoDecodificados() {
+        assertEquals(listOf("a\nb"), VoskJson.words("{\"text\" : \"a\\nb\"}"))
+        assertEquals(listOf("a\tb"), VoskJson.words("{\"text\" : \"a\\tb\"}"))
+        assertEquals(listOf("a\rb"), VoskJson.words("{\"text\" : \"a\\rb\"}"))
+        assertEquals(listOf("a\bb"), VoskJson.words("{\"text\" : \"a\\bb\"}"))
+        assertEquals(listOf("a\u000Cb"), VoskJson.words("{\"text\" : \"a\\fb\"}"))
+        assertEquals(listOf("a\"b"), VoskJson.words("{\"text\" : \"a\\\"b\"}"))
+        assertEquals(listOf("a\\b"), VoskJson.words("{\"text\" : \"a\\\\b\"}"))
+        assertEquals(listOf("a/b"), VoskJson.words("{\"text\" : \"a\\/b\"}"))
+    }
+
+    @Test
+    fun jsonCortado_naoLancaEDevolveListaVazia() {
+        assertEquals(emptyList<String>(), VoskJson.words("{\"text\" : \"abc"))
+        assertEquals(emptyList<String>(), VoskJson.words("{\"text\" : \"abc\\"))
+        assertEquals(emptyList<String>(), VoskJson.words("{\"text\" : \"\\u00e"))
+        assertEquals(emptyList<String>(), VoskJson.words("{\"text\" : \"\\u00"))
+    }
+
+    @Test
+    fun aspasDeFechamentoComoUltimoCaractere_aindaFecham() {
+        assertEquals(listOf("abc"), VoskJson.words("{\"text\" : \"abc\""))
+    }
+
+    @Test
+    fun gramatica_controleEEspaco_naoViramEscape() {
+        assertEquals("[\"a b\"]", VoskJson.grammar(listOf("a b")))
+        assertEquals("[\"\\u0001\\u001f\"]", VoskJson.grammar(listOf("\u0001\u001f")))
+        assertEquals("[]", VoskJson.grammar(emptyList()))
+    }
 }

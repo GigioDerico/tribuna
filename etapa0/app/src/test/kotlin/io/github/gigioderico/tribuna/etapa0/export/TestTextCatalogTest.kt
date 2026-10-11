@@ -33,6 +33,35 @@ class TestTextCatalogTest {
     }
 
     @Test
+    fun textoDeTesteComAlgoAcrescentado_naoIdentifica() {
+        // Guarda de privacidade (OPR-026): um texto de teste seguido de um trecho pessoal não habilita a exportação.
+        for (id in TestFiles.textIds) {
+            val text = TestFiles.text(id)
+            assertNull("$id com sufixo", catalog.identify(text + "x"))
+            assertNull("$id com linha a mais", catalog.identify(text + "Trecho pessoal.\n"))
+            assertNull("$id com prefixo", catalog.identify("x$text"))
+            assertNull("$id sem o início", catalog.identify(text.drop(1)))
+        }
+    }
+
+    @Test
+    fun letraMaiusculaOuMinusculaTrocada_naoIdentifica_eIdNaoTemCaixaAlta() {
+        for (id in TestFiles.textIds) {
+            val text = TestFiles.text(id)
+            assertNull("$id em maiúsculas", catalog.identify(text.uppercase()))
+            assertNull("$id em minúsculas", catalog.identify(text.lowercase()))
+        }
+        assertNull(catalog.text("t01"))
+        assertEquals(TestFiles.text("T01"), catalog.text("T01"))
+    }
+
+    @Test
+    fun idsVemEmOrdemAlfabetica_independenteDaOrdemDeEntrada() {
+        val shuffled = TestTextCatalog(TestFiles.textIds.reversed().associateWith(TestFiles::text))
+        assertEquals(TestFiles.textIds, shuffled.ids)
+    }
+
+    @Test
     fun textoQualquer_naoIdentifica() {
         assertNull(catalog.identify(""))
         assertNull(catalog.identify("Ouvir bem é uma habilidade"))
@@ -51,8 +80,12 @@ class TestTextCatalogTest {
                         emptyList()
                     }
 
-                override fun open(path: String): InputStream =
-                    ByteArrayInputStream(TestFiles.text(path.removePrefix("textos/").removeSuffix(".txt")).toByteArray(Charsets.UTF_8))
+                override fun open(path: String): InputStream {
+                    require(path.startsWith("textos/T")) { "caminho fora de assets/textos: $path" }
+                    return ByteArrayInputStream(
+                        TestFiles.text(path.removePrefix("textos/").removeSuffix(".txt")).toByteArray(Charsets.UTF_8),
+                    )
+                }
             }
         val fromAssets = TestTextCatalog.fromAssets(assets)
         assertEquals(listOf("T01", "T09"), fromAssets.ids)

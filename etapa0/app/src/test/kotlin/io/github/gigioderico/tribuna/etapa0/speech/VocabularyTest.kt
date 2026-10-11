@@ -41,4 +41,29 @@ class VocabularyTest {
         assertEquals(0, lexicon.size)
         assertEquals(emptyList<String>(), lexicon.spellings("0"))
     }
+
+    @Test
+    fun lexico_palavraVazia_eIgnorada_eGrafiasVemOrdenadasEContadas() {
+        val lexicon = Lexicon(listOf("", "você", "voce", "tres", "três", "ola"))
+        assertEquals(5, lexicon.size)
+        assertEquals(listOf("tres", "três"), lexicon.spellings("tres"))
+        assertEquals(listOf("voce", "você"), lexicon.spellings("voce"))
+        assertEquals(emptyList<String>(), lexicon.spellings("inexistente"))
+    }
+
+    @Test
+    fun comLexico_grafiasAcrescentadasVemEmOrdemAlfabetica_naoNaDoTexto() {
+        val text = "você três"
+        val list = Vocabulary.build(text, Tokenizer.tokenize(text), Lexicon(listOf("você", "três")))
+        assertEquals(listOf("voce", "tres", "três", "você", "[unk]"), list)
+    }
+
+    @Test
+    fun comLexico_apostrofoUneNaFalaMasSeparaNoLexico() {
+        for (apostrophe in listOf("'", "’")) {
+            val text = "d${apostrophe}água"
+            val list = Vocabulary.build(text, Tokenizer.tokenize(text), Lexicon(listOf("água", "d", "dagua")))
+            assertEquals("apóstrofo $apostrophe", listOf("dagua", "d", "água", "[unk]"), list)
+        }
+    }
 }

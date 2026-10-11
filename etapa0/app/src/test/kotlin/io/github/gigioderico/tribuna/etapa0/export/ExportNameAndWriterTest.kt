@@ -44,4 +44,15 @@ class ExportNameAndWriterTest {
         val error = runCatching { ExportWriter { null }.write("T01", mapOf("meta.txt" to "")) }.exceptionOrNull()
         assertTrue(error is IOException)
     }
+
+    @Test
+    fun nome_comQuebraDeLinhaHifenOuSufixoVazio_ePontoNoIdDoTexto_saoInvalidos() {
+        assertFalse(ExportName.isValid("T01\n", "T01"))
+        assertFalse(ExportName.isValid("T01_a\n", "T01"))
+        assertFalse(ExportName.isValid("T01-sala", "T01"))
+        assertFalse(ExportName.isValid("T01__sala", "T01"))
+        assertFalse(ExportName.isValid("T01_sala_", "T01"))
+        assertFalse(ExportName.isValid("TX1", "T.1"))
+        assertTrue(ExportName.isValid("T01_a_b2", "T01"))
+    }
 }
