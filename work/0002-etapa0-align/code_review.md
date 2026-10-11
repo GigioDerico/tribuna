@@ -1,6 +1,98 @@
-**Veredito: REPROVADO**
+**Veredito: APROVADO**
 
-# Revisão — 0002-etapa0-align (rodada 2)
+# Revisão — 0002-etapa0-align (rodada 3)
+
+**Revisor:** revisor · **Data:** 2026-10-11 · **Base do diff:** 691e03c (rodada 2) → 3d77a0d (`work/0002-etapa0-align`)
+
+Os dois achados da rodada 2 que voltaram para retrabalho estão resolvidos. Reapliquei o W4 (`heard.size >= RECOVERY_WORDS` → `params.k`) e ele agora fica vermelho em `AlignerTest.recuperacao_exigeQuatroPalavrasOuvidas_D12`. O KDoc de `Copies` está corrigido (R2-3). O diff tem só testes, evidências, o plano e a memória do construtor. `src/main`, `*.kts` e `gradle/` não mudaram. Reapliquei 12 quebras da tabela do construtor, e as 12 ficaram vermelhas. Também fiz 6 variantes minhas. Quatro ficaram vermelhas e duas verdes (Y1 e Y4). Nenhuma das duas verdes toca a regra 6 nem as guardas da recuperação, então vão para o registro como IMPORTANTE e MENOR, sem bloquear. Os 13 mutantes declarados equivalentes são equivalentes de fato. Gradle verde.
+
+## Verificações pedidas pelo orquestrador
+
+| Item | Comando | Resultado |
+|---|---|---|
+| (a) produção intocada | `git diff --stat 691e03c..HEAD -- etapa0/core/src/main app/src/main '*.kts' gradle/` → vazio. `git diff --stat 691e03c..HEAD`: `AlignerBoundaryTest.kt` (novo, 378), `AlignerTest.kt` (+25/−2), `evidencias/quebras-q2-rodada3.txt`, `evidencias/verificacao-rodada3.txt`, `impl_plan.md`, memória do motor-voz | OK |
+| (b) W4, amostra da tabela e variantes minhas | Script em scratchpad: troca exata de texto (exige 1 ocorrência), `./gradlew :core:test --rerun-tasks -q`, leitura dos XMLs, `git checkout --` depois de cada quebra. No fim, `git status --short` vazio. Tabela abaixo | 12/12 da tabela vermelhas; 4/6 minhas vermelhas, 2 verdes (achados R3-1 e R3-2) |
+| (b) 13 equivalentes | Leitura de cada um contra `Aligner.kt` (abaixo) | Todas as justificativas são válidas |
+| (c) `AlignerBoundaryTest` | Leitura completa (378 linhas) | Não é tautológico e não tem texto de discurso. Desvio literal de B6 (achado R3-3, MENOR) |
+| (d) Gradle | `./gradlew :core:test testDebugUnitTest lint ktlintCheck verifyMergedManifest --rerun-tasks` → BUILD SUCCESSFUL. XMLs de `:core`: **118 testes, 0 skipped, 0 falhas, 0 erros** (AlignerBoundaryTest 27, AlignerTest 16). `verifyDebugMergedManifest: OK … -> android.permission.RECORD_AUDIO` e o mesmo no release. Os dois manifestos mesclados têm um único `uses-permission`, `RECORD_AUDIO`. `@Ignore\|@Disabled` em `core/src/test` → 0. Imports `android`/`androidx` em `align/` → 0. `core:runKtlintCheckOverTestSourceSet` executou, então os testes novos passam pelo ktlint | OK. Observação à parte: o ktlint de `:app` dá `NO-SOURCE` em todos os source sets, inclusive para `app/src/test/kotlin/…/CoreFromAppTest.kt`. Já era assim antes deste diff (OPR-018) |
+| (e) empates pinados | spec 0002 l. 24 (D9): "no empate, a posição mais próxima do cursor". Não diz nada sobre empate de distância nem de forma falada. TRD: sem regra de desempate. OPR-011 já registra o empate de distância | Nenhum dos dois contradiz o spec ou o TRD. É decisão do arquiteto. Aceito como OPR-011, ampliado para incluir o empate de formas |
+
+## Regras inegociáveis
+
+| Regra | Verificado como | Resultado |
+|---|---|---|
+| Só `RECORD_AUDIO` no manifesto mesclado | `verifyMergedManifest --rerun-tasks` e leitura dos manifestos mesclados (item d) | OK |
+| Texto não persiste nem vai para log | O diff só tem testes, sem I/O, `println` ou log novo. A produção é a mesma da rodada 1 | OK |
+| Áudio não gravado fora de `etapa0/` | Nenhum arquivo fora de `etapa0/`, `work/` e `.claude/agent-memory/` no diff | OK |
+| `align/` sem Android | grep vazio. `AlignerBoundaryTest` importa só JUnit e `java.util.Random` | OK |
+| Contratos do TRD inalterados | `src/main` com 0 linhas de diff | OK |
+| `SessionId` preso ao reconhecedor | `align/` não lida com sessão | N.A. |
+| Cursor nunca abaixo de `highWater − 3` | L103a, K2 e L129 vermelhas. A variante Y2 (recuperação olhando a partir de `highWater − 3`) também ficou vermelha | OK |
+| Só Compose | Nada de UI no diff | N.A. |
+
+## Testes (Q2 e Q3)
+
+Cada quebra foi aplicada sozinha, com troca exata de texto, e restaurada com `git checkout` (`git status --short` vazio no fim).
+
+| Quebra | Troca | Resultado |
+|---|---|---|
+| **W4 / L55b** | `heard.size >= RECOVERY_WORDS)` → `heard.size >= params.k)` | VERMELHO 1: `AlignerTest.recuperacao_exigeQuatroPalavrasOuvidas_D12` (**R2-1 resolvido**) |
+| L55a | `misses >= MISSES_FOR_RECOVERY &&` → `misses >` | VERMELHO 8 |
+| L55d | `misses >= MISSES_FOR_RECOVERY && heard` → `\|\| heard` | VERMELHO 2: `…exigeQuatroPalavrasOuvidas_D12`, `…soNoSegundoMiss_D7` |
+| L56a | `heard.takeLast(RECOVERY_WORDS)` → `takeLast(params.k)` | VERMELHO 7 |
+| L129 | recuperação a partir de `highWater` (inclusive) | VERMELHO 1: `recuperacao_naoOlhaOTokenEmHighWater` |
+| L103a | janela sem o termo `highWater − 3` | VERMELHO 1: `recuosSucessivosNaoPassamDeHighWaterMenos3` |
+| L104b | janela até `cursor + W + 1` | VERMELHO 1: `janela_terminaExatamenteEmCursorMaisW` |
+| L132b | candidato da recuperação pelo limiar **curto** | VERMELHO 4 (inclusive o L30 e o improviso do T04) |
+| L134a | `singleOrNull` → `firstOrNull` (ambígua salta) | VERMELHO 2 |
+| L40c | `<= SHORT_DISTANCE_TOKENS && best` → `\|\| best` | VERMELHO 19 |
+| L59a | recuperação sem subir `highWater` | VERMELHO 2 |
+| K2 | `MAX_BACK_FROM_HIGH_WATER = 4` | VERMELHO 4 |
+| Y1 (minha) | `heard.size >= RECOVERY_WORDS)` → `words.size >= RECOVERY_WORDS)` (conta itens brutos da cauda, não palavras normalizadas) | **VERDE** (achado R3-2) |
+| Y2 (minha) | recuperação a partir de `maxOf(0, highWater − 3)` | VERMELHO 2 |
+| Y3 (minha) | `heard.size >= RECOVERY_WORDS − 1` | VERMELHO 1: `…exigeQuatroPalavrasOuvidas_D12` |
+| Y4 (minha) | fim da janela `minOf(state.highWater + params.window, …)` em vez de `state.cursor + params.window` | **VERDE** (achado R3-1) |
+| Y5 (minha) | salto longo decidido por `best.lastWord >= longThreshold` em vez da média | VERMELHO 15 |
+| Y6 (minha) | candidato da recuperação por `match.lastWord >= longThreshold` | VERMELHO 4 |
+
+**Os 13 equivalentes declarados.** Conferi cada justificativa contra o código:
+- L87b e L95: as palavras a mais são cortadas pelo `takeLast(needed)`, ou pelos `takeLast(k)` e `takeLast(RECOVERY_WORDS)` de quem consome. Quando sobra palavra, `heard.size` já passou dos dois limites. Válido.
+- L103b: com `highWater ≥ cursor` (vale para todo estado que `advance` ou `reposition` produz), o termo `cursor − 3` nunca decide. L103c: posição negativa dá similaridade 0, e no desempate qualquer posição válida está mais perto do cursor. Válido.
+- L109: `false ||` não muda nada. Não chega a ser um mutante, é ruído na tabela. L110a e L161a: só diferem com diferença exata de 1e-9. Válido.
+- L119: a janela nunca fica vazia, porque `from ≤ cursor ≤ to` vale sob o mesmo invariante. Válido.
+- L148: com média 0 e pesos > 0, a parcela da palavra mais nova (`last`) também é 0. Token sem forma nunca chega ao ramo terminal. Válido.
+- L160a e L160b: com k ≥ 1 e peso > 0, `total > 0` no ramo terminal. Válido.
+- L176a: `walk` só desce a partir de `position`. L181: o `last` inicial é sobrescrito na primeira forma de `position`, que é o único jeito de chegar ao terminal com `position ≥ 0`. Válido.
+
+**Leitura dos testes novos (item c, Q3).**
+- `recuperacao_exigeQuatroPalavrasOuvidas_D12` testa Ágil e Normal, com cauda de 3 palavras e `missStreak = 1`. Confere o `AlignState` inteiro em dois passos: o contador sobe e cursor e highWater ficam parados. W4 e Y3 vermelhos mostram que o caso exercita a guarda. Ele não passa por falta do que checar.
+- `AlignerBoundaryTest`: cada teste confere o `AlignState` inteiro ou o par cursor/missStreak/lastMove com valores fixos. Os limiares vêm de `Similarity.of` sobre o próprio par e são testados dos dois lados com `Math.nextUp`, então o teste prende `>=` contra `>`, e não o valor da similaridade. Nos casos da recuperação, `recoveryScore` usa limite longo 2,0 para ler a similaridade sem saltar. `recuperacao_saltaParaOTokenLogoDepoisDeHighWater` exige `score ≥ limite longo` antes de afirmar o salto, o que prova que o caso exercita a guarda. Nenhum teste compara o código consigo mesmo. As poucas comparações com `result.score` aparecem só onde o score não é o que se afirma, e os outros campos são fixos.
+- Texto: palavras de 10 letras sorteadas com semente fixa e algumas palavras soltas ("vinte", "e", "um", "dois", "duas", "repetida", "qualquer", "unk"). Não há discurso nem frase de pessoa, e não há risco de privacidade. Não vêm de `etapa0/textos/` (achado R3-3).
+
+**Empates (item e).** `empateAMesmaDistancia_ficaComOMenorIndice` prende o recuo no empate de distância (cursor − 2 contra cursor + 2). Fica dentro da janela, então respeita `highWater − 3`. É exatamente o comportamento descrito no OPR-011. `formasEmpatadas_valeAPrimeira` prende a primeira forma falada quando as médias empatam. O spec (D9) e o TRD só definem o desempate entre posições pela distância. Nenhum dos dois testes contradiz o que está escrito. Se o arquiteto decidir outra regra, os dois testes mudam junto com o código. Ampliei o OPR-011 para cobrir o empate de formas.
+
+## Achados
+
+| # | Severidade | Arquivo:linha | Achado | Evidência | O que resolve |
+|---|---|---|---|---|---|
+| R3-1 | IMPORTANTE (não bloqueia) | `Aligner.kt:104` (`minOf(state.cursor + params.window, …)`); testes em `AlignerBoundaryTest.janela_terminaExatamenteEmCursorMaisW` | O fim da janela (TRD §Alinhamento 2: `cursor + W`) só é testado com `cursor == highWater`. Trocar a base por `highWater` passa verde. Depois de um recuo curto (`cursor < highWater`), essa troca deixa o salto longo alcançar até 3 tokens além de `cursor + W`. Não bloqueia: o salto continua exigindo o limite longo e a palavra mais nova (A2), não fere `highWater − 3` e não mexe nas guardas da recuperação. Mas é um operando de uma guarda do TRD sem trava | Y4: `:core:test --rerun-tasks` exit=0, 118/118. Exemplo não equivalente por leitura: `cursor = 27`, `highWater = 30`, `W = 10`, fala `word(40)` com k = 1. O código atual não salta (janela 27..37); com Y4, LongJump para 40 | Um teste em `AlignerBoundaryTest` com `cursor < highWater` e palavra exata em `cursor + W + 1..highWater + W` → `Stay`, miss. **OPR-015**, motor-voz |
+| R3-2 | MENOR | `Aligner.kt:55` | A guarda "4 palavras" conta palavras normalizadas (`heard`). Contar itens brutos da cauda (`words.size`) passa verde. Os dois só divergem quando um item normaliza para nenhuma palavra (então há 4 itens e 3 palavras, e a recuperação dispara com 3) ou quando um item tem várias palavras (caso em que a troca é mais conservadora). Com o Vosk, item vazio é improvável | Y1 exit=0 | Um teste com cauda de 4 itens em que um é só pontuação (ex.: `"—"`) e 3 palavras que casam com posição única fora da janela → `Stay`. **OPR-016**, motor-voz |
+| R3-3 | MENOR | `AlignerBoundaryTest.kt:8-30` e testes de formas (l. 170, 200, 219, 227, 235) | O critério B6 do plano diz "textos de teste só de `etapa0/textos/` ou cópia literal". O roteiro é sintético (letras sorteadas) e há palavras soltas fora dos textos. Não há risco de privacidade, e é o tipo de montagem que torna os limites exatos possíveis. Mesmo assim, é um desvio do texto do critério e não está registrado como exceção no spec | Leitura | Registrar no spec 0002 (B6) a exceção para roteiros sintéticos de palavras sem sentido em testes de limite. **OPR-017**, analista |
+
+Achados da rodada 2: R2-1 resolvido (W4 vermelho) e R2-3 resolvido (KDoc). R2-2 continua no OPR-014 (aberto, motor-voz), como previsto. OPR-011 foi ampliado com o empate de formas. OPR-013 continua aberto.
+
+## Não verificado
+
+- Não rodei as 109 quebras da tabela do construtor. Rodei uma amostra de 12, escolhida pelo maior risco (guardas da recuperação, `highWater − 3`, janela e limiares), e as 12 batem com a tabela.
+- `connectedDebugAndroidTest` e `verify16kAlignment` não se aplicam, porque só mudaram testes JVM.
+
+---
+
+# Histórico — rodada 2
+
+**Veredito (rodada 2): REPROVADO**
+
+## Revisão — 0002-etapa0-align (rodada 2)
 
 **Revisor:** revisor · **Data:** 2026-10-11 · **Base do diff:** 599759a (rodada 1) → 5b51e0f (`work/0002-etapa0-align`)
 
