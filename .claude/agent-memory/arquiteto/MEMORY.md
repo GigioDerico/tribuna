@@ -5,3 +5,4 @@
 - [Prova do plano em cópia](prova_do_plano_em_copia.md) — validar código do plano numa cópia de etapa0 no scratchpad antes de entregar
 - [Fatos do Vosk na 0003](vosk_android_fatos_0003.md) — léxico com acento no Gr.fst, StorageService externo, 16 KB só 64 bits, ABIs da JNA, R8/AWT, log do Kaldi
 - [Arquitetura do etapa0/:app](arquitetura_etapa0_app_0003.md) — VoskEngine puro com costuras, ReaderController puro no ViewModel, paralelo só com worktree
+- [Ferramentas Python da 0004](ferramentas_etapa0_0004.md) — Python 3.13 sem pytest/vosk, .tsv de paridade, NW com desempate por trechos, recuperação literal trivial, glob zsh

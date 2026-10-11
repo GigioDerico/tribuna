@@ -36,6 +36,15 @@ class NormalizerTest {
     }
 
     @Test
+    fun normalize_apostrofoRetoETipograficoEntreLetrasUnemAsPartes_paridadeComRoteiroPy() {
+        assertEquals("dagua", Normalizer.normalize("d'água"))
+        assertEquals("dagua", Normalizer.normalize("d’água"))
+        assertEquals("oi", Normalizer.normalize("’oi"))
+        assertEquals("oi", Normalizer.normalize("oi’"))
+        assertEquals("a b", Normalizer.normalize("a - b"))
+    }
+
+    @Test
     fun normalize_eIdempotenteEmTodosOsTextos() {
         for (name in TestTexts.names) {
             val once = Normalizer.normalize(TestTexts.read(name))

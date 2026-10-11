@@ -1,0 +1,221 @@
+test_rodada2_dois_trechos_de_insercao_no_comeco_valem_um_trecho (testes.test_alinhar.DesempateComTokensExplicitosTest.test_rodada2_dois_trechos_de_insercao_no_comeco_valem_um_trecho) ... ok
+test_rodada2_insercao_no_comeco_com_substituicao_adiante (testes.test_alinhar.DesempateComTokensExplicitosTest.test_rodada2_insercao_no_comeco_com_substituicao_adiante) ... ok
+test_rodada2_omissao_no_meio_e_insercao_no_fim (testes.test_alinhar.DesempateComTokensExplicitosTest.test_rodada2_omissao_no_meio_e_insercao_no_fim) ... ok
+test_rodada2_tres_palavras_no_comeco_pagam_um_trecho_so (testes.test_alinhar.DesempateComTokensExplicitosTest.test_rodada2_tres_palavras_no_comeco_pagam_um_trecho_so)
+O custo da inserção inicial cresce `estende` por palavra (A3): três palavras antes da leitura não ... ok
+test_plano_A3_empate_de_formas_fica_com_a_primeira (testes.test_alinhar.DesempateMinimoTest.test_plano_A3_empate_de_formas_fica_com_a_primeira) ... ok
+test_plano_A3_insercao_no_comeco_tambem_e_trecho (testes.test_alinhar.DesempateMinimoTest.test_plano_A3_insercao_no_comeco_tambem_e_trecho) ... ok
+test_plano_A3_uma_edicao_vale_mais_que_os_trechos (testes.test_alinhar.DesempateMinimoTest.test_plano_A3_uma_edicao_vale_mais_que_os_trechos) ... ok
+test_plano_A3_improviso_que_termina_com_palavra_do_roteiro_nao_rouba_o_tempo (testes.test_alinhar.DesempateTest.test_plano_A3_improviso_que_termina_com_palavra_do_roteiro_nao_rouba_o_tempo)
+T09 tem "por isso que estamos aqui": o "Isso" do T01 fica com a sua ocorrência real. ... ok
+test_plano_A3_palavra_comum_antes_do_improviso_fica_antes (testes.test_alinhar.DesempateTest.test_plano_A3_palavra_comum_antes_do_improviso_fica_antes)
+O improviso do T03 tem "conversa", último token do 1º parágrafo: fica a ocorrência de antes. ... ok
+test_plano_A3_substituicao_nao_da_tempo (testes.test_alinhar.DesempateTest.test_plano_A3_substituicao_nao_da_tempo) ... ok
+test_D9_l30_sintetico_completo (testes.test_alinhar.DeterminismoTest.test_D9_l30_sintetico_completo) ... 
+D9: L30 sintético (3668 tokens, 3684 palavras) em 3.65 s
+ok
+test_D9_mesma_entrada_mesma_saida (testes.test_alinhar.DeterminismoTest.test_D9_mesma_entrada_mesma_saida) ... ok
+test_D3_pulo_de_paragrafo_t05 (testes.test_alinhar.EventosTest.test_D3_pulo_de_paragrafo_t05) ... ok
+test_D4_improviso_t04_nao_da_tempo_a_token (testes.test_alinhar.EventosTest.test_D4_improviso_t04_nao_da_tempo_a_token) ... ok
+test_D5_repeticao_t08_fica_com_a_primeira_vez (testes.test_alinhar.EventosTest.test_D5_repeticao_t08_fica_com_a_primeira_vez) ... ok
+test_D6_refrao_t03_cada_ocorrencia_com_o_seu_tempo (testes.test_alinhar.EventosTest.test_D6_refrao_t03_cada_ocorrencia_com_o_seu_tempo) ... ok
+test_D7_acento_e_hifen_da_transcricao (testes.test_alinhar.EventosTest.test_D7_acento_e_hifen_da_transcricao) ... ok
+test_D7_palavras_com_acento_e_maiuscula_como_o_vosk_grande (testes.test_alinhar.EventosTest.test_D7_palavras_com_acento_e_maiuscula_como_o_vosk_grande)
+Cada palavra só de letras sai como está no texto (Em, João, Repare...): todas casam depois do normalizador. ... ok
+test_D8_texto_diferente_de_etapa0_textos_sai_com_2_sem_escrever (testes.test_alinhar.GuardaTest.test_D8_texto_diferente_de_etapa0_textos_sai_com_2_sem_escrever) ... ok
+test_palavra_de_duracao_zero_e_aceita (testes.test_alinhar.GuardaTest.test_palavra_de_duracao_zero_e_aceita) ... ok
+test_rodada2_arquivo_ausente_ou_nao_utf8_sai_com_2 (testes.test_alinhar.GuardaTest.test_rodada2_arquivo_ausente_ou_nao_utf8_sai_com_2) ... ok
+test_rodada2_mensagem_de_erro_aponta_a_linha_certa (testes.test_alinhar.GuardaTest.test_rodada2_mensagem_de_erro_aponta_a_linha_certa)
+Varredura anti-recorrência (alinhar.py:50): a numeração das linhas de dados começa em 1. ... ok
+test_rodada2_palavras_que_se_sobrepoem_sao_aceitas_se_o_inicio_nao_recua (testes.test_alinhar.GuardaTest.test_rodada2_palavras_que_se_sobrepoem_sao_aceitas_se_o_inicio_nao_recua)
+Y15: a ordem exigida é a do início, não a do fim da linha de cima. ... ok
+test_rodada2_transcricao_grande_demais_sai_com_2 (testes.test_alinhar.GuardaTest.test_rodada2_transcricao_grande_demais_sai_com_2)
+OPR-036 (Y12): a guarda recusa antes de montar o DP, em vez de estourar array('i') ou levar horas. ... ok
+test_rodada2_transcricao_invalida_mais_casos (testes.test_alinhar.GuardaTest.test_rodada2_transcricao_invalida_mais_casos)
+OPR-036 (Y09, Y10, Y15): início negativo, conf que não é número e ordem pelo início. ... ok
+test_saida_em_arquivo_com_o (testes.test_alinhar.GuardaTest.test_saida_em_arquivo_com_o) ... ok
+test_transcricao_invalida_sai_com_2 (testes.test_alinhar.GuardaTest.test_transcricao_invalida_sai_com_2) ... ok
+test_D1_coluna_palavra_e_o_exibido_normalizado (testes.test_alinhar.LeituraLimpaTest.test_D1_coluna_palavra_e_o_exibido_normalizado) ... ok
+test_D1_t01_todos_os_tokens_com_o_tempo_das_suas_palavras (testes.test_alinhar.LeituraLimpaTest.test_D1_t01_todos_os_tokens_com_o_tempo_das_suas_palavras) ... ok
+test_rodada2_faixas_de_tokens_sem_tempo_e_de_palavras_inseridas_no_stderr (testes.test_alinhar.RelatorioDoAlinhamentoTest.test_rodada2_faixas_de_tokens_sem_tempo_e_de_palavras_inseridas_no_stderr)
+Varredura (alinhar.py:208-209): faixas consecutivas viram 'a-z', as separadas ficam separadas, e a 2ª e a ... ok
+test_rodada2_insercao_no_comeco_aparece_no_stderr (testes.test_alinhar.RelatorioDoAlinhamentoTest.test_rodada2_insercao_no_comeco_aparece_no_stderr)
+OPR-037 (Y08): duas palavras antes da leitura (improviso de abertura) são listadas na revisão manual. ... ok
+test_rodada2_ultima_palavra_repetida_fica_com_a_primeira_vez (testes.test_alinhar.RelatorioDoAlinhamentoTest.test_rodada2_ultima_palavra_repetida_fica_com_a_primeira_vez)
+OPR-037 (Y07): empate no fim da transcrição (a última palavra dita duas vezes): o token fica com a ... ok
+test_D2_tres_formas_das_referencias (testes.test_alinhar.VariantesTest.test_D2_tres_formas_das_referencias) ... ok
+test_A5_ajuda_das_tres_ferramentas (testes.test_cli.AjudaTest.test_A5_ajuda_das_tres_ferramentas) ... ok
+test_codigos_de_saida_pelo_processo (testes.test_cli.AjudaTest.test_codigos_de_saida_pelo_processo) ... ok
+test_E13_transcricao_alinhar_metricas (testes.test_cli.PontaAPontaTest.test_E13_transcricao_alinhar_metricas) ... ok
+test_E1_atraso_3_ainda_conta_como_dentro (testes.test_metricas.AtrasoTest.test_E1_atraso_3_ainda_conta_como_dentro) ... ok
+test_E1_dois_atras_o_tempo_todo_passa (testes.test_metricas.AtrasoTest.test_E1_dois_atras_o_tempo_todo_passa) ... ok
+test_E2_atraso_4_em_5_por_cento_passa (testes.test_metricas.AtrasoTest.test_E2_atraso_4_em_5_por_cento_passa) ... ok
+test_E2_atraso_4_em_6_por_cento_reprova (testes.test_metricas.AtrasoTest.test_E2_atraso_4_em_6_por_cento_reprova) ... ok
+test_E2_intervalos_de_excecao_nao_entram_na_conta (testes.test_metricas.AtrasoTest.test_E2_intervalos_de_excecao_nao_entram_na_conta) ... ok
+test_E2_tres_segundos_depois_do_pulo_nao_entram_na_conta (testes.test_metricas.AtrasoTest.test_E2_tres_segundos_depois_do_pulo_nao_entram_na_conta) ... ok
+test_atraso_sem_amostras_de_leitura_normal_reprova (testes.test_metricas.AtrasoTest.test_atraso_sem_amostras_de_leitura_normal_reprova) ... ok
+test_rodada2_relatorio_mostra_contagem_percentual_e_limites_do_atraso (testes.test_metricas.AtrasoTest.test_rodada2_relatorio_mostra_contagem_percentual_e_limites_do_atraso)
+Varredura (metricas.py:449, :451): 570 de 600 é 95,00%; limites 'atraso <= 3' e 'mínimo 95%'. ... ok
+test_rodada2_sem_amostras_normais_o_relatorio_ainda_traz_total_e_ultima_amostra (testes.test_metricas.AtrasoTest.test_rodada2_sem_amostras_normais_o_relatorio_ainda_traz_total_e_ultima_amostra)
+Varredura (metricas.py:293): o relatório descreve todas as amostras, mesmo sem nenhuma de leitura normal. ... ok
+test_rodada2_tres_segundos_depois_do_pulo_fecham_no_ms_exato (testes.test_metricas.AtrasoTest.test_rodada2_tres_segundos_depois_do_pulo_fecham_no_ms_exato)
+Varredura (metricas.py:34, :263): com pulo_fim em 40001 a amostra 43000 ainda está nos 3 s (< 43001). ... ok
+test_amostras_vao_ate_o_maior_fim_do_esperado (testes.test_metricas.DefinicoesTest.test_amostras_vao_ate_o_maior_fim_do_esperado) ... ok
+test_cursor_e_a_ultima_linha_ate_t_e_stay_e_ignorada (testes.test_metricas.DefinicoesTest.test_cursor_e_a_ultima_linha_ate_t_e_stay_e_ignorada) ... ok
+test_esperado_inclui_o_fim_exato_e_usa_o_maior_indice (testes.test_metricas.DefinicoesTest.test_esperado_inclui_o_fim_exato_e_usa_o_maior_indice) ... ok
+test_percentil95_posto_mais_proximo (testes.test_metricas.DefinicoesTest.test_percentil95_posto_mais_proximo) ... ok
+test_rodada2_amostragem_nunca_comeca_antes_de_zero (testes.test_metricas.DefinicoesTest.test_rodada2_amostragem_nunca_comeca_antes_de_zero)
+X30: deslocamento negativo deixa a trajetória em -500 ms; as amostras começam em 0 (D12). ... ok
+test_rodada2_limite_de_95_por_cento_com_n_21 (testes.test_metricas.DefinicoesTest.test_rodada2_limite_de_95_por_cento_com_n_21)
+X21: 19 de 20 é exatamente 95% (passa); 19 de 21 é 90,5% (reprova); 20 de 21 passa. ... ok
+test_rodada2_percentil_95_em_n_100_e_estatisticas_vazias (testes.test_metricas.DefinicoesTest.test_rodada2_percentil_95_em_n_100_e_estatisticas_vazias)
+Varredura (metricas.py:208, :213). ... ok
+test_rodada2_primeira_amostra_e_o_primeiro_multiplo_de_100 (testes.test_metricas.DefinicoesTest.test_rodada2_primeira_amostra_e_o_primeiro_multiplo_de_100)
+Varredura (metricas.py:267): teto de t0 em múltiplos de 100, para t0 de 0 a mais de 10 s. ... ok
+test_rodada2_ultima_amostra_inclui_o_fim_quando_e_multiplo_de_100 (testes.test_metricas.DefinicoesTest.test_rodada2_ultima_amostra_inclui_o_fim_quando_e_multiplo_de_100)
+X31: o fim do esperado em 1000 ms entra como amostra (0, 100, ..., 1000). ... ok
+test_rodada2_ultima_amostra_nunca_passa_do_fim (testes.test_metricas.DefinicoesTest.test_rodada2_ultima_amostra_nunca_passa_do_fim)
+Varredura (metricas.py:269): fim em 1099 ms -> a última amostra é 1000, não 1100. ... ok
+test_E10_entrada_invalida_sai_com_2 (testes.test_metricas.EntradaTest.test_E10_entrada_invalida_sai_com_2) ... ok
+test_E10_hipoteses_com_cabecalho_errado (testes.test_metricas.EntradaTest.test_E10_hipoteses_com_cabecalho_errado) ... ok
+test_E10_t_ms_igual_e_aceito (testes.test_metricas.EntradaTest.test_E10_t_ms_igual_e_aceito) ... ok
+test_E8_deslocamento_leva_ao_relogio_do_esperado (testes.test_metricas.EntradaTest.test_E8_deslocamento_leva_ao_relogio_do_esperado) ... ok
+test_E9_eventos_fora_de_ordem_sao_ordenados (testes.test_metricas.EntradaTest.test_E9_eventos_fora_de_ordem_sao_ordenados) ... ok
+test_E9_varios_arquivos_de_eventos (testes.test_metricas.EntradaTest.test_E9_varios_arquivos_de_eventos) ... ok
+test_plano_A6_deslocamento_positivo_comeca_na_trajetoria (testes.test_metricas.EntradaTest.test_plano_A6_deslocamento_positivo_comeca_na_trajetoria) ... ok
+test_rodada2_arquivo_ausente_ou_nao_utf8_sai_com_2 (testes.test_metricas.EntradaTest.test_rodada2_arquivo_ausente_ou_nao_utf8_sai_com_2)
+OPR-036 (X71): sem traceback e sem rc 1 (que seria lido como REPROVA). ... ok
+test_rodada2_campos_a_mais_ou_a_menos_saem_com_2 (testes.test_metricas.EntradaTest.test_rodada2_campos_a_mais_ou_a_menos_saem_com_2)
+OPR-036 (X69): linha com número de campos diferente do cabeçalho, em cada um dos quatro arquivos. ... ok
+test_rodada2_empate_de_t_ms_entre_arquivos_vale_o_arquivo_e_dentro_do_arquivo_a_linha (testes.test_metricas.EntradaTest.test_rodada2_empate_de_t_ms_entre_arquivos_vale_o_arquivo_e_dentro_do_arquivo_a_linha)
+Varredura (metricas.py:158, D11): o fim do improviso do arquivo 0 vem antes do início do arquivo 1, mesmo ... ok
+test_rodada2_hipoteses_sem_texto_de_teste_correspondente_sai_com_2 (testes.test_metricas.EntradaTest.test_rodada2_hipoteses_sem_texto_de_teste_correspondente_sai_com_2)
+OPR-037 (X70, A9): as latências 1 e 2 precisam do roteiro, achado pela coluna palavra do esperado. ... ok
+test_rodada2_indice_zero_e_o_ultimo_token_sao_validos_nos_eventos (testes.test_metricas.EntradaTest.test_rodada2_indice_zero_e_o_ultimo_token_sao_validos_nos_eventos)
+Varredura (metricas.py:155): o primeiro token (0) e o último (n - 1) existem; n não. ... ok
+test_rodada2_ler_esperado_guarda_o_indice_e_aceita_duracao_zero (testes.test_metricas.EntradaTest.test_rodada2_ler_esperado_guarda_o_indice_e_aceita_duracao_zero)
+Varredura (metricas.py:136, :139): token sem tempo mantém o índice; início = fim é um tempo válido. ... ok
+test_rodada2_mensagens_apontam_a_linha_de_dados_certa (testes.test_metricas.EntradaTest.test_rodada2_mensagens_apontam_a_linha_de_dados_certa)
+Varredura (metricas.py:95, :110, :150, :164): a primeira linha depois do cabeçalho é a linha 1. ... ok
+test_rodada2_totais_do_relatorio_fecham_com_toque_intervalos_e_pulo (testes.test_metricas.EntradaTest.test_rodada2_totais_do_relatorio_fecham_com_toque_intervalos_e_pulo)
+Varredura (metricas.py:291-301): total = leitura normal + excluídas por toque + excluídas por intervalo, ... ok
+test_rodada2_validacoes_da_trajetoria (testes.test_metricas.EntradaTest.test_rodada2_validacoes_da_trajetoria)
+OPR-036 (X61, X62): cursor negativo e score que não é número saem com 2. ... ok
+test_rodada2_validacoes_das_hipoteses (testes.test_metricas.EntradaTest.test_rodada2_validacoes_das_hipoteses)
+OPR-036 (X65): kind ou accepted fora dos valores do app saem com 2. ... ok
+test_rodada2_validacoes_do_esperado (testes.test_metricas.EntradaTest.test_rodada2_validacoes_do_esperado)
+OPR-036 (X63, X64): fim antes do início e tempo pela metade saem com 2. ... ok
+test_rodada2_validacoes_dos_eventos (testes.test_metricas.EntradaTest.test_rodada2_validacoes_dos_eventos)
+OPR-036 (X60): índice negativo em toque_palavra e pulo_inicio sai com 2. ... ok
+test_E11_fala_cursor_e_latencias_1_e_2 (testes.test_metricas.LatenciasTest.test_E11_fala_cursor_e_latencias_1_e_2) ... ok
+test_E11_latencia_acima_da_meta_nao_muda_o_codigo (testes.test_metricas.LatenciasTest.test_E11_latencia_acima_da_meta_nao_muda_o_codigo) ... ok
+test_E11_tokens_com_fim_em_intervalo_ficam_fora (testes.test_metricas.LatenciasTest.test_E11_tokens_com_fim_em_intervalo_ficam_fora) ... ok
+test_rodada2_tokens_com_fim_nos_3_s_depois_do_pulo_ficam_fora_do_fala_cursor (testes.test_metricas.LatenciasTest.test_rodada2_tokens_com_fim_nos_3_s_depois_do_pulo_ficam_fora_do_fala_cursor)
+Varredura (metricas.py:304): as latências excluem toque, intervalos E os 3 s depois do pulo (D15). ... ok
+test_E7_hw_e_o_maior_nao_o_ultimo (testes.test_metricas.RecuoTest.test_E7_hw_e_o_maior_nao_o_ultimo) ... ok
+test_E7_longjump_e_recovery_tambem_contam (testes.test_metricas.RecuoTest.test_E7_longjump_e_recovery_tambem_contam) ... ok
+test_E7_recuo_para_36_depois_de_40_viola (testes.test_metricas.RecuoTest.test_E7_recuo_para_36_depois_de_40_viola) ... ok
+test_E7_recuo_para_37_nao_viola (testes.test_metricas.RecuoTest.test_E7_recuo_para_37_nao_viola) ... ok
+test_E7_reposition_redefine_hw (testes.test_metricas.RecuoTest.test_E7_reposition_redefine_hw) ... ok
+test_rodada2_linhas_stay_nao_repetem_a_violacao (testes.test_metricas.RecuoTest.test_rodada2_linhas_stay_nao_repetem_a_violacao)
+X40: depois de um recuo para 36 as linhas Stay (mesmo cursor) não geram novas violações. ... ok
+test_E6_nunca_recupera_reprova_mesmo_com_atraso_baixo_no_pulo_fim (testes.test_metricas.RecuperacaoTest.test_E6_nunca_recupera_reprova_mesmo_com_atraso_baixo_no_pulo_fim)
+A5: no pulo_fim o esperado ainda não saltou; a leitura literal daria 0 ms e passaria (Q3). ... ok
+test_E6_recupera_em_2900_passa (testes.test_metricas.RecuperacaoTest.test_E6_recupera_em_2900_passa) ... ok
+test_E6_recupera_em_3000_passa (testes.test_metricas.RecuperacaoTest.test_E6_recupera_em_3000_passa) ... ok
+test_E6_recupera_em_3100_reprova (testes.test_metricas.RecuperacaoTest.test_E6_recupera_em_3100_reprova) ... ok
+test_E6_sem_pulo_nao_se_aplica (testes.test_metricas.RecuperacaoTest.test_E6_sem_pulo_nao_se_aplica) ... ok
+test_plano_A5_alvo_e_o_primeiro_token_com_tempo_a_partir_do_pulo_inicio (testes.test_metricas.RecuperacaoTest.test_plano_A5_alvo_e_o_primeiro_token_com_tempo_a_partir_do_pulo_inicio)
+Recuperação rápida: no 1º token depois do pulo. Com o alvo errado (índice seguinte), daria 600. ... ok
+test_rodada2_atraso_4_em_2900_e_3_em_3100_reprova_com_3100 (testes.test_metricas.RecuperacaoTest.test_rodada2_atraso_4_em_2900_e_3_em_3100_reprova_com_3100) ... ok
+test_rodada2_atraso_4_em_2900_nunca_melhor_nunca_recupera (testes.test_metricas.RecuperacaoTest.test_rodada2_atraso_4_em_2900_nunca_melhor_nunca_recupera) ... ok
+test_rodada2_atraso_exatamente_3_em_2900_passa (testes.test_metricas.RecuperacaoTest.test_rodada2_atraso_exatamente_3_em_2900_passa)
+Achado 1 do REVIEW (E6; X01 a X03): o cursor chega a esperado - 3 em pulo_fim + 2900. ... ok
+test_rodada2_dois_pulos_valem_todos_nao_qualquer (testes.test_metricas.RecuperacaoTest.test_rodada2_dois_pulos_valem_todos_nao_qualquer)
+Achado 3 do REVIEW (X06, all x any): vale o pior dos pulos. ... ok
+test_rodada2_limite_de_3000_ms_vale_para_o_ms_exato (testes.test_metricas.RecuperacaoTest.test_rodada2_limite_de_3000_ms_vale_para_o_ms_exato)
+Varredura (metricas.py:35, :375): com o pulo_fim marcado 1 ms antes da amostra, recuperar na amostra ... ok
+test_rodada2_pulo_fim_marcado_depois_de_o_orador_retomar_da_zero_nao_negativo (testes.test_metricas.RecuperacaoTest.test_rodada2_pulo_fim_marcado_depois_de_o_orador_retomar_da_zero_nao_negativo)
+X08: com pulo_fim marcado 500 ms depois da fala do alvo, a recuperação conta a partir do pulo_fim. ... ok
+test_rodada2_relatorio_da_recuperacao_traz_o_maximo (testes.test_metricas.RecuperacaoTest.test_rodada2_relatorio_da_recuperacao_traz_o_maximo) ... ok
+test_rodada2_salto_errado_por_posicao_vale_dentro_dos_3_s_depois_do_pulo (testes.test_metricas.RecuperacaoTest.test_rodada2_salto_errado_por_posicao_vale_dentro_dos_3_s_depois_do_pulo)
+Achado 2 do REVIEW (X10, TESTES-ETAPA0 'em toda a trajetória'): o Recovery cai 6 tokens à frente 1 s depois ... ok
+test_E12_stdout_traz_criterios_latencias_fim_e_proveniencia (testes.test_metricas.RelatorioTest.test_E12_stdout_traz_criterios_latencias_fim_e_proveniencia) ... ok
+test_E3_dois_a_frente_nao_conta (testes.test_metricas.SaltoErradoTest.test_E3_dois_a_frente_nao_conta) ... ok
+test_E3_dois_saltos_separados_contam_dois (testes.test_metricas.SaltoErradoTest.test_E3_dois_saltos_separados_contam_dois) ... ok
+test_E3_tres_a_frente_por_200_ms_conta (testes.test_metricas.SaltoErradoTest.test_E3_tres_a_frente_por_200_ms_conta) ... ok
+test_E4_alem_do_esperado (testes.test_metricas.SaltoErradoTest.test_E4_alem_do_esperado) ... ok
+test_E4_bordas_do_intervalo (testes.test_metricas.SaltoErradoTest.test_E4_bordas_do_intervalo)
+Fechado no início e aberto no fim (D12): Short em 30000 conta; em 40000 não conta. ... ok
+test_E4_classe_usa_o_esperado_do_inicio_do_intervalo (testes.test_metricas.SaltoErradoTest.test_E4_classe_usa_o_esperado_do_inicio_do_intervalo)
+Tokens com fim dentro do improviso: a classe compara com esperado(início), não com esperado(t). ... ok
+test_E4_movimento_automatico_no_intervalo_conta_como_alcance (testes.test_metricas.SaltoErradoTest.test_E4_movimento_automatico_no_intervalo_conta_como_alcance) ... ok
+test_E4_um_ms_depois_do_fim_nao_conta (testes.test_metricas.SaltoErradoTest.test_E4_um_ms_depois_do_fim_nao_conta) ... ok
+test_rodada2_classe_um_a_frente_do_esperado_do_inicio_ja_e_alem (testes.test_metricas.SaltoErradoTest.test_rodada2_classe_um_a_frente_do_esperado_do_inicio_ja_e_alem)
+X12: o limite da classe é cursor <= esperado no início ('alcance'); 1 a frente já é 'além do esperado'. ... ok
+test_rodada2_cursor_adiantado_conta_como_dentro_do_atraso (testes.test_metricas.SaltoErradoTest.test_rodada2_cursor_adiantado_conta_como_dentro_do_atraso)
+X20: atraso negativo (cursor à frente) é <= 3; quem pune é o salto errado, não o atraso. ... ok
+test_rodada2_salto_por_posicao_vale_dentro_de_intervalos_sem_movimento_automatico (testes.test_metricas.SaltoErradoTest.test_rodada2_salto_por_posicao_vale_dentro_de_intervalos_sem_movimento_automatico)
+Achado 2 do REVIEW: dentro de improviso, silêncio ou pausa o salto por posição também conta (Reposition ... ok
+test_E5_short_na_janela_conta_na_primeira_amostra_depois (testes.test_metricas.ToqueTest.test_E5_short_na_janela_conta_na_primeira_amostra_depois) ... ok
+test_E5_toque_tres_paragrafos_a_frente_nao_conta_salto (testes.test_metricas.ToqueTest.test_E5_toque_tres_paragrafos_a_frente_nao_conta_salto) ... ok
+test_plano_A7_reposition_um_ms_antes_do_evento_fica_na_janela (testes.test_metricas.ToqueTest.test_plano_A7_reposition_um_ms_antes_do_evento_fica_na_janela) ... ok
+test_plano_A7_so_a_reposition_para_i_antecipa_a_janela (testes.test_metricas.ToqueTest.test_plano_A7_so_a_reposition_para_i_antecipa_a_janela) ... ok
+test_rodada2_latencias_nao_contam_token_com_fim_dentro_da_janela_do_toque (testes.test_metricas.ToqueTest.test_rodada2_latencias_nao_contam_token_com_fim_dentro_da_janela_do_toque)
+X80: o cursor chegou em 40 por Short em 9900 e o toque em 10000 leva ao 60; os tokens 33 a 40 têm ... ok
+test_rodada2_reposition_dentro_de_pausa_improviso_ou_silencio_nao_e_movimento_automatico (testes.test_metricas.ToqueTest.test_rodada2_reposition_dentro_de_pausa_improviso_ou_silencio_nao_e_movimento_automatico)
+Achado 4 do REVIEW (spec: automático = Short, LongJump, Recovery): toque em palavra com a leitura ... ok
+test_rodada2_toque_em_token_sem_tempo_vai_ate_o_proximo_token_com_tempo (testes.test_metricas.ToqueTest.test_rodada2_toque_em_token_sem_tempo_vai_ate_o_proximo_token_com_tempo)
+OPR-036/037, achado 5 do REVIEW (D15): o token tocado não casou no alinhamento; a janela fecha no ... ok
+test_rodada2_ultima_linha_ate_o_evento_manda_mesmo_com_t_igual (testes.test_metricas.ToqueTest.test_rodada2_ultima_linha_ate_o_evento_manda_mesmo_com_t_igual)
+X50: Reposition(i) em 4000, Short em 5000 e toque em 5000: a última linha com t <= evento é o Short, ... ok
+test_identifica_so_bytes_identicos (testes.test_roteiro.CatalogoTest.test_identifica_so_bytes_identicos) ... ok
+test_rodada2_tokens_por_palavras_acha_o_texto_certo (testes.test_roteiro.CatalogoTest.test_rodada2_tokens_por_palavras_acha_o_texto_certo)
+X84 (A9): cada texto de teste volta com os seus tokens; coluna que não é de nenhum texto dá None. ... ok
+test_rodada2_fronteiras_batem_com_a_referencia (testes.test_roteiro.FronteirasTest.test_rodada2_fronteiras_batem_com_a_referencia) ... ok
+test_rodada2_limite_de_999999_nos_numeros_por_extenso (testes.test_roteiro.FronteirasTest.test_rodada2_limite_de_999999_nos_numeros_por_extenso)
+D14 com os valores à mão: 999.999 tem forma falada; 1.000.000 não (fica o dígito). ... ok
+test_rodada2_o_arquivo_cobre_os_limites_e_os_livros (testes.test_roteiro.FronteirasTest.test_rodada2_o_arquivo_cobre_os_limites_e_os_livros)
+Q3: sem estes casos o arquivo não prova nada sobre o limite de D14, os livros 2 e 3 e o fim da linha. ... ok
+test_B4_exemplos_iguais_ao_Normalizer_kt (testes.test_roteiro.NormalizadorTest.test_B4_exemplos_iguais_ao_Normalizer_kt) ... ok
+test_B4_idempotente_em_todos_os_textos (testes.test_roteiro.NormalizadorTest.test_B4_idempotente_em_todos_os_textos) ... ok
+test_rodada2_juncao_de_apostrofo_reto_e_tipografico (testes.test_roteiro.NormalizadorTest.test_rodada2_juncao_de_apostrofo_reto_e_tipografico)
+W03 (e KK5 no Kotlin, NormalizerTest): os dois apóstrofos entre letras unem as partes; fora de letras, não. ... ok
+test_B1_ha_uma_referencia_por_texto_e_uma_de_numeros (testes.test_roteiro.ReferenciaTest.test_B1_ha_uma_referencia_por_texto_e_uma_de_numeros) ... ok
+test_B3_formas_dos_numeros_batem_com_a_referencia (testes.test_roteiro.ReferenciaTest.test_B3_formas_dos_numeros_batem_com_a_referencia) ... ok
+test_B3_numero_fora_da_faixa_lanca_erro (testes.test_roteiro.ReferenciaTest.test_B3_numero_fora_da_faixa_lanca_erro) ... ok
+test_B3_tokens_de_cada_texto_batem_com_a_referencia (testes.test_roteiro.ReferenciaTest.test_B3_tokens_de_cada_texto_batem_com_a_referencia) ... ok
+test_C1_csv_com_cabecalho_e_palavras_em_ordem (testes.test_timestamps.TimestampsTest.test_C1_csv_com_cabecalho_e_palavras_em_ordem) ... ok
+test_C1_milissegundos_arredondados (testes.test_timestamps.TimestampsTest.test_C1_milissegundos_arredondados)
+4.02 × 1000 = 4019.9999999999995 em ponto flutuante: round dá 4020 (D5), int daria 4019. ... ok
+test_C1_ordena_por_tempo (testes.test_timestamps.TimestampsTest.test_C1_ordena_por_tempo) ... ok
+test_C2_palavra_sai_como_o_reconhecedor_devolveu (testes.test_timestamps.TimestampsTest.test_C2_palavra_sai_como_o_reconhecedor_devolveu) ... ok
+test_C3_formato_errado_sai_com_2_sem_stdout (testes.test_timestamps.TimestampsTest.test_C3_formato_errado_sai_com_2_sem_stdout) ... ok
+test_C3_wav_valido_entrega_todos_os_quadros (testes.test_timestamps.TimestampsTest.test_C3_wav_valido_entrega_todos_os_quadros) ... ok
+test_C4_nome_do_protocolo_e_aceito (testes.test_timestamps.TimestampsTest.test_C4_nome_do_protocolo_e_aceito) ... ok
+test_C4_nome_fora_do_padrao_sai_com_2 (testes.test_timestamps.TimestampsTest.test_C4_nome_fora_do_padrao_sai_com_2) ... ok
+test_C5_sem_modelo_sai_com_2 (testes.test_timestamps.TimestampsTest.test_C5_sem_modelo_sai_com_2) ... ok
+test_C5_sem_pacote_vosk_sai_com_3 (testes.test_timestamps.TimestampsTest.test_C5_sem_pacote_vosk_sai_com_3) ... ok
+test_rodada2_blocos_de_4000_quadros (testes.test_timestamps.TimestampsTest.test_rodada2_blocos_de_4000_quadros)
+Varredura (timestamps.py:27, :53): o WAV é entregue em blocos de 4000 quadros de 2 bytes. ... ok
+test_rodada2_modelo_que_nao_abre_sai_com_2 (testes.test_timestamps.TimestampsTest.test_rodada2_modelo_que_nao_abre_sai_com_2) ... ok
+test_rodada2_modo_real_abre_o_modelo_so_por_caminho_e_liga_SetWords (testes.test_timestamps.TimestampsTest.test_rodada2_modo_real_abre_o_modelo_so_por_caminho_e_liga_SetWords)
+D5, D21 (varredura timestamps.py:94-102): módulo vosk falso no lugar do pacote. O modelo abre só com ... ok
+test_rodada2_nome_com_sufixo_depois_do_wav_sai_com_2 (testes.test_timestamps.TimestampsTest.test_rodada2_nome_com_sufixo_depois_do_wav_sai_com_2)
+Z01: o nome inteiro tem de casar com o padrão. ... ok
+test_rodada2_ordena_por_inicio_mesmo_com_palavras_aninhadas (testes.test_timestamps.TimestampsTest.test_rodada2_ordena_por_inicio_mesmo_com_palavras_aninhadas)
+Z09: a ordem é a do tempo de início (e só depois a do fim). ... ok
+test_rodada2_varios_result_acumulam_todas_as_palavras_na_ordem (testes.test_timestamps.TimestampsTest.test_rodada2_varios_result_acumulam_todas_as_palavras_na_ordem)
+Achado 6 do REVIEW (C1; Z10, Z11): cada Result() traz várias palavras e o Vosk real fecha um por pausa; ... ok
+test_rodada2_wav_corrompido_ausente_ou_vazio_sai_com_2 (testes.test_timestamps.TimestampsTest.test_rodada2_wav_corrompido_ausente_ou_vazio_sai_com_2)
+Z05: sem traceback; rc 1 não existe nesta ferramenta e rc 2 diz 'entrada inválida'. ... ok
+test_saida_em_arquivo_com_o (testes.test_timestamps.TimestampsTest.test_saida_em_arquivo_com_o) ... ok
+
+----------------------------------------------------------------------
+Ran 149 tests in 5.820s
+
+OK
+testar.py: 149 testes, 0 falhas, 0 erros, 0 pulados
+real 5.93
+user 5.61
+sys 0.25

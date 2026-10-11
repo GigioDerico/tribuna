@@ -1,3 +1,5 @@
 - [Q2: quebrar todo caminho de evento com sessão](feedback_q2_cobrir_todos_eventos_sessao.md) — 0001 e 0003: Error e Partial atrasado verdes; quebre cada ponto no produtor E no consumidor
 - [Q2: cada operando de cada guarda](feedback_q2_variantes_guardas_alinhador.md) — 0002/0003: quebre cada operando, fase e fallback de ramo de falha na rodada 1; troque variável vizinha
 - [Q2: script de lote no Gradle](reference_q2_script_gradle.md) — apagar test-results antes, marcar "não compilou", git checkout no finally; zsh precisa de --include='*.kt'
+- [Q2: limiar repetido e coleção trocada](feedback_q2_constante_compartilhada.md) — 0004: ATRASO_MAX na recuperação e _salto(normais) verdes; quebre cada uso no local
+- [Equivalência por diferencial precisa de estrutura](feedback_equivalencia_por_diferencial.md) — 0004 r2: 0/5000 aleatório não provou; roteiro repetido e índice [-1] derrubaram uma equivalência

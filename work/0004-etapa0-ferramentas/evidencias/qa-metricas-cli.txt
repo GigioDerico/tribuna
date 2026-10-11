@@ -1,0 +1,161 @@
+T01: tokens 215 com tempo 215 fim ultimo 64450
+PASSA  E13 ponta-a-ponta lag 1 (alinhar.py -> metricas.py): rc=0 (esperado 0)
+      | Veredito: **PASSA**
+      | - Atraso: **PASSA**, 645/645 amostras de leitura normal com atraso <= 3 (100.00%; mínimo 95%); maior atraso 1
+      | - Salto errado: **PASSA**, 0 ocorrência(s)
+      | - Recuo: **PASSA**, 0 violação(ões)
+# Métricas da Etapa 0
+
+Veredito: **PASSA**
+
+## Critérios
+
+- Atraso: **PASSA**, 645/645 amostras de leitura normal com atraso <= 3 (100.00%; mínimo 95%); maior atraso 1
+- Salto errado: **PASSA**, 0 ocorrência(s)
+- Recuperação de pulo: **NAO_SE_APLICA**
+- Recuo: **PASSA**, 0 violação(ões)
+
+## Amostras
+
+- 645 amostras a cada 100 ms, de 0 a 64400 ms
+- leitura normal: 645; excluídas por intervalo: 0; excluídas por toque: 0
+
+## Latências (informativas, sem veredito)
+
+- Fala -> cursor: n=213, mediana=300, p95=300, máximo=300 ms
+- Latência 1: sem --hipoteses
+- Latência 2: sem --hipoteses
+- Meta provisória do TRD (total): 500 ms
+
+## Fim
+
+- cursor final 213; último token 214
+
+## Proveniência
+
+- deslocamento: 0 ms
+- trajetoria: E13.traj.csv sha256=e5459f6a17ba811bf76cb43f216bb5cb6644466cfae6f4f422b8c1d54a769e35
+- esperado: T01.expected.csv sha256=51cbbbec8935711ab742a906422a3896b7ac666fc9ed098031a159861c8e67a4
+- eventos: E13.ev.csv sha256=923687282f07227515ea112a6258a407b81a6e5a7245f0a4e0066f56428f1322
+
+PASSA  E1 lag 2 passa: rc=0 (esperado 0)
+      | Veredito: **PASSA**
+      | - Atraso: **PASSA**, 645/645 amostras de leitura normal com atraso <= 3 (100.00%; mínimo 95%); maior atraso 2
+      | - Salto errado: **PASSA**, 0 ocorrência(s)
+      | - Recuo: **PASSA**, 0 violação(ões)
+PASSA  lag 3 passa (limite): rc=0 (esperado 0)
+      | Veredito: **PASSA**
+      | - Atraso: **PASSA**, 645/645 amostras de leitura normal com atraso <= 3 (100.00%; mínimo 95%); maior atraso 3
+      | - Salto errado: **PASSA**, 0 ocorrência(s)
+      | - Recuo: **PASSA**, 0 violação(ões)
+PASSA  E2 lag 4 sempre reprova: rc=1 (esperado 1)
+      | Veredito: **REPROVA**
+      | - Atraso: **REPROVA**, 15/645 amostras de leitura normal com atraso <= 3 (2.33%; mínimo 95%); maior atraso 4
+      | - Salto errado: **PASSA**, 0 ocorrência(s)
+      | - Recuo: **PASSA**, 0 violação(ões)
+PASSA  E3a cursor 3+ a frente em ~3 tokens reprova: rc=1 (esperado 1)
+      | Veredito: **REPROVA**
+      | - Atraso: **PASSA**, 645/645 amostras de leitura normal com atraso <= 3 (100.00%; mínimo 95%); maior atraso 1
+      | - Salto errado: **REPROVA**, 1 ocorrência(s)
+      | - Recuo: **PASSA**, 0 violação(ões)
+PASSA  E3b cursor 2 a frente (esp+2) nao conta: rc=0 (esperado 0)
+      | Veredito: **PASSA**
+      | - Atraso: **PASSA**, 645/645 amostras de leitura normal com atraso <= 3 (100.00%; mínimo 95%); maior atraso 1
+      | - Salto errado: **PASSA**, 0 ocorrência(s)
+      | - Recuo: **PASSA**, 0 violação(ões)
+PASSA  E4 Short dentro do silencio reprova: rc=1 (esperado 1)
+      | Veredito: **REPROVA**
+      | - Atraso: **PASSA**, 615/615 amostras de leitura normal com atraso <= 3 (100.00%; mínimo 95%); maior atraso 1
+      | - Salto errado: **REPROVA**, 9 ocorrência(s)
+      | - Recuo: **PASSA**, 0 violação(ões)
+PASSA  E4b silencio sem movimento, cursor para; apos o fim alcanca (Short em s1): rc=0 (esperado 0)
+      | Veredito: **PASSA**
+      | - Atraso: **PASSA**, 615/615 amostras de leitura normal com atraso <= 3 (100.00%; mínimo 95%); maior atraso 1
+      | - Salto errado: **PASSA**, 0 ocorrência(s)
+      | - Recuo: **PASSA**, 0 violação(ões)
+PASSA  E7 Short 40->36 e recuo (reprova): rc=1 (esperado 1)
+      | Veredito: **REPROVA**
+      | - Atraso: **PASSA**, 642/645 amostras de leitura normal com atraso <= 3 (99.53%; mínimo 95%); maior atraso 5
+      | - Salto errado: **PASSA**, 0 ocorrência(s)
+      | - Recuo: **REPROVA**, 1 violação(ões)
+PASSA  E7b Short 40->37 nao e recuo (resto da leitura segue lag 1): rc=0 (esperado 0)
+      | Veredito: **PASSA**
+      | - Atraso: **PASSA**, 642/645 amostras de leitura normal com atraso <= 3 (99.53%; mínimo 95%); maior atraso 4
+      | - Salto errado: **PASSA**, 0 ocorrência(s)
+      | - Recuo: **PASSA**, 0 violação(ões)
+PASSA  E6 recuperacao em 2900 ms passa: rc=0 (esperado 0)
+      | Veredito: **PASSA**
+      | - Atraso: **PASSA**, 615/615 amostras de leitura normal com atraso <= 3 (100.00%; mínimo 95%); maior atraso 1
+      | - Salto errado: **PASSA**, 0 ocorrência(s)
+      | - Recuperação de pulo: **PASSA**
+      | - Recuo: **PASSA**, 0 violação(ões)
+# Métricas da Etapa 0
+
+Veredito: **PASSA**
+
+## Critérios
+
+- Atraso: **PASSA**, 615/615 amostras de leitura normal com atraso <= 3 (100.00%; mínimo 95%); maior atraso 1
+- Salto errado: **PASSA**, 0 ocorrência(s)
+- Recuperação de pulo: **PASSA**
+  - pulo_fim em 30000 ms (alvo 100): 2900 ms; máximo 3000 ms
+- Recuo: **PASSA**, 0 violação(ões)
+
+## Amostras
+
+- 645 amostras a cada 100 ms, de 0 a 64400 ms
+- leitura normal: 615; excluídas por intervalo: 30; excluídas por toque: 0
+
+## Latências (informativas, sem veredito)
+
+- Fala -> cursor: n=153, mediana=300, p95=300, máximo=17950 ms
+- Latência 1: sem --hipoteses
+- Latência 2: sem --hipoteses
+- Meta provisória do TRD (total): 500 ms
+
+## Fim
+
+- cursor final 213; último token 214
+
+## Proveniência
+
+- deslocamento: 0 ms
+- trajetoria: E6.traj.csv sha256=ca06824e04cb28116459f68d265f4da347df750862bffe4da1e3341915d1a8d2
+- esperado: T01skip.expected.csv sha256=590664ae92d6fae5aa5070fedbe37707e29b52f34b3f5fe4d92f016a080012e8
+- eventos: E6.ev.csv sha256=4297acc6e5d5fc7cc6f77d9f18b686f21043dc709a3d9ae91bb2b7cc3dd6aa87
+
+PASSA  E6 recuperacao em 3100 ms reprova: rc=1 (esperado 1)
+      | Veredito: **REPROVA**
+      | - Atraso: **PASSA**, 614/615 amostras de leitura normal com atraso <= 3 (99.84%; mínimo 95%); maior atraso 61
+      | - Salto errado: **PASSA**, 0 ocorrência(s)
+      | - Recuperação de pulo: **REPROVA**
+      | - Recuo: **PASSA**, 0 violação(ões)
+PASSA  E6 nunca recupera reprova: rc=1 (esperado 1)
+      | Veredito: **REPROVA**
+      | - Atraso: **REPROVA**, 300/615 amostras de leitura normal com atraso <= 3 (48.78%; mínimo 95%); maior atraso 165
+      | - Salto errado: **PASSA**, 0 ocorrência(s)
+      | - Recuperação de pulo: **REPROVA**
+      | - Recuo: **PASSA**, 0 violação(ões)
+E8 orig rc 0
+E8 desl rc 0
+PASSA  E8 mesmo JSON de criterios com --deslocamento-ms 1500 chaves: ['amostras', 'criterios', 'cursor_final', 'deslocamento_ms', 'entradas', 'janelas_toque', 'latencias', 'veredito']
+PASSA  E9 dois arquivos == um arquivo (rc 1/1)
+PASSA  E10 cabecalho trajetoria errado: rc=2 stdout_vazio=True stderr='metricas.py: trajetória: cabeçalho diferente de t_ms,cursor,move,score'
+PASSA  E10 cabecalho eventos errado: rc=2 stdout_vazio=True stderr='metricas.py: eventos: cabeçalho diferente de t_ms,evento,detalhe'
+PASSA  E10 move invalido: rc=2 stdout_vazio=True stderr='metricas.py: trajetória: linha 2 com move fora de Stay/Short/LongJump/Recovery/Reposition'
+PASSA  E10 t_ms decrescente: rc=2 stdout_vazio=True stderr='metricas.py: trajetória: linha 215 com t_ms decrescente'
+PASSA  E10 nao comeca por Reposition: rc=2 stdout_vazio=True stderr='metricas.py: trajetória: precisa começar por uma linha Reposition (formato da 0003)'
+PASSA  E10 evento fora da lista: rc=2 stdout_vazio=True stderr='metricas.py: eventos: linha 1 com evento fora da lista do TESTES-ETAPA0'
+PASSA  E10 toque_palavra sem indice: rc=2 stdout_vazio=True stderr='metricas.py: eventos: linha 1 (toque_palavra) sem índice de token válido'
+PASSA  E10 toque_palavra indice nao inteiro: rc=2 stdout_vazio=True stderr='metricas.py: eventos: linha 1 com inteiro inválido'
+PASSA  E10 improviso_inicio sem fim: rc=2 stdout_vazio=True stderr='metricas.py: eventos: improviso_inicio sem fim'
+PASSA  arquivo inexistente rc=2 "metricas.py: [Errno 2] No such file or directory: '/private/tmp/claude-501/-User"
+PASSA  E11 --hipoteses + --json (cursor 400 ms depois do fim; parcial 150 ms depois): rc=0 (esperado 0)
+      | Veredito: **PASSA**
+      | - Atraso: **PASSA**, 649/649 amostras de leitura normal com atraso <= 3 (100.00%; mínimo 95%); maior atraso 2
+      | - Salto errado: **PASSA**, 0 ocorrência(s)
+      | - Recuo: **PASSA**, 0 violação(ões)
+   json chaves: ['amostras', 'criterios', 'cursor_final', 'deslocamento_ms', 'entradas', 'janelas_toque', 'latencias', 'veredito']
+   latencias: {"latencias": {"fala_cursor": {"maximo": 400, "mediana": 400.0, "n": 214, "p95": 400}, "latencia_1": {"maximo": 150, "mediana": 150.0, "n": 98, "p95": 150}, "latencia_2": {"maximo": 250, "mediana": 250.0, "n": 98, "p95": 250}, "meta_provisoria_ms": 500}}
+
+ALL_DONE /private/tmp/claude-501/-Users-giorgioderico-Projetos-Tribuna/0047a42b-06ef-4f09-9e65-5322f4225d31/scratchpad/qa/tmpire5xdl7

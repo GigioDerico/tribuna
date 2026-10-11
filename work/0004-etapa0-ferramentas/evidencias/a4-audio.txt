@@ -1,0 +1,3 @@
+etapa0/ferramentas/testes/test_timestamps.py:53:    with wave.open(caminho, "wb") as w:
+etapa0/ferramentas/testes/test_timestamps.py:54:        w.setnchannels(canais)
+etapa0/ferramentas/testes/test_timestamps.py:57:        w.writeframes(b"\x00" * (quadros * canais * largura))

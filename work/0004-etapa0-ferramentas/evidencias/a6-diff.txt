@@ -1,0 +1,37 @@
+---
+ .claude/agent-memory/analista/MEMORY.md            |    1 +
+ .../analista/ferramentas_etapa0_decisoes.md        |   18 +
+ .claude/agent-memory/arquiteto/MEMORY.md           |    1 +
+ .../arquiteto/ferramentas_etapa0_0004.md           |   18 +
+ .../arquiteto/prova_do_plano_em_copia.md           |    2 +
+ .../tribuna/etapa0/align/ReferenciaFormasTest.kt   |   96 +
+ etapa0/core/src/test/resources/referencia/L30.tsv  | 3669 ++++++++++++++++++++
+ etapa0/core/src/test/resources/referencia/T01.tsv  |  216 ++
+ etapa0/core/src/test/resources/referencia/T02.tsv  |  115 +
+ etapa0/core/src/test/resources/referencia/T03.tsv  |   90 +
+ etapa0/core/src/test/resources/referencia/T04.tsv  |  216 ++
+ etapa0/core/src/test/resources/referencia/T05.tsv  |  216 ++
+ etapa0/core/src/test/resources/referencia/T06.tsv  |  216 ++
+ etapa0/core/src/test/resources/referencia/T07.tsv  |  216 ++
+ etapa0/core/src/test/resources/referencia/T08.tsv  |  216 ++
+ etapa0/core/src/test/resources/referencia/T09.tsv  |   59 +
+ etapa0/core/src/test/resources/referencia/T10.tsv  |  216 ++
+ .../core/src/test/resources/referencia/numeros.tsv | 2228 ++++++++++++
+ etapa0/ferramentas/alinhar.py                      |  271 ++
+ etapa0/ferramentas/metricas.py                     |  551 +++
+ etapa0/ferramentas/roteiro.py                      |  366 ++
+ etapa0/ferramentas/testar.py                       |   29 +
+ etapa0/ferramentas/testes/__init__.py              |    0
+ etapa0/ferramentas/testes/apoio.py                 |   37 +
+ etapa0/ferramentas/testes/sintetico.py             |  160 +
+ etapa0/ferramentas/testes/test_alinhar.py          |  303 ++
+ etapa0/ferramentas/testes/test_cli.py              |   71 +
+ etapa0/ferramentas/testes/test_metricas.py         |  608 ++++
+ etapa0/ferramentas/testes/test_roteiro.py          |   84 +
+ etapa0/ferramentas/testes/test_timestamps.py       |  153 +
+ etapa0/ferramentas/timestamps.py                   |  143 +
+ registers/opr_register.md                          |    4 +
+ work/0004-etapa0-ferramentas/brainstorm.md         |  128 +
+ work/0004-etapa0-ferramentas/impl_plan.md          | 3538 +++++++++++++++++++
+ work/0004-etapa0-ferramentas/spec.md               |  132 +
+ 35 files changed, 14387 insertions(+)

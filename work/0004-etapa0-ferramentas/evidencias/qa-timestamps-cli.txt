@@ -1,0 +1,8 @@
+PASSA  C3 44,1 kHz -> 2 rc=2 stdout='' stderr='timestamps.py: o WAV precisa ser 16 kHz, mono, PCM 16 bits'
+PASSA  C3 estereo -> 2 rc=2 stdout='' stderr='timestamps.py: o WAV precisa ser 16 kHz, mono, PCM 16 bits'
+PASSA  C3 8 bits -> 2 rc=2 stdout='' stderr='timestamps.py: o WAV precisa ser 16 kHz, mono, PCM 16 bits'
+PASSA  C4 discurso.wav -> 2 rc=2 stdout='' stderr='timestamps.py: nome fora do padrão <ID>_<voz>_<ambiente>_t<n>.wav com ID de etapa0/textos/'
+PASSA  C4 X99_giorgio_sala_t1.wav -> 2 rc=2 stdout='' stderr='timestamps.py: nome fora do padrão <ID>_<voz>_<ambiente>_t<n>.wav com ID de etapa0/textos/'
+PASSA  C5 sem --modelo (nome valido) -> 2 rc=2 stdout='' stderr='timestamps.py: faltou --modelo <diretório do modelo>'
+PASSA  C5 nome valido + WAV ok + sem pacote vosk -> 3 rc=3 stdout='' stderr='timestamps.py: o pacote vosk não está instalado; instalar é portão humano 6 (0005), fora desta ferramenta'
+PASSA  WAV inexistente -> 2 rc=2 stdout='' stderr="timestamps.py: WAV ilegível: [Errno 2] No such file or directory: '/private/tmp/claude-501/-Users-giorgioderico-Projetos-Tribuna/0047a42b-06"

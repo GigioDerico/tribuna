@@ -1,0 +1,55 @@
+## A2 imports
+   1         import vosk
+   1 from array
+   3 from dataclasses
+   6 from pathlib
+   5 from testes
+   1 from unittest
+   2 import alinhar
+   3 import argparse
+   1 import bisect
+   1 import contextlib
+   4 import csv
+   3 import hashlib
+   5 import io
+   1 import itertools
+   5 import json
+   1 import math
+   1 import metricas
+   2 import re
+   7 import roteiro
+   1 import statistics
+   1 import subprocess
+   7 import sys
+   1 import tempfile
+   1 import time
+   1 import timestamps
+   1 import types
+   1 import unicodedata
+   6 import unittest
+   2 import wave
+## linhas com import vosk
+etapa0/ferramentas/timestamps.py:89:        import vosk  # só aqui (spec 0004, A2): os testes não dependem do pacote
+## A3 rede
+etapa0/ferramentas/testes/test_timestamps.py:249:        model_path (nunca model_name ou lang, que baixariam da internet) e o reconhecedor liga SetWords(True)."""
+rc=0
+## extra rede
+etapa0/ferramentas/timestamps.py:96:        model = vosk.Model(model_path=str(modelo))  # só por caminho: sem download (D5, D21)
+rc=0
+## A4 audio
+etapa0/ferramentas/testes/test_timestamps.py:87:    with wave.open(caminho, "wb") as w:
+etapa0/ferramentas/testes/test_timestamps.py:88:        w.setnchannels(canais)
+etapa0/ferramentas/testes/test_timestamps.py:91:        w.writeframes(b"\x00" * (quadros * canais * largura))
+## open wb
+etapa0/ferramentas/testes/test_timestamps.py:87:    with wave.open(caminho, "wb") as w:
+rc=0
+## A6 diff
+(fim; vazio acima = ok)
+## arquivos diferentes de main fora de work/0004, .claude, registers, ferramentas, core/src/test
+(fim)
+## align/
+ .../etapa0/align/FronteirasDaTokenizacaoTest.kt    | 42 ++++++++++
+ .../tribuna/etapa0/align/NormalizerTest.kt         |  9 ++
+ .../tribuna/etapa0/align/ReferenciaFormasTest.kt   | 96 ++++++++++++++++++++++
+ 3 files changed, 147 insertions(+)
+(fim)

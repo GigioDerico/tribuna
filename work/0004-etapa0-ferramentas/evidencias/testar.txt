@@ -1,0 +1,104 @@
+test_plano_A3_empate_de_formas_fica_com_a_primeira (testes.test_alinhar.DesempateMinimoTest.test_plano_A3_empate_de_formas_fica_com_a_primeira) ... ok
+test_plano_A3_insercao_no_comeco_tambem_e_trecho (testes.test_alinhar.DesempateMinimoTest.test_plano_A3_insercao_no_comeco_tambem_e_trecho) ... ok
+test_plano_A3_uma_edicao_vale_mais_que_os_trechos (testes.test_alinhar.DesempateMinimoTest.test_plano_A3_uma_edicao_vale_mais_que_os_trechos) ... ok
+test_plano_A3_improviso_que_termina_com_palavra_do_roteiro_nao_rouba_o_tempo (testes.test_alinhar.DesempateTest.test_plano_A3_improviso_que_termina_com_palavra_do_roteiro_nao_rouba_o_tempo)
+T09 tem "por isso que estamos aqui": o "Isso" do T01 fica com a sua ocorrência real. ... ok
+test_plano_A3_palavra_comum_antes_do_improviso_fica_antes (testes.test_alinhar.DesempateTest.test_plano_A3_palavra_comum_antes_do_improviso_fica_antes)
+O improviso do T03 tem "conversa", último token do 1º parágrafo: fica a ocorrência de antes. ... ok
+test_plano_A3_substituicao_nao_da_tempo (testes.test_alinhar.DesempateTest.test_plano_A3_substituicao_nao_da_tempo) ... ok
+test_D9_l30_sintetico_completo (testes.test_alinhar.DeterminismoTest.test_D9_l30_sintetico_completo) ... 
+D9: L30 sintético (3668 tokens, 3684 palavras) em 3.77 s
+ok
+test_D9_mesma_entrada_mesma_saida (testes.test_alinhar.DeterminismoTest.test_D9_mesma_entrada_mesma_saida) ... ok
+test_D3_pulo_de_paragrafo_t05 (testes.test_alinhar.EventosTest.test_D3_pulo_de_paragrafo_t05) ... ok
+test_D4_improviso_t04_nao_da_tempo_a_token (testes.test_alinhar.EventosTest.test_D4_improviso_t04_nao_da_tempo_a_token) ... ok
+test_D5_repeticao_t08_fica_com_a_primeira_vez (testes.test_alinhar.EventosTest.test_D5_repeticao_t08_fica_com_a_primeira_vez) ... ok
+test_D6_refrao_t03_cada_ocorrencia_com_o_seu_tempo (testes.test_alinhar.EventosTest.test_D6_refrao_t03_cada_ocorrencia_com_o_seu_tempo) ... ok
+test_D7_acento_e_hifen_da_transcricao (testes.test_alinhar.EventosTest.test_D7_acento_e_hifen_da_transcricao) ... ok
+test_D7_palavras_com_acento_e_maiuscula_como_o_vosk_grande (testes.test_alinhar.EventosTest.test_D7_palavras_com_acento_e_maiuscula_como_o_vosk_grande)
+Cada palavra só de letras sai como está no texto (Em, João, Repare...): todas casam depois do normalizador. ... ok
+test_D8_texto_diferente_de_etapa0_textos_sai_com_2_sem_escrever (testes.test_alinhar.GuardaTest.test_D8_texto_diferente_de_etapa0_textos_sai_com_2_sem_escrever) ... ok
+test_palavra_de_duracao_zero_e_aceita (testes.test_alinhar.GuardaTest.test_palavra_de_duracao_zero_e_aceita) ... ok
+test_saida_em_arquivo_com_o (testes.test_alinhar.GuardaTest.test_saida_em_arquivo_com_o) ... ok
+test_transcricao_invalida_sai_com_2 (testes.test_alinhar.GuardaTest.test_transcricao_invalida_sai_com_2) ... ok
+test_D1_coluna_palavra_e_o_exibido_normalizado (testes.test_alinhar.LeituraLimpaTest.test_D1_coluna_palavra_e_o_exibido_normalizado) ... ok
+test_D1_t01_todos_os_tokens_com_o_tempo_das_suas_palavras (testes.test_alinhar.LeituraLimpaTest.test_D1_t01_todos_os_tokens_com_o_tempo_das_suas_palavras) ... ok
+test_D2_tres_formas_das_referencias (testes.test_alinhar.VariantesTest.test_D2_tres_formas_das_referencias) ... ok
+test_A5_ajuda_das_tres_ferramentas (testes.test_cli.AjudaTest.test_A5_ajuda_das_tres_ferramentas) ... ok
+test_codigos_de_saida_pelo_processo (testes.test_cli.AjudaTest.test_codigos_de_saida_pelo_processo) ... ok
+test_E13_transcricao_alinhar_metricas (testes.test_cli.PontaAPontaTest.test_E13_transcricao_alinhar_metricas) ... ok
+test_E1_atraso_3_ainda_conta_como_dentro (testes.test_metricas.AtrasoTest.test_E1_atraso_3_ainda_conta_como_dentro) ... ok
+test_E1_dois_atras_o_tempo_todo_passa (testes.test_metricas.AtrasoTest.test_E1_dois_atras_o_tempo_todo_passa) ... ok
+test_E2_atraso_4_em_5_por_cento_passa (testes.test_metricas.AtrasoTest.test_E2_atraso_4_em_5_por_cento_passa) ... ok
+test_E2_atraso_4_em_6_por_cento_reprova (testes.test_metricas.AtrasoTest.test_E2_atraso_4_em_6_por_cento_reprova) ... ok
+test_E2_intervalos_de_excecao_nao_entram_na_conta (testes.test_metricas.AtrasoTest.test_E2_intervalos_de_excecao_nao_entram_na_conta) ... ok
+test_E2_tres_segundos_depois_do_pulo_nao_entram_na_conta (testes.test_metricas.AtrasoTest.test_E2_tres_segundos_depois_do_pulo_nao_entram_na_conta) ... ok
+test_atraso_sem_amostras_de_leitura_normal_reprova (testes.test_metricas.AtrasoTest.test_atraso_sem_amostras_de_leitura_normal_reprova) ... ok
+test_amostras_vao_ate_o_maior_fim_do_esperado (testes.test_metricas.DefinicoesTest.test_amostras_vao_ate_o_maior_fim_do_esperado) ... ok
+test_cursor_e_a_ultima_linha_ate_t_e_stay_e_ignorada (testes.test_metricas.DefinicoesTest.test_cursor_e_a_ultima_linha_ate_t_e_stay_e_ignorada) ... ok
+test_esperado_inclui_o_fim_exato_e_usa_o_maior_indice (testes.test_metricas.DefinicoesTest.test_esperado_inclui_o_fim_exato_e_usa_o_maior_indice) ... ok
+test_percentil95_posto_mais_proximo (testes.test_metricas.DefinicoesTest.test_percentil95_posto_mais_proximo) ... ok
+test_E10_entrada_invalida_sai_com_2 (testes.test_metricas.EntradaTest.test_E10_entrada_invalida_sai_com_2) ... ok
+test_E10_hipoteses_com_cabecalho_errado (testes.test_metricas.EntradaTest.test_E10_hipoteses_com_cabecalho_errado) ... ok
+test_E10_t_ms_igual_e_aceito (testes.test_metricas.EntradaTest.test_E10_t_ms_igual_e_aceito) ... ok
+test_E8_deslocamento_leva_ao_relogio_do_esperado (testes.test_metricas.EntradaTest.test_E8_deslocamento_leva_ao_relogio_do_esperado) ... ok
+test_E9_eventos_fora_de_ordem_sao_ordenados (testes.test_metricas.EntradaTest.test_E9_eventos_fora_de_ordem_sao_ordenados) ... ok
+test_E9_varios_arquivos_de_eventos (testes.test_metricas.EntradaTest.test_E9_varios_arquivos_de_eventos) ... ok
+test_plano_A6_deslocamento_positivo_comeca_na_trajetoria (testes.test_metricas.EntradaTest.test_plano_A6_deslocamento_positivo_comeca_na_trajetoria) ... ok
+test_E11_fala_cursor_e_latencias_1_e_2 (testes.test_metricas.LatenciasTest.test_E11_fala_cursor_e_latencias_1_e_2) ... ok
+test_E11_latencia_acima_da_meta_nao_muda_o_codigo (testes.test_metricas.LatenciasTest.test_E11_latencia_acima_da_meta_nao_muda_o_codigo) ... ok
+test_E11_tokens_com_fim_em_intervalo_ficam_fora (testes.test_metricas.LatenciasTest.test_E11_tokens_com_fim_em_intervalo_ficam_fora) ... ok
+test_E7_hw_e_o_maior_nao_o_ultimo (testes.test_metricas.RecuoTest.test_E7_hw_e_o_maior_nao_o_ultimo) ... ok
+test_E7_longjump_e_recovery_tambem_contam (testes.test_metricas.RecuoTest.test_E7_longjump_e_recovery_tambem_contam) ... ok
+test_E7_recuo_para_36_depois_de_40_viola (testes.test_metricas.RecuoTest.test_E7_recuo_para_36_depois_de_40_viola) ... ok
+test_E7_recuo_para_37_nao_viola (testes.test_metricas.RecuoTest.test_E7_recuo_para_37_nao_viola) ... ok
+test_E7_reposition_redefine_hw (testes.test_metricas.RecuoTest.test_E7_reposition_redefine_hw) ... ok
+test_E6_nunca_recupera_reprova_mesmo_com_atraso_baixo_no_pulo_fim (testes.test_metricas.RecuperacaoTest.test_E6_nunca_recupera_reprova_mesmo_com_atraso_baixo_no_pulo_fim)
+A5: no pulo_fim o esperado ainda não saltou; a leitura literal daria 0 ms e passaria (Q3). ... ok
+test_E6_recupera_em_2900_passa (testes.test_metricas.RecuperacaoTest.test_E6_recupera_em_2900_passa) ... ok
+test_E6_recupera_em_3000_passa (testes.test_metricas.RecuperacaoTest.test_E6_recupera_em_3000_passa) ... ok
+test_E6_recupera_em_3100_reprova (testes.test_metricas.RecuperacaoTest.test_E6_recupera_em_3100_reprova) ... ok
+test_E6_sem_pulo_nao_se_aplica (testes.test_metricas.RecuperacaoTest.test_E6_sem_pulo_nao_se_aplica) ... ok
+test_plano_A5_alvo_e_o_primeiro_token_com_tempo_a_partir_do_pulo_inicio (testes.test_metricas.RecuperacaoTest.test_plano_A5_alvo_e_o_primeiro_token_com_tempo_a_partir_do_pulo_inicio)
+Recuperação rápida: no 1º token depois do pulo. Com o alvo errado (índice seguinte), daria 600. ... ok
+test_E12_stdout_traz_criterios_latencias_fim_e_proveniencia (testes.test_metricas.RelatorioTest.test_E12_stdout_traz_criterios_latencias_fim_e_proveniencia) ... ok
+test_E3_dois_a_frente_nao_conta (testes.test_metricas.SaltoErradoTest.test_E3_dois_a_frente_nao_conta) ... ok
+test_E3_dois_saltos_separados_contam_dois (testes.test_metricas.SaltoErradoTest.test_E3_dois_saltos_separados_contam_dois) ... ok
+test_E3_tres_a_frente_por_200_ms_conta (testes.test_metricas.SaltoErradoTest.test_E3_tres_a_frente_por_200_ms_conta) ... ok
+test_E4_alem_do_esperado (testes.test_metricas.SaltoErradoTest.test_E4_alem_do_esperado) ... ok
+test_E4_bordas_do_intervalo (testes.test_metricas.SaltoErradoTest.test_E4_bordas_do_intervalo)
+Fechado no início e aberto no fim (D12): Short em 30000 conta; em 40000 não conta. ... ok
+test_E4_classe_usa_o_esperado_do_inicio_do_intervalo (testes.test_metricas.SaltoErradoTest.test_E4_classe_usa_o_esperado_do_inicio_do_intervalo)
+Tokens com fim dentro do improviso: a classe compara com esperado(início), não com esperado(t). ... ok
+test_E4_movimento_automatico_no_intervalo_conta_como_alcance (testes.test_metricas.SaltoErradoTest.test_E4_movimento_automatico_no_intervalo_conta_como_alcance) ... ok
+test_E4_um_ms_depois_do_fim_nao_conta (testes.test_metricas.SaltoErradoTest.test_E4_um_ms_depois_do_fim_nao_conta) ... ok
+test_E5_short_na_janela_conta_na_primeira_amostra_depois (testes.test_metricas.ToqueTest.test_E5_short_na_janela_conta_na_primeira_amostra_depois) ... ok
+test_E5_toque_tres_paragrafos_a_frente_nao_conta_salto (testes.test_metricas.ToqueTest.test_E5_toque_tres_paragrafos_a_frente_nao_conta_salto) ... ok
+test_plano_A7_reposition_um_ms_antes_do_evento_fica_na_janela (testes.test_metricas.ToqueTest.test_plano_A7_reposition_um_ms_antes_do_evento_fica_na_janela) ... ok
+test_plano_A7_so_a_reposition_para_i_antecipa_a_janela (testes.test_metricas.ToqueTest.test_plano_A7_so_a_reposition_para_i_antecipa_a_janela) ... ok
+test_identifica_so_bytes_identicos (testes.test_roteiro.CatalogoTest.test_identifica_so_bytes_identicos) ... ok
+test_B4_exemplos_iguais_ao_Normalizer_kt (testes.test_roteiro.NormalizadorTest.test_B4_exemplos_iguais_ao_Normalizer_kt) ... ok
+test_B4_idempotente_em_todos_os_textos (testes.test_roteiro.NormalizadorTest.test_B4_idempotente_em_todos_os_textos) ... ok
+test_B1_ha_uma_referencia_por_texto_e_uma_de_numeros (testes.test_roteiro.ReferenciaTest.test_B1_ha_uma_referencia_por_texto_e_uma_de_numeros) ... ok
+test_B3_formas_dos_numeros_batem_com_a_referencia (testes.test_roteiro.ReferenciaTest.test_B3_formas_dos_numeros_batem_com_a_referencia) ... ok
+test_B3_numero_fora_da_faixa_lanca_erro (testes.test_roteiro.ReferenciaTest.test_B3_numero_fora_da_faixa_lanca_erro) ... ok
+test_B3_tokens_de_cada_texto_batem_com_a_referencia (testes.test_roteiro.ReferenciaTest.test_B3_tokens_de_cada_texto_batem_com_a_referencia) ... ok
+test_C1_csv_com_cabecalho_e_palavras_em_ordem (testes.test_timestamps.TimestampsTest.test_C1_csv_com_cabecalho_e_palavras_em_ordem) ... ok
+test_C1_milissegundos_arredondados (testes.test_timestamps.TimestampsTest.test_C1_milissegundos_arredondados)
+4.02 × 1000 = 4019.9999999999995 em ponto flutuante: round dá 4020 (D5), int daria 4019. ... ok
+test_C1_ordena_por_tempo (testes.test_timestamps.TimestampsTest.test_C1_ordena_por_tempo) ... ok
+test_C2_palavra_sai_como_o_reconhecedor_devolveu (testes.test_timestamps.TimestampsTest.test_C2_palavra_sai_como_o_reconhecedor_devolveu) ... ok
+test_C3_formato_errado_sai_com_2_sem_stdout (testes.test_timestamps.TimestampsTest.test_C3_formato_errado_sai_com_2_sem_stdout) ... ok
+test_C3_wav_valido_entrega_todos_os_quadros (testes.test_timestamps.TimestampsTest.test_C3_wav_valido_entrega_todos_os_quadros) ... ok
+test_C4_nome_do_protocolo_e_aceito (testes.test_timestamps.TimestampsTest.test_C4_nome_do_protocolo_e_aceito) ... ok
+test_C4_nome_fora_do_padrao_sai_com_2 (testes.test_timestamps.TimestampsTest.test_C4_nome_fora_do_padrao_sai_com_2) ... ok
+test_C5_sem_modelo_sai_com_2 (testes.test_timestamps.TimestampsTest.test_C5_sem_modelo_sai_com_2) ... ok
+test_C5_sem_pacote_vosk_sai_com_3 (testes.test_timestamps.TimestampsTest.test_C5_sem_pacote_vosk_sai_com_3) ... ok
+test_saida_em_arquivo_com_o (testes.test_timestamps.TimestampsTest.test_saida_em_arquivo_com_o) ... ok
+
+----------------------------------------------------------------------
+Ran 87 tests in 5.334s
+
+OK
+testar.py: 87 testes, 0 falhas, 0 erros, 0 pulados
+rc=0

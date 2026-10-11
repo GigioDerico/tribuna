@@ -1,0 +1,20 @@
+VERMELHO B1 bloqueante1 :368 `<` | rc=1 | testar.py: 149 testes, 2 falhas, 0 erros | 1o: test_rodada2_atraso_4_em_2900_e_3_em_3100_reprova_com_3100
+VERMELHO B1b :368 `<= 2` | rc=1 | testar.py: 149 testes, 2 falhas, 0 erros | 1o: test_rodada2_atraso_4_em_2900_e_3_em_3100_reprova_com_3100
+VERMELHO B1c :368 `<= 4` | rc=1 | testar.py: 149 testes, 2 falhas, 0 erros | 1o: test_rodada2_atraso_4_em_2900_e_3_em_3100_reprova_com_3100
+VERMELHO B2 bloqueante2 :281 `normais` | rc=1 | testar.py: 149 testes, 4 falhas, 0 erros | 1o: test_rodada2_salto_errado_por_posicao_vale_dentro_dos_3_s_depois_do_pulo
+VERMELHO X06 :375 all->any | rc=1 | testar.py: 149 testes, 3 falhas, 0 erros | 1o: test_rodada2_dois_pulos_valem_todos_nao_qualquer
+VERMELHO X13 :338 not in AUTOMATICOS -> == Stay | rc=1 | testar.py: 149 testes, 6 falhas, 0 erros | 1o: test_rodada2_salto_por_posicao_vale_dentro_de_intervalos_sem_movimento_automatico
+VERMELHO X51 :254 sem `e.fim is not None` | rc=1 | testar.py: 149 testes, 0 falhas, 1 erros | 1o: test_rodada2_toque_em_token_sem_tempo_vai_ate_o_proximo_token_com_tempo
+VERMELHO Z10 timestamps:63 [:1] | rc=1 | testar.py: 149 testes, 4 falhas, 0 erros | 1o: test_C1_csv_com_cabecalho_e_palavras_em_ordem
+VERMELHO Z11 timestamps:71 += -> = | rc=1 | testar.py: 149 testes, 1 falhas, 0 erros | 1o: test_rodada2_varios_result_acumulam_todas_as_palavras_na_ordem
+VERMELHO M5 metricas:310 a<ATRASO_MAX | rc=1 | testar.py: 149 testes, 1 falhas, 0 erros | 1o: test_E1_atraso_3_ainda_conta_como_dentro
+VERMELHO M12 metricas:387 recuo <= | rc=1 | testar.py: 149 testes, 1 falhas, 0 erros | 1o: test_E7_recuo_para_37_nao_viola
+VERMELHO M13 metricas:389 hw=ultimo | rc=1 | testar.py: 149 testes, 1 falhas, 0 erros | 1o: test_E7_hw_e_o_maior_nao_o_ultimo
+VERMELHO M16b metricas:52 sem silencio | rc=1 | testar.py: 149 testes, 7 falhas, 1 erros | 1o: test_E4_alem_do_esperado
+VERMELHO M8 metricas:34 POS_PULO 2900 | rc=1 | testar.py: 149 testes, 4 falhas, 0 erros | 1o: test_E2_tres_segundos_depois_do_pulo_nao_entram_na_conta
+VERMELHO L5a alinhar:185 inicio de max(js) | rc=1 | testar.py: 149 testes, 7 falhas, 0 erros | 1o: test_plano_A3_empate_de_formas_fica_com_a_primeira
+VERMELHO L9 alinhar:110 peso=1 | rc=1 | testar.py: 149 testes, 2 falhas, 0 erros | 1o: test_plano_A3_uma_edicao_vale_mais_que_os_trechos
+VERMELHO R3 roteiro:41 sem juncao | rc=1 | testar.py: 149 testes, 12 falhas, 0 erros | 1o: test_rodada2_fronteiras_batem_com_a_referencia
+VERMELHO T10 timestamps:70 AcceptWaveform ignorado | rc=1 | testar.py: 149 testes, 6 falhas, 1 erros | 1o: test_C1_milissegundos_arredondados
+VERMELHO Q-own1 metricas:31 ATRASO_MAX=4 | rc=1 | testar.py: 149 testes, 11 falhas, 0 erros | 1o: test_E2_atraso_4_em_5_por_cento_passa
+VERMELHO Q-own2 metricas:368 esperado menos cursor invertido | rc=1 | testar.py: 149 testes, 18 falhas, 0 erros | 1o: test_E8_deslocamento_leva_ao_relogio_do_esperado
