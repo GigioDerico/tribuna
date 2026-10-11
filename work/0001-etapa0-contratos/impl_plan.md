@@ -540,7 +540,7 @@ cd /Users/giorgioderico/Projetos/Tribuna && git add etapa0/settings.gradle.kts e
 - Criar: `<core-main>/align/Token.kt`, `Aligner.kt`, `AlignState.kt`, `Move.kt`, `AlignParams.kt`
 - Teste: `<core-test>/align/AlignContractShapeTest.kt`
 
-- [ ] **Passo 1: escrever o teste que falha** — `<core-test>/align/AlignContractShapeTest.kt`
+- [x] **Passo 1: escrever o teste que falha** — `<core-test>/align/AlignContractShapeTest.kt`
 
 ```kotlin
 package io.github.gigioderico.tribuna.etapa0.align
@@ -597,12 +597,12 @@ class AlignContractShapeTest {
 }
 ```
 
-- [ ] **Passo 2: rodar e ver falhar**
+- [x] **Passo 2: rodar e ver falhar**
 
 Rodar: `cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew :core:test`
 Esperado: FAIL na compilação com `Unresolved reference 'Token'` (e `AlignState`, `Move`, `AlignParams`, `Aligner`).
 
-- [ ] **Passo 3: escrever os contratos, copiados do TRD §Contratos (Token e Aligner)**
+- [x] **Passo 3: escrever os contratos, copiados do TRD §Contratos (Token e Aligner)**
 
 `<core-main>/align/Token.kt`:
 
@@ -685,19 +685,19 @@ data class AlignParams(
 )
 ```
 
-- [ ] **Passo 4: rodar e ver passar**
+- [x] **Passo 4: rodar e ver passar**
 
 Rodar: `cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew :core:test`
 Esperado: `BUILD SUCCESSFUL`; `TEST-io.github.gigioderico.tribuna.etapa0.align.AlignContractShapeTest.xml` com `tests="4" ... failures="0" errors="0"`.
 
-- [ ] **Passo 5: conferir a regra 4 e o estilo**
+- [x] **Passo 5: conferir a regra 4 e o estilo**
 
 Rodar: `cd /Users/giorgioderico/Projetos/Tribuna && grep -rnE "import (android|androidx)\." etapa0/core/src ; echo "exit=$?"`
 Esperado: nenhuma linha e `exit=1` (grep sem achados).
 Rodar: `cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew :core:ktlintCheck`
 Esperado: `BUILD SUCCESSFUL` (mesma regra de `ktlintFormat` da Tarefa 2, Passo 8).
 
-- [ ] **Passo 6: commit**
+- [x] **Passo 6: commit**
 
 ```bash
 cd /Users/giorgioderico/Projetos/Tribuna && git add etapa0/core && git commit -m "feat(core): contratos Token, Aligner (esqueleto), AlignState, Move, AlignParams (TRD §Contratos Token e Aligner)"
