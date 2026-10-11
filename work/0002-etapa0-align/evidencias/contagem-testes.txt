@@ -1,0 +1,13 @@
+testsuite name="io.github.gigioderico.tribuna.etapa0.align.AlignContractShapeTest" tests="4" skipped="0" failures="0" errors="0"
+testsuite name="io.github.gigioderico.tribuna.etapa0.align.AlignerL30Test" tests="1" skipped="0" failures="0" errors="0"
+testsuite name="io.github.gigioderico.tribuna.etapa0.align.AlignerTest" tests="10" skipped="0" failures="0" errors="0"
+testsuite name="io.github.gigioderico.tribuna.etapa0.align.AlignerTrajectoryTest" tests="10" skipped="0" failures="0" errors="0"
+testsuite name="io.github.gigioderico.tribuna.etapa0.align.NormalizerTest" tests="6" skipped="0" failures="0" errors="0"
+testsuite name="io.github.gigioderico.tribuna.etapa0.align.NumberWordsTest" tests="4" skipped="0" failures="0" errors="0"
+testsuite name="io.github.gigioderico.tribuna.etapa0.align.PartialReconcilerTest" tests="10" skipped="0" failures="0" errors="0"
+testsuite name="io.github.gigioderico.tribuna.etapa0.align.SimilarityTest" tests="3" skipped="0" failures="0" errors="0"
+testsuite name="io.github.gigioderico.tribuna.etapa0.align.TokenizerTest" tests="14" skipped="0" failures="0" errors="0"
+testsuite name="io.github.gigioderico.tribuna.etapa0.align.TokenizerTextsTest" tests="2" skipped="0" failures="0" errors="0"
+testsuite name="io.github.gigioderico.tribuna.etapa0.speech.FakeSpeechEngineTest" tests="18" skipped="0" failures="0" errors="0"
+testsuite name="io.github.gigioderico.tribuna.etapa0.speech.SpeechContractShapeTest" tests="3" skipped="0" failures="0" errors="0"
+  <system-out><![CDATA[L30 sintético: 3399 chamadas de advance, total 151,1 ms, máximo 2,401 ms

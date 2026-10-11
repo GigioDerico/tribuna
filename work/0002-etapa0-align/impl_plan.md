@@ -2344,10 +2344,17 @@ Sucesso significa: os dois Gradle em `BUILD SUCCESSFUL`; 85 testes em `:core` co
 
 ## Registro da construção (preenchido pelo agente de construção)
 
-**Agente:** motor-voz · **Commit(s):** <hash>
+**Agente:** motor-voz · **Commit(s):** 34e4fb8 (T0), Normalizer, Similarity, NumberWords, Tokenizer, PartialReconciler, testes do Aligner (vermelhos), Aligner (ver `git log main..work/0002-etapa0-align`); este registro e as evidências no commit final.
 
-- Feito: <...>
-- Testes criados: <...>
-- Quebras Q2 conferidas (Tarefa 8): <quebra → testes vermelhos>
-- Desvios do plano e motivo: <nenhum | ...>
-- Comandos rodados e resultado: <...>
+- Feito: Tarefas 0 a 9 na ordem do plano, código copiado do plano sem alteração de lógica (ktlint passou sem `ktlintFormat`). `align/` sem import `android.*`/`androidx.*`; contratos da 0001 e assinaturas do `Aligner` intocados; TRD e PRD intocados.
+- Testes criados: 60 novos, vistos falhar antes do código (erro de compilação nas Tarefas 1 a 5; 21 `NotImplementedError` na Tarefa 6): NormalizerTest 6, SimilarityTest 3, NumberWordsTest 4, TokenizerTest 14, TokenizerTextsTest 2, PartialReconcilerTest 10, AlignerTest 10, AlignerTrajectoryTest 10, AlignerL30Test 1. Total em `:core`: 85, 0 falhas, 0 ignorados.
+- Quebras Q2 conferidas (Tarefa 8, sem commit, tudo restaurado; saída em `evidencias/quebras-q2.txt`):
+  - Q2-1 -> `AlignerTest.recuosSucessivosNaoPassamDeHighWaterMenos3`
+  - Q2-2 -> `recuosSucessivosNaoPassamDeHighWaterMenos3`, `AlignerTrajectoryTest.repeticaoPeloOradorT08_...`
+  - Q2-3 -> `AlignerTest.recuperacaoAmbigua_naoMoveOCursor_L30`
+  - Q2-4 -> `AlignerTest.unkNuncaCasa_D13`, `AlignerTrajectoryTest.improvisoT04_...`, `AlignerL30Test.l30Sintetico_...`
+  - Q2-5 -> `PartialReconcilerTest.reset_...`, `finalComMaisPalavras_...`, `fraseRepetida_...`
+  - Q2-6 -> `SimilarityTest.of_unkNuncaCasa_D13`, `AlignerTest.unkNuncaCasa_D13`
+  - Q2-7 -> `recuosSucessivosNaoPassamDeHighWaterMenos3`
+- Desvios do plano e motivo: nenhum. Observação: a Tarefa 7, passo 3, rodou `:core:ktlintCheck :core:lint` verde sem formatar. Tempo do L30 nesta máquina: 3.399 chamadas de `advance`, total 151,1 ms, máximo 2,401 ms (evidência para a 0005, sem limiar).
+- Comandos rodados e resultado (saídas em `evidencias/`): `./gradlew :core:test --rerun-tasks` BUILD SUCCESSFUL (`core-test.txt`); `./gradlew testDebugUnitTest lint ktlintCheck verifyMergedManifest` BUILD SUCCESSFUL, manifestos debug e release só com `RECORD_AUDIO` (`verificacao.txt`); contagem por classe (`contagem-testes.txt`); greps de `android`/`androidx`, `NotImplementedError` e `@Ignore`/`@Disabled` vazios, exit=1 (`regras-align.txt`); `git diff main` dos quatro contratos com 0 linhas e assinaturas do `Aligner` idênticas (`contratos.txt`). Não revisado nem aprovado por mim: revisão é do `revisor`, teste do `qa-publicacao`.
