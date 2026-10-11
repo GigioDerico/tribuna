@@ -1130,7 +1130,7 @@ Esperado: `BUILD SUCCESSFUL` e nenhuma linha do `git status` (árvore limpa no `
 - Criar em `etapa0/build-logic/src/main/kotlin/io/github/gigioderico/tribuna/buildlogic/`: `ManifestPermissionCheck.kt`, `ElfAlignment.kt`, `NativeLibScan.kt`, `VerifyMergedManifestTask.kt`, `Verify16kAlignmentTask.kt`, `AndroidVerificationsPlugin.kt`
 - Teste em `etapa0/build-logic/src/test/kotlin/io/github/gigioderico/tribuna/buildlogic/`: `ElfFixtures.kt`, `ManifestPermissionCheckTest.kt`, `ElfAlignmentTest.kt`, `NativeLibScanTest.kt`
 
-- [ ] **Passo 1: criar `etapa0/build-logic/settings.gradle.kts`**
+- [x] **Passo 1: criar `etapa0/build-logic/settings.gradle.kts`**
 
 ```kotlin
 dependencyResolutionManagement {
@@ -1149,7 +1149,7 @@ dependencyResolutionManagement {
 rootProject.name = "build-logic"
 ```
 
-- [ ] **Passo 2: criar `etapa0/build-logic/build.gradle.kts`**
+- [x] **Passo 2: criar `etapa0/build-logic/build.gradle.kts`**
 
 ```kotlin
 plugins {
@@ -1177,7 +1177,7 @@ gradlePlugin {
 }
 ```
 
-- [ ] **Passo 3: ligar o build incluído** — substituir `etapa0/settings.gradle.kts`
+- [x] **Passo 3: ligar o build incluído** — substituir `etapa0/settings.gradle.kts`
 
 ```kotlin
 pluginManagement {
@@ -1218,7 +1218,7 @@ tasks.register("testDebugUnitTest") {
 }
 ```
 
-- [ ] **Passo 4: escrever os testes que falham**
+- [x] **Passo 4: escrever os testes que falham**
 
 `ElfFixtures.kt`:
 
@@ -1519,12 +1519,12 @@ class NativeLibScanTest {
 }
 ```
 
-- [ ] **Passo 5: rodar e ver falhar**
+- [x] **Passo 5: rodar e ver falhar**
 
 Rodar: `cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew testDebugUnitTest`
 Esperado: FAIL em `:build-logic:compileTestKotlin` com `Unresolved reference 'ManifestPermissionCheck'` (e `ElfAlignment`, `NativeLibScan`).
 
-- [ ] **Passo 6: implementar a lógica pura**
+- [x] **Passo 6: implementar a lógica pura**
 
 `ManifestPermissionCheck.kt`:
 
@@ -1677,7 +1677,7 @@ object NativeLibScan {
 }
 ```
 
-- [ ] **Passo 7: implementar as tarefas e o plugin**
+- [x] **Passo 7: implementar as tarefas e o plugin**
 
 `VerifyMergedManifestTask.kt`:
 
@@ -1863,12 +1863,12 @@ class AndroidVerificationsPlugin : Plugin<Project> {
 }
 ```
 
-- [ ] **Passo 8: rodar e ver passar**
+- [x] **Passo 8: rodar e ver passar**
 
 Rodar: `cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew testDebugUnitTest`
 Esperado: `BUILD SUCCESSFUL`. Em `build-logic/build/test-results/test/`: `ManifestPermissionCheckTest` `tests="8"`, `ElfAlignmentTest` `tests="7"`, `NativeLibScanTest` `tests="5"`, todos com `failures="0" errors="0"`. O `:core` também roda (24 testes).
 
-- [ ] **Passo 9: commit** (antes da quebra, para poder restaurar com `git checkout`)
+- [x] **Passo 9: commit** (antes da quebra, para poder restaurar com `git checkout`)
 
 ```bash
 cd /Users/giorgioderico/Projetos/Tribuna && git add etapa0/settings.gradle.kts etapa0/build.gradle.kts etapa0/build-logic && git commit -m "build(etapa0): verifyMergedManifest e verify16kAlignment no build-logic, com testes (TRD §Qualidade de código)"
