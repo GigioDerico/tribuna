@@ -162,6 +162,22 @@ class FakeSpeechEngineTest {
             assertEquals(SpeechEvent.Final(antiga, habilidade), fake.events.first())
         }
 
+    // Spec, critério 3; alvo da quebra D (Q2): o Error atrasado também leva o id preso ao reconhecedor.
+    @Test
+    fun callbackAtrasado_errorDaSessaoAntiga_chegaComOIdAntigo() =
+        runTest {
+            val fake = capturing()
+            val antiga = fake.beginSession()
+            val reconhecedorAntigo = fake.recognizers.last()
+            fake.endSession()
+            val nova = fake.beginSession()
+            assertNotEquals(antiga, nova)
+
+            reconhecedorAntigo.error(EngineError.Internal)
+
+            assertEquals(SpeechEvent.Error(antiga, EngineError.Internal), fake.events.first())
+        }
+
     // Spec, critério 4; alvo da quebra B (Q2). O Level serve de sentinela: se algo
     // tivesse sido emitido antes dele, `first()` devolveria esse algo.
     @Test
