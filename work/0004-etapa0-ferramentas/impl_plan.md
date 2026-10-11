@@ -3530,9 +3530,9 @@ Sucesso significa:
 
 ## Registro da construção (preenchido pelo agente de construção)
 
-**Agente:** motor-voz · **Commit(s):** <hash>
+**Agente:** motor-voz · **Commit(s):** 9e6bdbe (T1), 6db3597 (T2), 30e6f14 (T3), f332959 (T4), 4cd1e5a (T5), 352c405 (T6) e o de evidências (T7)
 
-- Feito: <...>
-- Testes criados: <...>
-- Desvios do plano e motivo: <nenhum | ...>
-- Comandos rodados e resultado: <...>
+- Feito: Tarefas 1 a 7 na ordem, código copiado do plano por extrator (sem edição). `ReferenciaFormasTest` e 12 referências `.tsv`; `roteiro.py`, `timestamps.py`, `alinhar.py`, `metricas.py`, `testar.py`, apoio e sintético dos testes. Cada "ver falhar" falhou como previsto (Kotlin: `referência T01.tsv ausente` e `numeros.tsv ausente`; Python: `No module named 'roteiro'`, e depois os módulos de teste com 1 erro nas contagens 1/8/19/40 testes).
+- Testes criados: Kotlin 2 (`:core` 118 -> 120, 0 pulados); Python 87 (7 roteiro, 11 timestamps, 21 alinhar, 45 metricas, 3 cli), 0 falhas, 0 erros, 0 pulados. `:app` `testDebugUnitTest`: 228, 0 falhas.
+- Desvios do plano e motivo: nenhum de código. Notas: (1) as contagens por tarefa (7, 18, 39, 84, 87) e o 120 bateram com o plano; (2) o `git diff main --stat` geral inclui, além de `etapa0/ferramentas/`, `etapa0/core/src/test/` e `work/0004-...`, os commits anteriores da própria branch (`.claude/agent-memory/` e `registers/opr_register.md`, da fase de plano); `core/src/main`, `app` e `docs/TRD.md` sem diferença.
+- Comandos rodados e resultado: `python3 etapa0/ferramentas/testar.py` rc=0, 87 testes, `D9: L30 sintético (3668 tokens, 3684 palavras) em 3.77 s` (Apple M4, Python 3.13.12; 3.73 a 3.94 s nas execuções); `cd etapa0 && ./gradlew :core:ktlintCheck :core:lint :core:test testDebugUnitTest` BUILD SUCCESSFUL; `./gradlew :core:test lint ktlintCheck verifyMergedManifest testDebugUnitTest --rerun-tasks` BUILD SUCCESSFUL (rc=0). Greps A2 a A4 como esperado (só stdlib e `vosk` indentado em `timestamps.py:89`; rede rc=1; áudio só em `test_timestamps.py`); três `--help` rc=0. Evidências em `work/0004-etapa0-ferramentas/evidencias/`. Nada instalado, nenhum OPR novo.
