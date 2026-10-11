@@ -57,4 +57,46 @@ class HitTestTest {
         assertEquals(0, HitTest.tappedToken(5f, 10f, offset = 0, tokens = tokens, boxOf = charBox, slop = 8f))
         assertNull(HitTest.tappedToken(5f, 300f, offset = 0, tokens = tokens, boxOf = charBox, slop = 8f))
     }
+
+    @Test
+    fun noLimiteExatoDoRetanguloAmpliado_contaComoPalavra() {
+        assertEquals(true, HitTest.inside(92f, 70f, box, slop = 8f))
+        assertEquals(true, HitTest.inside(188f, 70f, box, slop = 8f))
+        assertEquals(true, HitTest.inside(140f, 42f, box, slop = 8f))
+        assertEquals(true, HitTest.inside(140f, 98f, box, slop = 8f))
+    }
+
+    @Test
+    fun uniaoNaoDependeDaOrdemNemDeQualCaractereEOMaior() {
+        val wide = WordBox(0f, 0f, 50f, 50f)
+        val small = WordBox(10f, 10f, 20f, 20f)
+        assertEquals(wide, HitTest.union(listOf(wide, small)))
+        assertEquals(wide, HitTest.union(listOf(small, wide)))
+        val a = WordBox(10f, 0f, 20f, 10f)
+        val b = WordBox(0f, 10f, 5f, 20f)
+        assertEquals(WordBox(0f, 0f, 20f, 20f), HitTest.union(listOf(a, b)))
+        assertEquals(WordBox(0f, 0f, 20f, 20f), HitTest.union(listOf(b, a)))
+        assertEquals(a, HitTest.union(listOf(a)))
+    }
+
+    @Test
+    fun toqueNaSegundaPalavra_usaOsCaracteresDaSegundaPalavra() {
+        val boxOf = { offset: Int -> WordBox(offset * 10f, 0f, offset * 10f + 10f, 20f) }
+        val second = tokens[1]
+        val x = second.display.first * 10f + 5f
+        assertEquals(1, HitTest.tappedToken(x, 10f, offset = second.display.first, tokens = tokens, boxOf = boxOf, slop = 8f))
+        // Fora do retângulo da segunda palavra, mesmo com o caractere mais próximo dentro dela.
+        assertNull(HitTest.tappedToken(x, 100f, offset = second.display.first, tokens = tokens, boxOf = boxOf, slop = 8f))
+        // O retângulo é a união de todos os caracteres: o último caractere da palavra também conta.
+        val lastX = second.display.last * 10f + 5f
+        assertEquals(1, HitTest.tappedToken(lastX, 10f, offset = second.display.first, tokens = tokens, boxOf = boxOf, slop = 8f))
+    }
+
+    @Test
+    fun buscaBinaria_achaOTokenEmTextoLongo_eNaoTrataOffsetNegativoComoToken() {
+        val big = Tokenizer.tokenize(TestFiles.text("T09"))
+        for (token in big) assertEquals(token.index, HitTest.tokenAt(token.display.first, big))
+        assertNull(HitTest.tokenAt(-1, big))
+        assertNull(HitTest.tokenAt(0, emptyList()))
+    }
 }

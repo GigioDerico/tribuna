@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestScope
 import java.io.File
+import java.io.IOException
 
 /**
  * FakeSpeechEngine com registro das chamadas e do cursor no momento de cada uma (D4: ordem conferida no fake).
@@ -35,12 +36,17 @@ class RecordingEngine(
     /** Se definido, o prepare espera aqui: deixa o teste agir enquanto o modelo ainda carrega (OPR-027). */
     var prepareGate: CompletableDeferred<Unit>? = null
 
+    /** Chamados dentro do prepare e do beginSession: deixam o teste gastar tempo do relógio do controlador. */
+    var onPrepare: (() -> Unit)? = null
+    var onBeginSession: (() -> Unit)? = null
+
     override val events: Flow<SpeechEvent> = fake.events
     override val state: StateFlow<EngineState> = fake.state
 
     override suspend fun prepare(): Result<Unit> {
         calls += "prepare"
         prepareGate?.await()
+        onPrepare?.invoke()
         val error = failPrepare ?: return fake.prepare()
         failPrepare = null
         return Result.failure(ModelLoadException(error, "falha simulada"))
@@ -61,6 +67,7 @@ class RecordingEngine(
 
     override fun beginSession(vocabulary: List<String>?): SessionId {
         calls += "beginSession@${cursor()}"
+        onBeginSession?.invoke()
         return fake.beginSession(vocabulary)
     }
 
@@ -82,6 +89,13 @@ class ReaderHarness(
 ) {
     val engines = mutableListOf<RecordingEngine>()
     val exported = linkedMapOf<String, String>()
+
+    /** Relógio do controlador = relógio virtual + `clockSkew`; com `tick > 0`, cada leitura do relógio avança `tick` ms. */
+    var clockSkew = 0L
+    var tick = 0L
+
+    /** Faz a gravação da exportação falhar com IOException. */
+    var failWrite = false
     val modelId: String = File(TestFiles.modelDir, "uuid").readLines().first().trim()
     private val dispatcher = StandardTestDispatcher(scope.testScheduler)
 
@@ -95,13 +109,17 @@ class ReaderHarness(
             modelInfo = { ModelInfo(id = modelId, installMs = 1_234L, loadMs = 456L, lexicon = lazyOf(null)) },
             exportSink =
                 ExportSink { name, files ->
+                    if (failWrite) throw IOException("falha simulada na gravação")
                     files.map { (suffix, content) ->
                         "$name.$suffix".also { exported[it] = content }
                     }
                 },
             provenance = Provenance("0.0.1", "0.3.75", "Fabricante Modelo", "16 (API 36)"),
             wavFiles = { listOf("T01_giorgio_sala_t1.wav") },
-            clock = { scope.testScheduler.currentTime },
+            clock = {
+                clockSkew += tick
+                scope.testScheduler.currentTime + clockSkew
+            },
             processing = dispatcher,
             io = dispatcher,
         )
