@@ -133,7 +133,7 @@ Casos que devem existir e falhar (por compilação ou asserção) antes do códi
 
 `:app` — `CoreFromAppTest` (1): `contratosEFakeDoCore_chegamAoClasspathDoApp`.
 
-Total esperado: 45 testes, 0 falhas, 0 ignorados.
+Total esperado: 46 testes, 0 falhas, 0 ignorados.
 
 ## Privacidade (primeira camada)
 
@@ -2148,7 +2148,7 @@ Rodar:
 cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew --version | tee ../work/0001-etapa0-contratos/evidencias/gradle-version.txt && grep -ho 'testsuite name="[^"]*" tests="[0-9]*" skipped="[0-9]*" failures="[0-9]*" errors="[0-9]*"' core/build/test-results/test/*.xml app/build/test-results/testDebugUnitTest/*.xml build-logic/build/test-results/test/*.xml | tee ../work/0001-etapa0-contratos/evidencias/contagem-testes.txt
 ```
 
-Esperado: `Daemon JVM` no JDK 21 (origem `gradle/gradle-daemon-jvm.properties`); sete suítes: `SpeechContractShapeTest` 3, `AlignContractShapeTest` 4, `FakeSpeechEngineTest` 17, `CoreFromAppTest` 1, `ManifestPermissionCheckTest` 8, `ElfAlignmentTest` 7, `NativeLibScanTest` 5 — total 45, todas com `skipped="0" failures="0" errors="0"`.
+Esperado: `Daemon JVM` no JDK 21 (origem `gradle/gradle-daemon-jvm.properties`); sete suítes: `SpeechContractShapeTest` 3, `AlignContractShapeTest` 4, `FakeSpeechEngineTest` 18, `CoreFromAppTest` 1, `ManifestPermissionCheckTest` 8, `ElfAlignmentTest` 7, `NativeLibScanTest` 5 — total 46, todas com `skipped="0" failures="0" errors="0"`.
 
 - [x] **Passo 6: rodada final do conjunto "tudo verde"**
 
@@ -2186,7 +2186,7 @@ Sucesso significa, critério a critério do spec:
 | Critério do spec | Comando | Resultado esperado |
 |---|---|---|
 | 1. `assembleDebug` com JDK 21 e SDK 36 | `./gradlew --version`; `./gradlew assembleDebug` | `Daemon JVM` 21 (de `gradle-daemon-jvm.properties`); `BUILD SUCCESSFUL` |
-| 2. `testDebugUnitTest` verde, ciclo de vida, cada `SpeechEvent`, `SessionId` crescente | `./gradlew testDebugUnitTest` + contagem (Tarefa 7, Passo 5) | `BUILD SUCCESSFUL`; 45 testes, 0 falhas; testes nomeados na seção "Testes primeiro" |
+| 2. `testDebugUnitTest` verde, ciclo de vida, cada `SpeechEvent`, `SessionId` crescente | `./gradlew testDebugUnitTest` + contagem (Tarefa 7, Passo 5) | `BUILD SUCCESSFUL`; 46 testes, 0 falhas; testes nomeados na seção "Testes primeiro" |
 | 3. Callback atrasado com id antigo; vermelho se ler "sessão atual" | `FakeSpeechEngineTest.callbackAtrasado_comOutraSessaoAtiva_chegaComOIdAntigo` + quebra A | Verde no código; `FAILED` com a quebra A (`evidencias/q2-quebra-a-sessao-atual.txt`) |
 | 4. Depois de `endSession`, sem `Partial`/`Final`; `Level` continua | `FakeSpeechEngineTest.endSession_naoEmiteMaisPartialNemFinal_eLevelContinua` + quebra B | Verde no código; `FAILED` com a quebra B (`evidencias/q2-quebra-b-endsession.txt`) |
 | 5. `align` sem Android, JVM pura | grep da Tarefa 7, Passo 2; `:core` usa `kotlin("jvm")` | `grep-exit=1`, `plugin-exit=1`; `:core:test` roda na JVM |
@@ -2220,7 +2220,7 @@ Sucesso significa, critério a critério do spec:
 Este registro descreve a construção. Não é revisão: o veredito é do `revisor` em `code_review.md`.
 
 - **Feito:** Tarefas 1 a 7 na ordem, todos os passos marcados. Projeto `etapa0/` com Gradle 9.7.1 (wrapper com SHA-256), AGP 9.4.1, KGP 2.4.21, daemon no JDK 21 por `gradle/gradle-daemon-jvm.properties`; `:core` JVM puro com os contratos de `speech` e `align` copiados do TRD §Contratos e o `FakeSpeechEngine` em `testFixtures`; `build-logic` com o plugin `tribuna.android.verifications` (`verifyMergedManifest` por variante e agregada, `verify16kAlignment` no release); `:app` Android mínimo, sem tela, só com `RECORD_AUDIO` e `allowBackup="false"`, consumindo `:core` e o fake; script `etapa0/scripts/verificar-manifesto-negativo.sh`.
-- **Testes criados (45, 0 falhas, 0 ignorados):** `SpeechContractShapeTest` 3, `AlignContractShapeTest` 4, `FakeSpeechEngineTest` 17, `CoreFromAppTest` 1, `ManifestPermissionCheckTest` 8, `ElfAlignmentTest` 7, `NativeLibScanTest` 5 (`evidencias/contagem-testes.txt`). Cada suíte foi vista falhando na compilação antes do código de produção. Quebras propositais da Q2, todas vermelhas e restauradas com `git checkout` (árvore limpa conferida depois):
+- **Testes criados (46, 0 falhas, 0 ignorados):** `SpeechContractShapeTest` 3, `AlignContractShapeTest` 4, `FakeSpeechEngineTest` 18, `CoreFromAppTest` 1, `ManifestPermissionCheckTest` 8, `ElfAlignmentTest` 7, `NativeLibScanTest` 5 (`evidencias/contagem-testes.txt`). Cada suíte foi vista falhando na compilação antes do código de produção. Quebras propositais da Q2, todas vermelhas e restauradas com `git checkout` (árvore limpa conferida depois):
   - A (callback lê a sessão ativa): `callbackAtrasado_comOutraSessaoAtiva_chegaComOIdAntigo` falha com `expected:<[Partial(session=SessionId(value=1)...` `but was:<[Partial(session=SessionId(value=2)...` (`evidencias/q2-quebra-a-sessao-atual.txt`).
   - B (`endSession` não solta o reconhecedor): `endSession_naoEmiteMaisPartialNemFinal_eLevelContinua` falha com `expected:<Level(rms=0.4)> but was:<Partial(session=SessionId(value=1), words=[ouvir, bem])>` (`evidencias/q2-quebra-b-endsession.txt`).
   - C (varredura ignora desalinhamento): `libExigidaDesalinhada_eReportada` e `outraLibDesalinhada_tambemEReportada` falham com `but was:<[]>` (`evidencias/q2-quebra-c-elf.txt`).
@@ -2245,7 +2245,7 @@ Este registro descreve a construção. Não é revisão: o veredito é do `revis
 |---|---|---|
 | `./gradlew --version` | Gradle 9.7.1; `Daemon JVM: Compatible with Java 21 ... (from gradle/gradle-daemon-jvm.properties)`; buildEnvironment: `Daemon JVM: Eclipse Temurin JDK 21 (21.0.10+7-LTS)` | `gradle-version.txt`, `dependencies.txt` |
 | `./gradlew assembleDebug` | BUILD SUCCESSFUL; `app/build/outputs/apk/debug/app-debug.apk` | `assembleDebug.txt` |
-| `./gradlew testDebugUnitTest` | BUILD SUCCESSFUL; `:build-logic:test`, `:core:test`, `:app:testDebugUnitTest`; 45 testes | `testDebugUnitTest.txt`, `contagem-testes.txt` |
+| `./gradlew testDebugUnitTest` | BUILD SUCCESSFUL; `:build-logic:test`, `:core:test`, `:app:testDebugUnitTest`; 46 testes | `testDebugUnitTest.txt`, `contagem-testes.txt` |
 | `./gradlew verifyMergedManifest` | BUILD SUCCESSFUL; debug e release `OK ... -> android.permission.RECORD_AUDIO`; manifestos mesclados reais anexados (Q4) | `verifyMergedManifest.txt` |
 | `bash scripts/verificar-manifesto-negativo.sh` | INTERNET, ACCESS_NETWORK_STATE, WAKE_LOCK e CAMERA reprovados com a mensagem; só RECORD_AUDIO passa; `exit=0`; `app/src/debug` removido | `verifyMergedManifest-negativo.txt` |
 | `./gradlew lint ktlintCheck` | BUILD SUCCESSFUL; 0 erros, 3 avisos (acima) | `lint-ktlint.txt` |
@@ -2253,3 +2253,11 @@ Este registro descreve a construção. Não é revisão: o veredito é do `revis
 | greps da T7 P2–P4 | `grep-exit=1`, `plugin-exit=1`, literal de versão `exit=1`, nenhum layout, uma só `uses-permission` (`RECORD_AUDIO`) | `checagens-estaticas.txt` |
 | `./gradlew :core:dependencies ... :app:dependencies ... buildEnvironment` | coroutines 1.11.0, stdlib 2.4.21, AGP 9.4.1, KGP 2.2.10 -> 2.4.21, ktlint-gradle 14.2.0 | `dependencies.txt` |
 | `./gradlew assembleDebug testDebugUnitTest lint ktlintCheck verifyMergedManifest --rerun-tasks` | BUILD SUCCESSFUL, `exit=0`, 85 tarefas executadas | `final.txt` |
+
+### Rodada 2 (volta ao BUILD após reprovação do revisor; achado 1)
+
+- **Achado 1 (BLOQUEANTE):** nenhum teste cobria `Error` atrasado de sessão antiga. Criado `FakeSpeechEngineTest.callbackAtrasado_errorDaSessaoAntiga_chegaComOIdAntigo` (critério 3). Verde no código atual.
+- **Quebra D (Q2):** `FakeRecognizer.error` passou a emitir `Error(active?.session, cause)`. Teste VERMELHO: `expected:<Error(session=SessionId(value=1), cause=Internal)> but was:<Error(session=SessionId(value=2), cause=Internal)>`. Fake restaurado com `git checkout`; `git diff` do fake vazio. Evidência: `evidencias/q2-quebra-d-error-sessao-atual.txt`.
+- **Contagem:** 45 para 46 testes (`FakeSpeechEngineTest` 17 para 18), 0 falhas, 0 ignorados; citações de 45 neste plano ajustadas (as seções anteriores a esta rodada foram atualizadas só nas linhas de total). Evidência: `evidencias/contagem-testes-rodada2.txt`.
+- **Tudo-verde:** `./gradlew assembleDebug testDebugUnitTest lint ktlintCheck verifyMergedManifest --rerun-tasks` = BUILD SUCCESSFUL, 85 tarefas executadas (`evidencias/final-rodada2.txt`).
+- **Desvios:** nenhum. Achados 2 a 4 (OPR-004, OPR-005, OPR-006) não tocados; código do fake e contratos inalterados.
