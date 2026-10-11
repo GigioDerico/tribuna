@@ -1,0 +1,1 @@
+- [Código do plano é extraível](plano_extracao.md) — impl_plan traz o código literal; extrair por script em vez de redigitar
