@@ -38,12 +38,36 @@ class ReaderSessionTest {
             h.listen()
             h.pause()
             h.listen()
-            h.fake.recognizers
-                .first()
-                .final(listOf("ouvir", "bem"))
+            val old = h.fake.recognizers.first()
+            old.partial(listOf("ouvir", "bem"))
+            old.final(listOf("ouvir", "bem"))
             h.settle()
             h.export()
-            assertEquals(listOf("0,1,final,\"ouvir bem\",0"), h.rows("T01.hypotheses.csv"))
+            assertEquals(
+                listOf("0,1,partial,\"ouvir bem\",0", "0,1,final,\"ouvir bem\",0"),
+                h.rows("T01.hypotheses.csv"),
+            )
+        }
+
+    @Test
+    fun parcialAtrasadoDaSessaoAnterior_naoChegaAoReconciliador() =
+        runTest {
+            val h = ReaderHarness(this)
+            h.load("T01")
+            h.listen()
+            h.pause()
+            h.listen()
+            // Se o parcial antigo entrasse no reconciliador, ele viraria o "anterior" da sessão nova e o
+            // primeiro parcial igual entregaria as palavras: o prefixo comum já existiria.
+            h.fake.recognizers
+                .first()
+                .partial(listOf("ouvir", "bem"))
+            h.settle()
+            h.partial("ouvir", "bem")
+            assertEquals(emptyList<String>(), h.state.debug.tail)
+            assertEquals(0, h.state.cursor)
+            h.partial("ouvir", "bem", "é")
+            assertEquals(listOf("ouvir", "bem"), h.state.debug.tail)
         }
 
     @Test

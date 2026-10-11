@@ -11,6 +11,8 @@ import io.github.gigioderico.tribuna.etapa0.speech.ModelLoadException
 import io.github.gigioderico.tribuna.etapa0.speech.SessionId
 import io.github.gigioderico.tribuna.etapa0.speech.SpeechEngine
 import io.github.gigioderico.tribuna.etapa0.speech.SpeechEvent
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -30,11 +32,15 @@ class RecordingEngine(
     var failPrepare: EngineError? = null
     var failStartCapture: EngineError? = null
 
+    /** Se definido, o prepare espera aqui: deixa o teste agir enquanto o modelo ainda carrega (OPR-027). */
+    var prepareGate: CompletableDeferred<Unit>? = null
+
     override val events: Flow<SpeechEvent> = fake.events
     override val state: StateFlow<EngineState> = fake.state
 
     override suspend fun prepare(): Result<Unit> {
         calls += "prepare"
+        prepareGate?.await()
         val error = failPrepare ?: return fake.prepare()
         failPrepare = null
         return Result.failure(ModelLoadException(error, "falha simulada"))
@@ -70,6 +76,7 @@ class RecordingEngine(
 }
 
 /** ReaderController com FakeSpeechEngine, relógio virtual do kotlinx-coroutines-test e exportação em memória. */
+@OptIn(ExperimentalCoroutinesApi::class)
 class ReaderHarness(
     private val scope: TestScope,
 ) {
@@ -77,13 +84,12 @@ class ReaderHarness(
     val exported = linkedMapOf<String, String>()
     val modelId: String = File(TestFiles.modelDir, "uuid").readLines().first().trim()
     private val dispatcher = StandardTestDispatcher(scope.testScheduler)
-    private lateinit var controllerRef: ReaderController
 
     val controller: ReaderController =
         ReaderController(
             scope = scope.backgroundScope,
             engineFactory = { config ->
-                RecordingEngine(FakeSpeechEngine(), config) { controllerRef.state.value.cursor }.also { engines += it }
+                RecordingEngine(FakeSpeechEngine(), config) { controller.state.value.cursor }.also { engines += it }
             },
             catalog = TestTextCatalog(TestFiles.textIds.associateWith(TestFiles::text)),
             modelInfo = { ModelInfo(id = modelId, installMs = 1_234L, loadMs = 456L, lexicon = lazyOf(null)) },
@@ -98,7 +104,7 @@ class ReaderHarness(
             clock = { scope.testScheduler.currentTime },
             processing = dispatcher,
             io = dispatcher,
-        ).also { controllerRef = it }
+        )
 
     val engine: RecordingEngine get() = engines.last()
     val fake: FakeSpeechEngine get() = engine.fake

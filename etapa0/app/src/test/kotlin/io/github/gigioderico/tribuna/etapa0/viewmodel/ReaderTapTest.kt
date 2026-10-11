@@ -1,8 +1,10 @@
 package io.github.gigioderico.tribuna.etapa0.viewmodel
 
 import io.github.gigioderico.tribuna.etapa0.align.Move
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Test
 
 /** D4 toque em palavra (spec 0003, D10; TRD Máquina de estados, Reading e Paused). */
@@ -66,5 +68,35 @@ class ReaderTapTest {
             h.settle()
             h.export()
             assertEquals(listOf("0,0,Reposition,0.0", "0,0,Reposition,0.0"), h.rows("T01.trajectory.csv"))
+        }
+
+    @Test
+    fun toqueNoTextoComALeituraParada_eIgnorado() =
+        runTest {
+            val h = ReaderHarness(this)
+            h.load("T01")
+            h.controller.onWordTapped(20)
+            h.settle()
+            assertEquals(ReaderPhase.Idle, h.state.phase)
+            assertEquals(0, h.state.cursor)
+            assertFalse(h.state.capturing)
+            assertEquals(emptyList<String>(), h.engine.calls)
+        }
+
+    @Test
+    fun toqueEnquantoOModeloCarrega_eIgnorado() =
+        runTest {
+            val h = ReaderHarness(this)
+            h.load("T01")
+            val gate = CompletableDeferred<Unit>()
+            h.engine.prepareGate = gate
+            h.listen()
+            h.controller.onWordTapped(20)
+            h.settle()
+            assertEquals(listOf("prepare"), h.engine.calls)
+            gate.complete(Unit)
+            h.settle()
+            assertEquals(0, h.state.cursor)
+            assertEquals(ReaderPhase.Reading, h.state.phase)
         }
 }

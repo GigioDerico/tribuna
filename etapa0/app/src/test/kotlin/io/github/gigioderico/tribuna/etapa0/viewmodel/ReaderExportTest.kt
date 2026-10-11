@@ -40,6 +40,23 @@ class ReaderExportTest {
         }
 
     @Test
+    fun textoNovoDepoisDeGravar_apagaAGravacaoAnterior_eNaoExportaNada() =
+        runTest {
+            val h = ReaderHarness(this)
+            h.load("T01")
+            h.listen()
+            h.partial("ouvir", "bem")
+            h.controller.onStopReading()
+            h.settle()
+            h.controller.setText("um texto qualquer que não é de teste")
+            h.controller.setExportName("T01")
+            h.settle()
+            assertFalse(h.state.canExport)
+            assertTrue(h.export().isEmpty())
+            assertFalse(h.state.exportFailed)
+        }
+
+    @Test
     fun nomeComTextoLivre_eRecusado() =
         runTest {
             val h = ReaderHarness(this)
