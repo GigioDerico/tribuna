@@ -1,6 +1,79 @@
 **Veredito: REPROVADO**
 
-# Revisão — 0002-etapa0-align
+# Revisão — 0002-etapa0-align (rodada 2)
+
+**Revisor:** revisor · **Data:** 2026-10-11 · **Base do diff:** 599759a (rodada 1) → 5b51e0f (`work/0002-etapa0-align`)
+
+Os cinco testes novos fazem o que prometem: V4, V6, V7, V8 e V10 ficaram vermelhos na minha execução, e as variantes W1, W2, W3 e W5 também. Os achados 1 e 2 da rodada 1 estão resolvidos. Mesmo assim, a tarefa volta: a cláusula que fica ao lado da V10, no mesmo `if`, "recuperação só com as últimas 4 palavras" (`Aligner.kt:55`, `heard.size >= RECOVERY_WORDS`), continua sem teste. Quebrei essa cláusula (W4): as 90 suítes passaram verdes. Com o preset Ágil, rodei o caso e ele faz uma recuperação de **3.087 tokens** com 3 palavras. Esta cláusula escapou na rodada 1 por falha minha, mas ela é da mesma classe que a V10 (constante fixa da recuperação, D12), que reprovei como BLOQUEANTE. A correção é um teste, sem mudar código.
+
+## Verificações pedidas pelo orquestrador
+
+| Item | Comando | Resultado |
+|---|---|---|
+| (a) `src/main` intocado desde a rodada 1 | `git diff 599759a..HEAD -- etapa0/core/src/main \| wc -l` → `0`; e também `etapa0/app/src/main`, `*.kts`, `gradle/` → `0`. `git diff --stat`: só `AlignerTest.kt`, `NormalizerTest.kt`, `opr_register.md`, `impl_plan.md` e evidências | OK |
+| (b) V4, V6, V7, V8, V10 e variantes | Script em scratchpad: troca exata de texto, `./gradlew :core:test --rerun-tasks`, leitura dos XMLs, `git checkout --`. Tabela abaixo. No fim, `git status --short` limpo | Os 5 vermelhos; W4 verde (achado R2-1) |
+| (c) testes novos não tautológicos e com trechos de `etapa0/textos/` | Leitura do diff (abaixo) | OK, com observações |
+| (d) Gradle verde | `./gradlew :core:test --rerun-tasks` → BUILD SUCCESSFUL, 90 testes, 0 skipped, 0 falhas (XMLs). `./gradlew testDebugUnitTest lint ktlintCheck verifyMergedManifest --rerun-tasks` → BUILD SUCCESSFUL; `verifyDebugMergedManifest: OK … -> android.permission.RECORD_AUDIO` e o mesmo no release; os dois `AndroidManifest.xml` mesclados têm um único `uses-permission`, `RECORD_AUDIO`. `@Ignore\|@Disabled` em `core/src/test` → 0; imports `android`/`androidx` em `align/` → 0 | OK |
+| (e) OPR-012 | `git diff`: linha `"d'água"` removida e teste renomeado para `normalize_hifenUneAsPartes_D18`. `grep "'" etapa0/textos/*.txt`: a única ocorrência é aspa numa nota `//` do T05, não um apóstrofo dentro de palavra. A afirmação "os textos não têm apóstrofo" confere | Resolvido no que pedia. Efeito colateral: a junção por apóstrofo ficou sem teste (W6 verde; achado R2-2) |
+
+## Regras inegociáveis
+
+| Regra | Verificado como | Resultado |
+|---|---|---|
+| Só `RECORD_AUDIO` no manifesto mesclado | `verifyMergedManifest --rerun-tasks` e leitura dos manifestos mesclados (item d) | OK |
+| Texto não persiste nem vai para log | Diff só de testes, sem I/O nem log novo; produção igual à da rodada 1 | OK |
+| Áudio não gravado fora de `etapa0/` | Nenhum arquivo fora de `etapa0/`, `work/` e `registers/` no diff | OK |
+| `align/` sem Android | grep vazio (item d) | OK |
+| Contratos do TRD inalterados | `src/main` com 0 linhas de diff | OK |
+| `SessionId` preso ao reconhecedor | `align/` não lida com sessão | N.A. |
+| Cursor nunca abaixo de `highWater − 3` | Produção igual à da rodada 1. R-Q2-1/V1/V2/V3 continuam cobertos pelos mesmos testes | OK |
+| Só Compose | Nada de UI no diff | N.A. |
+
+## Testes (Q2 e Q3)
+
+| Quebra | Troca em `Aligner.kt` (ou `Normalizer.kt`) | Vermelhos |
+|---|---|---|
+| V4 | `candidates.singleOrNull()?.takeIf { … }` → `candidates.singleOrNull()` | `recuperacao_candidatoUnicoComPalavraNovaSemCasarNaoSalta_A2` |
+| V6 | ambiguidade contada depois do filtro A2 (`&& match.lastWord >= params.shortThreshold` na linha 132) | `recuperacao_ambiguidadeContaAntesDoFiltroA2` |
+| V7 | `abs(match.similarity - current.similarity) <= EPSILON &&` → `false &&` | `empate_vaiParaAPosicaoMaisProximaDoCursor_D9` |
+| V8 | `Stay` no cursor sem `missStreak = 0` | `vencedorNoCursor_zeraMissStreak_D6` |
+| V10 | `misses >= MISSES_FOR_RECOVERY` → `misses >= 1` | `recuperacao_soNoSegundoMiss_D7` |
+| W1 (minha) | ambíguo → maior similaridade: `candidates.maxByOrNull { it.similarity }?.takeIf` | `recuperacao_ambiguidadeContaAntesDoFiltroA2`, `recuperacaoAmbigua_naoMoveOCursor_L30` |
+| W2 (minha) | A2 da recuperação testando `it.similarity` em vez de `it.lastWord` | `recuperacao_candidatoUnicoComPalavraNovaSemCasarNaoSalta_A2` |
+| W3 (minha) | `misses >= MISSES_FOR_RECOVERY - 1` | `recuperacao_soNoSegundoMiss_D7` |
+| **W4 (minha)** | `heard.size >= RECOVERY_WORDS)` → `heard.size >= params.k)` | **nenhum (exit=0, verde)** |
+| W5 (minha) | `if (best.position == state.cursor)` → `if (false)` (Stay no cursor vira Short) | `vencedorNoCursor_zeraMissStreak_D6` |
+| **W6 (minha)** | `Normalizer.kt:13`, joiner `[-'’]` → `[-]` | **nenhum (exit=0, verde)** |
+
+**W4 executado fora da suíte.** Usei `jshell` com as classes compiladas de `:core` e o `L30.txt`, preset Ágil (k = 2). Fiz `reposition(0)`, depois `advance` com `["livro","inteiro"]` (miss 1) e depois com `["livro","inteiro","de"]` (miss 2, 3 palavras). Código atual: `AlignState(cursor=0, highWater=0, missStreak=2, lastMove=Stay, …)`. Com W4: `AlignState(cursor=3087, highWater=3087, missStreak=0, lastMove=Recovery, score=1.0)`. Restaurei com `git checkout` e recompilei, e o `git status` ficou limpo. O caminho é alcançável pelo contrato A1 (cauda cresce uma palavra por chamada). No Ágil, o 2º miss chega com 3 palavras na cauda. No Normal, chega se quem chama repetir a mesma cauda de 3, como o próprio `recuperacao_soNoSegundoMiss_D7` faz.
+
+**Testes novos (item c).**
+- Nenhum é tautológico. Cada um confere o `AlignState` inteiro com valores fixos (cursor, highWater, missStreak, lastMove). Só o `score` vem do próprio resultado, e onde isso importa há um `assertTrue(score ≥ limite longo)` que garante que o caso exercita mesmo a guarda (Q3). O D7 confere `Recovery`, cursor, highWater e `missStreak = 0` no 2º passo.
+- Trechos: "no fim do ano a" sai do `L30.txt` via `TestTexts` (l. 27 e 71, separado por pontuação), e a frase do D6 sai do T01 (l. 3). Nos testes da recuperação, a forma falada de 1 ou 2 tokens da cópia é trocada ("o", "xx"). No D9, "no fim do ano" (trecho literal do L30) aparece repetido 4 vezes num roteiro montado no teste. São as montagens a partir de trechos que sugeri na rodada 1 (achado 1, "o que resolve"). Não há texto de fora do conjunto e não há risco de privacidade. Aceito.
+- O cálculo do caso (a) da rodada 1 foi confirmado por execução: a 2ª cópia "fim do ano o" dá 0,857 e conta como 2º candidato.
+
+## Achados
+
+| # | Severidade | Arquivo:linha | Achado | Evidência | O que resolve |
+|---|---|---|---|---|---|
+| R2-1 | BLOQUEANTE | `Aligner.kt:55` (`heard.size >= RECOVERY_WORDS`); testes em `AlignerTest.kt` | A guarda "recuperação só com as últimas 4 palavras" (spec 0002, "Recuperação" e "Constantes fixas … 4 palavras na recuperação (D12)"; TRD §Alinhamento 4, "últimas 4 ou mais palavras") não tem teste. Relaxar a guarda para `params.k` deixa o salto longo disparar com 3 palavras no Ágil, ou com 3 no Normal em chamada repetida. É a mesma classe da V10, reprovada na rodada 1. Escapou na rodada 1 por falha minha de cobertura das quebras, não do construtor. | W4: `:core:test --rerun-tasks` exit=0, 90/90 verdes. `jshell`: recuperação para o token 3.087 com 3 palavras (acima) | Um teste que fique vermelho com W4. Exemplo: estado com `missStreak = 1` e cauda de **3** palavras que casam ≥ limite longo com uma única posição fora da janela → `Stay`, cursor e highWater parados, `missStreak = 2`. Pode ser no Ágil, com o caso "livro inteiro de" do L30, ou no Normal, com as cópias do `l30Copies` e a fala `["do","ano","a"]` (conferir o cálculo). Registrar W4 na tabela de quebras do `impl_plan.md` para o QA. |
+| R2-2 | MENOR | `NormalizerTest.kt:33-36`; `Normalizer.kt:8,13` | Ao resolver o OPR-012, a junção por apóstrofo (D18, documentada no KDoc do `Normalizer` e no regex) perdeu o único teste: tirar `'’` do joiner deixa tudo verde (W6). O spec só exige o hífen (critério N6), então isso não bloqueia. Mas um roteiro colado pelo usuário com "d'água" ou "pra'" passa a ter comportamento sem trava. O KDoc continua citando "d'água". | W6 exit=0 | Registrar a exceção de B6 no spec e testar o apóstrofo com uma palavra montada no teste, ou decidir que o apóstrofo não une e tirar do regex e do KDoc. Registrado como OPR-014. |
+| R2-3 | MENOR | `AlignerTest.kt` (KDoc de `Copies`) | Frase truncada no KDoc: "com edições aplicadas a tokens / indicado". Só legibilidade. | Leitura | Corrigir junto com o R2-1. Sem OPR, porque vai no mesmo retrabalho. |
+
+Achados da rodada 1: o 1 (V4, V6, V10) e o 2 (D6, D9) estão resolvidos, e o 4 (OPR-012) também, com o efeito colateral do R2-2. O 3 (OPR-011) e o 5 (OPR-013) continuam abertos no registro, como previsto.
+
+## Não verificado
+
+- O W4 com o preset Normal não foi executado por `jshell`, só pela suíte (verde). O caso executado foi no Ágil.
+- `connectedDebugAndroidTest` e `verify16kAlignment` não se aplicam: só testes JVM mudaram.
+
+---
+
+# Histórico — rodada 1
+
+**Veredito (rodada 1): REPROVADO**
+
+## Revisão — 0002-etapa0-align (rodada 1)
 
 **Revisor:** revisor · **Data:** 2026-10-11 · **Base do diff:** 641a73c (merge-base com `main`) → 436aa37 (`work/0002-etapa0-align`)
 
