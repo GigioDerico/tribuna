@@ -1,0 +1,46 @@
+CONTROLE ok  alinhar:95 lm[j] no ramo: 5000 entradas, 3417 diferentes (deve ser > 0)
+EQUIVALENTE  alinhar:83 abre = peso + 2: 5000 entradas, 0 diferentes
+EQUIVALENTE  alinhar:94 range(1, m + 2) na linha da inserção: 5000 entradas, 0 diferentes
+EQUIVALENTE  alinhar:95 condição com ld[j - 2]: 5000 entradas, 0 diferentes
+EQUIVALENTE  alinhar:95 condição com ld[j - 0]: 5000 entradas, 0 diferentes
+EQUIVALENTE  alinhar:95 comparação <=: 5000 entradas, 0 diferentes
+EQUIVALENTE  alinhar:95 ramo else com ld[j - 2]: 5000 entradas, 0 diferentes
+EQUIVALENTE  alinhar:95 ramo else com ld[j - 0]: 5000 entradas, 0 diferentes
+EQUIVALENTE  alinhar:110 peso = linhas + m + 3: 5000 entradas, 0 diferentes
+EQUIVALENTE  alinhar:110 peso = linhas + m + 1: 5000 entradas, 0 diferentes
+EQUIVALENTE  alinhar:115 inserção inicial até m + 1: 5000 entradas, 0 diferentes
+EQUIVALENTE  alinhar:116 linha D inicial com m + 2: 5000 entradas, 0 diferentes
+EQUIVALENTE  alinhar:129 fins[-1] com uma forma só: 5000 entradas, 0 diferentes
+EQUIVALENTE  alinhar:196 fim + 2 no texto exibido: 5000 entradas, 0 diferentes
+EQUIVALENTE  alinhar:29 _INF = 1 << 29: 5000 entradas, 0 diferentes
+EQUIVALENTE  alinhar:91 Y02 inserção -> omissão estende: 5000 entradas, 0 diferentes
+EQUIVALENTE  alinhar:95 Y03 inserção só abre a partir de M: 5000 entradas, 0 diferentes
+EQUIVALENTE  alinhar:111 (linhas + m + 2): 5000 entradas, 0 diferentes
+EQUIVALENTE  alinhar:111 (linhas + m + 0): 5000 entradas, 0 diferentes
+EQUIVALENTE  alinhar:111 (peso + 2): 5000 entradas, 0 diferentes
+EQUIVALENTE  alinhar:111 (peso + 0): 5000 entradas, 0 diferentes
+EQUIVALENTE  alinhar:111 _INF // 3: 5000 entradas, 0 diferentes
+EQUIVALENTE  alinhar:111 comparação >: 5000 entradas, 0 diferentes
+CONTROLE ok  roteiro:51 MAX = 1.000.000: 5380 entradas, 1042 diferentes (deve ser > 0)
+EQUIVALENTE  roteiro:52 _INT_MAX + 1: 5380 entradas, 0 diferentes
+EQUIVALENTE  roteiro:52 _INT_MAX - 1: 5380 entradas, 0 diferentes
+EQUIVALENTE  roteiro:161 v < _INT_MAX: 5380 entradas, 0 diferentes
+EQUIVALENTE  roteiro:84 resto < 101: 5380 entradas, 0 diferentes
+EQUIVALENTE  roteiro:84 resto <= 100: 5380 entradas, 0 diferentes
+EQUIVALENTE  roteiro:171 ini_nucleo padrão 1: 5380 entradas, 0 diferentes
+EQUIVALENTE  roteiro:171 ini_nucleo padrão -1: 5380 entradas, 0 diferentes
+EQUIVALENTE  roteiro:172 fim_nucleo padrão 1: 5380 entradas, 0 diferentes
+EQUIVALENTE  roteiro:172 fim_nucleo padrão -1: 5380 entradas, 0 diferentes
+EQUIVALENTE  roteiro:238 prox com i + 2: 5380 entradas, 0 diferentes
+EQUIVALENTE  roteiro:282 v[-1] na 1ª forma: 5380 entradas, 0 diferentes
+EQUIVALENTE  roteiro:282 v[-1] na 2ª forma: 5380 entradas, 0 diferentes
+EQUIVALENTE  roteiro:282 v[-1] na 3ª forma: 5380 entradas, 0 diferentes
+EQUIVALENTE  roteiro:330 len(partes) > 0: 5380 entradas, 0 diferentes
+EQUIVALENTE  roteiro:330 len(partes) >= 1: 5380 entradas, 0 diferentes
+EQUIVALENTE  roteiro:359 fim + 2 em tokens_por_palavras: 11 entradas, 0 diferentes
+EQUIVALENTE  metricas:158 chave (t, arquivo, arquivo): 5000 entradas, 0 diferentes
+CONTROLE ok  metricas:158 chave (t, linha, linha): 5000 entradas, 2060 diferentes (deve ser > 0)
+EQUIVALENTE  metricas:228 maior = -0: 5000 entradas, 0 diferentes
+EQUIVALENTE  metricas:228 maior = -2: 5000 entradas, 0 diferentes
+EQUIVALENTE  metricas:266 max(-1, t0): 2001 entradas, 0 diferentes
+EQUIVALENTE  metricas:438 range(len - n + 2): 5000 entradas, 0 diferentes

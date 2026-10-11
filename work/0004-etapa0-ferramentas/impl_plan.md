@@ -302,6 +302,27 @@ Quebras de dados e do lado Kotlin (comando: `cd etapa0 && ./gradlew :core:test -
 
 Quebras não listadas, por serem equivalentes ou não testáveis: `w.getcomptype() != "NONE"` (o módulo `wave` só abre PCM; outro formato já lança `wave.Error`, que sai com 2); a guarda "início antes de fechar o anterior" em `intervalos()` (sem ela, o segundo fim fica sem início e a entrada continua saindo com 2).
 
+
+#### Quebras da rodada 2 (achadas pelo revisor; todas vermelhas, exceto 2 equivalentes)
+
+Detalhe e primeiro teste vermelho de cada uma em `evidencias/quebras-q2-rodada2.txt` (refazer: `python3 work/0004-etapa0-ferramentas/evidencias/quebras_rodada2.py`).
+
+| ID | Arquivo:linha | De | Para | Prova |
+|---|---|---|---|---|
+| X01 | `metricas.py:368` | `<= ATRASO_MAX` | `< ATRASO_MAX` | vermelha (2) |
+| X02 | `metricas.py:368` | `<= ATRASO_MAX` | `<= ATRASO_MAX - 1` | vermelha (2) |
+| X03 | `metricas.py:368` | `<= ATRASO_MAX` | `<= ATRASO_MAX + 1` | vermelha (2) |
+| X10 | `metricas.py:281` | `_salto(amostras` | `_salto(normais` | vermelha (4) |
+| X06 | `metricas.py:375` | `all(` | `any(` | vermelha (3) |
+| X13 | `metricas.py:338` | `not in AUTOMATICOS` | `== "Stay"` | vermelha (6) |
+| X51 | `metricas.py:254` | `e.fim is not None and ` | (removido) | vermelha (1) |
+| Z10, Z11 | `timestamps.py:63,71` | `.get("result", [])`, `+=` | `[:2]`, `=` | vermelhas (1 e 1) |
+| X12, X80, X70, X84, X60 a X65, X69, X71, Y07 a Y10, Y12, Y15, Z01, Z05, X21, X30, X31 | vários | ver o arquivo de evidência | | vermelhas |
+| X20, X08, X40, X50, Z09, W03 | vários | ver o arquivo de evidência | | vermelhas (eram "equivalentes" no julgamento do revisor; agora têm teste) |
+| Y02, Y03 | `alinhar.py:91,95` | `y + abre` / `lm[j-1] if ... else ld[j-1]` | `y + estende` / `lm[j-1]` | **verdes, equivalentes** (diferencial de 5000 entradas, 0 diferenças) |
+| KK5 | `Normalizer.kt:13` | `[-'’]` | `[-']` | vermelha (JVM: 2 falhas) |
+
+Mais a varredura anti-recorrência (`evidencias/varredura-anti-recorrencia.tsv`): 644 trocas de constante, comparação e conjunto de amostras em `metricas.py`, `alinhar.py` e `roteiro.py`; 589 vermelhas, 6 em laço infinito (detectadas por tempo-limite), 48 verdes, todas equivalentes (`evidencias/equivalencias-rodada2.txt`).
 ## Privacidade (primeira camada)
 
 - **Caminho do texto:** só textos de `etapa0/textos/`. O `alinhar.py` recusa (código 2, sem stdout e sem criar o `-o`) qualquer texto cujos bytes não sejam idênticos a um deles (D8; `CatalogoTest` e `test_D8_...`, inclusive com `\r\n`). O `metricas.py` não lê texto; acha o roteiro pela coluna `palavra` só entre os textos de teste (A9). O stderr do `alinhar.py` lista palavras inseridas, que são de gravação de texto de teste. Os testes montam tudo a partir de `etapa0/textos/` (D20): as transcrições sintéticas usam formas faladas dos tokens, palavras de outro texto de teste (improviso do T03 e do T09) ou palavras que existem nos textos ("mal", no lugar de "bem", está no L30; "livro", "comecar" e "fala" estão no T02). Os nomes de WAV dos testes seguem o exemplo do protocolo (`T02_giorgio_salao_t2.wav`) ou usam `voz2`; não há discurso pessoal nem palavra inventada.
@@ -3536,3 +3557,13 @@ Sucesso significa:
 - Testes criados: Kotlin 2 (`:core` 118 -> 120, 0 pulados); Python 87 (7 roteiro, 11 timestamps, 21 alinhar, 45 metricas, 3 cli), 0 falhas, 0 erros, 0 pulados. `:app` `testDebugUnitTest`: 228, 0 falhas.
 - Desvios do plano e motivo: nenhum de código. Notas: (1) as contagens por tarefa (7, 18, 39, 84, 87) e o 120 bateram com o plano; (2) o `git diff main --stat` geral inclui, além de `etapa0/ferramentas/`, `etapa0/core/src/test/` e `work/0004-...`, os commits anteriores da própria branch (`.claude/agent-memory/` e `registers/opr_register.md`, da fase de plano); `core/src/main`, `app` e `docs/TRD.md` sem diferença.
 - Comandos rodados e resultado: `python3 etapa0/ferramentas/testar.py` rc=0, 87 testes, `D9: L30 sintético (3668 tokens, 3684 palavras) em 3.77 s` (Apple M4, Python 3.13.12; 3.73 a 3.94 s nas execuções); `cd etapa0 && ./gradlew :core:ktlintCheck :core:lint :core:test testDebugUnitTest` BUILD SUCCESSFUL; `./gradlew :core:test lint ktlintCheck verifyMergedManifest testDebugUnitTest --rerun-tasks` BUILD SUCCESSFUL (rc=0). Greps A2 a A4 como esperado (só stdlib e `vosk` indentado em `timestamps.py:89`; rede rc=1; áudio só em `test_timestamps.py`); três `--help` rc=0. Evidências em `work/0004-etapa0-ferramentas/evidencias/`. Nada instalado, nenhum OPR novo.
+
+### Rodada 2 (motor-voz, 2026-10-11; code_review.md rodada 1, REPROVADO)
+
+**Commits:** a4d5004 (testes) e o de evidências e registros desta retomada. Nenhum arquivo de código das ferramentas mudou (`git diff 5f33efd..HEAD` nos `.py` fora de `testes/` vazio): só testes, a referência `fronteiras.tsv` e evidências.
+
+- Feito: bloqueantes 1 e 2 e importantes 3 a 6 do code_review cobertos por teste, e os achados menores 7 a 9 (OPR-036/037) também. Testes novos: Python 87 -> 149 (roteiro 12, timestamps 18, alinhar 33, metricas 83, cli 3); Kotlin `:core` 120 -> 122 casos de teste de paridade (`FronteirasDaTokenizacaoTest`, caso novo no `NormalizerTest`), a partir de `referencia/fronteiras.tsv` lida pelos dois lados.
+- Quebras: as 40 verdes do revisor refeitas, 38 vermelhas e 2 equivalentes (Y02, Y03); X01, X02, X03 e X10 vermelhas, com variantes vizinhas (`<= 2`, `<= 4`, `ATRASO_MAX +/- 1`, `normais`). KK5 vermelha no JVM. Varredura anti-recorrência de constantes e conjuntos de amostras: 644 trocas, 48 verdes, todas equivalentes por diferencial (`evidencias/equivalencias_rodada2.py`; 43 equivalências, 4 controles que o diferencial enxerga).
+- Equivalentes: alinhar.py `_INF`, guarda `:111`, bordas de `ld`/`lm` e `peso` (guarda só muda perto de 2^29 células); roteiro.py `_INT_MAX`, `resto < 100`, `ini_nucleo`/`fim_nucleo` vazios, `v[-1]` com um só `v`; metricas.py `maior = -1/-0/-2`, chave de ordenação `(t, arquivo, arquivo)`, `[-1]` dos arquivos únicos, `indent` do JSON (só formatação).
+- Desvios: nenhum.
+- Comandos: `python3 etapa0/ferramentas/testar.py`: 149 testes, 0 falhas, 0 erros, 0 pulados. `cd etapa0 && ./gradlew :core:test lint ktlintCheck verifyMergedManifest testDebugUnitTest --rerun-tasks`: BUILD SUCCESSFUL (350 casos, 0 falhas; saída em `evidencias/gradle-rodada2.txt`). Não declaro o código revisado nem aprovado: a rodada 2 de revisão é do `revisor`.

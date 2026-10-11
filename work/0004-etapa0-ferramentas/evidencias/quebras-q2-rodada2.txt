@@ -1,0 +1,45 @@
+Quebras Q2 da rodada 2 (0004): as 40 que ficaram verdes na revisão (code_review.md, rodada 1), refeitas contra os 149 testes.
+Gerado por quebras_rodada2.py (uma troca por vez, testar.py, git checkout). Equivalências: equivalencias-rodada2.txt. Árvore limpa no fim.
+Kotlin: KK5 (Normalizer.kt:13, [-'’] -> [-']) agora vermelho em FronteirasDaTokenizacaoTest e NormalizerTest (:core:test, 2 falhas de 122).
+
+id	arquivo:linha	troca	resultado	testes vermelhos	primeiro teste vermelho	julgamento
+X01	metricas.py:368	<= ATRASO_MAX: => < ATRASO_MAX:	VERMELHO	2	test_rodada2_atraso_4_em_2900_e_3_em_3100_reprova_com_3100	BLOQUEANTE do code_review, travado
+X02	metricas.py:368	<= ATRASO_MAX: => <= ATRASO_MAX - 1:	VERMELHO	2	test_rodada2_atraso_4_em_2900_e_3_em_3100_reprova_com_3100	BLOQUEANTE do code_review, travado
+X03	metricas.py:368	<= ATRASO_MAX: => <= ATRASO_MAX + 1:	VERMELHO	2	test_rodada2_atraso_4_em_2900_e_3_em_3100_reprova_com_3100	BLOQUEANTE do code_review, travado
+X10	metricas.py:281	_salto(amostras => _salto(normais	VERMELHO	4	test_rodada2_salto_errado_por_posicao_vale_dentro_dos_3_s_depois_do_pulo	BLOQUEANTE do code_review, travado
+X06	metricas.py:375	elif all( => elif any(	VERMELHO	3	test_rodada2_dois_pulos_valem_todos_nao_qualquer	IMPORTANTE do code_review, travado
+X13	metricas.py:338	not in AUTOMATICOS => == "Stay"	VERMELHO	6	test_rodada2_salto_por_posicao_vale_dentro_de_intervalos_sem_movimento_automatico	IMPORTANTE do code_review, travado
+X51	metricas.py:254	e.fim is not None and  => 	VERMELHO	1	test_rodada2_toque_em_token_sem_tempo_vai_ate_o_proximo_token_com_tempo	IMPORTANTE do code_review, travado
+Z10	timestamps.py:63	.get("result", []) => .get("result", [])[:2]	VERMELHO	1	test_rodada2_varios_result_acumulam_todas_as_palavras_na_ordem	IMPORTANTE do code_review, travado
+Z11	timestamps.py:71	palavras +=  => palavras = 	VERMELHO	1	test_rodada2_varios_result_acumulam_todas_as_palavras_na_ordem	IMPORTANTE do code_review, travado
+X12	metricas.py:347	<= congelado => <= congelado + 1	VERMELHO	1	test_rodada2_classe_um_a_frente_do_esperado_do_inicio_ja_e_alem	MENOR (OPR-036/037), travado
+X80	metricas.py:410	 or _dentro(e.fim, faixas_toque) => 	VERMELHO	1	test_rodada2_latencias_nao_contam_token_com_fim_dentro_da_janela_do_toque	MENOR (OPR-036/037), travado
+X70	metricas.py:516	if args.hipoteses and formas is None: => if False:	VERMELHO	1	test_rodada2_hipoteses_sem_texto_de_teste_correspondente_sai_com_2	MENOR (OPR-036/037), travado
+X84	roteiro.py:359	if [normalizar => if True or [normalizar	VERMELHO	6	test_rodada2_hipoteses_sem_texto_de_teste_correspondente_sai_com_2	MENOR (OPR-036/037), travado
+X60	metricas.py:155	not 0 <= indice < n_tokens => indice >= n_tokens	VERMELHO	1	test_rodada2_validacoes_dos_eventos	MENOR (OPR-036/037), travado
+X61	metricas.py:118	if linha.cursor < 0: => if False:	VERMELHO	1	test_rodada2_validacoes_da_trajetoria	MENOR (OPR-036/037), travado
+X62	metricas.py:114	float(score) => pass	VERMELHO	1	test_rodada2_validacoes_da_trajetoria	MENOR (OPR-036/037), travado
+X63	metricas.py:139	if b < a: => if False:	VERMELHO	1	test_rodada2_validacoes_do_esperado	MENOR (OPR-036/037), travado
+X64	metricas.py:135	if ini == "" and fim == "": => if ini == "":	VERMELHO	1	test_rodada2_validacoes_do_esperado	MENOR (OPR-036/037), travado
+X65	metricas.py:165	if kind not in ("partial", "final", "error") or aceita not in ("0", "1"): => if False:	VERMELHO	2	test_rodada2_mensagens_apontam_a_linha_de_dados_certa	MENOR (OPR-036/037), travado
+X69	metricas.py:96	!= len(cabecalho) => < len(cabecalho)	VERMELHO	4	test_rodada2_campos_a_mais_ou_a_menos_saem_com_2	MENOR (OPR-036/037), travado
+X71	metricas.py:539	except (OSError, UnicodeDecodeError, ErroEntrada) => except ErroEntrada	VERMELHO	4	test_rodada2_arquivo_ausente_ou_nao_utf8_sai_com_2	MENOR (OPR-036/037), travado
+Y09	alinhar.py:59	inicio < 0 or  => 	VERMELHO	2	test_rodada2_transcricao_invalida_mais_casos	MENOR (OPR-036/037), travado
+Y10	alinhar.py:56	float(campos[3]) => pass	VERMELHO	1	test_rodada2_transcricao_invalida_mais_casos	MENOR (OPR-036/037), travado
+Y12	alinhar.py:111	if (len(linhas) + m + 1) * (peso + 1) >= _INF // 2: => if False:	VERMELHO	1	test_rodada2_transcricao_grande_demais_sai_com_2	MENOR (OPR-036/037), travado
+Y15	alinhar.py:61	inicio < anterior => fim < anterior	VERMELHO	1	test_rodada2_transcricao_invalida_mais_casos	MENOR (OPR-036/037), travado
+Y08	alinhar.py:147	if estado == _I: => if False:	VERMELHO	4	test_rodada2_dois_trechos_de_insercao_no_comeco_valem_um_trecho	MENOR (OPR-036/037), travado
+Y07	alinhar.py:142	min(_PRIORIDADE, => min((_M, _I, _D),	VERMELHO	1	test_rodada2_ultima_palavra_repetida_fica_com_a_primeira_vez	MENOR (OPR-036/037), travado
+Z01	timestamps.py:40	fullmatch => match	VERMELHO	3	test_rodada2_nome_com_sufixo_depois_do_wav_sai_com_2	MENOR (OPR-036/037), travado
+Z05	timestamps.py:58	except (wave.Error, EOFError, OSError) => except ZeroDivisionError	VERMELHO	3	test_rodada2_wav_corrompido_ausente_ou_vazio_sai_com_2	MENOR (OPR-036/037), travado
+X21	metricas.py:311	* len(atrasos) => * (len(atrasos) - 1)	VERMELHO	1	test_rodada2_limite_de_95_por_cento_com_n_21	MENOR (OPR-036/037), travado
+X31	metricas.py:269	ultima + 1 => ultima	VERMELHO	3	test_rodada2_amostragem_nunca_comeca_antes_de_zero	MENOR (OPR-036/037), travado
+X30	metricas.py:266	max(0, self.trajetoria[0].t) => self.trajetoria[0].t	VERMELHO	1	test_rodada2_amostragem_nunca_comeca_antes_de_zero	MENOR (OPR-036/037), travado
+X20	metricas.py:310	a <= ATRASO_MAX => abs(a) <= ATRASO_MAX	VERMELHO	1	test_rodada2_cursor_adiantado_conta_como_dentro_do_atraso	MENOR (OPR-036/037), travado
+X08	metricas.py:365	if t < fim: => if t < inicio:	VERMELHO	1	test_rodada2_pulo_fim_marcado_depois_de_o_orador_retomar_da_zero_nao_negativo	MENOR (OPR-036/037), travado
+X40	metricas.py:386	elif linha.move in AUTOMATICOS: => else:	VERMELHO	1	test_rodada2_linhas_stay_nao_repetem_a_violacao	MENOR (OPR-036/037), travado
+X50	metricas.py:251	linha.t <= ev.t => linha.t < ev.t	VERMELHO	1	test_rodada2_ultima_linha_ate_o_evento_manda_mesmo_com_t_igual	MENOR (OPR-036/037), travado
+Y02	alinhar.py:91	y + abre => y + estende	VERDE	0		EQUIVALENTE: D colado a I nunca é ótimo (uma substituição custa 1 edição, D+I custam 2); diferencial em 5000 entradas, 0 diferenças (equivalencias-rodada2.txt)
+Y03	alinhar.py:95	lm[j - 1] if lm[j - 1] < ld[j - 1] else ld[j - 1] => lm[j - 1]	VERDE	0		EQUIVALENTE: D colado a I nunca é ótimo (uma substituição custa 1 edição, D+I custam 2); diferencial em 5000 entradas, 0 diferenças (equivalencias-rodada2.txt)
+Z09	timestamps.py:73	(p["start"], p["end"]) => (p["end"], p["start"])	VERMELHO	1	test_rodada2_ordena_por_inicio_mesmo_com_palavras_aninhadas	MENOR (OPR-036/037), travado
+W03	roteiro.py:31	[-'’] => [-']	VERMELHO	2	test_rodada2_fronteiras_batem_com_a_referencia	MENOR (OPR-036/037), travado
