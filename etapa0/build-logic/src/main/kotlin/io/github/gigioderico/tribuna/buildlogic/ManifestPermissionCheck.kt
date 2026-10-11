@@ -11,14 +11,24 @@ object ManifestPermissionCheck {
     private const val ANDROID_NS = "http://schemas.android.com/apk/res/android"
     private val PERMISSION_TAGS = listOf("uses-permission", "uses-permission-sdk-23", "uses-permission-sdk-m")
 
-    fun declaredPermissions(manifestXml: String): List<String> {
+    /** Declarações de permissão própria; nenhuma é permitida (CIA 0003, portão 1, opção A). */
+    private val DECLARATION_TAGS = listOf("permission", "permission-group", "permission-tree")
+
+    fun declaredPermissions(manifestXml: String): List<String> = namesOf(manifestXml, PERMISSION_TAGS)
+
+    fun permissionDeclarations(manifestXml: String): List<String> = namesOf(manifestXml, DECLARATION_TAGS)
+
+    private fun namesOf(
+        manifestXml: String,
+        tags: List<String>,
+    ): List<String> {
         val factory =
             DocumentBuilderFactory.newInstance().apply {
                 isNamespaceAware = true
                 setFeature("http://apache.org/xml/features/disallow-doctype-decl", true)
             }
         val document = factory.newDocumentBuilder().parse(InputSource(StringReader(manifestXml)))
-        return PERMISSION_TAGS.flatMap { tag ->
+        return tags.flatMap { tag ->
             val nodes = document.getElementsByTagName(tag)
             (0 until nodes.length).map { (nodes.item(it) as Element).getAttributeNS(ANDROID_NS, "name") }
         }
@@ -32,6 +42,8 @@ object ManifestPermissionCheck {
         val declared = declaredPermissions(manifestXml)
         val extra = declared.filterNot { it in allowed }.distinct().sorted().map { "permissão não permitida: $it" }
         val missing = (required - declared.toSet()).sorted().map { "permissão exigida ausente: $it" }
-        return extra + missing
+        val declarations =
+            permissionDeclarations(manifestXml).distinct().sorted().map { "declaração de permissão não permitida: $it" }
+        return extra + missing + declarations
     }
 }

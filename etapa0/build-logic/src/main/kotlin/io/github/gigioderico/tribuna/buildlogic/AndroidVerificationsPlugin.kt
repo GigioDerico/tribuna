@@ -6,7 +6,11 @@ import com.android.build.api.variant.ApplicationAndroidComponentsExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-/** Registra verifyMergedManifest (todas as variantes) e verify16kAlignment (release) no módulo Android. */
+/**
+ * Registra verifyMergedManifest (todas as variantes) e verify16kAlignment (release) no módulo Android.
+ * O build verifica o manifesto mesclado (TRD §Manifesto; OPR-004): `check` depende do agregado, e
+ * `assemble<Variante>` e `bundle<Variante>` dependem da verificação da variante.
+ */
 class AndroidVerificationsPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         project.pluginManager.withPlugin("com.android.application") {
@@ -17,6 +21,7 @@ class AndroidVerificationsPlugin : Plugin<Project> {
                     group = "verification"
                     description = "Falha se o manifesto mesclado de qualquer variante tiver permissão além de RECORD_AUDIO."
                 }
+            project.tasks.named("check") { dependsOn(aggregate) }
             components.onVariants { variant ->
                 val suffix = variant.name.replaceFirstChar { it.uppercase() }
                 val perVariant =
@@ -27,11 +32,16 @@ class AndroidVerificationsPlugin : Plugin<Project> {
                         requiredPermissions.set(setOf(ManifestPermissionCheck.RECORD_AUDIO))
                     }
                 aggregate.configure { dependsOn(perVariant) }
+                val packaging = setOf("assemble$suffix", "bundle$suffix")
+                project.tasks.configureEach {
+                    if (name in packaging) dependsOn(perVariant)
+                }
                 if (variant.buildType == "release") {
                     project.tasks.register("verify16kAlignment", Verify16kAlignmentTask::class.java) {
                         group = "verification"
-                        description = "Alinhamento de 16 KB de libvosk.so e libjnidispatch.so no APK de release."
+                        description = "Alinhamento de 16 KB de libvosk.so e libjnidispatch.so no APK e no AAB de release."
                         apkDirectory.set(variant.artifacts.get(SingleArtifact.APK))
+                        bundleFile.set(variant.artifacts.get(SingleArtifact.BUNDLE))
                         builtArtifactsLoader.set(variant.artifacts.getBuiltArtifactsLoader())
                         zipalign.set(
                             components.sdkComponents.sdkDirectory.map {

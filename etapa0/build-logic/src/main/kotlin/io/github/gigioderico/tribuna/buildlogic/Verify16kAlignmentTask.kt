@@ -20,8 +20,11 @@ import java.io.File
 import javax.inject.Inject
 
 /**
- * Alinhamento de 16 KB no APK de release: segmentos ELF de toda .so, presença das bibliotecas exigidas
- * em toda ABI e `zipalign -c -P 16 -v 4` (TRD §Qualidade de código). Sem saídas: roda sempre.
+ * Alinhamento de 16 KB no release (TRD §Qualidade de código):
+ * - APK: segmentos ELF de toda .so, presença das bibliotecas exigidas em toda ABI e `zipalign -c -P 16 -v 4`;
+ * - AAB (OPR-005): segmentos ELF e presença das bibliotecas em `base/lib/<abi>/`. O `zipalign` dos APKs que
+ *   o Play gera a partir do AAB é responsabilidade do Play.
+ * Sem saídas: roda sempre.
  */
 abstract class Verify16kAlignmentTask
     @Inject
@@ -34,6 +37,10 @@ abstract class Verify16kAlignmentTask
 
         @get:Internal
         abstract val builtArtifactsLoader: Property<BuiltArtifactsLoader>
+
+        @get:InputFile
+        @get:PathSensitive(PathSensitivity.NONE)
+        abstract val bundleFile: RegularFileProperty
 
         @get:InputFile
         @get:PathSensitive(PathSensitivity.NONE)
@@ -54,6 +61,7 @@ abstract class Verify16kAlignmentTask
             val kb = pageSizeKb.get()
             val problems = mutableListOf<String>()
             for (apk in apks) {
+                NativeLibScan.report(apk).forEach { logger.lifecycle("$name: $it") }
                 problems += NativeLibScan.check(apk, requiredLibraries.get(), minAlign = kb * 1024L)
                 val output = ByteArrayOutputStream()
                 val result =
@@ -67,6 +75,12 @@ abstract class Verify16kAlignmentTask
                 logger.lifecycle("$name: zipalign -c -P $kb -v 4 ${apk.name} -> $lastLine")
                 if (result.exitValue != 0) problems += "${apk.name}: zipalign -c -P $kb falhou (código ${result.exitValue})"
             }
+            val bundle = bundleFile.get().asFile
+            NativeLibScan.report(bundle, NativeLibScan.BUNDLE_LIB_ROOT).forEach { logger.lifecycle("$name: $it") }
+            val bundleProblems =
+                NativeLibScan.check(bundle, requiredLibraries.get(), minAlign = kb * 1024L, libRoot = NativeLibScan.BUNDLE_LIB_ROOT)
+            logger.lifecycle("$name: AAB ${bundle.name} -> ${if (bundleProblems.isEmpty()) "OK" else "${bundleProblems.size} problema(s)"}")
+            problems += bundleProblems
             if (problems.isNotEmpty()) {
                 throw GradleException(
                     buildString {
@@ -75,6 +89,6 @@ abstract class Verify16kAlignmentTask
                     },
                 )
             }
-            logger.lifecycle("$name: OK ${apks.joinToString { it.name }}")
+            logger.lifecycle("$name: OK ${apks.joinToString { it.name }}, ${bundle.name}")
         }
     }
