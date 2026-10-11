@@ -1,0 +1,9 @@
+       96  01-01-1981 01:01   base/assets/model-pt/uuid
+   176520  01-01-1981 01:01   base/lib/arm64-v8a/libjnidispatch.so
+ 10042800  01-01-1981 01:01   base/lib/arm64-v8a/libvosk.so
+   126496  01-01-1981 01:01   base/lib/armeabi-v7a/libjnidispatch.so
+  8985628  01-01-1981 01:01   base/lib/armeabi-v7a/libvosk.so
+   124380  01-01-1981 01:01   base/lib/x86/libjnidispatch.so
+ 10397552  01-01-1981 01:01   base/lib/x86/libvosk.so
+   126912  01-01-1981 01:01   base/lib/x86_64/libjnidispatch.so
+ 10335120  01-01-1981 01:01   base/lib/x86_64/libvosk.so

@@ -1,0 +1,18 @@
+d81023936f * etapa0/app/src/main/assets/model-pt/Gr.fst
+8b45be1fa7 * etapa0/app/src/main/assets/model-pt/HCLr.fst
+85353085fa * etapa0/app/src/main/assets/model-pt/README
+ca8970bc50 * etapa0/app/src/main/assets/model-pt/disambig_tid.int
+3e10e43ec0 * etapa0/app/src/main/assets/model-pt/final.mdl
+28dcdc395b * etapa0/app/src/main/assets/model-pt/ivector/final.dubm
+9345786636 * etapa0/app/src/main/assets/model-pt/ivector/final.ie
+e310571390 * etapa0/app/src/main/assets/model-pt/ivector/final.mat
+8848c2dcf9 * etapa0/app/src/main/assets/model-pt/ivector/global_cmvn.stats
+a2f3571754 * etapa0/app/src/main/assets/model-pt/ivector/online_cmvn.conf
+9f0c5f7c82 * etapa0/app/src/main/assets/model-pt/ivector/splice.conf
+d3d4c517da * etapa0/app/src/main/assets/model-pt/mfcc.conf
+dc207b9067 * etapa0/app/src/main/assets/model-pt/phones.txt
+0b3eba174f * etapa0/app/src/main/assets/model-pt/uuid
+b8f981d84d * etapa0/app/src/main/assets/model-pt/word_boundary.int
+contagem:       15
+Git LFS fsck OK
+fsck exit=0

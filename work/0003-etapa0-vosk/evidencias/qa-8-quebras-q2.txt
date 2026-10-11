@@ -1,0 +1,63 @@
+BASE rc=0 falhas=0 compilacao=False
+## Q2-E1: VERMELHO rc=1 falhas=1
+   - VoskEngineSessionTest.resultadoProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo
+## Q2-E2: VERMELHO rc=1 falhas=1
+   - VoskEngineSessionTest.finalProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo
+## Q2-R1 (bloqueante 1: Error com sessao atual): TROCA NAO APLICADA (ocorrencias=2)
+## Q2-R1b (Error com ultimo id emitido): TROCA NAO APLICADA (ocorrencias=2)
+## Q2-I1 (bloqueante 2: Partial atrasado ao reconciliador): VERMELHO rc=1 falhas=2
+   - ReaderSessionTest.parcialAtrasadoDaSessaoAnterior_naoChegaAoReconciliador
+   - ReaderSessionTest.eventosAtrasadosEntramNaExportacaoComOIdOriginalEAccepted0
+## Q2-I2 (Partial atrasado, fromActive): VERMELHO rc=1 falhas=2
+   - ReaderSessionTest.parcialAtrasadoDaSessaoAnterior_naoChegaAoReconciliador
+   - ReaderSessionTest.eventosAtrasadosEntramNaExportacaoComOIdOriginalEAccepted0
+## Q2-V3 (onStop real em Paused: Preparing||Paused no ramo novo): VERMELHO rc=1 falhas=1
+   - ReaderLifecycleTest.onStopDeVerdadeComALeituraPausada_fechaACaptura_eNaVoltaReabreMantendoPausada
+## Q2-V3b (guarda so Reading): VERMELHO rc=1 falhas=1
+   - ReaderLifecycleTest.onStopDeVerdadeComALeituraPausada_fechaACaptura_eNaVoltaReabreMantendoPausada
+## Q2-I4a (OPR-027: inBackground = false): VERMELHO rc=1 falhas=2
+   - ReaderGuardsTest.cargaTerminadaEmSegundoPlano_comTextoDeTeste_deixaAExportacaoPronta_ecomTextoLivre_nao
+   - ReaderLifecycleTest.onStopDeVerdadeEnquantoOModeloCarrega_naoAbreOMicrofoneQuandoACargaTermina
+## Q2-I4b (OPR-027: sem ramo Preparing no onActivityStop): VERMELHO rc=1 falhas=2
+   - ReaderGuardsTest.cargaTerminadaEmSegundoPlano_comTextoDeTeste_deixaAExportacaoPronta_ecomTextoLivre_nao
+   - ReaderLifecycleTest.onStopDeVerdadeEnquantoOModeloCarrega_naoAbreOMicrofoneQuandoACargaTermina
+## Q2-V1 (sem filtro de sessao): VERMELHO rc=1 falhas=6
+   - ReaderGuardsTest.parcialDeSessaoAntigaSemSessaoAtiva_eIgnorado
+   - ReaderSessionTest.parcialAtrasadoDaSessaoAnterior_naoChegaAoReconciliador
+   - ReaderSessionTest.parcialEFinalAtrasadosDaSessaoAnterior_naoMexemNoCursorNemNaCauda
+   - ReaderSessionTest.falaNaPausa_naoMoveOCursor_eAoRetomarASessaoENovaComCaudaVazia
+   - ReaderSessionTest.eventosAtrasadosEntramNaExportacaoComOIdOriginalEAccepted0
+   - ReaderExportTest.hipotesesLidasDeVolta_entregamAsMesmasPalavrasDaSessaoAoVivo
+## Q2-V17 (reposition antes do endSession): VERMELHO rc=1 falhas=1
+   - ReaderTapTest.toqueNaPalavraDuranteALeitura_endSessionRepositionBeginSession_nessaOrdem
+## Q2-V9 (reconciliador nao zera): VERMELHO rc=1 falhas=1
+   - ReaderSessionTest.falaNaPausa_naoMoveOCursor_eAoRetomarASessaoENovaComCaudaVazia
+## Q2-V18 (rotacao fecha captura): VERMELHO rc=1 falhas=3
+   - ReaderLifecycleTest.rotacaoComALeituraPausada_naoReabreACaptura
+   - ReaderLifecycleTest.onStopComMudancaDeConfiguracao_naoFechaSessaoNemCaptura
+   - ReaderPhaseGuardsTest.rotacaoEnquantoOModeloCarrega_comACargaTerminandoAntesDoOnStart_naoMarcaSegundoPlano
+## Q2-S1 (needsCopy invertido): VERMELHO rc=1 falhas=6
+   - ModelInstallerTest.uuidIgualNoDestino_naoCopia
+   - ModelInstallerTest.uuidDiferenteNoDestino_copiaDeNovo
+   - ModelInstallerTest.mesmaVersao_naoCopia_diferenteOuAusente_copia
+   - ModelInstallerTest.uuidComAcentoEEspacos_eLidoEmUtf8EAparado
+   - ModelInstallerTest.falhaNaCopia_devolveModelCorrupt_eNaoDeixaCopiaPelaMetade
+   - ModelInstallerTest.needsCopy_ignoraQuebraDeLinhaEEspacosDaOrigem
+## Q2-S6 (WAV aceita nao PCM): VERMELHO rc=1 falhas=1
+   - WavAudioSourceTest.wavNaoPcm_eRecusado
+## Q2-S8 (WAV aceita 44,1 kHz): VERMELHO rc=1 falhas=1
+   - WavAudioSourceTest.wav44kHz_eRecusado
+## Q2-X3 (replay sem reset por sessao): VERMELHO rc=1 falhas=1
+   - ExportFilesTest.reprocessar_soAsAceitas_zerandoAFraseACadaSessao
+## Q2-R29 (catalogo startsWith): VERMELHO rc=1 falhas=1
+   - TestTextCatalogTest.textoDeTesteComAlgoAcrescentado_naoIdentifica
+## Q2-E7 (reset ignora vocabulario): VERMELHO rc=1 falhas=1
+   - VoskEngineSessionTest.estrategiaReset_vocabularioMudou_criaReconhecedorNovo
+## Q2-S5 (escala 32767): VERMELHO rc=1 falhas=2
+   - AudioLevelTest.meioDaEscala_daMeio
+   - AudioLevelTest.soContaAsAmostrasLidas
+## Q2-B1 (build-logic: manifesto sem declaracoes): VERMELHO rc=1 falhas=3
+   - ManifestPermissionCheckTest.declaracaoDePermissaoPropria_falha
+   - ManifestPermissionCheckTest.soADeclaracao_semUsesPermission_tambemFalha
+   - ManifestPermissionCheckTest.grupoEArvoreDePermissao_falham
+FINAL (restaurado) rc=0 falhas=0

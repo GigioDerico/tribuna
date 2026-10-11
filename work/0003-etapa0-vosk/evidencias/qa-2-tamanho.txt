@@ -1,0 +1,3 @@
+49590809 bytes AAB
+meta 80 MB = 83886080 bytes (80*1024*1024); 80000000 decimal
+74214036 bytes APK
