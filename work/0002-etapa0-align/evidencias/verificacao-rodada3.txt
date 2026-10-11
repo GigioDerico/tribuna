@@ -1,0 +1,7 @@
+BUILD SUCCESSFUL in 4s
+10 actionable tasks: 10 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.7.1/userguide/configuration_cache_enabling.html
+verifyDebugMergedManifest: OK /Users/giorgioderico/Projetos/Tribuna/etapa0/app/build/intermediates/merged_manifest/debug/processDebugMainManifest/AndroidManifest.xml -> android.permission.RECORD_AUDIO
+verifyReleaseMergedManifest: OK /Users/giorgioderico/Projetos/Tribuna/etapa0/app/build/intermediates/merged_manifest/release/processReleaseMainManifest/AndroidManifest.xml -> android.permission.RECORD_AUDIO
+BUILD SUCCESSFUL in 1s
+core: 118 testes, 0 falhas, 0 ignorados (XMLs)

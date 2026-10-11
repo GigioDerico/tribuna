@@ -1,0 +1,130 @@
+Quebras mínimas em Aligner.kt (rodada 3), uma por vez, restaurada com git checkout; `:core:test --rerun-tasks` em cada uma.
+Formato: id | troca | resultado (n testes vermelhos: primeiros nomes).
+Script de apoio: scratchpad da sessão (troca exata de texto, roda o Gradle, lê os XMLs, restaura).
+
+L35 | if (tokens.isEmpty()) return state -> if (false) return state | VERMELHO 1: AlignerTest.roteiroVazio_advanceDevolveOEstadoERepositionVaiAZero
+L37a | heard.size < params.k) -> heard.size <= params.k) | VERMELHO 26: AlignerTest.recuperacao_exigeQuatroPalavrasOuvidas_D12; AlignerTest.unkNuncaCasa_D13; AlignerTest.vencedorNoCursor_zeraMissStreak_D6
+L37b | heard.size < params.k) -> false) | VERMELHO 1: AlignerTest.menosDeKPalavras_ficaParadoSemMudarMissStreak_D5
+L39a | best.lastWord >= params.shortThreshold) { -> best.lastWord > params.shortThreshold) { | VERMELHO 1: AlignerBoundaryTest.limiarCurto_iguaisPassam_maiorQueNaoPassa
+L39b | best.lastWord >= params.shortThreshold) { -> true) { | VERMELHO 5: AlignerTest.unkNuncaCasa_D13; AlignerBoundaryTest.formasComRuidoDePontoFlutuante_valeAPrimeira; AlignerBoundaryTest.formasEmpatadas_valeAPrimeira
+L40a | <= SHORT_DISTANCE_TOKENS && -> < SHORT_DISTANCE_TOKENS && | VERMELHO 1: AlignerBoundaryTest.avancoCurto_valeAteCincoTokensDoCursor
+L40b | best.similarity >= params.shortThreshold\n -> best.similarity > params.shortThreshold\n | VERMELHO 2: AlignerBoundaryTest.limiarCurto_iguaisPassam_maiorQueNaoPassa; AlignerBoundaryTest.limiarCurto_mediaIgualAoLimiarPassa
+L40c | <= SHORT_DISTANCE_TOKENS && best -> <= SHORT_DISTANCE_TOKENS || best | VERMELHO 19: AlignerTest.recuperacaoAmbigua_naoMoveOCursor_L30; AlignerBoundaryTest.recuperacao_saltaParaOTokenLogoDepoisDeHighWater; AlignerBoundaryTest.recuperacao_palavraNovaIgualAoLimiarCurtoPassa
+L41a | if (short || best.similarity >= params.longThresho -> if (short && best.similarity >= params.longThresho | VERMELHO 9: AlignerBoundaryTest.limiarCurto_iguaisPassam_maiorQueNaoPassa; AlignerBoundaryTest.janela_terminaExatamenteEmCursorMaisW; AlignerBoundaryTest.ruidoDePontoFlutuante_naoDecideAJanela
+L41b | best.similarity >= params.longThreshold) {\n        -> best.similarity > params.longThreshold) {\n         | VERMELHO 1: AlignerBoundaryTest.limiarLongo_iguaisPassam_maiorQueNaoPassa
+L42 | if (best.position == state.cursor) { -> if (false) { | VERMELHO 1: AlignerTest.vencedorNoCursor_zeraMissStreak_D6
+L43a | state.copy(missStreak = 0, lastMove = Move.Stay, s -> state.copy(lastMove = Move.Stay, score = best.simi | VERMELHO 1: AlignerTest.vencedorNoCursor_zeraMissStreak_D6
+L43b | state.copy(missStreak = 0, lastMove = Move.Stay, s -> state.copy(missStreak = 0, lastMove = Move.Stay, s | VERMELHO 1: AlignerTest.vencedorNoCursor_zeraMissStreak_D6
+L47a | max(state.highWater, best.position) -> best.position | VERMELHO 3: AlignerTest.recuosSucessivosNaoPassamDeHighWaterMenos3; AlignerBoundaryTest.empateAMesmaDistancia_ficaComOMenorIndice; AlignerBoundaryTest.recuo_chegaAHighWaterMenos3EParaAli
+L47b | max(state.highWater, best.position) -> state.highWater | VERMELHO 14: AlignerTest.recuosSucessivosNaoPassamDeHighWaterMenos3; AlignerTest.reposition_primeiroAvancoPartedaNovaPosicao; AlignerTest.reposition_voltaLivrementeAbaixoDeHighWaterMenos3
+L48 | missStreak = 0,\n                    lastMove = if -> missStreak = state.missStreak,\n                    | VERMELHO 1: AlignerBoundaryTest.movimento_zeraMissStreak
+L49a | lastMove = if (short) Move.Short else Move.LongJum -> lastMove = Move.Short | VERMELHO 5: AlignerBoundaryTest.janela_terminaExatamenteEmCursorMaisW; AlignerBoundaryTest.limiarLongo_iguaisPassam_maiorQueNaoPassa; AlignerBoundaryTest.movimento_zeraMissStreak
+L49b | lastMove = if (short) Move.Short else Move.LongJum -> lastMove = Move.LongJump | VERMELHO 13: AlignerTest.reposition_primeiroAvancoPartedaNovaPosicao; AlignerTest.empate_vaiParaAPosicaoMaisProximaDoCursor_D9; AlignerBoundaryTest.empateAMesmaDistancia_ficaComOMenorIndice
+L50 | score = best.similarity,\n                ) -> score = 0.0,\n                ) | VERMELHO 13: AlignerTest.empate_vaiParaAPosicaoMaisProximaDoCursor_D9; AlignerBoundaryTest.empateAMesmaDistancia_ficaComOMenorIndice; AlignerBoundaryTest.limiarCurto_iguaisPassam_maiorQueNaoPassa
+L54 | state.missStreak + 1 -> state.missStreak + 2 | VERMELHO 18: AlignerTest.recuperacao_ambiguidadeContaAntesDoFiltroA2; AlignerTest.recuperacao_soNoSegundoMiss_D7; AlignerTest.recuperacao_exigeQuatroPalavrasOuvidas_D12
+L55a | misses >= MISSES_FOR_RECOVERY && -> misses > MISSES_FOR_RECOVERY && | VERMELHO 8: AlignerTest.recuperacao_ambiguidadeContaAntesDoFiltroA2; AlignerTest.recuperacao_soNoSegundoMiss_D7; AlignerTest.recuperacao_candidatoUnicoComPalavraNovaSemCasarNaoSalta_A2
+L55b | heard.size >= RECOVERY_WORDS) -> heard.size >= params.k) | VERMELHO 1: AlignerTest.recuperacao_exigeQuatroPalavrasOuvidas_D12
+L55c | heard.size >= RECOVERY_WORDS) -> heard.size > RECOVERY_WORDS) | VERMELHO 12: AlignerTest.recuperacao_ambiguidadeContaAntesDoFiltroA2; AlignerTest.recuperacaoAmbigua_naoMoveOCursor_L30; AlignerTest.recuperacao_soNoSegundoMiss_D7
+L55d | misses >= MISSES_FOR_RECOVERY && heard -> misses >= MISSES_FOR_RECOVERY || heard | VERMELHO 2: AlignerTest.recuperacao_soNoSegundoMiss_D7; AlignerTest.recuperacao_exigeQuatroPalavrasOuvidas_D12
+L55e | misses >= MISSES_FOR_RECOVERY && -> true && | VERMELHO 1: AlignerTest.recuperacao_soNoSegundoMiss_D7
+L56a | recover(state.highWater, heard.takeLast(RECOVERY_W -> recover(state.highWater, heard.takeLast(params.k)) | VERMELHO 7: AlignerTest.recuperacao_ambiguidadeContaAntesDoFiltroA2; AlignerTest.recuperacao_candidatoUnicoComPalavraNovaSemCasarNaoSalta_A2; AlignerBoundaryTest.recuperacao_saltaParaOTokenLogoDepoisDeHighWater
+L56b | recover(state.highWater, -> recover(state.cursor, | VERMELHO 1: AlignerBoundaryTest.recuperacao_partedeHighWaterNaoDoCursor
+L58 | if (jump != null) { -> if (jump != null && false) { | VERMELHO 9: AlignerTest.recuperacao_soNoSegundoMiss_D7; AlignerBoundaryTest.recuperacao_saltaParaOTokenLogoDepoisDeHighWater; AlignerBoundaryTest.recuperacao_palavraNovaIgualAoLimiarCurtoPassa
+L59a | AlignState(jump.position, jump.position, 0, Move.R -> AlignState(jump.position, state.highWater, 0, Move | VERMELHO 2: AlignerTest.recuperacao_soNoSegundoMiss_D7; AlignerBoundaryTest.recuperacao_saltaParaOTokenLogoDepoisDeHighWater
+L59b | AlignState(jump.position, jump.position, 0, Move.R -> AlignState(jump.position, jump.position, misses, M | VERMELHO 2: AlignerTest.recuperacao_soNoSegundoMiss_D7; AlignerBoundaryTest.recuperacao_saltaParaOTokenLogoDepoisDeHighWater
+L59c | AlignState(jump.position, jump.position, 0, Move.R -> AlignState(jump.position, jump.position, 0, Move.L | VERMELHO 9: AlignerTest.recuperacao_soNoSegundoMiss_D7; AlignerBoundaryTest.recuperacao_saltaParaOTokenLogoDepoisDeHighWater; AlignerBoundaryTest.recuperacao_palavraNovaIgualAoLimiarCurtoPassa
+L59d | AlignState(jump.position, jump.position, 0, Move.R -> AlignState(jump.position, jump.position, 0, Move.R | VERMELHO 1: AlignerBoundaryTest.recuperacao_saltaParaOTokenLogoDepoisDeHighWater
+L61a | state.copy(missStreak = misses, lastMove = Move.St -> state.copy(missStreak = misses, lastMove = Move.St | VERMELHO 6: AlignerTest.recuperacao_ambiguidadeContaAntesDoFiltroA2; AlignerTest.recuperacaoAmbigua_naoMoveOCursor_L30; AlignerTest.recuperacao_candidatoUnicoComPalavraNovaSemCasarNaoSalta_A2
+L61b | state.copy(missStreak = misses, lastMove = Move.St -> state.copy(missStreak = misses, lastMove = Move.St | VERMELHO 1: AlignerBoundaryTest.scoreDoMiss_eAMelhorSimilaridade
+L61c | state.copy(missStreak = misses, lastMove = Move.St -> state.copy(missStreak = 0, lastMove = Move.Stay, s | VERMELHO 6: AlignerTest.recuperacao_ambiguidadeContaAntesDoFiltroA2; AlignerTest.recuperacaoAmbigua_naoMoveOCursor_L30; AlignerTest.recuperacao_candidatoUnicoComPalavraNovaSemCasarNaoSalta_A2
+L63a | return state.copy(missStreak = misses, lastMove =  -> return state.copy(missStreak = misses, lastMove =  | VERMELHO 3: AlignerBoundaryTest.scoreDoMiss_eAMelhorSimilaridade; AlignerBoundaryTest.palavrasQueSobramAntesDoInicio_contamComoErro; AlignerBoundaryTest.avancoCurto_valeAteCincoTokensDoCursor
+L63b | return state.copy(missStreak = misses, lastMove =  -> return state.copy(lastMove = Move.Stay, score = be | VERMELHO 18: AlignerTest.recuperacaoAmbigua_naoMoveOCursor_L30; AlignerTest.recuperacao_soNoSegundoMiss_D7; AlignerTest.recuperacao_exigeQuatroPalavrasOuvidas_D12
+L68a | tokenIndex.coerceIn(0, tokens.lastIndex) -> tokenIndex.coerceAtLeast(0) | VERMELHO 1: AlignerTest.reposition_segueD4
+L68b | tokenIndex.coerceIn(0, tokens.lastIndex) -> tokenIndex.coerceAtMost(tokens.lastIndex) | VERMELHO 1: AlignerTest.reposition_segueD4
+L68c | if (tokens.isEmpty()) 0 else -> if (false) 0 else | VERMELHO 1: AlignerTest.roteiroVazio_advanceDevolveOEstadoERepositionVaiAZero
+L69a | highWater = index, missStreak -> highWater = 0, missStreak | VERMELHO 8: AlignerTest.recuperacao_ambiguidadeContaAntesDoFiltroA2; AlignerTest.recuperacaoAmbigua_naoMoveOCursor_L30; AlignerTest.recuperacao_soNoSegundoMiss_D7
+L69b | missStreak = 0, lastMove = Move.Reposition -> missStreak = 1, lastMove = Move.Reposition | VERMELHO 4: AlignerTest.roteiroVazio_advanceDevolveOEstadoERepositionVaiAZero; AlignerTest.recuperacao_soNoSegundoMiss_D7; AlignerTest.reposition_voltaLivrementeAbaixoDeHighWaterMenos3
+L85 | maxOf(params.k, RECOVERY_WORDS) -> params.k | VERMELHO 12: AlignerTest.recuperacao_ambiguidadeContaAntesDoFiltroA2; AlignerTest.recuperacaoAmbigua_naoMoveOCursor_L30; AlignerTest.recuperacao_soNoSegundoMiss_D7
+L87a | while (i >= 0 && -> while (i > 0 && | VERMELHO 30: AlignerTest.recuperacao_exigeQuatroPalavrasOuvidas_D12; AlignerTest.unkNuncaCasa_D13; AlignerTest.vencedorNoCursor_zeraMissStreak_D6
+L87b | out.size < needed) -> out.size <= needed) | VERDE rc=0
+L91a | raw.trim().lowercase(Locale.ROOT) == Similarity.UN -> raw == Similarity.UNKNOWN | VERMELHO 1: AlignerBoundaryTest.unk_valeComCaixaEEspacos_D13
+L91b | if (raw.trim().lowercase(Locale.ROOT) == Similarit -> Normalizer.words(raw) | VERMELHO 2: AlignerTest.unkNuncaCasa_D13; AlignerBoundaryTest.unk_valeComCaixaEEspacos_D13
+L92 | for (x in normalized.indices.reversed()) out.addFi -> for (x in normalized.indices) out.addFirst(normali | VERMELHO 1: AlignerBoundaryTest.itemComVariasPalavras_mantemAOrdem
+L95 | out.toList().takeLast(needed) -> out.toList() | VERDE rc=0
+L103a | maxOf(state.cursor - MAX_BACK_FROM_HIGH_WATER, sta -> maxOf(state.cursor - MAX_BACK_FROM_HIGH_WATER, 0) | VERMELHO 1: AlignerTest.recuosSucessivosNaoPassamDeHighWaterMenos3
+L103b | maxOf(state.cursor - MAX_BACK_FROM_HIGH_WATER, sta -> maxOf(state.highWater - MAX_BACK_FROM_HIGH_WATER,  | VERDE rc=0
+L103c | maxOf(state.cursor - MAX_BACK_FROM_HIGH_WATER, sta -> maxOf(state.cursor - MAX_BACK_FROM_HIGH_WATER, sta | VERDE rc=0
+L103d | maxOf(state.cursor - MAX_BACK_FROM_HIGH_WATER, sta -> minOf(state.cursor - MAX_BACK_FROM_HIGH_WATER, sta | VERMELHO 4: AlignerTest.recuosSucessivosNaoPassamDeHighWaterMenos3; AlignerTest.recuperacao_exigeQuatroPalavrasOuvidas_D12; AlignerBoundaryTest.recuo_chegaAHighWaterMenos3EParaAli
+L104a | minOf(state.cursor + params.window, tokens.lastInd -> state.cursor + params.window | VERMELHO 28: AlignerTest.falaComAcentosEMaiusculas_mesmaTrajetoriaQueANormalizada_T03; AlignerTest.falaComAcentos_referenciasDoT02_mesmaTrajetoria; AlignerTest.empate_vaiParaAPosicaoMaisProximaDoCursor_D9
+L104b | minOf(state.cursor + params.window, tokens.lastInd -> minOf(state.cursor + params.window + 1, tokens.las | VERMELHO 1: AlignerBoundaryTest.janela_terminaExatamenteEmCursorMaisW
+L104c | minOf(state.cursor + params.window, tokens.lastInd -> minOf(state.cursor + params.window - 1, tokens.las | VERMELHO 1: AlignerBoundaryTest.janela_terminaExatamenteEmCursorMaisW
+L106 | for (position in from..to) -> for (position in from until to) | VERMELHO 6: AlignerBoundaryTest.janela_terminaExatamenteEmCursorMaisW; AlignerTrajectoryTest.numerosEVariantesT02_tresTakes; AlignerTrajectoryTest.leituraNormalT01_tresPresets_cursorIgualAoEsperadoDesdeAKesimaPalavra
+L109 | if (current == null || -> if (current == null ||\n                false || | VERDE rc=0
+L110a | match.similarity > current.similarity + EPSILON -> match.similarity >= current.similarity + EPSILON | VERDE rc=0
+L110b | match.similarity > current.similarity + EPSILON -> match.similarity > current.similarity | VERMELHO 1: AlignerBoundaryTest.ruidoDePontoFlutuante_naoDecideAJanela
+L110c | match.similarity > current.similarity + EPSILON -> match.similarity > current.similarity - EPSILON | VERMELHO 7: AlignerTest.empate_vaiParaAPosicaoMaisProximaDoCursor_D9; AlignerBoundaryTest.empateAMesmaDistancia_ficaComOMenorIndice; AlignerBoundaryTest.ruidoDePontoFlutuante_naoDecideAJanela
+L112 | abs(match.similarity - current.similarity) <= EPSI -> abs(match.similarity - current.similarity) < 0.0 & | VERMELHO 1: AlignerTest.empate_vaiParaAPosicaoMaisProximaDoCursor_D9
+L113a | abs(position - state.cursor) < abs(current.positio -> abs(position - state.cursor) <= abs(current.positi | VERMELHO 1: AlignerBoundaryTest.empateAMesmaDistancia_ficaComOMenorIndice
+L113b | abs(position - state.cursor) < abs(current.positio -> abs(position - state.cursor) > abs(current.positio | VERMELHO 6: AlignerTest.empate_vaiParaAPosicaoMaisProximaDoCursor_D9; AlignerBoundaryTest.ruidoDePontoFlutuante_naoDecideAJanela; AlignerTrajectoryTest.trechosRepetidosT03_nuncaPulaParaOutraCopia
+L113c | abs(position - state.cursor) < abs(current.positio -> position < current.position | VERMELHO 1: AlignerTest.empate_vaiParaAPosicaoMaisProximaDoCursor_D9
+L119 | best ?: Match(state.cursor, 0.0, 0.0) -> best ?: Match(state.cursor, 1.0, 1.0) | VERDE rc=0
+L129 | for (position in highWater + 1..tokens.lastIndex) -> for (position in highWater..tokens.lastIndex) | VERMELHO 1: AlignerBoundaryTest.recuperacao_naoOlhaOTokenEmHighWater
+L129b | for (position in highWater + 1..tokens.lastIndex) -> for (position in highWater + 2..tokens.lastIndex) | VERMELHO 5: AlignerBoundaryTest.recuperacao_saltaParaOTokenLogoDepoisDeHighWater; AlignerBoundaryTest.recuperacao_palavraNovaIgualAoLimiarCurtoPassa; AlignerBoundaryTest.recuperacao_limiarLongoIgualPassa
+L129c | for (position in highWater + 1..tokens.lastIndex) -> for (position in highWater + 1 until tokens.lastIn | VERMELHO 1: AlignerBoundaryTest.recuperacao_incluiOUltimoToken
+L131 | bestSimilarity = max(bestSimilarity, match.similar -> bestSimilarity = match.similarity | VERMELHO 6: AlignerTest.recuperacao_ambiguidadeContaAntesDoFiltroA2; AlignerTest.recuperacaoAmbigua_naoMoveOCursor_L30; AlignerTest.recuperacao_candidatoUnicoComPalavraNovaSemCasarNaoSalta_A2
+L132a | if (match.similarity >= params.longThreshold) cand -> if (match.similarity > params.longThreshold) candi | VERMELHO 2: AlignerBoundaryTest.recuperacao_palavraNovaIgualAoLimiarCurtoPassa; AlignerBoundaryTest.recuperacao_limiarLongoIgualPassa
+L132b | if (match.similarity >= params.longThreshold) cand -> if (match.similarity >= params.shortThreshold) can | VERMELHO 4: AlignerTest.recuperacao_soNoSegundoMiss_D7; AlignerBoundaryTest.recuperacao_limiarLongoIgualPassa; AlignerTrajectoryTest.improvisoT04_cursorParadoERetomaAte6Palavras
+L134a | candidates.singleOrNull()?.takeIf { it.lastWord >= -> candidates.firstOrNull()?.takeIf { it.lastWord >=  | VERMELHO 2: AlignerTest.recuperacao_ambiguidadeContaAntesDoFiltroA2; AlignerTest.recuperacaoAmbigua_naoMoveOCursor_L30
+L134b | it.lastWord >= params.shortThreshold }\n        ret -> it.lastWord > params.shortThreshold }\n        retu | VERMELHO 1: AlignerBoundaryTest.recuperacao_palavraNovaIgualAoLimiarCurtoPassa
+L148 | var bestSimilarity = -1.0 -> var bestSimilarity = 0.0 | VERDE rc=0
+L158a | if (newest < 0 || token < 0) { -> if (newest < 0 && token < 0) { | VERMELHO 20: AlignerTest.recuosSucessivosNaoPassamDeHighWaterMenos3; AlignerTest.falaComAcentosEMaiusculas_mesmaTrajetoriaQueANormalizada_T03; AlignerTest.unkNuncaCasa_D13
+L158b | if (newest < 0 || token < 0) { -> if (newest <= 0 || token < 0) { | VERMELHO 28: AlignerTest.recuperacao_ambiguidadeContaAntesDoFiltroA2; AlignerTest.recuperacaoAmbigua_naoMoveOCursor_L30; AlignerTest.recuperacao_soNoSegundoMiss_D7
+L158c | if (newest < 0 || token < 0) { -> if (newest < 0 || token <= 0) { | VERMELHO 2: AlignerBoundaryTest.palavrasQueSobramAntesDoInicio_contamComoErro; AlignerTrajectoryTest.leituraNormalT01_tresPresets_cursorIgualAoEsperadoDesdeAKesimaPalavra
+L159 | val total = weight + (newest + 1) -> val total = weight | VERMELHO 1: AlignerBoundaryTest.palavrasQueSobramAntesDoInicio_contamComoErro
+L160a | if (total == 0.0) 0.0 else sum / total -> sum / total | VERDE rc=0
+L160b | if (total == 0.0) 0.0 else sum / total -> if (total == 0.0) 1.0 else sum / total | VERDE rc=0
+L161a | similarity > bestSimilarity + EPSILON -> similarity >= bestSimilarity + EPSILON | VERDE rc=0
+L161b | similarity > bestSimilarity + EPSILON -> similarity > bestSimilarity | VERMELHO 1: AlignerBoundaryTest.formasComRuidoDePontoFlutuante_valeAPrimeira
+L161c | similarity > bestSimilarity + EPSILON -> similarity >= bestSimilarity | VERMELHO 2: AlignerBoundaryTest.formasComRuidoDePontoFlutuante_valeAPrimeira; AlignerBoundaryTest.formasEmpatadas_valeAPrimeira
+L162 | bestLast = last\n -> bestLast = 0.0\n | VERMELHO 37: AlignerTest.recuosSucessivosNaoPassamDeHighWaterMenos3; AlignerTest.recuperacao_soNoSegundoMiss_D7; AlignerTest.unkNuncaCasa_D13
+L167 | val w = weights[token] -> val w = 1.0 | VERMELHO 2: AlignerTest.recuperacao_ambiguidadeContaAntesDoFiltroA2; AlignerTest.recuperacao_candidatoUnicoComPalavraNovaSemCasarNaoSalta_A2
+L168 | for (form in forms[token]) -> for (form in forms[token].take(1)) | VERMELHO 1: AlignerBoundaryTest.segundaFormaFalada_tambemCasa
+L169 | minOf(form.size, newest + 1) -> form.size | VERMELHO 13: AlignerTest.recuperacao_ambiguidadeContaAntesDoFiltroA2; AlignerTest.recuperacaoAmbigua_naoMoveOCursor_L30; AlignerTest.recuperacao_soNoSegundoMiss_D7
+L173a | heard[newest - used + 1 + x] -> heard[newest - x] | VERMELHO 2: AlignerBoundaryTest.formaFalada_consomeSuasPalavrasEOAnteriorCasaComAResto; AlignerBoundaryTest.formaFaladaLonga_casaPelasUltimasPalavrasEmOrdem
+L173b | form[form.size - used + x] -> form[x] | VERMELHO 1: AlignerBoundaryTest.formaFaladaLonga_casaPelasUltimasPalavrasEmOrdem
+L173c | s += w * Similarity.of -> s += Similarity.of | VERMELHO 6: AlignerTest.recuperacao_soNoSegundoMiss_D7; AlignerTest.recuperacao_exigeQuatroPalavrasOuvidas_D12; AlignerTrajectoryTest.numerosEVariantesT02_tresTakes
+L174 | total += w -> total += 1.0 | VERMELHO 3: AlignerTest.recuperacao_ambiguidadeContaAntesDoFiltroA2; AlignerTest.recuperacao_candidatoUnicoComPalavraNovaSemCasarNaoSalta_A2; AlignerTrajectoryTest.leituraNormalT01_tresPresets_cursorIgualAoEsperadoDesdeAKesimaPalavra
+L176a | if (token == position) Similarity -> if (token >= position) Similarity | VERDE rc=0
+L176b | Similarity.of(heard[newest], form.last()) else las -> Similarity.of(heard[newest], form.first()) else la | VERMELHO 2: AlignerBoundaryTest.formaFalada_consomeSuasPalavrasEOAnteriorCasaComAResto; AlignerBoundaryTest.formaFaladaLonga_casaPelasUltimasPalavrasEmOrdem
+L176c | else last\n -> else 0.0\n | VERMELHO 27: AlignerTest.recuosSucessivosNaoPassamDeHighWaterMenos3; AlignerTest.recuperacao_soNoSegundoMiss_D7; AlignerTest.unkNuncaCasa_D13
+L177 | walk(token - 1, newest - used, s, total, lastWord) -> walk(token - 1, newest - 1, s, total, lastWord) | VERMELHO 2: AlignerBoundaryTest.formaFalada_consomeSuasPalavrasEOAnteriorCasaComAResto; AlignerBoundaryTest.formaFaladaLonga_casaPelasUltimasPalavrasEmOrdem
+L181 | walk(position, heard.lastIndex, 0.0, 0.0, 0.0) -> walk(position, heard.lastIndex, 0.0, 0.0, 1.0) | VERDE rc=0
+L182a | bestSimilarity.coerceAtLeast(0.0) -> bestSimilarity | VERMELHO 1: AlignerBoundaryTest.tokenSemPalavras_naoQuebraENaoDaSimilaridadeNegativa
+L182b | Match(position, bestSimilarity.coerceAtLeast(0.0), -> Match(position, bestSimilarity.coerceAtLeast(0.0), | VERMELHO 7: AlignerTest.recuperacao_candidatoUnicoComPalavraNovaSemCasarNaoSalta_A2; AlignerTest.unkNuncaCasa_D13; AlignerBoundaryTest.recuperacao_palavraNovaIgualAoLimiarCurtoPassa
+L28a | token.spoken.map { form -> form.flatMap(Normalizer -> token.spoken.map { form -> form.flatMap(Normalizer | VERMELHO 1: AlignerBoundaryTest.tokenSemPalavras_naoQuebraENaoDaSimilaridadeNegativa
+L29 | tokens[it].weight.toDouble() -> 1.0 | VERMELHO 2: AlignerTest.recuperacao_ambiguidadeContaAntesDoFiltroA2; AlignerTest.recuperacao_candidatoUnicoComPalavraNovaSemCasarNaoSalta_A2
+L186 | const val EPSILON = 1e-9 -> const val EPSILON = 0.01 | VERMELHO 1: AlignerBoundaryTest.diferencaPequenaDeSimilaridade_naoViraEmpate
+K1 | const val SHORT_DISTANCE_TOKENS = 5 -> const val SHORT_DISTANCE_TOKENS = 6 | VERMELHO 1: AlignerBoundaryTest.avancoCurto_valeAteCincoTokensDoCursor
+K1b | const val SHORT_DISTANCE_TOKENS = 5 -> const val SHORT_DISTANCE_TOKENS = 4 | VERMELHO 1: AlignerBoundaryTest.avancoCurto_valeAteCincoTokensDoCursor
+K2 | const val MAX_BACK_FROM_HIGH_WATER = 3 -> const val MAX_BACK_FROM_HIGH_WATER = 4 | VERMELHO 4: AlignerTest.recuosSucessivosNaoPassamDeHighWaterMenos3; AlignerTest.recuperacao_exigeQuatroPalavrasOuvidas_D12; AlignerBoundaryTest.recuo_chegaAHighWaterMenos3EParaAli
+K2b | const val MAX_BACK_FROM_HIGH_WATER = 3 -> const val MAX_BACK_FROM_HIGH_WATER = 2 | VERMELHO 1: AlignerBoundaryTest.recuo_chegaAHighWaterMenos3EParaAli
+K3 | const val MISSES_FOR_RECOVERY = 2 -> const val MISSES_FOR_RECOVERY = 3 | VERMELHO 8: AlignerTest.recuperacao_ambiguidadeContaAntesDoFiltroA2; AlignerTest.recuperacao_soNoSegundoMiss_D7; AlignerTest.recuperacao_candidatoUnicoComPalavraNovaSemCasarNaoSalta_A2
+K4 | const val RECOVERY_WORDS = 4 -> const val RECOVERY_WORDS = 5 | VERMELHO 5: AlignerBoundaryTest.recuperacao_saltaParaOTokenLogoDepoisDeHighWater; AlignerBoundaryTest.recuperacao_palavraNovaIgualAoLimiarCurtoPassa; AlignerBoundaryTest.recuperacao_limiarLongoIgualPassa
+K4b | const val RECOVERY_WORDS = 4 -> const val RECOVERY_WORDS = 3 | VERMELHO 6: AlignerTest.recuperacao_ambiguidadeContaAntesDoFiltroA2; AlignerTest.recuperacao_exigeQuatroPalavrasOuvidas_D12; AlignerTest.recuperacao_candidatoUnicoComPalavraNovaSemCasarNaoSalta_A2
+
+Total: 109 quebras; 96 vermelhas; 13 verdes (mutantes equivalentes, abaixo).
+
+Mutantes equivalentes (sem efeito observável):
+- L87b: `out.size < needed` -> `<=`: lê uma palavra bruta a mais, mas o `takeLast(needed)` da linha 95 devolve as mesmas `needed` palavras.
+- L95: sem `takeLast(needed)`: só sobra palavra a mais quando o último item bruto tem várias palavras, e os dois consumidores já fazem `takeLast(k)` e `takeLast(RECOVERY_WORDS)`; `heard.size` só é comparado com limites já atingidos nesse caso.
+- L103b: sem o termo `cursor - 3`: o contrato mantém highWater >= cursor (reposition iguala, movimento faz max), logo `highWater - 3 >= cursor - 3` e o termo nunca decide.
+- L103c: sem o `0` do maxOf: posição negativa dá similaridade 0 e distância maior que a do cursor, então nunca vence o desempate; só aparece quando tudo é 0.
+- L109: mutante sem efeito por construção (`false ||` não muda o `if`); mantido na lista só para constar que a condição `current == null` foi coberta pelas outras.
+- L110a: `>` para `>=` contra `current + EPSILON`: só difere quando a diferença é exatamente 1e-9, impossível com somas de frações pequenas.
+- L119: `best ?: Match(...)`: `best` só é nulo se a janela for vazia, e from <= cursor <= to vale para qualquer estado do contrato (cursor em [highWater - 3, highWater], highWater <= lastIndex).
+- L148: `bestSimilarity = -1.0` -> `0.0`: o -1 só serve de sentinela; com similaridade 0 em todas as palavras, `lastWord` também é 0 (pesos > 0), então o par (similarity, lastWord) sai igual.
+- L160a: sem o `total == 0.0`: com k >= 1 sempre há ao menos uma palavra ouvida ou um token consumido (total > 0); o ramo só protegeria 0/0.
+- L160b: idem L160a (ramo inalcançável com k >= 1).
+- L161a: `>` para `>=` contra `bestSimilarity + EPSILON`: mesma razão do L110a. A forma sem folga (`>= bestSimilarity`, L161c) e sem EPSILON (L161b) ficam vermelhas.
+- L176a: `token == position` -> `token >= position`: `walk` só desce de `position`, então `token > position` nunca acontece.
+- L181: último argumento inicial de `walk` (`last`) é sempre sobrescrito na primeira chamada, quando `token == position`; só ficaria visível com token sem forma, que nunca chega ao ramo terminal.

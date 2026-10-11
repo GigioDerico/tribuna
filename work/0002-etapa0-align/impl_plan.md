@@ -2386,3 +2386,76 @@ Cada uma aplicada isoladamente em `Aligner.kt`, vista vermelha e restaurada com 
 
 
 **Comandos da rodada 2** (em `etapa0/`; saídas em `evidencias/verificacao-rodada2.txt` e `evidencias/quebras-q2-rodada2.txt`): `./gradlew :core:test --rerun-tasks` BUILD SUCCESSFUL, 90 testes, 0 falhas, 0 ignorados; `./gradlew testDebugUnitTest lint ktlintCheck verifyMergedManifest` BUILD SUCCESSFUL.
+
+### Rodada 3 (retrabalho após REPROVADO da rodada 2; só testes)
+
+**Agente:** motor-voz.
+
+- Feito: (1) R2-1: `AlignerTest.recuperacao_exigeQuatroPalavrasOuvidas_D12` (cauda de 3 palavras, `missStreak = 1`, preset Ágil e Normal, cópia única fora da janela): fica vermelho com W4 (`heard.size >= params.k`), verde sem. (2) R2-3: KDoc de `Copies` corrigido. (3) Varredura de quebras mínimas sobre **cada operando** de `Aligner.kt` (e das constantes de `AlignConstants`): 109 quebras, uma por vez, `git checkout` depois de cada; no começo mais de 40 ficavam verdes (inclusive limites `>=`/`>`, `SHORT_DISTANCE_TOKENS`, `MAX_BACK_FROM_HIGH_WATER`, `RECOVERY_WORDS`, `coerceAtLeast`, a distância mínima da janela, `highWater + 1` da recuperação, formas faladas de várias palavras, score do miss). Nova classe `AlignerBoundaryTest` (27 testes) trava todas, com roteiro sintético e parâmetros montados para a similaridade cair exatamente no limite (`Math.nextUp` para o lado de fora). Sobram 13 mutantes equivalentes, explicados em `evidencias/quebras-q2-rodada3.txt`.
+- Comportamento sem especificação que um teste agora trava (decisão para o arquiteto confirmar ou mudar): empate de similaridade a distâncias iguais do cursor fica com o **menor índice** (`empateAMesmaDistancia_ficaComOMenorIndice`); empate entre formas faladas do mesmo token fica com a **primeira** forma (`formasEmpatadas_valeAPrimeira`).
+- OPR-014 (apóstrofo no `Normalizer`): continua aberto. `etapa0/textos/` não tem apóstrofo dentro de palavra, então não há caso literal.
+- `src/main` intocado. Total em `:core`: 118 testes (90 + 1 em `AlignerTest` + 27 em `AlignerBoundaryTest`), 0 falhas, 0 ignorados.
+- Comandos (em `etapa0/`, saídas em `evidencias/verificacao-rodada3.txt`): `./gradlew :core:test --rerun-tasks` BUILD SUCCESSFUL; `./gradlew testDebugUnitTest lint ktlintCheck verifyMergedManifest` BUILD SUCCESSFUL, manifestos debug e release só com `RECORD_AUDIO`. Não declaro o código revisado nem aprovado: é do `revisor` e do `qa-publicacao`.
+
+### Quebras Q2 acrescentadas na rodada 3 (para o QA; tabela completa de 109 em `evidencias/quebras-q2-rodada3.txt`)
+
+W4 e as demais quebras abaixo foram aplicadas isoladamente em `Aligner.kt` (ou `AlignConstants.kt`), vistas vermelhas e restauradas; todas ficam verdes no código de produção. Os identificadores são os da tabela de evidência.
+
+| Id | Troca | Primeiro teste vermelho (de `AlignerBoundaryTest`) |
+|---|---|---|
+| L39a | `best.lastWord >= params.shortThreshold) { -> best.lastWord > params.shortThreshold) {` | AlignerBoundaryTest.limiarCurto_iguaisPassam_maiorQueNaoPassa |
+| L39b | `best.lastWord >= params.shortThreshold) { -> true) {` | AlignerBoundaryTest.formasComRuidoDePontoFlutuante_valeAPrimeira |
+| L40a | `<= SHORT_DISTANCE_TOKENS && -> < SHORT_DISTANCE_TOKENS &&` | AlignerBoundaryTest.avancoCurto_valeAteCincoTokensDoCursor |
+| L40b | `best.similarity >= params.shortThreshold  -> best.similarity > params.shortThreshold ` | AlignerBoundaryTest.limiarCurto_iguaisPassam_maiorQueNaoPassa |
+| L40c | `<= SHORT_DISTANCE_TOKENS && best -> <= SHORT_DISTANCE_TOKENS \|\| best` | AlignerBoundaryTest.recuperacao_saltaParaOTokenLogoDepoisDeHighWater |
+| L41a | `if (short \|\| best.similarity >= params.longThresho -> if (short && best.similarity >= params.longThresho` | AlignerBoundaryTest.limiarCurto_iguaisPassam_maiorQueNaoPassa |
+| L41b | `best.similarity >= params.longThreshold) {         -> best.similarity > params.longThreshold) {         ` | AlignerBoundaryTest.limiarLongo_iguaisPassam_maiorQueNaoPassa |
+| L47a | `max(state.highWater, best.position) -> best.position` | AlignerBoundaryTest.empateAMesmaDistancia_ficaComOMenorIndice |
+| L48 | `missStreak = 0,                     lastMove = if -> missStreak = state.missStreak,                    ` | AlignerBoundaryTest.movimento_zeraMissStreak |
+| L49a | `lastMove = if (short) Move.Short else Move.LongJum -> lastMove = Move.Short` | AlignerBoundaryTest.janela_terminaExatamenteEmCursorMaisW |
+| L49b | `lastMove = if (short) Move.Short else Move.LongJum -> lastMove = Move.LongJump` | AlignerBoundaryTest.empateAMesmaDistancia_ficaComOMenorIndice |
+| L50 | `score = best.similarity,                 ) -> score = 0.0,                 )` | AlignerBoundaryTest.empateAMesmaDistancia_ficaComOMenorIndice |
+| L56a | `recover(state.highWater, heard.takeLast(RECOVERY_W -> recover(state.highWater, heard.takeLast(params.k))` | AlignerBoundaryTest.recuperacao_saltaParaOTokenLogoDepoisDeHighWater |
+| L56b | `recover(state.highWater, -> recover(state.cursor,` | AlignerBoundaryTest.recuperacao_partedeHighWaterNaoDoCursor |
+| L58 | `if (jump != null) { -> if (jump != null && false) {` | AlignerBoundaryTest.recuperacao_saltaParaOTokenLogoDepoisDeHighWater |
+| L59a | `AlignState(jump.position, jump.position, 0, Move.R -> AlignState(jump.position, state.highWater, 0, Move` | AlignerBoundaryTest.recuperacao_saltaParaOTokenLogoDepoisDeHighWater |
+| L59b | `AlignState(jump.position, jump.position, 0, Move.R -> AlignState(jump.position, jump.position, misses, M` | AlignerBoundaryTest.recuperacao_saltaParaOTokenLogoDepoisDeHighWater |
+| L59c | `AlignState(jump.position, jump.position, 0, Move.R -> AlignState(jump.position, jump.position, 0, Move.L` | AlignerBoundaryTest.recuperacao_saltaParaOTokenLogoDepoisDeHighWater |
+| L59d | `AlignState(jump.position, jump.position, 0, Move.R -> AlignState(jump.position, jump.position, 0, Move.R` | AlignerBoundaryTest.recuperacao_saltaParaOTokenLogoDepoisDeHighWater |
+| L61b | `state.copy(missStreak = misses, lastMove = Move.St -> state.copy(missStreak = misses, lastMove = Move.St` | AlignerBoundaryTest.scoreDoMiss_eAMelhorSimilaridade |
+| L63a | `return state.copy(missStreak = misses, lastMove =  -> return state.copy(missStreak = misses, lastMove = ` | AlignerBoundaryTest.scoreDoMiss_eAMelhorSimilaridade |
+| L91a | `raw.trim().lowercase(Locale.ROOT) == Similarity.UN -> raw == Similarity.UNKNOWN` | AlignerBoundaryTest.unk_valeComCaixaEEspacos_D13 |
+| L91b | `if (raw.trim().lowercase(Locale.ROOT) == Similarit -> Normalizer.words(raw)` | AlignerBoundaryTest.unk_valeComCaixaEEspacos_D13 |
+| L92 | `for (x in normalized.indices.reversed()) out.addFi -> for (x in normalized.indices) out.addFirst(normali` | AlignerBoundaryTest.itemComVariasPalavras_mantemAOrdem |
+| L103d | `maxOf(state.cursor - MAX_BACK_FROM_HIGH_WATER, sta -> minOf(state.cursor - MAX_BACK_FROM_HIGH_WATER, sta` | AlignerBoundaryTest.recuo_chegaAHighWaterMenos3EParaAli |
+| L104b | `minOf(state.cursor + params.window, tokens.lastInd -> minOf(state.cursor + params.window + 1, tokens.las` | AlignerBoundaryTest.janela_terminaExatamenteEmCursorMaisW |
+| L104c | `minOf(state.cursor + params.window, tokens.lastInd -> minOf(state.cursor + params.window - 1, tokens.las` | AlignerBoundaryTest.janela_terminaExatamenteEmCursorMaisW |
+| L106 | `for (position in from..to) -> for (position in from until to)` | AlignerBoundaryTest.janela_terminaExatamenteEmCursorMaisW |
+| L110b | `match.similarity > current.similarity + EPSILON -> match.similarity > current.similarity` | AlignerBoundaryTest.ruidoDePontoFlutuante_naoDecideAJanela |
+| L110c | `match.similarity > current.similarity + EPSILON -> match.similarity > current.similarity - EPSILON` | AlignerBoundaryTest.empateAMesmaDistancia_ficaComOMenorIndice |
+| L113a | `abs(position - state.cursor) < abs(current.positio -> abs(position - state.cursor) <= abs(current.positi` | AlignerBoundaryTest.empateAMesmaDistancia_ficaComOMenorIndice |
+| L113b | `abs(position - state.cursor) < abs(current.positio -> abs(position - state.cursor) > abs(current.positio` | AlignerBoundaryTest.ruidoDePontoFlutuante_naoDecideAJanela |
+| L129 | `for (position in highWater + 1..tokens.lastIndex) -> for (position in highWater..tokens.lastIndex)` | AlignerBoundaryTest.recuperacao_naoOlhaOTokenEmHighWater |
+| L129b | `for (position in highWater + 1..tokens.lastIndex) -> for (position in highWater + 2..tokens.lastIndex)` | AlignerBoundaryTest.recuperacao_saltaParaOTokenLogoDepoisDeHighWater |
+| L129c | `for (position in highWater + 1..tokens.lastIndex) -> for (position in highWater + 1 until tokens.lastIn` | AlignerBoundaryTest.recuperacao_incluiOUltimoToken |
+| L132a | `if (match.similarity >= params.longThreshold) cand -> if (match.similarity > params.longThreshold) candi` | AlignerBoundaryTest.recuperacao_palavraNovaIgualAoLimiarCurtoPassa |
+| L132b | `if (match.similarity >= params.longThreshold) cand -> if (match.similarity >= params.shortThreshold) can` | AlignerBoundaryTest.recuperacao_limiarLongoIgualPassa |
+| L134b | `it.lastWord >= params.shortThreshold }         ret -> it.lastWord > params.shortThreshold }         retu` | AlignerBoundaryTest.recuperacao_palavraNovaIgualAoLimiarCurtoPassa |
+| L158c | `if (newest < 0 \|\| token < 0) { -> if (newest < 0 \|\| token <= 0) {` | AlignerBoundaryTest.palavrasQueSobramAntesDoInicio_contamComoErro |
+| L159 | `val total = weight + (newest + 1) -> val total = weight` | AlignerBoundaryTest.palavrasQueSobramAntesDoInicio_contamComoErro |
+| L161b | `similarity > bestSimilarity + EPSILON -> similarity > bestSimilarity` | AlignerBoundaryTest.formasComRuidoDePontoFlutuante_valeAPrimeira |
+| L161c | `similarity > bestSimilarity + EPSILON -> similarity >= bestSimilarity` | AlignerBoundaryTest.formasComRuidoDePontoFlutuante_valeAPrimeira |
+| L168 | `for (form in forms[token]) -> for (form in forms[token].take(1))` | AlignerBoundaryTest.segundaFormaFalada_tambemCasa |
+| L173a | `heard[newest - used + 1 + x] -> heard[newest - x]` | AlignerBoundaryTest.formaFalada_consomeSuasPalavrasEOAnteriorCasaComAResto |
+| L173b | `form[form.size - used + x] -> form[x]` | AlignerBoundaryTest.formaFaladaLonga_casaPelasUltimasPalavrasEmOrdem |
+| L176b | `Similarity.of(heard[newest], form.last()) else las -> Similarity.of(heard[newest], form.first()) else la` | AlignerBoundaryTest.formaFalada_consomeSuasPalavrasEOAnteriorCasaComAResto |
+| L177 | `walk(token - 1, newest - used, s, total, lastWord) -> walk(token - 1, newest - 1, s, total, lastWord)` | AlignerBoundaryTest.formaFalada_consomeSuasPalavrasEOAnteriorCasaComAResto |
+| L182a | `bestSimilarity.coerceAtLeast(0.0) -> bestSimilarity` | AlignerBoundaryTest.tokenSemPalavras_naoQuebraENaoDaSimilaridadeNegativa |
+| L182b | `Match(position, bestSimilarity.coerceAtLeast(0.0), -> Match(position, bestSimilarity.coerceAtLeast(0.0),` | AlignerBoundaryTest.recuperacao_palavraNovaIgualAoLimiarCurtoPassa |
+| L28a | `token.spoken.map { form -> form.flatMap(Normalizer -> token.spoken.map { form -> form.flatMap(Normalizer` | AlignerBoundaryTest.tokenSemPalavras_naoQuebraENaoDaSimilaridadeNegativa |
+| L186 | `const val EPSILON = 1e-9 -> const val EPSILON = 0.01` | AlignerBoundaryTest.diferencaPequenaDeSimilaridade_naoViraEmpate |
+| K1 | `const val SHORT_DISTANCE_TOKENS = 5 -> const val SHORT_DISTANCE_TOKENS = 6` | AlignerBoundaryTest.avancoCurto_valeAteCincoTokensDoCursor |
+| K1b | `const val SHORT_DISTANCE_TOKENS = 5 -> const val SHORT_DISTANCE_TOKENS = 4` | AlignerBoundaryTest.avancoCurto_valeAteCincoTokensDoCursor |
+| K2 | `const val MAX_BACK_FROM_HIGH_WATER = 3 -> const val MAX_BACK_FROM_HIGH_WATER = 4` | AlignerBoundaryTest.recuo_chegaAHighWaterMenos3EParaAli |
+| K2b | `const val MAX_BACK_FROM_HIGH_WATER = 3 -> const val MAX_BACK_FROM_HIGH_WATER = 2` | AlignerBoundaryTest.recuo_chegaAHighWaterMenos3EParaAli |
+| K4 | `const val RECOVERY_WORDS = 4 -> const val RECOVERY_WORDS = 5` | AlignerBoundaryTest.recuperacao_saltaParaOTokenLogoDepoisDeHighWater |
