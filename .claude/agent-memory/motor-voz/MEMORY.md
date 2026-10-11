@@ -4,3 +4,4 @@
 - [Construção 0003 Vosk T1-11](vosk_construcao_0003.md) — extrator do plano, modelo 15 arquivos, Vosk real ainda não exercitado
 - [Varredura 0003 rodada 2](vosk_rodada2_varredura.md) — 402 quebras por linha, 20 equivalentes, runner e pegadinhas
 - [Ferramentas 0004](ferramentas_0004.md) — 87 testes Py, L30 3,7 s, extrator de blocos, referências Kotlin
+- [Ferramentas 0004 rodada 2](ferramentas_0004_rodada2.md) — 149 testes, scripts de quebra/equivalência, pegadinha do sed que não casa
