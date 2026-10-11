@@ -151,8 +151,9 @@ class AlignerTest {
     }
 
     /**
-     * Cópias de "no fim do ano a" do L30 (a mais de 1.000 tokens uma da outra), com edições aplicadas a tokens
-     * indicado: o deslocamento dentro da frase é 0 = "no", 2 = "do", 4 = "a"; a palavra vira a forma falada única do token.
+     * Cópias de "no fim do ano a" do L30 (a mais de 1.000 tokens uma da outra), com edições opcionais em cada cópia.
+     * Cada edição troca um token (indicado pelo deslocamento dentro da frase: 0 = "no", 2 = "do", 4 = "a") por uma
+     * palavra, que vira a forma falada única do token.
      */
     private class Copies(
         val tokens: List<Token>,
@@ -218,6 +219,26 @@ class AlignerTest {
         assertEquals(copies.first + 4, segundo.cursor)
         assertEquals(copies.first + 4, segundo.highWater)
         assertEquals(0, segundo.missStreak)
+    }
+
+    /**
+     * Q2 (W4): fica vermelho se a recuperação deixar de exigir 4 palavras ouvidas (`heard.size >= RECOVERY_WORDS`),
+     * por exemplo trocando por `params.k`. A cauda tem só 3 palavras ("do ano a"), que casam com uma única posição
+     * fora da janela (a 2ª cópia tem "do" trocado por "xx"): no Normal e no Ágil o 2º miss fica parado.
+     */
+    @Test
+    fun recuperacao_exigeQuatroPalavrasOuvidas_D12() {
+        val cauda = listOf("do", "ano", "a")
+        val copies = l30Copies(editSecond = mapOf(2 to "xx"))
+        for (params in listOf(AlignPresets.agil, AlignPresets.normal)) {
+            val aligner = Aligner(copies.tokens, params)
+            val start = copies.first - 100
+            val primeiro = aligner.advance(aligner.reposition(start).copy(missStreak = 1), cauda)
+            assertEquals(AlignState(start, start, 2, Move.Stay, primeiro.score), primeiro)
+            // repetindo a mesma cauda: continua parado, o contador só sobe
+            val segundo = aligner.advance(primeiro, cauda)
+            assertEquals(AlignState(start, start, 3, Move.Stay, segundo.score), segundo)
+        }
     }
 
     /** Q2 (V8): fica vermelho se o vencedor no próprio cursor não zerar missStreak (D6). */
