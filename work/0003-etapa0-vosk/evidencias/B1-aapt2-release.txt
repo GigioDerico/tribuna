@@ -1,0 +1,2 @@
+package: io.github.gigioderico.tribuna.etapa0
+uses-permission: name='android.permission.RECORD_AUDIO'

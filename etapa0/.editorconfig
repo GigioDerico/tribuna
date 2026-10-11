@@ -2,3 +2,5 @@ root = true
 
 [*.{kt,kts}]
 ktlint_code_style = ktlint_official
+# Composables começam com maiúscula (convenção do Compose; regra 8 do CLAUDE.md).
+ktlint_function_naming_ignore_when_annotated_with = Composable
