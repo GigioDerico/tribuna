@@ -100,34 +100,34 @@ Paralelismo: a Tarefa 5 não depende das Tarefas 2–4 (só da Tarefa 1) e poder
 Casos que devem existir e falhar (por compilação ou asserção) antes do código. Palavras usadas nos testes vêm de `etapa0/textos/T01.txt` ("ouvir", "bem", "habilidade").
 
 `:core` — `SpeechContractShapeTest` (3):
-- [ ] `engineState_temOsEstadosDoTrdNaOrdem`
-- [ ] `engineError_temOsErrosDoTrdNaOrdem`
-- [ ] `speechEvent_temQuatroVariantes_eSoPartialFinalEErrorCarregamSessao` (`when` exaustivo sem `else`: um subtipo novo quebra a compilação)
+- [x] `engineState_temOsEstadosDoTrdNaOrdem`
+- [x] `engineError_temOsErrosDoTrdNaOrdem`
+- [x] `speechEvent_temQuatroVariantes_eSoPartialFinalEErrorCarregamSessao` (`when` exaustivo sem `else`: um subtipo novo quebra a compilação)
 
 `:core` — `AlignContractShapeTest` (4):
-- [ ] `token_representaOExemploDoTrd316`
-- [ ] `alignState_temOsCamposDoContrato`
-- [ ] `move_temOsMovimentosDoTrdNaOrdem`
-- [ ] `aligner_eAlignParams_seConstroemComOsArgumentosDoContrato` (não chama `advance` nem `reposition`)
+- [x] `token_representaOExemploDoTrd316`
+- [x] `alignState_temOsCamposDoContrato`
+- [x] `move_temOsMovimentosDoTrdNaOrdem`
+- [x] `aligner_eAlignParams_seConstroemComOsArgumentosDoContrato` (não chama `advance` nem `reposition`)
 
 `:core` — `FakeSpeechEngineTest` (17):
-- [ ] `prepare_sucesso_vaiDeIdleParaReady`
-- [ ] `prepare_falha_vaiParaFailed_eDevolveAFalha`
-- [ ] `cicloDeVida_capturaESessao_atualizamOEstado`
-- [ ] `release_vaiParaIdle_eEncerraOFluxoDeEventos`
-- [ ] `sessionId_cresceACadaBeginSession_eNuncaSeRepete` (critério 2)
-- [ ] `beginSession_guardaOVocabularioNoReconhecedorDaSessao`
-- [ ] `partial_chegaComOIdDaSessaoAtiva`
-- [ ] `final_chegaComOIdDaSessaoAtiva`
-- [ ] `level_chegaSemSessao_comACapturaAberta`
-- [ ] `error_doReconhecedorTrazASessao_eODaCapturaVemSemSessao`
-- [ ] `callbackAtrasado_comOutraSessaoAtiva_chegaComOIdAntigo` (critério 3; alvo da quebra A)
-- [ ] `callbackAtrasado_semSessaoAtiva_chegaComOIdAntigo`
-- [ ] `endSession_naoEmiteMaisPartialNemFinal_eLevelContinua` (critério 4; alvo da quebra B)
-- [ ] `level_comMicrofoneFechado_naoChega`
-- [ ] `beginSession_semCaptura_falha`
-- [ ] `beginSession_comSessaoAtiva_falha`
-- [ ] `stopCapture_comSessaoAtiva_falha`
+- [x] `prepare_sucesso_vaiDeIdleParaReady`
+- [x] `prepare_falha_vaiParaFailed_eDevolveAFalha`
+- [x] `cicloDeVida_capturaESessao_atualizamOEstado`
+- [x] `release_vaiParaIdle_eEncerraOFluxoDeEventos`
+- [x] `sessionId_cresceACadaBeginSession_eNuncaSeRepete` (critério 2)
+- [x] `beginSession_guardaOVocabularioNoReconhecedorDaSessao`
+- [x] `partial_chegaComOIdDaSessaoAtiva`
+- [x] `final_chegaComOIdDaSessaoAtiva`
+- [x] `level_chegaSemSessao_comACapturaAberta`
+- [x] `error_doReconhecedorTrazASessao_eODaCapturaVemSemSessao`
+- [x] `callbackAtrasado_comOutraSessaoAtiva_chegaComOIdAntigo` (critério 3; alvo da quebra A)
+- [x] `callbackAtrasado_semSessaoAtiva_chegaComOIdAntigo`
+- [x] `endSession_naoEmiteMaisPartialNemFinal_eLevelContinua` (critério 4; alvo da quebra B)
+- [x] `level_comMicrofoneFechado_naoChega`
+- [x] `beginSession_semCaptura_falha`
+- [x] `beginSession_comSessaoAtiva_falha`
+- [x] `stopCapture_comSessaoAtiva_falha`
 
 `build-logic` — `ManifestPermissionCheckTest` (8), `ElfAlignmentTest` (7), `NativeLibScanTest` (5): listados na Tarefa 5.
 
@@ -2093,7 +2093,7 @@ cd /Users/giorgioderico/Projetos/Tribuna && git add etapa0/settings.gradle.kts e
 
 ## Tarefa 7: verificação final e evidências
 
-- [ ] **Passo 1: `verify16kAlignment` falha de forma explícita (esperado nesta tarefa)**
+- [x] **Passo 1: `verify16kAlignment` falha de forma explícita (esperado nesta tarefa)**
 
 Rodar: `cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew verify16kAlignment 2>&1 | tee ../work/0001-etapa0-contratos/evidencias/verify16kAlignment.txt; echo "exit=${PIPESTATUS[0]}"`
 Esperado: `BUILD FAILED`, `exit=1`, com:
@@ -2102,7 +2102,7 @@ Esperado: `BUILD FAILED`, `exit=1`, com:
 
 Se passar (`BUILD SUCCESSFUL`), é defeito: a tarefa estaria passando em silêncio sem as bibliotecas.
 
-- [ ] **Passo 2: regra 4 (`align` sem Android) e JVM pura**
+- [x] **Passo 2: regra 4 (`align` sem Android) e JVM pura**
 
 Rodar:
 
@@ -2112,7 +2112,7 @@ cd /Users/giorgioderico/Projetos/Tribuna && grep -rnE "import (android|androidx)
 
 Esperado: `grep-exit=1` e `plugin-exit=1` (nenhum import Android no `:core`; o `:core` não aplica plugin Android de app/biblioteca; só o `com.android.lint`, que não compila para Android).
 
-- [ ] **Passo 3: versões só do catalog**
+- [x] **Passo 3: versões só do catalog**
 
 Rodar:
 
@@ -2130,7 +2130,7 @@ cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew :core:dependencies 
 
 Esperado: `kotlinx-coroutines-core:1.11.0`, `kotlin-stdlib:2.4.21`, `kotlin-gradle-plugin:2.2.10 -> 2.4.21` (ou `2.4.21` direto) e `com.android.tools.build:gradle:9.4.1`; nenhuma versão fora das do catalog.
 
-- [ ] **Passo 4: sem layout XML e só `RECORD_AUDIO`**
+- [x] **Passo 4: sem layout XML e só `RECORD_AUDIO`**
 
 Rodar:
 
@@ -2140,7 +2140,7 @@ cd /Users/giorgioderico/Projetos/Tribuna && find etapa0 -path '*/res/layout*' -n
 
 Esperado: `find` não imprime nada; o `grep` imprime uma única linha, `etapa0/app/src/main/AndroidManifest.xml:...<uses-permission android:name="android.permission.RECORD_AUDIO" />`.
 
-- [ ] **Passo 5: JDK 21 e contagem de testes (Q3)**
+- [x] **Passo 5: JDK 21 e contagem de testes (Q3)**
 
 Rodar:
 
@@ -2150,12 +2150,12 @@ cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew --version | tee ../
 
 Esperado: `Daemon JVM` no JDK 21 (origem `gradle/gradle-daemon-jvm.properties`); sete suítes: `SpeechContractShapeTest` 3, `AlignContractShapeTest` 4, `FakeSpeechEngineTest` 17, `CoreFromAppTest` 1, `ManifestPermissionCheckTest` 8, `ElfAlignmentTest` 7, `NativeLibScanTest` 5 — total 45, todas com `skipped="0" failures="0" errors="0"`.
 
-- [ ] **Passo 6: rodada final do conjunto "tudo verde"**
+- [x] **Passo 6: rodada final do conjunto "tudo verde"**
 
 Rodar: `cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew assembleDebug testDebugUnitTest lint ktlintCheck verifyMergedManifest 2>&1 | tee ../work/0001-etapa0-contratos/evidencias/final.txt`
 Esperado: `BUILD SUCCESSFUL`.
 
-- [ ] **Passo 7: commit das evidências e registro da construção**
+- [x] **Passo 7: commit das evidências e registro da construção**
 
 Preencher a seção "Registro da construção" abaixo (o que foi feito, testes, desvios, comandos e resultado; avisos de lint, se houver) e:
 
@@ -2215,9 +2215,41 @@ Sucesso significa, critério a critério do spec:
 
 ## Registro da construção (preenchido pelo agente de construção)
 
-**Agente:** motor-voz · **Commit(s):** <hash>
+**Agente:** motor-voz · **Data:** 2026-10-10 · **Branch:** `work/0001-etapa0-contratos` (sem push) · **Commit(s):** `4abb406` (T1), `3366484` (T2), `6908074` (T3), `d4b0301` e `407ccba` (T4), `81fd72f` e `d6fa9b0` (T5), `5cf852f` (T6), e o commit de evidências da T7 que traz este registro.
 
-- Feito: <...>
-- Testes criados: <...>
-- Desvios do plano e motivo: <nenhum | ...>
-- Comandos rodados e resultado: <...>
+Este registro descreve a construção. Não é revisão: o veredito é do `revisor` em `code_review.md`.
+
+- **Feito:** Tarefas 1 a 7 na ordem, todos os passos marcados. Projeto `etapa0/` com Gradle 9.7.1 (wrapper com SHA-256), AGP 9.4.1, KGP 2.4.21, daemon no JDK 21 por `gradle/gradle-daemon-jvm.properties`; `:core` JVM puro com os contratos de `speech` e `align` copiados do TRD §Contratos e o `FakeSpeechEngine` em `testFixtures`; `build-logic` com o plugin `tribuna.android.verifications` (`verifyMergedManifest` por variante e agregada, `verify16kAlignment` no release); `:app` Android mínimo, sem tela, só com `RECORD_AUDIO` e `allowBackup="false"`, consumindo `:core` e o fake; script `etapa0/scripts/verificar-manifesto-negativo.sh`.
+- **Testes criados (45, 0 falhas, 0 ignorados):** `SpeechContractShapeTest` 3, `AlignContractShapeTest` 4, `FakeSpeechEngineTest` 17, `CoreFromAppTest` 1, `ManifestPermissionCheckTest` 8, `ElfAlignmentTest` 7, `NativeLibScanTest` 5 (`evidencias/contagem-testes.txt`). Cada suíte foi vista falhando na compilação antes do código de produção. Quebras propositais da Q2, todas vermelhas e restauradas com `git checkout` (árvore limpa conferida depois):
+  - A (callback lê a sessão ativa): `callbackAtrasado_comOutraSessaoAtiva_chegaComOIdAntigo` falha com `expected:<[Partial(session=SessionId(value=1)...` `but was:<[Partial(session=SessionId(value=2)...` (`evidencias/q2-quebra-a-sessao-atual.txt`).
+  - B (`endSession` não solta o reconhecedor): `endSession_naoEmiteMaisPartialNemFinal_eLevelContinua` falha com `expected:<Level(rms=0.4)> but was:<Partial(session=SessionId(value=1), words=[ouvir, bem])>` (`evidencias/q2-quebra-b-endsession.txt`).
+  - C (varredura ignora desalinhamento): `libExigidaDesalinhada_eReportada` e `outraLibDesalinhada_tambemEReportada` falham com `but was:<[]>` (`evidencias/q2-quebra-c-elf.txt`).
+- **Desvios do plano e motivo:**
+  1. `NativeLibScan.kt`, só o KDoc: o plano trazia `Varre lib/<abi>/*.so de um APK`; em Kotlin, `/*` dentro de um comentário abre um comentário aninhado e a compilação falhou com `NativeLibScan.kt:52:1 Syntax error: Unclosed comment`. Trocado por `Varre as .so em lib/<abi>/ de um APK`. Nenhum código mudou.
+  2. Formatação pelo `ktlintFormat` (permitida pelo plano, T2 P8): `core/build.gradle.kts` e `app/build.gradle.kts` tiveram as cadeias `libs.versions.x.get().toInt()` quebradas em linhas (`standard:chain-method-continuation`); em `Aligner.kt`, o comentário `// toque, Volume −, arrasto, troca de modo` passou da linha da assinatura de `reposition` para a linha seguinte (`standard:function-signature`). Nome, tipo, ordem e padrão dos contratos não mudaram (diff conferido).
+  3. Evidências da Q2: além da saída do Gradle (que no console só mostra `AssertionError at <linha>`), cada arquivo traz o diff da quebra e a mensagem `<failure message=...>` do XML de resultado, para a comparação esperado/real pedida no plano ficar anexada.
+  4. Trailer dos commits: a instrução do orquestrador pedia `Co-Authored-By: Claude Sonnet 5.5`; os commits usam `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`, que é o modelo que de fato executou esta sessão e a atribuição configurada no ambiente.
+  - R1 (AGP 9.4.1 acima do intervalo testado do KGP) não se manifestou: nenhum erro nem aviso; o plano B (AGP 9.3.3) não foi usado. R2, R4–R9 também não ocorreram. R3: nenhum aviso de versão do Kotlin no lint.
+- **Avisos do lint (0 erros, 3 avisos, aceitos pelo plano T6 P11; `evidencias/lint-ktlint.txt`):**
+  - `:app` `DataExtractionRules` em `android:allowBackup`: o TRD §Ciclo de vida (Manifesto) pede também regras de extração vazias, que o plano não incluiu. Registrado como OPR-002 no `registers/opr_register.md`.
+  - `:app` `MissingApplicationIcon`: app de teste sem tela; ícone fica para a 0003.
+  - `:core` `GradleDependency`: `compileSdk 37` disponível; o TRD fixa 36.
+- **Observações para o revisor:**
+  - `verify16kAlignment` falha de propósito nesta tarefa (R10), com a mensagem explícita esperada; `zipalign -c -P 16 -v 4` do APK em si passa (`Verification successful`).
+  - O ktlint não cobre `build-logic`, `etapa0/build.gradle.kts` nem `etapa0/settings.gradle.kts` (o plano não aplica o plugin lá). Registrado como OPR-003.
+  - `buildEnvironment` mostra `kotlin-stdlib {strictly 2.4.0}` e `kotlinx-coroutines-core-jvm 1.9.0` no classpath de build: vêm do Kotlin embutido do Gradle 9.7.1 e de dependências transitivas do AGP, não de declaração nossa nem do APK. Os classpaths de execução de `:core` e `:app` só têm `kotlinx-coroutines-core:1.11.0` e `kotlin-stdlib:2.4.21`.
+  - O `./gradlew clean` da raiz não limpa o build incluído `build-logic`; a rodada final foi feita com `--rerun-tasks` (85 tarefas executadas, nenhuma do cache).
+- **Comandos rodados e resultado** (a partir de `etapa0/`; saídas em `work/0001-etapa0-contratos/evidencias/`):
+
+| Comando | Resultado | Evidência |
+|---|---|---|
+| `./gradlew --version` | Gradle 9.7.1; `Daemon JVM: Compatible with Java 21 ... (from gradle/gradle-daemon-jvm.properties)`; buildEnvironment: `Daemon JVM: Eclipse Temurin JDK 21 (21.0.10+7-LTS)` | `gradle-version.txt`, `dependencies.txt` |
+| `./gradlew assembleDebug` | BUILD SUCCESSFUL; `app/build/outputs/apk/debug/app-debug.apk` | `assembleDebug.txt` |
+| `./gradlew testDebugUnitTest` | BUILD SUCCESSFUL; `:build-logic:test`, `:core:test`, `:app:testDebugUnitTest`; 45 testes | `testDebugUnitTest.txt`, `contagem-testes.txt` |
+| `./gradlew verifyMergedManifest` | BUILD SUCCESSFUL; debug e release `OK ... -> android.permission.RECORD_AUDIO`; manifestos mesclados reais anexados (Q4) | `verifyMergedManifest.txt` |
+| `bash scripts/verificar-manifesto-negativo.sh` | INTERNET, ACCESS_NETWORK_STATE, WAKE_LOCK e CAMERA reprovados com a mensagem; só RECORD_AUDIO passa; `exit=0`; `app/src/debug` removido | `verifyMergedManifest-negativo.txt` |
+| `./gradlew lint ktlintCheck` | BUILD SUCCESSFUL; 0 erros, 3 avisos (acima) | `lint-ktlint.txt` |
+| `./gradlew verify16kAlignment` | BUILD FAILED, `exit=1`, como esperado: `app-release-unsigned.apk: nenhuma biblioteca nativa em lib/<abi>/; exigidas: libjnidispatch.so, libvosk.so` | `verify16kAlignment.txt` |
+| greps da T7 P2–P4 | `grep-exit=1`, `plugin-exit=1`, literal de versão `exit=1`, nenhum layout, uma só `uses-permission` (`RECORD_AUDIO`) | `checagens-estaticas.txt` |
+| `./gradlew :core:dependencies ... :app:dependencies ... buildEnvironment` | coroutines 1.11.0, stdlib 2.4.21, AGP 9.4.1, KGP 2.2.10 -> 2.4.21, ktlint-gradle 14.2.0 | `dependencies.txt` |
+| `./gradlew assembleDebug testDebugUnitTest lint ktlintCheck verifyMergedManifest --rerun-tasks` | BUILD SUCCESSFUL, `exit=0`, 85 tarefas executadas | `final.txt` |

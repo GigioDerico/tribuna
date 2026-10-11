@@ -1,0 +1,10 @@
+### T7 P2: grep -rnE "import (android|androidx)\." etapa0/core/src
+grep-exit=1
+### grep plugin Android em etapa0/core/build.gradle.kts
+plugin-exit=1
+### T7 P3: grep -rnE '[0-9]+\.[0-9]+' etapa0 --include='*.gradle.kts'
+exit=1
+### T7 P4: find etapa0 -path '*/res/layout*' -not -path '*/build/*'
+find-fim
+### grep -rn "uses-permission" etapa0 --include=AndroidManifest.xml --exclude-dir=build
+etapa0/app/src/main/AndroidManifest.xml:4:    <uses-permission android:name="android.permission.RECORD_AUDIO" />
