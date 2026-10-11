@@ -1,0 +1,28 @@
+PASSA  D1 rc 0, cabecalho, N linhas, todas com tempo, 1a linha 0,ouvir,0,250 rc=0 linhas=215 tokens=215 primeira=0,ouvir,0,250
+PASSA  D1 tempo de cada token = tempo das palavras que o geraram divergentes=0
+  tokens T02 para 3:16 [(37, '3:16', (('tres', 'dezesseis'), ('tres', 'e', 'dezesseis'), ('capitulo', 'tres', 'versiculo', 'dezesseis')))]
+PASSA  D2 3:16 com tres dezesseis obtido=13800,14350 esperado=(13800, 14350)
+PASSA  D2 3:16 com tres e dezesseis obtido=13800,14650 esperado=(13800, 14650)
+PASSA  D2 3:16 com capitulo tres versiculo dezesseis obtido=13800,14950 esperado=(13800, 14950)
+  tokens T02 para 13:4-7 [(58, '13:4-7', (('treze', 'quatro', 'a', 'sete'), ('treze', 'de', 'quatro', 'a', 'sete'), ('capitulo', 'treze', 'versiculos', 'quatro', 'a', 'sete')))]
+PASSA  D2 13:4-7 com treze de quatro a sete obtido=22800,24250 esperado=(22800, 24250)
+  tokens T02 para 1 Coríntios [(57, '1 Coríntios', (('primeira', 'corintios'), ('primeiro', 'corintios'), ('um', 'corintios')))]
+PASSA  D2 1 Coríntios com primeira corintios obtido=22200,22750 esperado=(22200, 22750)
+  T05 paragrafos: [47, 44, 44, 46, 34]
+PASSA  D3 tokens do 2o paragrafo sem tempo, demais com tempo sem tempo=44 esperado=44
+PASSA  D4 nenhum token com tempo de palavra inserida; stderr lista a faixa faixa=14100..17650 stderr='tokens com tempo: 215\ntokens sem tempo: 0\npalavras inseridas: 12\ninseridas: palavras 47-58 [14100-17650 ms] cada manha traz uma escolha podemos reclamar do que falta ou agradecer'
+  T08 token isso: 47 ['Isso', 'tem', 'um', 'custo', 'Quando']
+PASSA  D5 frase fica com tempos da 1a vez; repeticao no stderr inicio token=14100 esperado=14100; stderr='tokens com tempo: 215\ntokens sem tempo: 0\npalavras inseridas: 4\ninseridas: palavras 51-54 [15300-16450 ms] isso tem um custo'
+PASSA  D6 3 ocorrencias do refrao com tempos distintos crescentes tokens=[15, 48, 78] inicios=[4500, 14700, 23700]
+PASSA  D7 acentos/maiuscula ('capítulo três Versículo dezesseis') casam 3:16 linha=['37', '3 16', '14100', '15250']
+PASSA  D7 'bom dia' separado casa 'bom-dia' (T03) linha=['41', 'bomdia', '12300', '12850']
+PASSA  D8 T01 +1 char -> rc 2, sem stdout, sem -o rc=2 stdout='' stderr='alinhar.py: o texto não é idêntico a nenhum de etapa0/textos/ (spec 0004, D8)'
+PASSA  D8 L30 +1 char -> rc 2, sem stdout, sem -o rc=2 stdout='' stderr='alinhar.py: o texto não é idêntico a nenhum de etapa0/textos/ (spec 0004, D8)'
+PASSA  D8 T01 -1 char -> rc 2, sem stdout, sem -o rc=2 stdout='' stderr='alinhar.py: o texto não é idêntico a nenhum de etapa0/textos/ (spec 0004, D8)'
+PASSA  D8 L30 -1 char -> rc 2, sem stdout, sem -o rc=2 stdout='' stderr='alinhar.py: o texto não é idêntico a nenhum de etapa0/textos/ (spec 0004, D8)'
+PASSA  D8 T01 CRLF -> rc 2, sem stdout, sem -o rc=2 stdout='' stderr='alinhar.py: o texto não é idêntico a nenhum de etapa0/textos/ (spec 0004, D8)'
+PASSA  D8 L30 CRLF -> rc 2, sem stdout, sem -o rc=2 stdout='' stderr='alinhar.py: o texto não é idêntico a nenhum de etapa0/textos/ (spec 0004, D8)'
+PASSA  D9 L30 duas execucoes identicas byte a byte (stdout e stderr) rc=0 tokens=3668 palavras=3684 tempos=4.04s,3.96s sha256=c6d1fe5488eb763e
+PASSA  D9 L30: todos os tokens com tempo 3668 linhas
+ALL_OK
+workdir /private/tmp/claude-501/-Users-giorgioderico-Projetos-Tribuna/0047a42b-06ef-4f09-9e65-5322f4225d31/scratchpad/qa/tmpq5jcxbhp

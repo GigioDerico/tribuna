@@ -1,0 +1,21 @@
+KK1 NumberWords:68 duas->dois
+   JVM: VERMELHO rc=1 122 tests completed, 3 failed
+   Python com referencia regenerada: VERMELHO rc=1 testar.py: 12 testes, 292 falhas, 0 erros, 0 pulados (tsv regenerados: 13)
+KK2 NumberWords:54 sem `|| rest % 100 == 0`
+   JVM: VERMELHO rc=1 122 tests completed, 2 failed
+   Python com referencia regenerada: VERMELHO rc=1 testar.py: 12 testes, 38 falhas, 0 erros, 0 pulados (tsv regenerados: 13)
+KK3 Tokenizer:159 c+e+v -> c+de+v
+   JVM: VERMELHO rc=1 122 tests completed, 3 failed
+   Python com referencia regenerada: VERMELHO rc=1 testar.py: 12 testes, 16 falhas, 0 erros, 0 pulados (tsv regenerados: 13)
+KK4 NumberWords:89 cem->cento
+   JVM: VERMELHO rc=1 122 tests completed, 2 failed
+   Python com referencia regenerada: VERMELHO rc=1 testar.py: 12 testes, 25 falhas, 0 erros, 0 pulados (tsv regenerados: 13)
+KK6 NumberWords:61 sem quatorze
+   JVM: VERMELHO rc=1 122 tests completed, 5 failed
+   Python com referencia regenerada: VERMELHO rc=1 testar.py: 12 testes, 64 falhas, 0 erros, 0 pulados (tsv regenerados: 13)
+K3 Tokenizer:19 primeira/primeiro trocados
+   JVM: VERMELHO rc=1 122 tests completed, 2 failed
+   Python com referencia regenerada: VERMELHO rc=1 testar.py: 12 testes, 3 falhas, 0 erros, 0 pulados (tsv regenerados: 13)
+KK5 Normalizer:13 sem apostrofo tipografico
+   JVM: VERMELHO rc=1 122 tests completed, 2 failed
+   Python com referencia regenerada: VERMELHO rc=1 testar.py: 12 testes, 1 falhas, 0 erros, 0 pulados (tsv regenerados: 13)

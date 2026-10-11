@@ -1,0 +1,53 @@
+=== timestamps
+usage: timestamps.py [-h] [--modelo MODELO] [-o SAIDA] wav
+
+Transcreve uma gravação de texto de teste com tempos por palavra (Vosk,
+SetWords).
+
+positional arguments:
+  wav                WAV 16 kHz mono PCM 16 bits, nome
+                     <ID>_<voz>_<ambiente>_t<n>.wav
+
+options:
+  -h, --help         show this help message and exit
+  --modelo MODELO    diretório do modelo Vosk (obrigatório; nunca baixado)
+  -o, --saida SAIDA  arquivo do CSV (padrão: stdout)
+rc=0
+=== alinhar
+usage: alinhar.py [-h] [-o SAIDA] texto transcricao
+
+Alinha a transcrição com tempos ao roteiro (Needleman-Wunsch) e gera o
+expected.csv.
+
+positional arguments:
+  texto              texto de teste, idêntico a um de etapa0/textos/
+  transcricao        CSV palavra,t_inicio_ms,t_fim_ms,conf (saída do
+                     timestamps.py)
+
+options:
+  -h, --help         show this help message and exit
+  -o, --saida SAIDA  arquivo do expected.csv (padrão: stdout)
+rc=0
+=== metricas
+usage: metricas.py [-h] [--deslocamento-ms DESLOCAMENTO_MS]
+                   [--hipoteses HIPOTESES] [--json JSON]
+                   trajetoria esperado eventos [eventos ...]
+
+Compara a trajetória do app com a esperada e dá o veredito dos critérios de
+voz.
+
+positional arguments:
+  trajetoria            <nome>.trajectory.csv (t_ms,cursor,move,score)
+  esperado              <nome>.expected.csv
+                        (token,palavra,t_inicio_ms,t_fim_ms)
+  eventos               um ou mais <nome>.events.csv (t_ms,evento,detalhe)
+
+options:
+  -h, --help            show this help message and exit
+  --deslocamento-ms DESLOCAMENTO_MS
+                        somado aos t_ms da trajetória, dos eventos e das
+                        hipóteses (padrão 0)
+  --hipoteses HIPOTESES
+                        <nome>.hypotheses.csv, para as latências 1 e 2
+  --json JSON           grava os mesmos números em JSON neste arquivo
+rc=0

@@ -1,0 +1,2 @@
+VERMELHO B3-R1 roteiro:91 sem quatorze | rc=1 | testar.py: 149 testes, 64 falhas, 0 erros | 1o: test_B3_formas_dos_numeros_batem_com_a_referencia
+VERMELHO B3-R2 roteiro:101 duas->dois | rc=1 | testar.py: 149 testes, 292 falhas, 0 erros | 1o: test_rodada2_fronteiras_batem_com_a_referencia
