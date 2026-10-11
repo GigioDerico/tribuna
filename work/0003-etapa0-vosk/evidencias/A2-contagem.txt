@@ -1,0 +1,43 @@
+== app/build/test-results/testDebugUnitTest
+CoreFromAppTest                          tests=1 skipped=0 failures=0 errors=0
+ExportFilesTest                          tests=6 skipped=0 failures=0 errors=0
+ExportNameAndWriterTest                  tests=4 skipped=0 failures=0 errors=0
+TestTextCatalogTest                      tests=5 skipped=0 failures=0 errors=0
+AudioLevelTest                           tests=5 skipped=0 failures=0 errors=0
+FstSymbolsTest                           tests=3 skipped=0 failures=0 errors=0
+LexiconRealModelTest                     tests=4 skipped=0 failures=0 errors=0
+ModelInstallerTest                       tests=7 skipped=0 failures=0 errors=0
+VocabularyTest                           tests=4 skipped=0 failures=0 errors=0
+VoskEngineSessionTest                    tests=17 skipped=0 failures=0 errors=0
+VoskEngineStateTest                      tests=10 skipped=0 failures=0 errors=0
+VoskJsonTest                             tests=8 skipped=0 failures=0 errors=0
+WavAudioSourceTest                       tests=8 skipped=0 failures=0 errors=0
+HitTestTest                              tests=6 skipped=0 failures=0 errors=0
+ReaderExportTest                         tests=5 skipped=0 failures=0 errors=0
+ReaderLifecycleTest                      tests=9 skipped=0 failures=0 errors=0
+ReaderReadingTest                        tests=9 skipped=0 failures=0 errors=0
+ReaderSessionTest                        tests=3 skipped=0 failures=0 errors=0
+ReaderTapTest                            tests=4 skipped=0 failures=0 errors=0
+TOTAL tests=118 skipped=0 failures=0 errors=0
+== build-logic/build/test-results/test
+ElfAlignmentTest                         tests=7 skipped=0 failures=0 errors=0
+ManifestPermissionCheckTest              tests=11 skipped=0 failures=0 errors=0
+NativeLibScanTest                        tests=9 skipped=0 failures=0 errors=0
+TOTAL tests=27 skipped=0 failures=0 errors=0
+== core/build/test-results/test
+AlignContractShapeTest                   tests=4 skipped=0 failures=0 errors=0
+AlignerBoundaryTest                      tests=27 skipped=0 failures=0 errors=0
+AlignerL30Test                           tests=1 skipped=0 failures=0 errors=0
+AlignerTest                              tests=16 skipped=0 failures=0 errors=0
+AlignerTrajectoryTest                    tests=10 skipped=0 failures=0 errors=0
+NormalizerTest                           tests=6 skipped=0 failures=0 errors=0
+NumberWordsTest                          tests=4 skipped=0 failures=0 errors=0
+PartialReconcilerTest                    tests=10 skipped=0 failures=0 errors=0
+SimilarityTest                           tests=3 skipped=0 failures=0 errors=0
+TokenizerTest                            tests=14 skipped=0 failures=0 errors=0
+TokenizerTextsTest                       tests=2 skipped=0 failures=0 errors=0
+FakeSpeechEngineTest                     tests=18 skipped=0 failures=0 errors=0
+SpeechContractShapeTest                  tests=3 skipped=0 failures=0 errors=0
+TOTAL tests=118 skipped=0 failures=0 errors=0
+== @Ignore/@Disabled
+(eval):11: no matches found: --include=*.kt

@@ -1,0 +1,49 @@
+== APK release
+    10096  01-01-1981 01:01   lib/arm64-v8a/libandroidx.graphics.path.so
+   176520  01-01-1981 01:01   lib/arm64-v8a/libjnidispatch.so
+ 10042800  01-01-1981 01:01   lib/arm64-v8a/libvosk.so
+     7252  01-01-1981 01:01   lib/armeabi-v7a/libandroidx.graphics.path.so
+   126496  01-01-1981 01:01   lib/armeabi-v7a/libjnidispatch.so
+  8985628  01-01-1981 01:01   lib/armeabi-v7a/libvosk.so
+     9284  01-01-1981 01:01   lib/x86/libandroidx.graphics.path.so
+   124380  01-01-1981 01:01   lib/x86/libjnidispatch.so
+ 10397552  01-01-1981 01:01   lib/x86/libvosk.so
+    10760  01-01-1981 01:01   lib/x86_64/libandroidx.graphics.path.so
+   126912  01-01-1981 01:01   lib/x86_64/libjnidispatch.so
+ 10335120  01-01-1981 01:01   lib/x86_64/libvosk.so
+       96  01-01-1981 01:01   assets/model-pt/uuid
+== APK debug
+    10096  01-01-1981 01:01   lib/arm64-v8a/libandroidx.graphics.path.so
+   176520  01-01-1981 01:01   lib/arm64-v8a/libjnidispatch.so
+ 10042800  01-01-1981 01:01   lib/arm64-v8a/libvosk.so
+     7252  01-01-1981 01:01   lib/armeabi-v7a/libandroidx.graphics.path.so
+   126496  01-01-1981 01:01   lib/armeabi-v7a/libjnidispatch.so
+  8985628  01-01-1981 01:01   lib/armeabi-v7a/libvosk.so
+     9284  01-01-1981 01:01   lib/x86/libandroidx.graphics.path.so
+   124380  01-01-1981 01:01   lib/x86/libjnidispatch.so
+ 10397552  01-01-1981 01:01   lib/x86/libvosk.so
+    10760  01-01-1981 01:01   lib/x86_64/libandroidx.graphics.path.so
+   126912  01-01-1981 01:01   lib/x86_64/libjnidispatch.so
+ 10335120  01-01-1981 01:01   lib/x86_64/libvosk.so
+       96  01-01-1981 01:01   assets/model-pt/uuid
+== AAB
+       96  01-01-1981 01:01   base/assets/model-pt/uuid
+    10096  01-01-1981 01:01   base/lib/arm64-v8a/libandroidx.graphics.path.so
+   176520  01-01-1981 01:01   base/lib/arm64-v8a/libjnidispatch.so
+ 10042800  01-01-1981 01:01   base/lib/arm64-v8a/libvosk.so
+     7252  01-01-1981 01:01   base/lib/armeabi-v7a/libandroidx.graphics.path.so
+   126496  01-01-1981 01:01   base/lib/armeabi-v7a/libjnidispatch.so
+  8985628  01-01-1981 01:01   base/lib/armeabi-v7a/libvosk.so
+     9284  01-01-1981 01:01   base/lib/x86/libandroidx.graphics.path.so
+   124380  01-01-1981 01:01   base/lib/x86/libjnidispatch.so
+ 10397552  01-01-1981 01:01   base/lib/x86/libvosk.so
+    10760  01-01-1981 01:01   base/lib/x86_64/libandroidx.graphics.path.so
+   126912  01-01-1981 01:01   base/lib/x86_64/libjnidispatch.so
+ 10335120  01-01-1981 01:01   base/lib/x86_64/libvosk.so
+== wc -c AAB
+ 49589179 app/build/outputs/bundle/release/app-release.aab
+-rw-r--r--@ 1 giorgioderico  staff  85692990 Oct 11 10:01 app/build/outputs/apk/debug/app-debug.apk
+-rw-r--r--@ 1 giorgioderico  staff  74214036 Oct 11 10:03 app/build/outputs/apk/release/app-release.apk
+== mapping
+com.sun.jna.Native -> com.sun.jna.Native:
+org.vosk.Recognizer -> org.vosk.Recognizer:

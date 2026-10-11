@@ -1,0 +1,8 @@
+== check --dry-run
+:app:verifyDebugMergedManifest SKIPPED
+:app:verifyReleaseMergedManifest SKIPPED
+:app:verifyMergedManifest SKIPPED
+== assembleRelease --dry-run
+:app:verifyReleaseMergedManifest SKIPPED
+== bundleRelease --dry-run
+:app:verifyReleaseMergedManifest SKIPPED

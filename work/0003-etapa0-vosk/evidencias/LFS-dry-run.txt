@@ -1,0 +1,16 @@
+push d81023936f5557c06930802b1db4880f56d6ac51b16ed4e5060ceba06895442c => etapa0/app/src/main/assets/model-pt/Gr.fst
+push 8b45be1fa72913d61e37ac0b411177803848f4cda7728f74139b39acd1c0cf36 => etapa0/app/src/main/assets/model-pt/HCLr.fst
+push 85353085fa2096ef12cac654fa9534b186bef9b56a61f544da3ebfbd006b78bb => etapa0/app/src/main/assets/model-pt/README
+push ca8970bc50b8ae2452749f75f5a12049e511075f9fc3f63acc1526c280a33748 => etapa0/app/src/main/assets/model-pt/disambig_tid.int
+push 3e10e43ec01cf8d968bcc24c626a2eae2bfa77863bee82f36a554854afa1f147 => etapa0/app/src/main/assets/model-pt/final.mdl
+push 28dcdc395b13a2085d20f7a2e850ef7e5216ba33ded76391b9690dd60f5143de => etapa0/app/src/main/assets/model-pt/ivector/final.dubm
+push 9345786636c358c9539591da71fb685ae82d8a96ce5de533fb8ac5fdafa965f0 => etapa0/app/src/main/assets/model-pt/ivector/final.ie
+push e310571390a3183718fce914bb022d297777c7ed860892a1812b576a698ec420 => etapa0/app/src/main/assets/model-pt/ivector/final.mat
+push 8848c2dcf9919fbb3db574cbce59f980c3b11107c29adfa1fc42a4faed27e1a8 => etapa0/app/src/main/assets/model-pt/ivector/global_cmvn.stats
+push a2f3571754b64297cb7efb2e7ca3df61995c5a45fcbb97188f90613552bb2dfe => etapa0/app/src/main/assets/model-pt/ivector/online_cmvn.conf
+push 9f0c5f7c82d18eaf25d8bce470efa9f7741f88411fe428774bc0a9bb69a24756 => etapa0/app/src/main/assets/model-pt/ivector/splice.conf
+push d3d4c517da7e6d02ed85803eebf77bca3f7f48c9ab6dc035013250b36187f274 => etapa0/app/src/main/assets/model-pt/mfcc.conf
+push dc207b906747b59e9e3da0af30e8f8d6712c9897ad7df06929d4b2cae7ee13f1 => etapa0/app/src/main/assets/model-pt/phones.txt
+push 0b3eba174fb5e02d48516268542574c100bb90dbe50485fe7e730594c68795d8 => etapa0/app/src/main/assets/model-pt/uuid
+push b8f981d84d8765fb15003ac54ec0f9599efa65a00d6d4d60086e5969ad45ff01 => etapa0/app/src/main/assets/model-pt/word_boundary.int
+exit=0

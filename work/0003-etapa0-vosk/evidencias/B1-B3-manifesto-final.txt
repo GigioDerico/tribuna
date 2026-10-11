@@ -1,0 +1,13 @@
+== debug/processDebugMainManifest
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+== release/processReleaseMainManifest
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+== aapt2 dump permissions release
+package: io.github.gigioderico.tribuna.etapa0
+uses-permission: name='android.permission.RECORD_AUDIO'
