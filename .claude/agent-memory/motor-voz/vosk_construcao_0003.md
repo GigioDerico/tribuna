@@ -15,3 +15,5 @@ Construído em 2026-10-11 (Tarefas 1 a 11): 82 testes `:app` + 27 `build-logic` 
 - Helper de resumo de testes: ler `app/build/test-results/testDebugUnitTest/*.xml` (atributos `tests`, `failures`).
 
 **Why:** evita redescobrir o extrator e as contagens. **How to apply:** na Tarefa 16 e em qualquer reconstrução, reusar a mesma abordagem; confirmar versões do catalog antes.
+
+**Tarefa 16 (2026-10-11):** verificação completa verde exceto `verify16kAlignment` (esperado: libvosk armeabi-v7a e x86 a 4096, APK e AAB; OPR-024). AAB mede 49.589.179 B (plano dizia ...150). zsh: `grep --include=*.kt` precisa de aspas. `git lfs push --dry-run` lista 15 objetos mas não verifica cota. Repo GitHub é público.
