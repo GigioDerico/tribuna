@@ -1,0 +1,2 @@
+- [Interpretações do align (0002)](align_interpretacoes.md) — words = cauda, cursor = último token, miss/recuperação, peso comum 0,5 provisório
+- [Parâmetros provisórios](feedback_parametros_provisorios.md) — valor ausente no PRD/TRD: PROVISÓRIO com fonte ou limite de escopo, nunca inventado
