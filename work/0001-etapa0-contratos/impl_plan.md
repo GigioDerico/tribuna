@@ -1084,7 +1084,7 @@ Esperado: `BUILD SUCCESSFUL`; `TEST-...speech.FakeSpeechEngineTest.xml` com `tes
 cd /Users/giorgioderico/Projetos/Tribuna && git add etapa0/core && git commit -m "feat(core): FakeSpeechEngine com SessionId preso ao reconhecedor (TRD §Contratos, regras do SpeechEngine)"
 ```
 
-- [ ] **Passo 6: quebra A (Q2, critério 3) — o fake passa a ler a "sessão atual" no callback**
+- [x] **Passo 6: quebra A (Q2, critério 3) — o fake passa a ler a "sessão atual" no callback**
 
 Em `<core-fixtures>/speech/FakeSpeechEngine.kt`, dentro de `FakeRecognizer.partial`, trocar
 `channel.trySend(SpeechEvent.Partial(session, words))`
@@ -1101,7 +1101,7 @@ Esperado: `FAILED` em `callbackAtrasado_comOutraSessaoAtiva_chegaComOIdAntigo`, 
 
 Restaurar: `git -C /Users/giorgioderico/Projetos/Tribuna checkout -- etapa0/core/src/testFixtures`
 
-- [ ] **Passo 7: quebra B (Q2, critério 4) — `endSession` deixa o reconhecedor ativo**
+- [x] **Passo 7: quebra B (Q2, critério 4) — `endSession` deixa o reconhecedor ativo**
 
 Em `endSession()`, apagar a linha `active = null`.
 
@@ -1115,7 +1115,7 @@ Esperado: `FAILED` em `endSession_naoEmiteMaisPartialNemFinal_eLevelContinua`, c
 
 Restaurar: `git -C /Users/giorgioderico/Projetos/Tribuna checkout -- etapa0/core/src/testFixtures`
 
-- [ ] **Passo 8: confirmar a restauração**
+- [x] **Passo 8: confirmar a restauração**
 
 Rodar: `cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew :core:test && git -C /Users/giorgioderico/Projetos/Tribuna status --porcelain etapa0/core`
 Esperado: `BUILD SUCCESSFUL` e nenhuma linha do `git status` (árvore limpa no `:core`).
