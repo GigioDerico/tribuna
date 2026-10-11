@@ -1,6 +1,146 @@
 **Veredito: REPROVADO**
 
-# Revisão — 0003-etapa0-vosk
+# Revisão — 0003-etapa0-vosk (rodada 2)
+
+**Revisor:** revisor · **Data:** 2026-10-11 · **Base do diff:** 92f8518 (rodada 1, REPROVADO) → b40841d (`work/0003-etapa0-vosk`)
+
+Resumo: os dois bloqueantes da rodada 1 estão fechados. Reapliquei as duas quebras de cada um e as quatro ficaram vermelhas. A mudança de produção do OPR-027 e do OPR-029 está correta: em `Preparing → onStop → fim da carga` o microfone não abre e a sessão não começa. Todos os comandos passaram, com as contagens esperadas. A reprovação vem de uma guarda da mesma área que continua sem teste. Com a leitura em `Paused`, a captura fica aberta (TRD Máquina de estados, "Microfone na pausa"). Um `onStop` real nesse estado tem de chamar `stopCapture` (TRD §Segundo plano, tabela "Ida real ao segundo plano | Paused: stopCapture"; spec D9). Tirei o `Paused` dessa guarda de duas formas diferentes e as 220 suítes continuaram verdes. Ou seja, nenhum teste impede que o microfone fique aberto com o app em segundo plano. Eu devia ter listado esse operando na rodada 1: a quebra R21 tirava a guarda inteira e não cada operando. O código de hoje está certo. O retrabalho é um teste.
+
+## Regras inegociáveis
+
+| Regra | Verificado como | Resultado |
+|---|---|---|
+| Só `RECORD_AUDIO` no manifesto mesclado | `./gradlew testDebugUnitTest :core:test lint ktlintCheck verifyMergedManifest --rerun-tasks` (em `etapa0/`): `verifyDebugMergedManifest: OK … -> android.permission.RECORD_AUDIO` e `verifyReleaseMergedManifest: OK … -> android.permission.RECORD_AUDIO`, BUILD SUCCESSFUL, exit=0. A rodada 2 não muda manifesto nem dependência (`git diff --stat 92f8518..HEAD`) | OK |
+| Texto não persiste nem vai para log | `grep -rnE "rememberSaveable\|SavedStateHandle\|DataStore\|MediaRecorder\|SharedPreferences\|onSaveInstanceState\|putExtra\|ClipboardManager\|println\|printStackTrace\|Timber\|Log\." app/src/main --include='*.kt'`: só dois comentários que dizem "nunca `rememberSaveable`" (`FieldSync.kt:7`, `ReaderScreen.kt:80`). O `FieldSync` é uma classe comum, guardada com `remember { FieldSync(state.text) }`, e o campo usa `remember { mutableStateOf(...) }`. Não há `Saver` nem estado salvo, e os dois vivem dentro do ramo `Idle`. Na rotação o estado é recriado a partir do `state.text` do controlador | OK |
+| Nenhum áudio gravado | A rodada 2 não toca `speech/` nem `export/` em `src/main` | OK |
+| `align/` sem Android | `git diff 92f8518..HEAD -- etapa0/core/src/main`: 0 linhas. `grep -rnE "^import (android\|androidx)" core/src/main`: vazio | OK |
+| Contratos do TRD inalterados | `core/src/main` sem diff. Em `src/main` só mudaram `ReaderController.kt` (+17/−4), `ReaderScreen.kt` (+12/−2) e `FieldSync.kt` (novo, 37), todos do `:app` da etapa0 | OK |
+| `SessionId` preso ao reconhecedor | Bloqueantes 1 e 2 da rodada 1 reaplicados: B1a, B1b, B2a e B2b **vermelhos** (abaixo). Variantes minhas no produtor (V7 Partial e V13 Final com `SessionId(nextSession - 1)`) e no consumidor (V5, V6 e V12 aceitando evento sem sessão ativa): todas vermelhas | OK |
+| Cursor nunca abaixo de `highWater − 3` | O cursor continua mudando só por `Aligner.advance` e `reposition`. O ramo novo do OPR-027 só chama `reposition(0)`, igual ao início normal | OK |
+| Só Compose | `find app/src -path '*res/layout*'` e `grep -rnE "import android\.(view\|widget)\.\|AndroidView\|setContentView" app/src/main`: vazios | OK |
+| Laço próprio, sem `SpeechService` | `grep -rn SpeechService app/src`: vazio | OK |
+| Modelo no LFS como ponteiro | `git lfs ls-files`: 15. `git cat-file -s HEAD:<arquivo>`: de 127 a 133 bytes nos 15. `git lfs fsck`: OK. Maior blob em `92f8518..HEAD`: `impl_plan.md`, com 336 KB | OK |
+
+## Mudança de produção da rodada 2 (OPR-027 e OPR-029)
+
+`ReaderController.kt:158-171,253-267`: o `onActivityStop` em `Preparing` só marca `backgrounded`. Quando o `prepare()` termina, `startReading` lê `backgrounded` uma vez (`inBackground`). Se estiver marcado, não chama `startCapture` nem `beginSession`. Cria a gravação, o alinhador e o `reposition(0)` e entra em `Paused` com `capturing = false`. Percorri os caminhos:
+
+- `Preparing → onStop(false) → fim da carga`: `Paused`, chamadas do motor só `["prepare"]`, `activeSession = null`, sem captura. Na volta, o `onActivityStart` zera `backgrounded` e, como a fase é `Paused`, reabre a captura. O Ouvir chama `resume`, que abre uma sessão nova. Nenhuma sessão se perde, porque nenhuma foi aberta. Teste: `onStopDeVerdadeEnquantoOModeloCarrega_…`.
+- `Preparing → onStop → onStart → fim da carga`: `backgrounded` volta a `false`, e a leitura começa com o app em primeiro plano. O microfone só abre com a Activity visível. Foi uma escolha declarada no registro da construção. Ver o achado 3. Teste: `voltaAntesDoFimDaCarga_…`.
+- `Preparing → onStop(true)` (rotação): ignorado. Teste: `rotacaoEnquantoOModeloCarrega_…`.
+- `Preparing → onStop → carga falha`: `Idle` com o erro, e o `backgrounded` velho é zerado no `onStart` sem efeito, porque a fase é `Idle`.
+- A fila (`limitedParallelism(1)`) libera durante o `prepare` suspenso, e é isso que permite ao `onActivityStop` rodar no meio. A leitura de `backgrounded` vem depois do `prepare`, como precisa. Os comandos que poderiam competir (`setText`, ajustes, `onPause`, `onStopReading`, toque) já recusam `Preparing` pela guarda de fase.
+
+`FieldSync` e `ReaderScreen`: o campo mostra o que a pessoa digitou na hora. Os ecos atrasados do controlador são consumidos em ordem pelo `indexOf` (um `StateFlow` conflado pula ecos intermediários), e só um texto que não veio do campo (um chip) substitui o valor. O `onValueChange` do overload com `String` só dispara quando o texto muda. A fiação `LaunchedEffect(state.text)` não tem teste na JVM. Fica para o aparelho na 0005, como foi declarado.
+
+## Spec e plano
+
+| Critério | Implementação | Teste / comando (rodado pelo revisor) |
+|---|---|---|
+| A1 | sem mudança | `./gradlew assembleDebug assembleRelease bundleRelease --rerun-tasks`: BUILD SUCCESSFUL, 110 tarefas executadas, exit=0. `app-release.aab` com 49.590.809 bytes |
+| A2 | — | `:app` **220**, `build-logic` **27**, `:core` **118**. Contei nos XMLs: 0 falhas, 0 erros, 0 ignorados. `@Ignore\|@Disabled`: vazio. lint (`:app:lintDebug`, `:core:lintJvm`) e ktlint (`ktlintMainSourceSetCheck`, `ktlintTestSourceSetCheck` e scripts de `:app` e `:core`) executados e verdes |
+| A5 | — | `core/src/main` sem diff |
+| B1–B3 | sem mudança | `verifyMergedManifest` OK (acima) |
+| B5 | sem mudança | `verify16kAlignment`: **FAILED, exit=1**, só pelas 4 `libvosk.so` de 32 bits com LOAD 4096 (armeabi-v7a e x86, no APK e no AAB). `zipalign -c -P 16 -v 4`: Verification successful. É o previsto, OPR-024 |
+| C1 | `VoskEngine.Session` | Partial, Final **e** Error travados: `erroDoReconhecedorComSessaoTrocadaNoMeioDoBloco_saiComOIdAntigo` (B1a, B1b, V7, V13 vermelhos) |
+| D1 | `ReaderController.onHypothesis` | `parcialAtrasadoDaSessaoAnterior_naoChegaAoReconciliador` e exportação com `0,1,partial,"ouvir bem",0` (B2a, B2b, V6 vermelhos) |
+| D6 (privacidade da exportação) | `TestTextCatalog` | `textoDeTesteComAlgoAcrescentado_naoIdentifica` (T29 `startsWith` vermelho). OPR-026 fechado |
+| D9 (ciclo de vida) | `ReaderController.onActivityStop/onActivityStart` | Coberto a partir de `Reading`, de `Preparing` e de `Idle`, e na rotação com a leitura pausada. **`onStop` real a partir de `Paused` sem teste (achado 1)** |
+
+Desvios do plano: justificados. A única mudança de produção que não é teste é a do OPR-027 e do OPR-029, que o próprio `code_review` da rodada 1 pediu, feita com teste primeiro (o registro mostra `expected:<Paused> but was:<Reading>` antes da correção). O plano foi atualizado com as quebras Q2-R*, Q2-M* e Q2-I*.
+
+## Testes (Q2 e Q3)
+
+Script em scratchpad: aplica uma troca exata por vez, confere que o texto aparece uma vez só, apaga `app/build/test-results`, roda `:app:testDebugUnitTest --continue`, lê os XMLs (220 casos por execução), marca "não compilou" e restaura com `git checkout -- <arquivo>` num `finally`. `git status --short` no fim: limpo.
+
+| ID | Troca (uma por vez) | Resultado |
+|---|---|---|
+| B1a | `VoskEngine.kt:269` `Error(id, …)` → `Error(synchronized(lock) { current }?.id ?: id, …)` | vermelho (`erroDoReconhecedorComSessaoTrocadaNoMeioDoBloco_saiComOIdAntigo`) |
+| B1b | idem → `Error(SessionId(nextSession - 1), …)` | vermelho (o mesmo) |
+| B2a | `ReaderController.kt:346` Partial com `active ?: event.session` | vermelho (`parcialAtrasado…_naoChegaAoReconciliador`, `eventosAtrasados…Accepted0`) |
+| B2b | `:370` `fromActive = session == active \|\| (!isFinal && active != null)` | vermelho (os mesmos 2) |
+| T26 | `SessionId(nextSession++)` → `SessionId(nextSession)` | vermelho (4) |
+| T47 | `release()`: `kept?.decoder?.close()` → `Unit` | vermelho |
+| T53 | `spare == null && !released` → `spare == null` | vermelho |
+| TM1 | `if (capture !== lost) return` → `if (false) return` | vermelho |
+| TM2 | `count == 0` → `count == 1` | vermelho |
+| T15 | `stopCapture`: `capture = null` → `Unit` | vermelho |
+| T08 | `check(state == Ready)` → `check(state != Idle)` | vermelho |
+| T29 | `TestTextCatalog` `it.value == text` → `text.startsWith(it.value)` | vermelho |
+| T27 | `setText` sem `vocabulary = null` | vermelho |
+| TR23 | `setText` sem `recording = null` | vermelho |
+| TR21 | `onActivityStop` sem a guarda de fase | vermelho |
+| TI4 | `val inBackground = backgrounded` → `false` | vermelho (2) |
+| TI4b | tirar o ramo `if (phase == Preparing)` do `onActivityStop` | vermelho (2) |
+| TI6 | `firstPartialMs = now - sessionStartedAt` → `sessionStartedAt - now` | vermelho (2) |
+| TI7 | `next.cursor != previous?.cursor` → `previous?.highWater` | vermelho |
+| TFS | `FieldSync.received` sem `pending.clear()` | vermelho |
+| V1 (meu) | `if (!inBackground && !startCapture())` → `if (!startCapture())`: abre o microfone em segundo plano | vermelho |
+| V2 (meu) | `beginSession()` no ramo de segundo plano | vermelho (2) |
+| V4 (meu) | `onActivityStart` só reabre se `capturing` | vermelho (2) |
+| V5 (meu) | `fromCapture = event.session == null \|\| active == null` | vermelho |
+| V6 (meu) | `fromActive = active == null \|\| session == active` | vermelho (2) |
+| V7 (meu) | `Partial(SessionId(nextSession - 1), …)` no `Session.feed` | vermelho |
+| V8 (meu) | coluna `accepted` da exportação com `fromActive` (ignora o limiar) | vermelho |
+| V9 (meu) | `FieldSync` `indexOf` → `lastIndexOf` | vermelho |
+| V10 (meu) | `FieldSync` sem `if (text == value) return false` | vermelho (2) |
+| V11 (meu) | `onActivityStart` sem `backgrounded = false` | vermelho |
+| V12 (meu) | `onError` aceita com `\|\| active == null` | vermelho |
+| V13 (meu) | `Final(SessionId(nextSession - 1), …)` | vermelho |
+| **V3 (meu)** | `onActivityStop`: `if (phase == Preparing)` → `if (phase == Preparing \|\| phase == Paused)`: em `Paused` só marca e **não fecha a captura** | **VERDE** (220/220, achado 1) |
+| **V3b (meu)** | guarda `phase != Reading && phase != Paused` → `phase != Reading`: `onStop` em `Paused` não faz nada | **VERDE** (220/220, achado 1) |
+
+Ao todo foram 36 quebras: as 4 dos bloqueantes, 16 das tabelas dos construtores e 16 minhas. 34 ficaram vermelhas. As 2 verdes são o mesmo ponto, o achado 1.
+
+**Mutantes declarados equivalentes.** Li a justificativa de cada um contra o código. Motor (20): aceitos. Os três "pares redundantes" (`ended` em `end()`, `decoderReleased` em `release()`) são de fato redundantes entre si, e o construtor mostra os pares vermelhos (linhas 396–398 da tabela). `Error(null` → `current?.id` no `open()` que falha é inalcançável, porque não há captura e, portanto, não há sessão. As âncoras `^`/`$` com `matches()` e `name`/`toString()` de enum são equivalentes de verdade. Interface (12): aceitos, com uma ressalva. O `limitedParallelism(1) → 2` não é "equivalente". Ele não é testável com o despachante de uma thread só, e é ele que garante que comandos e eventos não correm juntos, o que sustenta a regra 7. Não bloqueia, porque é uma constante estrutural e o TRD a nomeia, mas o rótulo está errado (achado 4). Nos 11 "não compila", os textos de troca eram inválidos e não são mutantes vivos.
+
+**Testes novos (Q3), não tautológicos.** `erroDoReconhecedor…` usa `onAccept` + `failOnAccept` e faz a troca de sessão real dentro do bloco. `parcialAtrasado…` olha o efeito escondido: a cauda continua vazia depois do parcial novo igual e só recebe palavras quando há prefixo novo. `onStopDeVerdadeEnquantoOModeloCarrega…` usa o `prepareGate` para segurar a carga e confere a lista exata de chamadas do motor. `FieldSyncTest` cobre o conflado, a fila de ecos repetidos e o texto externo. `TestTextCatalogTest` cobre sufixo, prefixo, linha a mais, recorte e caixa trocada. O falso de assets ficou mais estrito (`require(path.startsWith("textos/T"))`). Nenhum teste compara um valor com ele mesmo. O antigo `META_KEYS` contra `META_KEYS` foi trocado pelos literais de D11.
+
+## Achados
+
+| # | Severidade | Arquivo:linha | Achado | Evidência | O que resolve |
+|---|---|---|---|---|---|
+| 1 | **BLOQUEANTE** | `etapa0/app/src/main/kotlin/.../viewmodel/ReaderController.kt:162-170`; teste em `.../viewmodel/ReaderLifecycleTest.kt` | O `onStop` real com a leitura em `Paused` não tem teste. Em `Paused` a captura fica aberta (TRD Máquina de estados, "Microfone na pausa"). A ida ao segundo plano tem de fechá-la (TRD §Segundo plano: "Sem serviço em primeiro plano … não há captura em segundo plano"; tabela "Ida real ao segundo plano \| Paused: stopCapture"; spec D9: "Com `false`, chama os dois e a tela fica pausada"). Os testes de `onStop` real partem de `Reading` (`onStopDeVerdade_…`, `voltaDoSegundoPlano_…`), de `Preparing` e de `Idle`. O único teste a partir de `Paused` é o da rotação. Tirar o `Paused` da guarda, ou desviá-lo para o ramo novo de `Preparing`, deixa o microfone aberto com o app em segundo plano, e tudo continua verde. É exatamente o risco do OPR-027, por outro caminho, e é a área que a rodada 2 mexeu | V3 e V3b: 220/220 verdes | Em `ReaderLifecycleTest`, um teste `onStopDeVerdadeComALeituraPausada_fechaACaptura_eNaVoltaReabre`: `load`, `listen`, `pause`, `onActivityStop(false)`, conferir que `stopCapture` está nas chamadas, `capturing == false`, `Paused`; depois `onActivityStart` reabre a captura e continua `Paused`. Conferir V3 e V3b vermelhos |
+| 2 | MENOR | `etapa0/app/src/main/kotlin/.../ui/FieldSync.kt:24-36` | Quando o `StateFlow` conflata para um valor que repete um eco anterior (digitar "a", "ab" e apagar para "a", e só "a" chegar), o `indexOf` consome só o primeiro "a" e deixa "ab" e "a" pendentes. Um texto externo igual a um eco velho seria engolido. Na etapa0 o único texto externo são os chips dos textos de teste, então não há efeito prático | Leitura do código | Consumir até o **último** igual quando o valor recebido é igual a `value`, com teste. Ou aceitar e documentar. OPR-030 |
+| 3 | MENOR | `ReaderController.kt:174-179,254` | `Preparing → onStop → onStart → fim da carga` começa a leitura sem toque. O microfone abre em primeiro plano, então não há violação. Mas o TRD §Segundo plano ("na volta, a leitura continua Paused … o orador toca para continuar") não fala do caso da carga. Decidir isso para o `PrompterViewModel` do app, onde há contagem regressiva | Teste `voltaAntesDoFimDaCarga_aLeituraComecaNormalmente` fixa o comportamento atual | Registrar a decisão no TRD (Máquina de estados, Preparing/Countdown) antes do app. OPR-030 |
+| 4 | MENOR | `work/0003-etapa0-vosk/evidencias/quebras-q2-rodada2-interface.txt`, linha 21 | `limitedParallelism(1) → 2` está rotulado como "equivalente na JVM". Na verdade é um mutante que esse despachante não tem como testar, e é ele que sustenta a regra 7 (comandos e eventos numa fila só) | Tabela do construtor | Corrigir o rótulo. Se quiser travar, um teste com despachante de várias threads e uma barreira. OPR-030 |
+| 5 | MENOR | `etapa0/app/src/test/.../speech/EngineHarness.kt:22,27`; `.../speech/VoskEngineRobustnessTest.kt:56,58,128` | Avisos de `@OptIn` de coroutines-test continuam no lado do motor (o `ReaderHarness` foi resolvido). Só em teste, não bloqueia | Saída do `compileDebugUnitTestKotlin` (`w: …needs opt-in`) | `@OptIn(ExperimentalCoroutinesApi::class)`. Já está no OPR-029, motor-voz |
+
+OPR-026 fechado (verificado). OPR-027 corrigido na etapa0 e verificado, mas o achado 1 é a lacuna irmã. Continua aberto para o `PrompterViewModel`. OPR-028 completo: R13, R17, R20, R21, R22, R23, R26 e R27 têm teste, e conferi as quebras T47, TR21, TR23 e T27 e as linhas 70, 73 e 74 da tabela do motor. OPR-029(b) resolvido, (a) parcial.
+
+## Saída real do `verify16kAlignment` (rodado pelo revisor, rodada 2)
+
+```
+> Task :app:verify16kAlignment FAILED
+verify16kAlignment: app-release.apk: lib/armeabi-v7a/libvosk.so LOAD 4096
+verify16kAlignment: app-release.apk: lib/x86/libvosk.so LOAD 4096
+verify16kAlignment: zipalign -c -P 16 -v 4 app-release.apk -> Verification successful
+verify16kAlignment: app-release.aab: base/lib/armeabi-v7a/libvosk.so LOAD 4096
+verify16kAlignment: app-release.aab: base/lib/x86/libvosk.so LOAD 4096
+verify16kAlignment: AAB app-release.aab -> 2 problema(s)
+    - app-release.apk: lib/armeabi-v7a/libvosk.so tem segmento LOAD alinhado a 4096 bytes (mínimo 16384)
+    - app-release.apk: lib/x86/libvosk.so tem segmento LOAD alinhado a 4096 bytes (mínimo 16384)
+    - app-release.aab: base/lib/armeabi-v7a/libvosk.so tem segmento LOAD alinhado a 4096 bytes (mínimo 16384)
+    - app-release.aab: base/lib/x86/libvosk.so tem segmento LOAD alinhado a 4096 bytes (mínimo 16384)
+BUILD FAILED in 2s
+exit16k=1
+```
+
+Todas as outras `.so` (arm64-v8a, x86_64 e as `libjnidispatch.so` e `libandroidx.graphics.path.so` das 4 ABIs) estão em LOAD 16384.
+
+## Não verificado (rodada 2)
+
+- A fiação Compose do `FieldSync` (`LaunchedEffect(state.text)`, recomposição, digitação real no teclado). Não há teste de UI nem aparelho. Fica para a 0005, critério E.
+- `Preparing → onStop` com o `prepare()` real do Vosk numa thread de IO e o ciclo de vida real da Activity. Os testes usam o `prepareGate` do falso.
+- O mesmo que na rodada 1: critério E inteiro, cota de LFS no push real e `ThreadCaptureDriver` sob corrida.
+
+---
+
+# Histórico: rodada 1
+
+Veredito da rodada 1: REPROVADO (bloqueantes 1 e 2, fechados na rodada 2).
+
+## Revisão — 0003-etapa0-vosk (rodada 1)
 
 **Revisor:** revisor · **Data:** 2026-10-11 · **Base do diff:** 4fc6325 (merge-base com `main`) → c774cd2 (`work/0003-etapa0-vosk`)
 
