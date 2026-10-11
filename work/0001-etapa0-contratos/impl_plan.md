@@ -1903,13 +1903,13 @@ Esperado: `BUILD SUCCESSFUL` e nenhuma linha do `git status`.
 - Teste: `etapa0/app/src/test/kotlin/io/github/gigioderico/tribuna/etapa0/CoreFromAppTest.kt`
 - Criar: `etapa0/scripts/verificar-manifesto-negativo.sh`
 
-- [ ] **Passo 1: incluir o `:app`** — em `etapa0/settings.gradle.kts`, depois de `include(":core")`, acrescentar:
+- [x] **Passo 1: incluir o `:app`** — em `etapa0/settings.gradle.kts`, depois de `include(":core")`, acrescentar:
 
 ```kotlin
 include(":app")
 ```
 
-- [ ] **Passo 2: criar `etapa0/app/build.gradle.kts`**
+- [x] **Passo 2: criar `etapa0/app/build.gradle.kts`**
 
 Sem `org.jetbrains.kotlin.android` (o AGP 9 já traz Kotlin). Nenhum literal de versão: tudo vem do catalog.
 
@@ -1951,7 +1951,7 @@ dependencies {
 }
 ```
 
-- [ ] **Passo 3: criar `etapa0/app/src/main/AndroidManifest.xml`**
+- [x] **Passo 3: criar `etapa0/app/src/main/AndroidManifest.xml`**
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -1966,7 +1966,7 @@ dependencies {
 </manifest>
 ```
 
-- [ ] **Passo 4: criar `etapa0/app/src/main/res/values/strings.xml`**
+- [x] **Passo 4: criar `etapa0/app/src/main/res/values/strings.xml`**
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -1975,7 +1975,7 @@ dependencies {
 </resources>
 ```
 
-- [ ] **Passo 5: escrever o teste que falha** — `etapa0/app/src/test/kotlin/io/github/gigioderico/tribuna/etapa0/CoreFromAppTest.kt`
+- [x] **Passo 5: escrever o teste que falha** — `etapa0/app/src/test/kotlin/io/github/gigioderico/tribuna/etapa0/CoreFromAppTest.kt`
 
 ```kotlin
 package io.github.gigioderico.tribuna.etapa0
@@ -2004,24 +2004,24 @@ class CoreFromAppTest {
 
 Este teste não depende de código de produção novo (o `:core` já existe): ele falha na compilação se a ligação `:app` → `:core`/`testFixtures` estiver errada. A prova de que ele roda é a contagem `tests="1"` no Passo 7.
 
-- [ ] **Passo 6: build**
+- [x] **Passo 6: build**
 
 Rodar: `cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew assembleDebug 2>&1 | tee ../work/0001-etapa0-contratos/evidencias/assembleDebug.txt`
 Esperado: `BUILD SUCCESSFUL`; `app/build/outputs/apk/debug/app-debug.apk` existe.
 
-- [ ] **Passo 7: unitários de todos os builds**
+- [x] **Passo 7: unitários de todos os builds**
 
 Rodar: `cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew testDebugUnitTest 2>&1 | tee ../work/0001-etapa0-contratos/evidencias/testDebugUnitTest.txt`
 Esperado: `BUILD SUCCESSFUL`; executadas `:testDebugUnitTest` (raiz → `build-logic:test`), `:core:test` e `:app:testDebugUnitTest`; `app/build/test-results/testDebugUnitTest/TEST-io.github.gigioderico.tribuna.etapa0.CoreFromAppTest.xml` com `tests="1" failures="0" errors="0"`.
 
-- [ ] **Passo 8: manifesto mesclado (caminho positivo)**
+- [x] **Passo 8: manifesto mesclado (caminho positivo)**
 
 Rodar: `cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew verifyMergedManifest 2>&1 | tee ../work/0001-etapa0-contratos/evidencias/verifyMergedManifest.txt`
 Esperado: `BUILD SUCCESSFUL`, com duas linhas `verifyDebugMergedManifest: OK .../merged_manifest/debug/.../AndroidManifest.xml -> android.permission.RECORD_AUDIO` e o equivalente para `verifyReleaseMergedManifest`.
 
 Conferir o artefato real (Q4): abrir o arquivo citado na linha `OK` e confirmar que ele só tem `uses-permission` de `RECORD_AUDIO`.
 
-- [ ] **Passo 9: criar `etapa0/scripts/verificar-manifesto-negativo.sh`** e torná-lo executável (`chmod +x`)
+- [x] **Passo 9: criar `etapa0/scripts/verificar-manifesto-negativo.sh`** e torná-lo executável (`chmod +x`)
 
 ```bash
 #!/usr/bin/env bash
@@ -2073,17 +2073,17 @@ fi
 exit "$fail"
 ```
 
-- [ ] **Passo 10: rodar a prova negativa**
+- [x] **Passo 10: rodar a prova negativa**
 
 Rodar: `cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && bash scripts/verificar-manifesto-negativo.sh 2>&1 | tee ../work/0001-etapa0-contratos/evidencias/verifyMergedManifest-negativo.txt; echo "exit=${PIPESTATUS[0]}"`
 Esperado: quatro linhas `OK: <PERM> -> verifyDebugMergedManifest falhou como esperado` (INTERNET, ACCESS_NETWORK_STATE, WAKE_LOCK, CAMERA), cada uma seguida da linha `  - permissão não permitida: android.permission.<PERM>`, depois `OK: só RECORD_AUDIO -> verifyDebugMergedManifest passou` e `exit=0`. Depois: `ls etapa0/app/src/debug` não existe.
 
-- [ ] **Passo 11: lint e estilo**
+- [x] **Passo 11: lint e estilo**
 
 Rodar: `cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew lint ktlintCheck 2>&1 | tee ../work/0001-etapa0-contratos/evidencias/lint-ktlint.txt`
 Esperado: `BUILD SUCCESSFUL`, com `:app:lint`, `:core:lint` e as tarefas `ktlint*Check` de `:app` e `:core` executadas. Avisos do lint são aceitos e listados no registro; erros não.
 
-- [ ] **Passo 12: commit**
+- [x] **Passo 12: commit**
 
 ```bash
 cd /Users/giorgioderico/Projetos/Tribuna && git add etapa0/settings.gradle.kts etapa0/app etapa0/scripts && git commit -m "feat(etapa0): módulo :app consumindo :core, manifesto só com RECORD_AUDIO e prova negativa do verifyMergedManifest (TRD §Manifesto, §Qualidade de código)"

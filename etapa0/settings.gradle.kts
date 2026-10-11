@@ -17,3 +17,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "tribuna-etapa0"
 include(":core")
+include(":app")
