@@ -1,0 +1,20 @@
+Q2-1
+   AlignerTest.recuosSucessivosNaoPassamDeHighWaterMenos3 | java.lang.AssertionError: cursor 65 abaixo de highWater 70 − 3
+Q2-2
+   AlignerTest.recuosSucessivosNaoPassamDeHighWaterMenos3 | java.lang.AssertionError: cursor 64 abaixo de highWater 70 − 3
+   AlignerTrajectoryTest.repeticaoPeloOradorT08_semSaltoErradoNemRecuoAlemDoLimite | java.lang.AssertionError
+Q2-3
+   AlignerTest.recuperacaoAmbigua_naoMoveOCursor_L30 | java.lang.AssertionError: expected:&lt;1103&gt; but was:&lt;1206&gt;
+Q2-4
+   AlignerTest.unkNuncaCasa_D13 | java.lang.AssertionError: expected:&lt;2&gt; but was:&lt;3&gt;
+   AlignerTrajectoryTest.improvisoT04_cursorParadoERetomaAte6Palavras | java.lang.AssertionError: cursor mudou no improviso
+   AlignerL30Test.l30Sintetico_semSaltoErrado_atrasoAte3Em95PorCento_chegaAoFim | java.lang.AssertionError: saltos errados: [Sample(step=1129, word=ouvir, kind=Improv, previousCursor=1120, sta
+Q2-5
+   PartialReconcilerTest.reset_sessaoNovaNaoComparaComHipotesesAnteriores | java.lang.AssertionError: expected:&lt;[ouvir, bem, é]&gt; but was:&lt;[é]&gt;
+   PartialReconcilerTest.finalComMaisPalavras_entregaOQueFaltaEZera | java.lang.AssertionError: expected:&lt;[que]&gt; but was:&lt;[]&gt;
+   PartialReconcilerTest.fraseRepetida_mesmoFinalDuasVezesEntregaNasDuas_T08 | java.lang.AssertionError: expected:&lt;[isso, tem, um, custo]&gt; but was:&lt;[]&gt;
+Q2-6
+   AlignerTest.unkNuncaCasa_D13 | java.lang.AssertionError: expected:&lt;0.0&gt; but was:&lt;0.18&gt;
+   SimilarityTest.of_unkNuncaCasa_D13 | java.lang.AssertionError: expected:&lt;0.0&gt; but was:&lt;0.6&gt;
+Q2-7
+   AlignerTest.recuosSucessivosNaoPassamDeHighWaterMenos3 | java.lang.AssertionError: nunca abaixo de h − 3

@@ -1,0 +1,19 @@
+
+BUILD SUCCESSFUL in 2s
+10 actionable tasks: 10 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.7.1/userguide/configuration_cache_enabling.html
+> Task :app:verifyMergedManifest
+> Task :core:lintAnalyzeJvmTest
+> Task :app:lintReportDebug UP-TO-DATE
+> Task :app:lintDebug
+> Task :app:lint
+> Task :core:lintReportJvm UP-TO-DATE
+> Task :core:lintJvm UP-TO-DATE
+> Task :core:lint UP-TO-DATE
+> Task :core:runKtlintCheckOverTestSourceSet
+> Task :core:ktlintTestSourceSetCheck
+> Task :core:ktlintCheck
+
+BUILD SUCCESSFUL in 2s
+69 actionable tasks: 7 executed, 62 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.7.1/userguide/configuration_cache_enabling.html

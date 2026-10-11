@@ -1,0 +1,24 @@
+== V4: candidates.singleOrNull()?.takeIf { it.lastWord >= params.shortThreshold }  ->  candidates.singleOrNull()
+exit=1
+90 tests completed, 1 failed
+   VERMELHO AlignerTest.recuperacao_candidatoUnicoComPalavraNovaSemCasarNaoSalta_A2 | java.lang.AssertionError: expected:<AlignState(cursor=1103, highWater=1103, missStreak=2, lastMove=Stay, score=0.8571428571428571)> but was:<AlignStat
+== V6: if (match.similarity >= params.longThreshold) candidates += match  ->  if (match.similarity >= params.longThreshold && match.lastWord >= params.shortThreshold) candidates += match
+exit=1
+90 tests completed, 1 failed
+   VERMELHO AlignerTest.recuperacao_ambiguidadeContaAntesDoFiltroA2 | java.lang.AssertionError: expected:<AlignState(cursor=1103, highWater=1103, missStreak=2, lastMove=Stay, score=1.0)> but was:<AlignState(cursor=1207, 
+== V7: abs(match.similarity - current.similarity) <= EPSILON &&  ->  false &&
+exit=1
+90 tests completed, 1 failed
+   VERMELHO AlignerTest.empate_vaiParaAPosicaoMaisProximaDoCursor_D9 | java.lang.AssertionError: expected:<AlignState(cursor=9, highWater=9, missStreak=0, lastMove=Short, score=1.0)> but was:<AlignState(cursor=5, highWate
+== V8: return state.copy(missStreak = 0, lastMove = Move.Stay, score = best.similarity) // D6  ->  return state.copy(lastMove = Move.Stay, score = best.similarity) // D6
+exit=1
+90 tests completed, 1 failed
+   VERMELHO AlignerTest.vencedorNoCursor_zeraMissStreak_D6 | java.lang.AssertionError: expected:<AlignState(cursor=65, highWater=65, missStreak=0, lastMove=Stay, score=1.0)> but was:<AlignState(cursor=65, highWa
+== V10: if (misses >= MISSES_FOR_RECOVERY && heard.size  ->  if (misses >= 1 && heard.size
+exit=1
+90 tests completed, 1 failed
+   VERMELHO AlignerTest.recuperacao_soNoSegundoMiss_D7 | java.lang.AssertionError: expected:<AlignState(cursor=1103, highWater=1103, missStreak=1, lastMove=Stay, score=1.0)> but was:<AlignState(cursor=1207, 
+== restaurado
+exit=0
+ M core/src/test/kotlin/io/github/gigioderico/tribuna/etapa0/align/AlignerTest.kt
+ M core/src/test/kotlin/io/github/gigioderico/tribuna/etapa0/align/NormalizerTest.kt

@@ -1,0 +1,7 @@
+$ git diff main -- contratos
+linhas=       0
+$ assinaturas do Aligner (main vs atual)
+class Aligner( private val tokens: List<Token>, private val params: AlignParams, )
+fun advance( state: AlignState, words: List<String>, ): AlignState
+fun reposition(tokenIndex: Int): AlignState
+diff_exit=0

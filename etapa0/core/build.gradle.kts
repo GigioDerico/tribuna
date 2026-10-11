@@ -19,6 +19,17 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
 }
 
+// Os testes do align leem os textos de teste de etapa0/textos/ (spec 0002; CLAUDE.md "Textos de teste").
+val textosDeTeste = rootProject.layout.projectDirectory.dir("textos")
+
+tasks.named<Test>("test") {
+    inputs
+        .dir(textosDeTeste)
+        .withPropertyName("textosDeTeste")
+        .withPathSensitivity(PathSensitivity.RELATIVE)
+    systemProperty("tribuna.textos", textosDeTeste.asFile.absolutePath)
+}
+
 ktlint {
     version.set(libs.versions.ktlint.get())
 }

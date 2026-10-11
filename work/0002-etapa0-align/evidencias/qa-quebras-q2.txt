@@ -1,0 +1,14 @@
+Q2-1 limite contra cursor (sem highWater-3) | exit 1 | VERMELHO 1 (de 118): AlignerTest.recuosSucessivosNaoPassamDeHighWaterMenos3
+Q2-3 ambiguidade salta (firstOrNull) | exit 1 | VERMELHO 2 (de 118): AlignerTest.recuperacao_ambiguidadeContaAntesDoFiltroA2; AlignerTest.recuperacaoAmbigua_naoMoveOCursor_L30
+Q2-7 highWater segue o cursor | exit 1 | VERMELHO 3 (de 118): AlignerTest.recuosSucessivosNaoPassamDeHighWaterMenos3; AlignerBoundaryTest.empateAMesmaDistancia_ficaComOMenorIndice; AlignerBoundaryTest.recuo_chegaAHighWaterMenos3EParaAli
+V4 sem filtro A2 no candidato unico | exit 1 | VERMELHO 2 (de 118): AlignerTest.recuperacao_candidatoUnicoComPalavraNovaSemCasarNaoSalta_A2; AlignerBoundaryTest.recuperacao_palavraNovaIgualAoLimiarCurtoPassa
+V6 ambiguidade depois do filtro A2 | exit 1 | VERMELHO 1 (de 118): AlignerTest.recuperacao_ambiguidadeContaAntesDoFiltroA2
+V10 recuperacao ja no 1o miss | exit 1 | VERMELHO 1 (de 118): AlignerTest.recuperacao_soNoSegundoMiss_D7
+W4 recuperacao com k palavras | exit 1 | VERMELHO 1 (de 118): AlignerTest.recuperacao_exigeQuatroPalavrasOuvidas_D12
+L129 recuperacao inclui highWater | exit 1 | VERMELHO 1 (de 118): AlignerBoundaryTest.recuperacao_naoOlhaOTokenEmHighWater
+L104b janela ate cursor+W+1 | exit 1 | VERMELHO 1 (de 118): AlignerBoundaryTest.janela_terminaExatamenteEmCursorMaisW
+L132b recuperacao por limiar curto | exit 1 | VERMELHO 4 (de 118): AlignerTest.recuperacao_soNoSegundoMiss_D7; AlignerBoundaryTest.recuperacao_limiarLongoIgualPassa; AlignerTrajectoryTest.improvisoT04_cursorParadoERetomaAte6Palavras
+L40c curto OU limiar (distancia ignorada) | exit 1 | VERMELHO 19 (de 118): AlignerTest.recuperacaoAmbigua_naoMoveOCursor_L30; AlignerBoundaryTest.recuperacao_saltaParaOTokenLogoDepoisDeHighWater; AlignerBoundaryTest.recuperacao_palavraNovaIgualAoLimiarCurtoPassa
+L59a recuperacao sem subir highWater | exit 1 | VERMELHO 2 (de 118): AlignerTest.recuperacao_soNoSegundoMiss_D7; AlignerBoundaryTest.recuperacao_saltaParaOTokenLogoDepoisDeHighWater
+L56b recuperacao parte do cursor | exit 1 | VERMELHO 1 (de 118): AlignerBoundaryTest.recuperacao_partedeHighWaterNaoDoCursor
+Y4 (revisor, esperado VERDE) fim da janela highWater+W | exit 0 | VERDE (118 testes)
