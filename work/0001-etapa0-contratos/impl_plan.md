@@ -721,7 +721,7 @@ Comportamento do fake (decisões do arquiteto; são do fake, não do contrato):
 - Criar: `<core-fixtures>/speech/FakeSpeechEngine.kt`
 - Teste: `<core-test>/speech/FakeSpeechEngineTest.kt`
 
-- [ ] **Passo 1: escrever os testes que falham** — `<core-test>/speech/FakeSpeechEngineTest.kt`
+- [x] **Passo 1: escrever os testes que falham** — `<core-test>/speech/FakeSpeechEngineTest.kt`
 
 ```kotlin
 package io.github.gigioderico.tribuna.etapa0.speech
@@ -939,12 +939,12 @@ class FakeSpeechEngineTest {
 }
 ```
 
-- [ ] **Passo 2: rodar e ver falhar**
+- [x] **Passo 2: rodar e ver falhar**
 
 Rodar: `cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew :core:test`
 Esperado: FAIL na compilação com `Unresolved reference 'FakeSpeechEngine'`.
 
-- [ ] **Passo 3: implementar** — `<core-fixtures>/speech/FakeSpeechEngine.kt`
+- [x] **Passo 3: implementar** — `<core-fixtures>/speech/FakeSpeechEngine.kt`
 
 ```kotlin
 package io.github.gigioderico.tribuna.etapa0.speech
@@ -1073,12 +1073,12 @@ class FakeSpeechEngine(
 }
 ```
 
-- [ ] **Passo 4: rodar e ver passar**
+- [x] **Passo 4: rodar e ver passar**
 
 Rodar: `cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew :core:test :core:ktlintCheck`
 Esperado: `BUILD SUCCESSFUL`; `TEST-...speech.FakeSpeechEngineTest.xml` com `tests="17" skipped="0" failures="0" errors="0"`.
 
-- [ ] **Passo 5: commit** (antes das quebras, para poder restaurar com `git checkout`)
+- [x] **Passo 5: commit** (antes das quebras, para poder restaurar com `git checkout`)
 
 ```bash
 cd /Users/giorgioderico/Projetos/Tribuna && git add etapa0/core && git commit -m "feat(core): FakeSpeechEngine com SessionId preso ao reconhecedor (TRD §Contratos, regras do SpeechEngine)"
