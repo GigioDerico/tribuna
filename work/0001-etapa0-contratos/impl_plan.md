@@ -291,7 +291,7 @@ cd /Users/giorgioderico/Projetos/Tribuna && git add .gitignore etapa0/settings.g
 - Criar: `<core-main>/speech/SpeechEngine.kt`, `SessionId.kt`, `SpeechEvent.kt`, `EngineState.kt`, `EngineError.kt`
 - Teste: `<core-test>/speech/SpeechContractShapeTest.kt`
 
-- [ ] **Passo 1: substituir `etapa0/settings.gradle.kts`**
+- [x] **Passo 1: substituir `etapa0/settings.gradle.kts`**
 
 ```kotlin
 pluginManagement {
@@ -314,7 +314,7 @@ rootProject.name = "tribuna-etapa0"
 include(":core")
 ```
 
-- [ ] **Passo 2: criar `etapa0/build.gradle.kts`**
+- [x] **Passo 2: criar `etapa0/build.gradle.kts`**
 
 A declaração `kotlin.jvm apply false` põe o KGP 2.4.21 no classpath raiz; o Kotlin embutido do AGP 9 passa a usá-lo no lugar do 2.2.10 (notas do AGP 9.0).
 
@@ -327,7 +327,7 @@ plugins {
 }
 ```
 
-- [ ] **Passo 3: criar `etapa0/core/build.gradle.kts`**
+- [x] **Passo 3: criar `etapa0/core/build.gradle.kts`**
 
 ```kotlin
 plugins {
@@ -359,7 +359,7 @@ tasks.register("testDebugUnitTest") {
 }
 ```
 
-- [ ] **Passo 4: escrever o teste que falha** — `<core-test>/speech/SpeechContractShapeTest.kt`
+- [x] **Passo 4: escrever o teste que falha** — `<core-test>/speech/SpeechContractShapeTest.kt`
 
 ```kotlin
 package io.github.gigioderico.tribuna.etapa0.speech
@@ -422,12 +422,12 @@ class SpeechContractShapeTest {
 }
 ```
 
-- [ ] **Passo 5: rodar e ver falhar**
+- [x] **Passo 5: rodar e ver falhar**
 
 Rodar: `cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew :core:test`
 Esperado: FAIL na compilação (`:core:compileTestKotlin`) com `Unresolved reference 'EngineState'` (e semelhantes para `SessionId`, `SpeechEvent`, `EngineError`).
 
-- [ ] **Passo 6: escrever os contratos, copiados do TRD §Contratos (SpeechEngine)**
+- [x] **Passo 6: escrever os contratos, copiados do TRD §Contratos (SpeechEngine)**
 
 Nomes, tipos, ordem dos parâmetros, valores padrão e comentários iguais ao TRD. `ktlintFormat` pode mudar só a formatação.
 
@@ -516,17 +516,17 @@ package io.github.gigioderico.tribuna.etapa0.speech
 enum class EngineError { ModelMissing, ModelCorrupt, MicUnavailable, PermissionRevoked, Internal }
 ```
 
-- [ ] **Passo 7: rodar e ver passar**
+- [x] **Passo 7: rodar e ver passar**
 
 Rodar: `cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew :core:test`
 Esperado: `BUILD SUCCESSFUL`; `core/build/test-results/test/TEST-io.github.gigioderico.tribuna.etapa0.speech.SpeechContractShapeTest.xml` com `tests="3" skipped="0" failures="0" errors="0"`.
 
-- [ ] **Passo 8: estilo**
+- [x] **Passo 8: estilo**
 
 Rodar: `cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew :core:ktlintCheck`
 Esperado: `BUILD SUCCESSFUL`. Se falhar só por formatação, rodar `./gradlew :core:ktlintFormat`, conferir com `git diff` que só mudou formatação (nenhum nome, tipo, ordem ou padrão do contrato) e rodar `:core:ktlintCheck` de novo. Não desativar regras.
 
-- [ ] **Passo 9: commit**
+- [x] **Passo 9: commit**
 
 ```bash
 cd /Users/giorgioderico/Projetos/Tribuna && git add etapa0/settings.gradle.kts etapa0/build.gradle.kts etapa0/core && git commit -m "feat(core): contratos SpeechEngine, SessionId, SpeechEvent, EngineState, EngineError (TRD §Contratos SpeechEngine)"
