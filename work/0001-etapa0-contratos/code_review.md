@@ -1,4 +1,81 @@
-**Veredito: REPROVADO**
+**Veredito: APROVADO**
+
+# Revisão — 0001-etapa0-contratos — Rodada 2
+
+**Revisor:** revisor · **Data:** 2026-10-10 · **Base do diff:** `6a05f4e` (fim da rodada 1) → `9e0dd61` (branch `work/0001-etapa0-contratos`); diff total da tarefa: `ce3c8a2` → `9e0dd61`
+
+O único bloqueante da rodada 1 (achado 1: sem teste para `Error` atrasado de sessão antiga) está resolvido. O teste novo existe, roda, está verde no código atual e fica vermelho com a quebra D e com uma variante minha (E'). Desde a rodada 1 nenhum código de produção, fake ou contrato mudou. Os achados 2 a 4 estão no `opr_register.md` com dono e não são exigidos nesta tarefa.
+
+Todos os comandos foram rodados por mim, de `etapa0/`, em 2026-10-10 ~21:34 BRT. A árvore estava limpa antes e ficou limpa depois (`git status --porcelain` vazio). Não usei as evidências do construtor como prova; comparei com elas depois.
+
+## O que mudou desde a rodada 1
+
+`git diff 6a05f4e..HEAD -- etapa0`: um único arquivo, `etapa0/core/src/test/kotlin/.../speech/FakeSpeechEngineTest.kt` (+16 linhas, teste `callbackAtrasado_errorDaSessaoAntiga_chegaComOIdAntigo`, linhas 165–180). `git diff --stat 6a05f4e..HEAD -- etapa0/core/src/main etapa0/core/src/testFixtures etapa0/app etapa0/build-logic`: vazio. O resto do diff é documentação: `impl_plan.md` (contagem 45 → 46 e seção "Rodada 2" no Registro), evidências novas (`q2-quebra-d-error-sessao-atual.txt`, `final-rodada2.txt`, `contagem-testes-rodada2.txt`), `opr_register.md` (OPR-004 a 006) e o próprio `code_review.md`/memória do revisor da rodada 1.
+
+## Regras inegociáveis
+
+| Regra | Verificado como | Resultado |
+|---|---|---|
+| Só `RECORD_AUDIO` no manifesto mesclado | `verifyMergedManifest` dentro do tudo-verde: `verifyDebugMergedManifest: OK ... -> android.permission.RECORD_AUDIO` e `verifyReleaseMergedManifest: OK ... -> android.permission.RECORD_AUDIO`. Manifesto e dependências inalterados desde a rodada 1 | OK |
+| Texto não persiste nem vai para log | Só um teste novo, que usa `EngineError.Internal` e nenhuma palavra; nada de log, arquivo, `SavedStateHandle` etc. | OK |
+| Áudio não gravado fora de `etapa0/` | Sem mudança de código de produção | OK |
+| `align/` sem Android | `align/` intocado desde a rodada 1 (diff vazio) | OK |
+| Contratos do TRD inalterados (ou CIA aprovada) | `etapa0/core/src/main` sem diff desde `6a05f4e`; na rodada 1 os contratos foram comparados linha a linha com o TRD §Contratos. Regra 5 respeitada | OK |
+| `SessionId` preso ao reconhecedor | `FakeSpeechEngine.kt:112-122` inalterado (`partial/final/error` usam o `session` capturado). Agora os três caminhos têm teste de callback atrasado que fica vermelho com a quebra (ver Q2) | OK |
+| Cursor nunca abaixo de `highWater − 3` | `Aligner` segue esqueleto | N.A. |
+| Só Compose | Sem mudança | OK |
+
+## Spec e plano
+
+| Critério de aceite | Teste / verificação (minha saída) |
+|---|---|
+| 1. `assembleDebug` | `./gradlew assembleDebug testDebugUnitTest lint ktlintCheck verifyMergedManifest --rerun-tasks` → `exit=0`, `BUILD SUCCESSFUL`, `85 actionable tasks: 85 executed` |
+| 2. `testDebugUnitTest` verde | Contagem dos XML gerados às 21:34: `SpeechContractShapeTest` 3, `AlignContractShapeTest` 4, `FakeSpeechEngineTest` 18, `CoreFromAppTest` 1, `ManifestPermissionCheckTest` 8, `ElfAlignmentTest` 7, `NativeLibScanTest` 5 = **46**, todos `skipped="0" failures="0" errors="0"`. O XML do `FakeSpeechEngineTest` traz `<testcase name="callbackAtrasado_errorDaSessaoAntiga_chegaComOIdAntigo" .../>` |
+| 3. Callback atrasado com id antigo; vermelho se ler "sessão atual" | **Agora completo**: Partial e Final (`callbackAtrasado_comOutraSessaoAtiva_chegaComOIdAntigo`, rodada 1) e Error (`callbackAtrasado_errorDaSessaoAntiga_chegaComOIdAntigo`, novo). Quebras D e E' abaixo vermelhas |
+| 4 a 10 | Sem mudança de código desde a rodada 1; `lint ktlintCheck` e `verifyMergedManifest` verdes no tudo-verde acima |
+
+Desvios: o Registro da Rodada 2 declara "nenhum" e confere com o diff. A contagem 45 → 46 foi atualizada nas linhas de total do plano. Observação sem ação: a linha do critério 3 na tabela "Sucesso significa" do plano ainda cita só a quebra A. A seção "Rodada 2" documenta a quebra D, então a falta é só de referência cruzada num registro histórico, não de cobertura.
+
+## Testes (Q2 e Q3)
+
+O teste novo segue o roteiro da rodada 1: `antiga = beginSession()`, guarda `recognizers.last()`, `endSession()`, `nova = beginSession()`, `assertNotEquals(antiga, nova)`, `reconhecedorAntigo.error(Internal)`, espera `Error(antiga, Internal)` como primeiro evento. Q3: o `assertNotEquals` garante que há de fato outra sessão ativa, e o teste não pode passar com o canal vazio (`first()` suspenderia e o `runTest` daria timeout, que é falha).
+
+Quebras feitas por mim (locais, desfeitas com `git checkout -- FakeSpeechEngine.kt`, `git status --porcelain` vazio depois de cada uma):
+
+| # | Invariante | Quebra | Resultado |
+|---|---|---|---|
+| D | Regra 7, `Error` (a mesma quebra E da rodada 1, que antes ficava verde) | `FakeRecognizer.error` emite `Error(active?.session, cause)` | `./gradlew :core:test --rerun-tasks` → `exit=1`, `FakeSpeechEngineTest > callbackAtrasado_errorDaSessaoAntiga_chegaComOIdAntigo FAILED`, `25 tests completed, 1 failed` |
+| E' | Regra 7, `Error`, por outro caminho (contador de "sessão atual" do motor) | `FakeRecognizer.error` emite `Error(SessionId(nextSession - 1), cause)` | `exit=1`, mesmo teste vermelho: `expected:<Error(session=SessionId(value=1), cause=Internal)> but was:<Error(session=SessionId(value=2), cause=Internal)>`, `25 tests completed, 1 failed` |
+
+Depois das quebras rodei `:core:test --rerun-tasks` de novo no código restaurado (`exit=0`). A mensagem da minha quebra coincide com a de `evidencias/q2-quebra-d-error-sessao-atual.txt`.
+
+## Q1, Q4, Q5, Q6
+
+O código alterado é um teste. Q1 (persistência/log do texto): nada. Q4 (manifesto mesclado): reverificado pelo comando, uma só permissão. Q5/Q6: não há coroutine, ciclo de vida nem movimento de cursor novos. Qualidade: o teste segue o padrão dos vizinhos (nome, comentário citando critério e quebra, `capturing()`), sem duplicação relevante.
+
+## Achados da rodada 1: estado
+
+| # | Severidade | Estado |
+|---|---|---|
+| 1 | BLOQUEANTE | **Resolvido** (teste novo + quebras D e E' vermelhas, verificadas por mim) |
+| 2 | MENOR | Registrado: OPR-004 (`verifyMergedManifest` fora do ciclo `check`/`bundle`), dono `arquiteto`, aberto. Não exigido nesta tarefa |
+| 3 | MENOR | Registrado: OPR-005 (`verify16kAlignment` lê APK, não AAB), dono `arquiteto`, aberto. Não exigido nesta tarefa |
+| 4 | MENOR | Registrado: OPR-006 (robustez do `ElfAlignment`/registro com flavors), dono `motor-voz`, aberto. Não exigido nesta tarefa |
+
+## Achados novos
+
+Nenhum.
+
+## Não verificado
+
+- Execução em aparelho ou emulador: nenhum conectado, e a tarefa não tem tela nem instrumentados.
+- `verify16kAlignment` com `.so` reais do Vosk: é da 0003 (sem mudança desde a rodada 1).
+- Os limites da rodada 1 (compatibilidade AGP 9.4.1 × KGP 2.4.21; o plano não foi relido inteiro linha a linha) continuam valendo. Nesta rodada reli só as partes alteradas do `impl_plan.md`.
+
+---
+
+# Histórico — Rodada 1 (REPROVADO)
+
 
 # Revisão — 0001-etapa0-contratos
 
