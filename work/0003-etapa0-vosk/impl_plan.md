@@ -6866,9 +6866,13 @@ Portões humanos: o 1 (manifesto) já foi aprovado. Nenhum outro é necessário 
 
 ## Registro da construção (preenchido pelo agente de construção)
 
-**Agente:** <motor-voz | interface> · **Commit(s):** <hash>
+**Agente:** motor-voz (Tarefas 1 a 11; faltam as Tarefas 12 a 15, do `interface`, e a 16, do `motor-voz`) · **Commits:** 16b7a18 (T1), de3ce85 (T2), 7265da3 (T3), 28698cc (T4), d796367 (T5), 773fc6e (T6), d9d1c23 (T7), 4ab55a2 (T8), 8c01c72 (T9), ae971e2 (T10), 33a2656 (T11)
 
-- Feito: <...>
-- Testes criados: <...>
-- Desvios do plano e motivo: <nenhum | ...>
-- Comandos rodados e resultado: <...>
+- Feito: os blocos do plano aplicados na ordem, um commit por tarefa (trailer de coautoria incluído), teste antes do código em cada uma (compilação falhou com "Unresolved reference" antes de cada implementação). Modelo baixado por `scripts/baixar-modelo.sh` (SHA-256 conferido) e commitado como ponteiros LFS (`git lfs ls-files` lista 15 arquivos com `*`; `git diff --cached --stat` mostrou 3 linhas por arquivo). TRD §Manifesto substituído pelo texto aprovado (3 linhas por 4). `core/src/main` intocado (`git diff main --stat -- etapa0/core/src/main` vazio). Sem push.
+- Testes criados: `:app` 82 (FstSymbols 3, Vocabulary 4, LexiconRealModel 4, AudioLevel 5, VoskJson 8, TestTextCatalog 5, ExportFiles 6, ExportNameAndWriter 4, VoskEngineSession 17, VoskEngineState 10, ModelInstaller 7, WavAudioSource 8, mais o `CoreFromAppTest` que já existia); `build-logic` 27 (ManifestPermissionCheck 11, NativeLibScan 9, ElfAlignment 7). `:core` 118, inalterado.
+- Desvios do plano e motivo:
+  1. Contagem do modelo: o plano diz "15 arquivos + uuid = 16". O zip tem 14 arquivos; com o `uuid` são 15 (`find` = 15; soma 53.552.813 bytes = 53.552.717 do plano + 96 do `uuid`). Conteúdo e SHA-256 batem; só o número do plano estava errado. Os 15 arquivos estão no LFS.
+  2. Na Tarefa 2, apliquei o novo manifesto por engano antes do Passo 2 e refiz: restaurei o manifesto antigo, rodei `verifyMergedManifest --continue` (as duas variantes reprovam com o nome `DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION`, evidência `B1-manifesto-antes.txt`) e reapliquei o aprovado. Sem efeito no resultado.
+  3. A Tarefa 7 e a 11 pedem "avisar o orquestrador" para o `interface` começar: o trabalho foi sequencial (sem worktree), então o aviso vai neste relatório.
+  4. Aviso do compilador (não é erro, não afrouxei nada): `EngineHarness.kt` (teste, código literal do plano) usa API experimental de coroutines-test sem `@OptIn`. Fica para o revisor decidir.
+- Comandos rodados e resultado (em `etapa0/`): `./gradlew testDebugUnitTest :core:test lint ktlintCheck verifyMergedManifest --rerun-tasks` BUILD SUCCESSFUL (lint do `:app`: só `MissingApplicationIcon`, que já existia); `assembleDebug assembleRelease bundleRelease` BUILD SUCCESSFUL na Tarefa 2; `aapt2 dump permissions` do APK de release: só `RECORD_AUDIO`; `mapping.txt` mantém `com.sun.jna.Native` e `org.vosk.Recognizer`; `scripts/verificar-manifesto-negativo.sh` exit=0 (4 reprovações, 1 aprovação); `scripts/varrer-registerreceiver.sh` exit=0 (77 bibliotecas, 13.076 classes; só `MediaQuery` do compose-ui com flag 2 e `ContextKt` do core-ktx); `check`, `assembleRelease` e `bundleRelease` com `--dry-run` listam `verify…MergedManifest`; `grep -rnE "MediaRecorder|SpeechService|Log\." app/src/main` vazio; nenhum `@Ignore`/`@Disabled`. Evidências em `work/0003-etapa0-vosk/evidencias/` (B1, B2, B3, B4, B6, A4, CIA). O `verify16kAlignment` e a verificação completa ficam para a Tarefa 16.
