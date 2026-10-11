@@ -303,7 +303,13 @@ class ReaderGuardsTest {
         assertEquals(AlignPresets.conservador, PresetChoice.Conservador.params)
         assertEquals(AlignPresets.normal, PresetChoice.Normal.params)
         assertEquals(AlignPresets.agil, PresetChoice.Agil.params)
-        assertEquals(3, PresetChoice.entries.map { it.params }.distinct().size)
+        assertEquals(
+            3,
+            PresetChoice.entries
+                .map { it.params }
+                .distinct()
+                .size,
+        )
     }
 
     @Test

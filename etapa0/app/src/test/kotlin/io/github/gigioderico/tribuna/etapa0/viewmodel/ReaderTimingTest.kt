@@ -28,8 +28,18 @@ class ReaderTimingTest {
             assertEquals(300L, h.state.debug.prepareMs)
             assertEquals(7L, h.state.debug.beginSessionMs)
             h.export()
-            assertTrue(h.exported.getValue("T01.meta.txt").lines().contains("prepare_ms=300"))
-            assertTrue(h.exported.getValue("T01.meta.txt").lines().contains("install_ms=1234"))
+            assertTrue(
+                h.exported
+                    .getValue("T01.meta.txt")
+                    .lines()
+                    .contains("prepare_ms=300"),
+            )
+            assertTrue(
+                h.exported
+                    .getValue("T01.meta.txt")
+                    .lines()
+                    .contains("install_ms=1234"),
+            )
             assertEquals(1_234L, h.state.debug.installMs)
         }
 
@@ -89,7 +99,11 @@ class ReaderTimingTest {
             h.clockSkew = 400
             h.partial("zzz")
             h.partial("zzz", "yyy")
-            assertEquals(listOf("zzz"), h.state.debug.tail.takeLast(1))
+            assertEquals(
+                listOf("zzz"),
+                h.state.debug.tail
+                    .takeLast(1),
+            )
             assertEquals(cursor, h.state.cursor)
             h.clockSkew = 700
             h.controller.onScrollSettled(cursor + 1)
