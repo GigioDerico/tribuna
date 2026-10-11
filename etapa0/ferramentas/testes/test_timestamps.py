@@ -2,6 +2,7 @@
 
 import json
 import sys
+import types
 import unittest
 import wave
 from unittest import mock
@@ -36,6 +37,39 @@ class ReconhecedorFalso:
 
     def FinalResult(self):  # noqa: N802
         return json.dumps(FINAL)
+
+
+class ReconhecedorComVariosResults:
+    """Imita o Vosk real, que fecha um Result() a cada pausa: os blocos 1 e 3 fecham, com 3 e 2 palavras; o
+    FinalResult() traz a última. `ordem` troca a ordem em que o último Result() entrega as palavras."""
+
+    RESULTS = [
+        {"result": [
+            {"word": "ouvir", "start": 1.21, "end": 1.53, "conf": 1.0},
+            {"word": "bem", "start": 1.53, "end": 1.79, "conf": 0.98},
+            {"word": "três", "start": 2.0, "end": 2.4, "conf": 0.9},
+        ]},
+        {"result": [
+            {"word": "quatro", "start": 3.0, "end": 3.4, "conf": 0.8},
+            {"word": "cinco", "start": 3.4, "end": 3.9, "conf": 0.7},
+        ]},
+    ]
+    FINAL = {"result": [{"word": "seis", "start": 4.0, "end": 4.5, "conf": 0.6}]}
+
+    def __init__(self):
+        self.blocos = 0
+        self.fechados = 0
+
+    def AcceptWaveform(self, dados):  # noqa: N802
+        self.blocos += 1
+        return self.blocos in (1, 3)
+
+    def Result(self):  # noqa: N802
+        self.fechados += 1
+        return json.dumps(self.RESULTS[self.fechados - 1])
+
+    def FinalResult(self):  # noqa: N802
+        return json.dumps(self.FINAL)
 
 
 class Fabrica:
@@ -138,6 +172,99 @@ class TimestampsTest(unittest.TestCase):
             codigo, out, err = rodar(timestamps.main, [caminho, "--modelo", str(p.dir / "nao_existe")])
             self.assertEqual(2, codigo)
         self.assertEqual("", out)
+
+    def test_rodada2_varios_result_acumulam_todas_as_palavras_na_ordem(self):
+        """Achado 6 do REVIEW (C1; Z10, Z11): cada Result() traz várias palavras e o Vosk real fecha um por pausa;
+        o words.csv leva todas, dos Result() e do FinalResult()."""
+        with Pasta() as p:
+            caminho = escrever_wav(str(p.dir / "T02_giorgio_salao_t2.wav"), quadros=20000)
+            reconhecedor = ReconhecedorComVariosResults()
+            codigo, out, err = rodar(lambda argv: timestamps.main(argv, fabrica=lambda taxa: reconhecedor), [caminho])
+        self.assertEqual(0, codigo, err)
+        self.assertEqual((2, 5), (reconhecedor.fechados, reconhecedor.blocos), "Q3: 2 Result() em 5 blocos")
+        self.assertEqual(
+            ["palavra,t_inicio_ms,t_fim_ms,conf", "ouvir,1210,1530,1.0", "bem,1530,1790,0.98", "três,2000,2400,0.9",
+             "quatro,3000,3400,0.8", "cinco,3400,3900,0.7", "seis,4000,4500,0.6"],
+            out.splitlines(),
+        )
+
+    def test_rodada2_ordena_por_inicio_mesmo_com_palavras_aninhadas(self):
+        """Z09: a ordem é a do tempo de início (e só depois a do fim)."""
+        aninhado = {"result": [{"word": "bem", "start": 1.2, "end": 1.5, "conf": 1.0},
+                               {"word": "ouvir", "start": 1.0, "end": 2.0, "conf": 1.0}]}
+        with mock.patch.object(ReconhecedorFalso, "Result", lambda self: json.dumps(aninhado)):
+            codigo, out, _err, _f = self._rodar()
+        self.assertEqual(0, codigo)
+        self.assertEqual(["ouvir", "bem", "três"], [linha.split(",")[0] for linha in out.splitlines()[1:]])
+
+    def test_rodada2_nome_com_sufixo_depois_do_wav_sai_com_2(self):
+        """Z01: o nome inteiro tem de casar com o padrão."""
+        for nome in ("T02_giorgio_salao_t2.wav.bak", "T02_giorgio_salao_t2.wavx", "T02_giorgio_salao_t2.wav "):
+            with self.subTest(nome=nome):
+                codigo, out, err, fabrica = self._rodar(nome=nome)
+                self.assertEqual((2, "", []), (codigo, out, fabrica.taxas))
+                self.assertIn("nome fora do padrão", err)
+
+    def test_rodada2_wav_corrompido_ausente_ou_vazio_sai_com_2(self):
+        """Z05: sem traceback; rc 1 não existe nesta ferramenta e rc 2 diz 'entrada inválida'."""
+        with Pasta() as p:
+            casos = {
+                "texto qualquer": p.arquivo("T02_giorgio_salao_t2.wav", b"isto nao e um wav"),
+                "vazio": p.arquivo("T02_giorgio_salao_t3.wav", b""),
+                "ausente": str(p.dir / "T02_giorgio_salao_t4.wav"),
+            }
+            for nome, caminho in casos.items():
+                with self.subTest(caso=nome):
+                    fabrica = Fabrica()
+                    codigo, out, err = rodar(lambda argv: timestamps.main(argv, fabrica=fabrica), [caminho])
+                    self.assertEqual((2, "", []), (codigo, out, fabrica.taxas))
+                    self.assertIn("WAV ilegível", err)
+
+    def test_rodada2_blocos_de_4000_quadros(self):
+        """Varredura (timestamps.py:27, :53): o WAV é entregue em blocos de 4000 quadros de 2 bytes."""
+        with Pasta() as p:
+            blocos = timestamps.blocos_do_wav(escrever_wav(str(p.dir / "T02_giorgio_salao_t2.wav"), quadros=10001))
+        self.assertEqual([8000, 8000, 4002], [len(b) for b in blocos])
+
+    def _vosk_falso(self, chamadas, falha_ao_abrir=False):
+        class Reconhecedor(ReconhecedorFalso):
+            def SetWords(self, ligado):  # noqa: N802
+                chamadas.append(("SetWords", ligado))
+
+        def model(*args, **kwargs):
+            chamadas.append(("Model", args, kwargs))
+            if falha_ao_abrir:
+                raise Exception("Failed to create a model")
+            return "modelo"
+
+        def kaldi(modelo, taxa):
+            chamadas.append(("KaldiRecognizer", modelo, taxa))
+            return Reconhecedor()
+
+        return types.SimpleNamespace(SetLogLevel=lambda nivel: chamadas.append(("SetLogLevel", nivel)),
+                                     Model=model, KaldiRecognizer=kaldi)
+
+    def test_rodada2_modo_real_abre_o_modelo_so_por_caminho_e_liga_SetWords(self):
+        """D5, D21 (varredura timestamps.py:94-102): módulo vosk falso no lugar do pacote. O modelo abre só com
+        model_path (nunca model_name ou lang, que baixariam da internet) e o reconhecedor liga SetWords(True)."""
+        chamadas = []
+        with Pasta() as p, mock.patch.dict(sys.modules, {"vosk": self._vosk_falso(chamadas)}):
+            caminho = escrever_wav(str(p.dir / "T01_giorgio_sala_t1.wav"))
+            codigo, out, err = rodar(timestamps.main, [caminho, "--modelo", str(p.dir)])
+            modelo = str(p.dir)
+        self.assertEqual(0, codigo, err)
+        self.assertEqual([("SetLogLevel", -1), ("Model", (), {"model_path": modelo}),
+                          ("KaldiRecognizer", "modelo", 16000), ("SetWords", True)], chamadas)
+        self.assertIn("ouvir,1210,1530,1.0", out.splitlines())
+
+    def test_rodada2_modelo_que_nao_abre_sai_com_2(self):
+        chamadas = []
+        with Pasta() as p, mock.patch.dict(sys.modules, {"vosk": self._vosk_falso(chamadas, falha_ao_abrir=True)}):
+            caminho = escrever_wav(str(p.dir / "T01_giorgio_sala_t1.wav"))
+            codigo, out, err = rodar(timestamps.main, [caminho, "--modelo", str(p.dir)])
+        self.assertEqual((2, ""), (codigo, out))
+        self.assertIn("o modelo não abriu", err)
+        self.assertNotIn("KaldiRecognizer", [c[0] for c in chamadas])
 
     def test_saida_em_arquivo_com_o(self):
         with Pasta() as p:

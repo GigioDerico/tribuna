@@ -229,6 +229,86 @@ class DesempateMinimoTest(unittest.TestCase):
         self.assertEqual([], inseridas)
 
 
+class RelatorioDoAlinhamentoTest(unittest.TestCase):
+    def test_rodada2_insercao_no_comeco_aparece_no_stderr(self):
+        """OPR-037 (Y08): duas palavras antes da leitura (improviso de abertura) são listadas na revisão manual."""
+        palavras = ["livro", "fala"] + [p for _, p in s.palavras_dos_tokens(s.tokens("T01"))]
+        codigo, out, err = _alinhar("T01", palavras)
+        self.assertEqual(0, codigo)
+        self.assertEqual((600, 850), _tempos(out)[0])
+        self.assertIn("palavras inseridas: 2\n", err)
+        self.assertIn("inseridas: palavras 0-1 [0-550 ms] livro fala\n", err)
+
+    def test_rodada2_faixas_de_tokens_sem_tempo_e_de_palavras_inseridas_no_stderr(self):
+        """Varredura (alinhar.py:208-209): faixas consecutivas viram 'a-z', as separadas ficam separadas, e a 2ª e a
+        3ª faixa também se fundem (não só a primeira)."""
+        pares = s.palavras_dos_tokens(s.tokens("T01"))
+        palavras = [p for i, p in pares if i not in (2, 3, 4, 8, 9, 100)]
+        palavras[30:30] = ["livro", "fala"]  # duas inseridas seguidas, longe dos tokens omitidos
+        palavras[60:60] = ["mal", "mais"]  # outras duas, em outra faixa
+        palavras[150:150] = ["muita"]  # e uma sozinha
+        codigo, out, err = _alinhar("T01", palavras)
+        self.assertEqual(0, codigo)
+        self.assertEqual(
+            ["tokens com tempo: 209", "tokens sem tempo: 6", "palavras inseridas: 5",
+             "sem tempo: tokens 2-4", "sem tempo: tokens 8-9", "sem tempo: tokens 100-100"],
+            err.splitlines()[:6])
+        inseridas = err.splitlines()[6:]
+        self.assertEqual(3, len(inseridas), inseridas)
+        self.assertTrue(inseridas[0].startswith("inseridas: palavras 30-31 [9000-9550 ms] livro fala"), inseridas[0])
+        self.assertTrue(inseridas[1].startswith("inseridas: palavras 60-61 [18000-18550 ms] mal mais"), inseridas[1])
+        self.assertTrue(inseridas[2].startswith("inseridas: palavras 150-150 [45000-45250 ms] muita"), inseridas[2])
+
+    def test_rodada2_ultima_palavra_repetida_fica_com_a_primeira_vez(self):
+        """OPR-037 (Y07): empate no fim da transcrição (a última palavra dita duas vezes): o token fica com a
+        primeira ocorrência e a repetição é a inserida, como no meio do texto (A3)."""
+        tokens = s.tokens("T01")
+        palavras = [p for _, p in s.palavras_dos_tokens(tokens)]
+        palavras += [palavras[-1]]
+        codigo, out, err = _alinhar("T01", palavras)
+        self.assertEqual(0, codigo, err)
+        n = len(palavras) - 1
+        self.assertEqual((300 * (n - 1), 300 * (n - 1) + 250), _tempos(out)[len(tokens) - 1])
+        self.assertIn(f"inseridas: palavras {n}-{n} ", err)
+
+
+class DesempateComTokensExplicitosTest(unittest.TestCase):
+    """Casos mínimos achados pela varredura anti-recorrência da 0004 (rodada 2): cada um separa o alinhador original
+    de uma quebra numérica em `_linha`/`alinhar` (índices de coluna, custo da inserção inicial). Os tokens são
+    palavras soltas dos textos de teste; as saídas são as do D6/A3 (menos edições, depois menos trechos)."""
+
+    def _alinhar(self, tokens, palavras):
+        toks = [roteiro.Token(k, 0, 0, tuple((w,) for w in t)) for k, t in enumerate(tokens)]
+        transcricao = [alinhar.Palavra(p, 300 * n, 300 * n + 250) for n, p in enumerate(palavras)]
+        pares, inseridas = alinhar.alinhar(toks, transcricao)
+        return alinhar.tempos_dos_tokens(toks, transcricao, pares), inseridas
+
+    def test_rodada2_omissao_no_meio_e_insercao_no_fim(self):
+        tempos, inseridas = self._alinhar(
+            [("pessoa",), ("sai",), ("da",), ("conversa",), ("com",), ("a",)],
+            ["pessoa", "conversa", "com", "a", "nao"])
+        self.assertEqual([(0, 250), None, None, (300, 550), (600, 850), (900, 1150)], tempos)
+        self.assertEqual([4], inseridas)
+
+    def test_rodada2_dois_trechos_de_insercao_no_comeco_valem_um_trecho(self):
+        tempos, inseridas = self._alinhar([("comeca",)], ["se", "comeca", "comeca"])
+        self.assertEqual([(600, 850)], tempos)
+        self.assertEqual([0, 1], inseridas)
+
+    def test_rodada2_insercao_no_comeco_com_substituicao_adiante(self):
+        tempos, inseridas = self._alinhar(
+            [("rodeios",), ("outra",), ("parte",)], ["resposta", "ler", "rodeios", "parte", "muito"])
+        self.assertEqual([(600, 850), None, None], tempos)
+        self.assertEqual([0, 1], inseridas)
+
+    def test_rodada2_tres_palavras_no_comeco_pagam_um_trecho_so(self):
+        """O custo da inserção inicial cresce `estende` por palavra (A3): três palavras antes da leitura não
+        custam mais que o alinhamento que as troca por substituições."""
+        tempos, inseridas = self._alinhar([("ouvir",), ("bem",)], ["livro", "fala", "mal", "ouvir", "bem"])
+        self.assertEqual([(900, 1150), (1200, 1450)], tempos)
+        self.assertEqual([0, 1, 2], inseridas)
+
+
 class GuardaTest(unittest.TestCase):
     def test_D8_texto_diferente_de_etapa0_textos_sai_com_2_sem_escrever(self):
         original = (roteiro.TEXTOS / "T01.txt").read_bytes()
@@ -257,6 +337,58 @@ class GuardaTest(unittest.TestCase):
                 codigo, out, _err = s.rodar(alinhar.main, argv)
                 self.assertEqual(2, codigo)
                 self.assertEqual("", out)
+
+    def test_rodada2_transcricao_invalida_mais_casos(self):
+        """OPR-036 (Y09, Y10, Y15): início negativo, conf que não é número e ordem pelo início."""
+        cab = "palavra,t_inicio_ms,t_fim_ms,conf\n"
+        casos = {
+            "início negativo": cab + "ouvir,-5,250,1.0\n",
+            "início -1": cab + "ouvir,-1,250,1.0\n",
+            "conf não numérica": cab + "ouvir,0,250,abc\n",
+            "início anterior ao da linha de cima, fim depois": cab + "ouvir,1000,1200,1.0\nbem,500,1500,1.0\n",
+        }
+        for nome, conteudo in casos.items():
+            with self.subTest(caso=nome), s.Pasta() as p:
+                codigo, out, err = s.rodar(alinhar.main, [str(roteiro.TEXTOS / "T01.txt"), p.arquivo("t.csv", conteudo)])
+                self.assertEqual((2, ""), (codigo, out))
+                self.assertIn("alinhar.py: transcrição:", err)
+
+    def test_rodada2_mensagem_de_erro_aponta_a_linha_certa(self):
+        """Varredura anti-recorrência (alinhar.py:50): a numeração das linhas de dados começa em 1."""
+        cab = "palavra,t_inicio_ms,t_fim_ms,conf\n"
+        conteudo = cab + "ouvir,0,250,1.0\nbem,300,550,1.0\ne,600,x,1.0\n"
+        with s.Pasta() as p:
+            codigo, out, err = s.rodar(alinhar.main, [str(roteiro.TEXTOS / "T01.txt"), p.arquivo("t.csv", conteudo)])
+        self.assertEqual((2, ""), (codigo, out))
+        self.assertEqual("alinhar.py: transcrição: linha 3 com número inválido\n", err)
+
+    def test_rodada2_palavras_que_se_sobrepoem_sao_aceitas_se_o_inicio_nao_recua(self):
+        """Y15: a ordem exigida é a do início, não a do fim da linha de cima."""
+        conteudo = "palavra,t_inicio_ms,t_fim_ms,conf\nouvir,0,1000,1.0\nbem,500,600,1.0\n"
+        with s.Pasta() as p:
+            codigo, out, err = s.rodar(alinhar.main, [str(roteiro.TEXTOS / "T01.txt"), p.arquivo("t.csv", conteudo)])
+        self.assertEqual(0, codigo, err)
+        self.assertEqual({0: (0, 1000), 1: (500, 600)}, {k: v for k, v in _tempos(out).items() if v})
+
+    def test_rodada2_arquivo_ausente_ou_nao_utf8_sai_com_2(self):
+        with s.Pasta() as p:
+            texto = str(roteiro.TEXTOS / "T01.txt")
+            invalido = p.arquivo("ruim.csv", b"palavra,t_inicio_ms,t_fim_ms,conf\n\xff\xfe,0,1,1.0\n")
+            for nome, argv in (("transcrição ausente", [texto, str(p.dir / "nao_existe.csv")]),
+                               ("texto ausente", [str(p.dir / "nao_existe.txt"), invalido]),
+                               ("transcrição não UTF-8", [texto, invalido])):
+                with self.subTest(caso=nome):
+                    codigo, out, err = s.rodar(alinhar.main, argv)
+                    self.assertEqual((2, ""), (codigo, out))
+                    self.assertIn("alinhar.py:", err)
+
+    def test_rodada2_transcricao_grande_demais_sai_com_2(self):
+        """OPR-036 (Y12): a guarda recusa antes de montar o DP, em vez de estourar array('i') ou levar horas."""
+        conteudo = "palavra,t_inicio_ms,t_fim_ms,conf\n" + "ouvir,0,250,1.0\n" * 25000
+        with s.Pasta() as p:
+            codigo, out, err = s.rodar(alinhar.main, [str(roteiro.TEXTOS / "T01.txt"), p.arquivo("t.csv", conteudo)])
+        self.assertEqual((2, ""), (codigo, out))
+        self.assertIn("grandes demais", err)
 
     def test_palavra_de_duracao_zero_e_aceita(self):
         with s.Pasta() as p:
