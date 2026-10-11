@@ -1,0 +1,10 @@
+OK: INTERNET -> verifyDebugMergedManifest falhou como esperado
+    - permissão não permitida: android.permission.INTERNET
+OK: ACCESS_NETWORK_STATE -> verifyDebugMergedManifest falhou como esperado
+    - permissão não permitida: android.permission.ACCESS_NETWORK_STATE
+OK: WAKE_LOCK -> verifyDebugMergedManifest falhou como esperado
+    - permissão não permitida: android.permission.WAKE_LOCK
+OK: CAMERA -> verifyDebugMergedManifest falhou como esperado
+    - permissão não permitida: android.permission.CAMERA
+OK: só RECORD_AUDIO -> verifyDebugMergedManifest passou
+script-exit=0

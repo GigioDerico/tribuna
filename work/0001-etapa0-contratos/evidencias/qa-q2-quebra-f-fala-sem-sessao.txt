@@ -1,0 +1,51 @@
+# QA Q2 quebra F: hearPartial/hearFinal deixam de descartar fala sem sessao ativa (reaproveitam o ultimo reconhecedor)
+diff --git a/etapa0/core/src/testFixtures/kotlin/io/github/gigioderico/tribuna/etapa0/speech/FakeSpeechEngine.kt b/etapa0/core/src/testFixtures/kotlin/io/github/gigioderico/tribuna/etapa0/speech/FakeSpeechEngine.kt
+index ff6e1ad..eeed420 100644
+--- a/etapa0/core/src/testFixtures/kotlin/io/github/gigioderico/tribuna/etapa0/speech/FakeSpeechEngine.kt
++++ b/etapa0/core/src/testFixtures/kotlin/io/github/gigioderico/tribuna/etapa0/speech/FakeSpeechEngine.kt
+@@ -81,12 +81,12 @@ class FakeSpeechEngine(
+ 
+     /** Fala chegando ao motor: vira Partial da sessão ativa; sem sessão, é descartada. */
+     fun hearPartial(words: List<String>) {
+-        active?.partial(words)
++        (active ?: created.lastOrNull())?.partial(words)
+     }
+ 
+     /** Fala chegando ao motor: vira Final da sessão ativa; sem sessão, é descartada. */
+     fun hearFinal(words: List<String>) {
+-        active?.final(words)
++        (active ?: created.lastOrNull())?.final(words)
+     }
+ 
+     /** Nível de áudio da captura; só chega com o microfone aberto. */
+> Task :build-logic:compileJava NO-SOURCE
+> Task :build-logic:classes
+> Task :build-logic:jar
+> Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core:processResources NO-SOURCE
+> Task :core:processTestFixturesResources NO-SOURCE
+> Task :core:processTestResources NO-SOURCE
+> Task :core:compileKotlin
+> Task :core:compileJava NO-SOURCE
+> Task :core:classes UP-TO-DATE
+> Task :core:jar
+> Task :core:compileTestFixturesKotlin
+> Task :core:compileTestFixturesJava NO-SOURCE
+> Task :core:testFixturesClasses UP-TO-DATE
+> Task :core:testFixturesJar
+> Task :core:compileTestKotlin
+> Task :core:compileTestJava NO-SOURCE
+> Task :core:testClasses UP-TO-DATE
+> Task :core:test FAILED
+FakeSpeechEngineTest > endSession_naoEmiteMaisPartialNemFinal_eLevelContinua FAILED
+    java.lang.AssertionError at FakeSpeechEngineTest.kt:185
+25 tests completed, 1 failed
+FAILURE: Build failed with an exception.
+* What went wrong:
+Execution failed for task ':core:test'.
+> There were failing tests. See the report at: file:///Users/giorgioderico/Projetos/Tribuna/etapa0/core/build/reports/tests/test/index.html
+* Try:
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+BUILD FAILED in 2s
+10 actionable tasks: 10 executed
+exit=

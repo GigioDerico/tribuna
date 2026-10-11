@@ -1,0 +1,35 @@
+# QA Q2 quebra G: ManifestPermissionCheck passa a ignorar ACCESS_NETWORK_STATE
+diff --git a/etapa0/build-logic/src/main/kotlin/io/github/gigioderico/tribuna/buildlogic/ManifestPermissionCheck.kt b/etapa0/build-logic/src/main/kotlin/io/github/gigioderico/tribuna/buildlogic/ManifestPermissionCheck.kt
+index 2c6a8e1..a7cb85f 100644
+--- a/etapa0/build-logic/src/main/kotlin/io/github/gigioderico/tribuna/buildlogic/ManifestPermissionCheck.kt
++++ b/etapa0/build-logic/src/main/kotlin/io/github/gigioderico/tribuna/buildlogic/ManifestPermissionCheck.kt
+@@ -30,7 +30,7 @@ object ManifestPermissionCheck {
+         required: Set<String>,
+     ): List<String> {
+         val declared = declaredPermissions(manifestXml)
+-        val extra = declared.filterNot { it in allowed }.distinct().sorted().map { "permissão não permitida: $it" }
++        val extra = declared.filterNot { it in allowed || it.endsWith("ACCESS_NETWORK_STATE") }.distinct().sorted().map { "permissão não permitida: $it" }
+         val missing = (required - declared.toSet()).sorted().map { "permissão exigida ausente: $it" }
+         return extra + missing
+     }
+## testDebugUnitTest
+> Task :build-logic:test FAILED
+ManifestPermissionCheckTest > accessNetworkState_falha FAILED
+20 tests completed, 1 failed
+BUILD FAILED in 2s
+## script negativo (projeto real), exit=1
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :app:processDebugMainManifest
+
+> Task :app:verifyDebugMergedManifest
+verifyDebugMergedManifest: OK /Users/giorgioderico/Projetos/Tribuna/etapa0/app/build/intermediates/merged_manifest/debug/processDebugMainManifest/AndroidManifest.xml -> android.permission.ACCESS_NETWORK_STATE, android.permission.RECORD_AUDIO
+
+BUILD SUCCESSFUL in 397ms
+7 actionable tasks: 2 executed, 5 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.7.1/userguide/configuration_cache_enabling.html
+OK: WAKE_LOCK -> verifyDebugMergedManifest falhou como esperado
+    - permissão não permitida: android.permission.WAKE_LOCK
+OK: CAMERA -> verifyDebugMergedManifest falhou como esperado
+    - permissão não permitida: android.permission.CAMERA
+OK: só RECORD_AUDIO -> verifyDebugMergedManifest passou

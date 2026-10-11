@@ -29,7 +29,7 @@ Quebrar qualquer uma destas é bug, mesmo que o resto funcione.
 O ciclo completo, os papéis e a escada de escalonamento estão em `PROCESS.md`. As perguntas de revisão estão em `REVIEW-QUESTIONS.md`.
 
 1. **Quem implementa não revisa nem testa.** Código escrito por `motor-voz` ou `interface` é revisado pelo `revisor` e testado pelo `qa-publicacao`, cada um em seu próprio contexto. Nenhum agente declara o próprio código "revisado" ou "aprovado".
-2. **Nenhum código antes do plano aprovado.** Fora mudanças triviais (texto de interface, cor, correção de uma linha com teste), primeiro `spec.md`, depois `impl_plan.md`, aprovação humana, e só então código.
+2. **Nenhum código antes do plano aprovado.** Fora mudanças triviais (texto de interface, cor, correção de uma linha com teste), primeiro `spec.md`, depois `impl_plan.md`, portão automático do orquestrador (humano só nos portões do `PROCESS.md`, Autonomia e portões humanos), e só então código.
 3. **Análise de impacto antes de mexer em contrato.** Contratos do TRD, chaves do DataStore, manifesto ou regra inegociável: `change_impact_analysis.md` e aprovação humana primeiro.
 4. **Pare depois de 3 falhas seguidas** no mesmo problema e escale ao `arquiteto`, com o que foi tentado e a saída real.
 5. **Nenhuma sessão termina em silêncio.** Sempre diga o que foi feito, onde está (arquivo, commit), o que ficou pendente e se há decisão humana esperando.
@@ -37,7 +37,7 @@ O ciclo completo, os papéis e a escada de escalonamento estão em `PROCESS.md`.
 7. **Nenhum achado se perde.** O que não cabe na tarefa vai para `registers/opr_register.md` com dono.
 8. **Comando antes de opinião.** O que um comando pode responder (build, testes, manifesto, 16 KB, métricas) é respondido pelo comando, com a saída anexada.
 
-A sessão principal é o orquestrador: abre a tarefa em `work/<NNNN>-<nome>/` a partir de `templates/`, chama os agentes na ordem do `PROCESS.md` e leva as decisões ao humano. Ela não implementa nem revisa.
+A sessão principal é o orquestrador: abre a tarefa em `work/<NNNN>-<nome>/` a partir de `templates/`, chama os agentes na ordem do `PROCESS.md` e leva ao humano só o que cai num portão humano. Ela não implementa nem revisa.
 
 ## Stack
 
@@ -88,7 +88,7 @@ python etapa0/ferramentas/metricas.py <trajetoria> <esperado> <eventos>
 
 ## Como trabalhar
 
-- **O plano é o `impl_plan.md` aprovado da tarefa.** Antes de codar, confira que ele existe e tem aprovação humana; em mudança trivial, descreva em três linhas que arquivos mudam e por quê.
+- **O plano é o `impl_plan.md` aprovado da tarefa.** Antes de codar, confira que ele existe e passou no portão do orquestrador; em mudança trivial, descreva em três linhas que arquivos mudam e por quê.
 - **Teste primeiro no núcleo.** `align/` e `ReadingStateMachine` são desenvolvidos com teste antes do código. Os casos obrigatórios estão na tabela de suítes do TRD.
 - **Use `FakeSpeechEngine`** para testar ViewModel e fluxo de leitura; testes de unidade nunca dependem do Vosk nem de microfone.
 - **Uma entrega = tudo verde.** Unitários, lint, `verifyMergedManifest` e, a partir do release, `verify16kAlignment`. Não marque tarefa como concluída com teste falhando ou desativado.

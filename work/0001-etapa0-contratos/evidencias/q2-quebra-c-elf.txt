@@ -1,0 +1,75 @@
+### Diff da quebra C
+diff --git a/etapa0/build-logic/src/main/kotlin/io/github/gigioderico/tribuna/buildlogic/NativeLibScan.kt b/etapa0/build-logic/src/main/kotlin/io/github/gigioderico/tribuna/buildlogic/NativeLibScan.kt
+index 12f6d68..178a9b5 100644
+--- a/etapa0/build-logic/src/main/kotlin/io/github/gigioderico/tribuna/buildlogic/NativeLibScan.kt
++++ b/etapa0/build-logic/src/main/kotlin/io/github/gigioderico/tribuna/buildlogic/NativeLibScan.kt
+@@ -40,7 +40,7 @@ object NativeLibScan {
+                             continue
+                         }
+                     if (aligns.isEmpty()) problems += "${apk.name}: ${entry.name} não tem segmento LOAD"
+-                    aligns.filter { it < minAlign }.distinct().forEach {
++                    aligns.filter { it < 0 }.distinct().forEach {
+                         problems += "${apk.name}: ${entry.name} tem segmento LOAD alinhado a $it bytes (mínimo $minAlign)"
+                     }
+                 }
+### Saída do Gradle
+> Task :build-logic:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core:compileKotlin UP-TO-DATE
+> Task :core:compileJava NO-SOURCE
+> Task :core:processResources NO-SOURCE
+> Task :core:classes UP-TO-DATE
+> Task :core:jar UP-TO-DATE
+> Task :core:compileTestFixturesKotlin UP-TO-DATE
+> Task :core:compileTestFixturesJava NO-SOURCE
+> Task :core:processTestFixturesResources NO-SOURCE
+> Task :core:testFixturesClasses UP-TO-DATE
+> Task :core:testFixturesJar UP-TO-DATE
+> Task :build-logic:pluginDescriptors UP-TO-DATE
+> Task :build-logic:processResources UP-TO-DATE
+> Task :build-logic:processTestResources NO-SOURCE
+> Task :core:compileTestKotlin UP-TO-DATE
+> Task :core:compileTestJava NO-SOURCE
+> Task :core:processTestResources NO-SOURCE
+> Task :core:testClasses UP-TO-DATE
+> Task :core:test UP-TO-DATE
+> Task :core:testDebugUnitTest UP-TO-DATE
+> Task :build-logic:compileKotlin
+> Task :build-logic:compileJava NO-SOURCE
+> Task :build-logic:classes UP-TO-DATE
+> Task :build-logic:jar
+> Task :build-logic:compileTestKotlin UP-TO-DATE
+> Task :build-logic:compileTestJava NO-SOURCE
+> Task :build-logic:pluginUnderTestMetadata
+> Task :build-logic:testClasses UP-TO-DATE
+
+> Task :build-logic:test FAILED
+
+NativeLibScanTest > outraLibDesalinhada_tambemEReportada FAILED
+    java.lang.AssertionError at NativeLibScanTest.kt:85
+
+NativeLibScanTest > libExigidaDesalinhada_eReportada FAILED
+    java.lang.AssertionError at NativeLibScanTest.kt:71
+
+20 tests completed, 2 failed
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':build-logic:test'.
+> There were failing tests. See the report at: file:///Users/giorgioderico/Projetos/Tribuna/etapa0/build-logic/build/reports/tests/test/index.html
+
+* Try:
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 1s
+13 actionable tasks: 4 executed, 9 up-to-date
+exit=1
+### Mensagens das falhas (TEST-...NativeLibScanTest.xml)
+<testcase name="semNenhumaLibNativa_falhaExplicitamente"
+<testcase name="outraLibDesalinhada_tambemEReportada"
+<failure message="java.lang.AssertionError: expected:&lt;[app.apk: lib/arm64-v8a/libc++_shared.so tem segmento LOAD alinhado a 4096 bytes (mínimo 16384)]&gt; but was:&lt;[]&gt;"
+<testcase name="libExigidaDesalinhada_eReportada"
+<failure message="java.lang.AssertionError: expected:&lt;[app.apk: lib/arm64-v8a/libvosk.so tem segmento LOAD alinhado a 4096 bytes (mínimo 16384)]&gt; but was:&lt;[]&gt;"
+<testcase name="duasAbisComAsDuasLibsAlinhadas_semProblemas"
+<testcase name="abiSemLibjnidispatch_eReportada"

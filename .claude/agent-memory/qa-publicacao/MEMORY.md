@@ -1,0 +1,1 @@
+- [Ambiente Etapa 0](ambiente_etapa0.md) — QA sem aparelho, comandos, armadilhas, quebras Q2 já usadas na 0001

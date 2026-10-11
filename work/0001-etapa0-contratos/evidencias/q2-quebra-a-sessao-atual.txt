@@ -1,0 +1,52 @@
+### Diff da quebra A
+diff --git a/etapa0/core/src/testFixtures/kotlin/io/github/gigioderico/tribuna/etapa0/speech/FakeSpeechEngine.kt b/etapa0/core/src/testFixtures/kotlin/io/github/gigioderico/tribuna/etapa0/speech/FakeSpeechEngine.kt
+index ff6e1ad..a5f431a 100644
+--- a/etapa0/core/src/testFixtures/kotlin/io/github/gigioderico/tribuna/etapa0/speech/FakeSpeechEngine.kt
++++ b/etapa0/core/src/testFixtures/kotlin/io/github/gigioderico/tribuna/etapa0/speech/FakeSpeechEngine.kt
+@@ -110,7 +110,7 @@ class FakeSpeechEngine(
+         val vocabulary: List<String>?,
+     ) {
+         fun partial(words: List<String>) {
+-            channel.trySend(SpeechEvent.Partial(session, words))
++            channel.trySend(SpeechEvent.Partial(active?.session ?: session, words))
+         }
+ 
+         fun final(words: List<String>) {
+### Saída do Gradle
+> Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core:compileKotlin UP-TO-DATE
+> Task :core:compileJava NO-SOURCE
+> Task :core:processResources NO-SOURCE
+> Task :core:classes UP-TO-DATE
+> Task :core:jar UP-TO-DATE
+> Task :core:compileTestFixturesKotlin UP-TO-DATE
+> Task :core:compileTestFixturesJava NO-SOURCE
+> Task :core:processTestFixturesResources NO-SOURCE
+> Task :core:testFixturesClasses UP-TO-DATE
+> Task :core:testFixturesJar UP-TO-DATE
+> Task :core:compileTestKotlin UP-TO-DATE
+> Task :core:compileTestJava NO-SOURCE
+> Task :core:processTestResources NO-SOURCE
+> Task :core:testClasses UP-TO-DATE
+
+> Task :core:test FAILED
+
+FakeSpeechEngineTest > callbackAtrasado_comOutraSessaoAtiva_chegaComOIdAntigo FAILED
+    java.lang.AssertionError at FakeSpeechEngineTest.kt:134
+
+1 test completed, 1 failed
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':core:test'.
+> There were failing tests. See the report at: file:///Users/giorgioderico/Projetos/Tribuna/etapa0/core/build/reports/tests/test/index.html
+
+* Try:
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 605ms
+6 actionable tasks: 1 executed, 5 up-to-date
+exit=1
+### Mensagem da falha (core/build/test-results/test/TEST-...FakeSpeechEngineTest.xml)
+<failure message="java.lang.AssertionError: expected:&lt;[Partial(session=SessionId(value=1), words=[habilidade]), Final(session=SessionId(value=1), words=[habilidade])]&gt; but was:&lt;[Partial(session=SessionId(value=2), words=[habilidade]), Final(session=SessionId(value=1), words=[habilidade])]&gt;"

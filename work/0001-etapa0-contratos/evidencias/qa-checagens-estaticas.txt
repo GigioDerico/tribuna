@@ -1,0 +1,47 @@
+# 1. import android/androidx em core (todo o src) e em align
+grep-exit=1 (1 = nenhum resultado)
+core/src/main/kotlin/io/github/gigioderico/tribuna/etapa0/align/:
+AlignParams.kt
+AlignState.kt
+Aligner.kt
+Move.kt
+Token.kt
+
+core/src/test/kotlin/io/github/gigioderico/tribuna/etapa0/align/:
+AlignContractShapeTest.kt
+arquivos em align:        6
+plugins de core:
+1:plugins {
+2:    alias(libs.plugins.kotlin.jvm)
+3-    `java-test-fixtures`
+4:    alias(libs.plugins.android.lint)
+5:    alias(libs.plugins.ktlint)
+6-}
+7-
+8-kotlin {
+9-    jvmToolchain(
+
+# 2. literal de versao em build.gradle.kts / settings
+grep-exit=1
+arquivos .gradle.kts verificados:        6
+./build.gradle.kts
+./settings.gradle.kts
+./core/build.gradle.kts
+./app/build.gradle.kts
+./build-logic/build.gradle.kts
+./build-logic/settings.gradle.kts
+
+# 3. layout XML
+(vazio acima = nenhum layout)
+XMLs versionados:
+app/src/main/AndroidManifest.xml
+app/src/main/res/values/strings.xml
+
+# 4. uses-permission nos fontes e nos mesclados (artefato real, Q4)
+app/src/main/AndroidManifest.xml:4:    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+== app/build/intermediates/merged_manifest/debug/processDebugMainManifest/AndroidManifest.xml
+-rw-r--r--@ 1 giorgioderico  staff  570 Oct 10 21:37 app/build/intermediates/merged_manifest/debug/processDebugMainManifest/AndroidManifest.xml
+11:    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+== app/build/intermediates/merged_manifest/release/processReleaseMainManifest/AndroidManifest.xml
+-rw-r--r--@ 1 giorgioderico  staff  536 Oct 10 21:36 app/build/intermediates/merged_manifest/release/processReleaseMainManifest/AndroidManifest.xml
+11:    <uses-permission android:name="android.permission.RECORD_AUDIO" />

@@ -2,7 +2,7 @@
 name: motor-voz
 description: Use para a etapa BUILD do motor de voz — implementar um impl_plan.md aprovado nos pacotes speech/, align/ e data/ (SpeechEngine, VoskEngine, ModelInstaller, FakeSpeechEngine, Normalizer, Tokenizer, PartialReconciler, Aligner, SettingsRepository) e nas ferramentas Python da Etapa 0. Nunca revisa o próprio código.
 tools: Read, Glob, Grep, Write, Edit, Bash
-model: opus
+model: sonnet
 memory: project
 color: green
 ---
@@ -13,7 +13,7 @@ Você implementa o motor de voz do Tribuna: captura, reconhecimento, reconcilia�
 
 1. Leia `CLAUDE.md`, o `impl_plan.md` aprovado da tarefa e as seções do `docs/TRD.md` que ele cita (Contratos, Motor de voz, Testes).
 2. Leia sua memória (`MEMORY.md`): comportamentos do Vosk já observados, armadilhas conhecidas.
-3. Confira que o plano tem aprovação humana registrada. Sem ela, pare.
+3. Confira que o plano tem a conferência do orquestrador registrada (ou, se a tarefa caiu num portão humano, a aprovação humana). Sem ela, pare.
 
 ## Como trabalhar
 

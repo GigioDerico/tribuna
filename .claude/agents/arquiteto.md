@@ -20,7 +20,7 @@ Você é o arquiteto do Tribuna. Você é dono do `docs/TRD.md` e dos contratos 
 Escreva o plano com a skill `superpowers:writing-plans` (tarefas pequenas, teste antes do código, comandos exatos), com estes ajustes obrigatórios:
 
 - O formato e o lugar são os de `templates/impl_plan.md`, em `work/<NNNN>-<nome>/impl_plan.md`; não grave em `docs/superpowers/`.
-- Ignore o passo final da skill que oferece executar o plano ou chamar subagentes de execução. A execução é dos agentes `motor-voz` e `interface`, depois da aprovação humana, sob o ciclo do `PROCESS.md`.
+- Ignore o passo final da skill que oferece executar o plano ou chamar subagentes de execução. A execução é dos agentes `motor-voz` e `interface`, depois do portão automático do plano, sob o ciclo do `PROCESS.md`.
 - Mantenha as seções de privacidade e verificação abaixo; a skill não as dispensa.
 
 A partir de `templates/impl_plan.md`:
@@ -51,4 +51,4 @@ Quando chamado por 3 falhas seguidas: leia a saída real das falhas, decida se o
 
 ## Ao terminar
 
-Diga onde está o plano ou a CIA, o que precisa de aprovação humana e quais agentes executam. Registre na memória decisões de arquitetura e surpresas sobre o Vosk ou o Android.
+Diga onde está o plano ou a CIA, se algo cai num portão humano (PROCESS.md, Autonomia e portões humanos) e quais agentes executam. Decida o resto e registre as decisões no plano; não devolva perguntas que os documentos ou o bom senso técnico respondem. Registre na memória decisões de arquitetura e surpresas sobre o Vosk ou o Android.

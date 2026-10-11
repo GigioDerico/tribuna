@@ -1,0 +1,71 @@
+## :core runtimeClasspath
+
+------------------------------------------------------------
+Project ':core'
+------------------------------------------------------------
+
+runtimeClasspath - Runtime classpath of 'main'.
++--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0
+|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.11.0
+|         +--- org.jetbrains:annotations:23.0.0
+|         +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.11.0
+|         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.11.0 (c)
+|         |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (c)
+|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.21
+|              \--- org.jetbrains:annotations:13.0 -> 23.0.0
+\--- org.jetbrains.kotlin:kotlin-stdlib:2.4.21 (*)
+
+(c) - A dependency constraint, not a dependency. The dependency affected by the constraint occurs elsewhere in the tree.
+(*) - Indicates repeated occurrences of a transitive dependency subtree. Gradle expands transitive dependency subtrees only once per project; repeat occurrences only display the root of the subtree, followed by this annotation.
+
+A web-based, searchable dependency report is available by adding the --scan option.
+## :app debugRuntimeClasspath
+
+------------------------------------------------------------
+Project ':app'
+------------------------------------------------------------
+
+debugRuntimeClasspath - Runtime classpath of '/debug'.
++--- org.jetbrains.kotlin:kotlin-stdlib:2.4.21
+|    \--- org.jetbrains:annotations:13.0 -> 23.0.0
+\--- project ':core'
+     +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0
+     |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.11.0
+     |         +--- org.jetbrains:annotations:23.0.0
+     |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.11.0
+     |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.11.0 (c)
+     |         |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (c)
+     |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.21 (*)
+     \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.21 (*)
+
+(c) - A dependency constraint, not a dependency. The dependency affected by the constraint occurs elsewhere in the tree.
+(*) - Indicates repeated occurrences of a transitive dependency subtree. Gradle expands transitive dependency subtrees only once per project; repeat occurrences only display the root of the subtree, followed by this annotation.
+
+A web-based, searchable dependency report is available by adding the --scan option.
+## catalog
+[versions]
+agp = "9.4.1"
+kotlin = "2.4.21"
+coroutines = "1.11.0"
+junit = "4.13.2"
+ktlintGradle = "14.2.0"
+ktlint = "1.8.0"
+jvm = "21"
+compileSdk = "36"
+targetSdk = "36"
+minSdk = "26"
+buildTools = "36.0.0"
+versionCode = "1"
+versionName = "0.0.1"
+
+[libraries]
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+junit = { module = "junit:junit", version.ref = "junit" }
+android-gradle-api = { module = "com.android.tools.build:gradle-api", version.ref = "agp" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-lint = { id = "com.android.lint", version.ref = "agp" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintGradle" }
