@@ -1,1 +1,2 @@
 - [Código do plano é extraível](plano_extracao.md) — impl_plan traz o código literal; extrair por script em vez de redigitar
+- [Controlador: armadilhas de teste](controlador_testes_armadilhas.md) — relógio virtual em 0, cursor<highWater, prepareGate, FieldSync, varredura por script
