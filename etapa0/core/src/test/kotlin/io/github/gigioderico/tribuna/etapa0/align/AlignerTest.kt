@@ -149,4 +149,97 @@ class AlignerTest {
         assertTrue("as 4 palavras casaram (Q3)", states.last().score >= AlignPresets.normal.longThreshold)
         assertTrue(states.last().missStreak >= AlignConstants.MISSES_FOR_RECOVERY)
     }
+
+    /**
+     * Cópias de "no fim do ano a" do L30 (a mais de 1.000 tokens uma da outra), com edições aplicadas a tokens
+     * indicado: o deslocamento dentro da frase é 0 = "no", 2 = "do", 4 = "a"; a palavra vira a forma falada única do token.
+     */
+    private class Copies(
+        val tokens: List<Token>,
+        val first: Int,
+        val second: Int,
+    )
+
+    private fun l30Copies(
+        editFirst: Map<Int, String> = emptyMap(),
+        editSecond: Map<Int, String> = emptyMap(),
+    ): Copies {
+        val l30 = TestTexts.tokens("L30")
+        val first = Speech.indexOf(l30, "no fim do ano a")
+        val second = Speech.indexOf(l30, "no fim do ano a", first + 1)
+        val edited = l30.toMutableList()
+        for ((offset, word) in editFirst) edited[first + offset] = l30[first + offset].copy(spoken = listOf(listOf(word)))
+        for ((offset, word) in editSecond) edited[second + offset] = l30[second + offset].copy(spoken = listOf(listOf(word)))
+        return Copies(edited, first, second)
+    }
+
+    private val fala = listOf("no", "fim", "do", "ano", "a")
+
+    /**
+     * Q2 (V6): fica vermelho se a ambiguidade for contada depois do filtro A2. A 2ª cópia ("fim do ano o") tem média
+     * (1+1+1+0,5·0)/3,5 = 0,857 ≥ 0,85, mas a palavra mais nova não casa; ainda assim ela é um 2º candidato.
+     */
+    @Test
+    fun recuperacao_ambiguidadeContaAntesDoFiltroA2() {
+        val copies = l30Copies(editSecond = mapOf(4 to "o"))
+        val aligner = Aligner(copies.tokens, AlignPresets.normal)
+        val start = copies.first - 100
+        val state = aligner.reposition(start).copy(missStreak = 1)
+        val next = aligner.advance(state, fala)
+        assertEquals(AlignState(start, start, 2, Move.Stay, next.score), next)
+        assertTrue("o 2º candidato passou do limite longo (Q3)", next.score >= AlignPresets.normal.longThreshold)
+    }
+
+    /**
+     * Q2 (V4): fica vermelho se o candidato único da recuperação saltar sem A2. A única cópia que passa do limite longo
+     * ("fim do ano o", média 0,857) tem a palavra mais nova sem casar.
+     */
+    @Test
+    fun recuperacao_candidatoUnicoComPalavraNovaSemCasarNaoSalta_A2() {
+        val copies = l30Copies(editFirst = mapOf(4 to "o"), editSecond = mapOf(2 to "xx", 4 to "o"))
+        val aligner = Aligner(copies.tokens, AlignPresets.normal)
+        val start = copies.first - 100
+        val state = aligner.reposition(start).copy(missStreak = 1)
+        val next = aligner.advance(state, fala)
+        assertEquals(AlignState(start, start, 2, Move.Stay, next.score), next)
+        assertTrue("havia um único candidato ≥ limite longo (Q3)", next.score >= AlignPresets.normal.longThreshold)
+    }
+
+    /** Q2 (V10): fica vermelho se a recuperação disparar no 1º miss em vez do 2º (TRD §Alinhamento 4; D7). */
+    @Test
+    fun recuperacao_soNoSegundoMiss_D7() {
+        val copies = l30Copies(editSecond = mapOf(2 to "xx"))
+        val aligner = Aligner(copies.tokens, AlignPresets.normal)
+        val start = copies.first - 100
+        val primeiro = aligner.advance(aligner.reposition(start), fala)
+        assertEquals(AlignState(start, start, 1, Move.Stay, primeiro.score), primeiro)
+        val segundo = aligner.advance(primeiro, fala)
+        assertEquals(Move.Recovery, segundo.lastMove)
+        assertEquals(copies.first + 4, segundo.cursor)
+        assertEquals(copies.first + 4, segundo.highWater)
+        assertEquals(0, segundo.missStreak)
+    }
+
+    /** Q2 (V8): fica vermelho se o vencedor no próprio cursor não zerar missStreak (D6). */
+    @Test
+    fun vencedorNoCursor_zeraMissStreak_D6() {
+        val c = Speech.indexOf(t01, "Damos conselhos para um problema que não existe") + 2
+        val state = normal.reposition(c).copy(missStreak = 1)
+        val next = normal.advance(state, Speech.of(t01, c - 2, c + 1).map { it.word })
+        assertEquals(AlignState(c, c, 0, Move.Stay, next.score), next)
+        assertEquals(1.0, next.score, 1e-9)
+    }
+
+    /**
+     * Q2 (V7): fica vermelho se o empate de similaridade não for decidido pela posição mais próxima do cursor
+     * (D9). "fim" aparece nos tokens 5, 9 e 13; com o cursor em 8 vence o 9 (distância 1), não o 5 (menor índice).
+     */
+    @Test
+    fun empate_vaiParaAPosicaoMaisProximaDoCursor_D9() {
+        val tokens = Tokenizer.tokenize("no fim do ano no fim do ano no fim do ano no fim do ano")
+        val aligner = Aligner(tokens, AlignPresets.normal)
+        val state = aligner.reposition(8)
+        val next = aligner.advance(state, listOf("ano", "no", "fim"))
+        assertEquals(AlignState(9, 9, 0, Move.Short, 1.0), next)
+    }
 }

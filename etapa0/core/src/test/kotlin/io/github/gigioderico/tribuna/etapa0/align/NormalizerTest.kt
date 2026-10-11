@@ -30,10 +30,9 @@ class NormalizerTest {
     }
 
     @Test
-    fun normalize_hifenEApostrofoUnemAsPartes_D18() {
+    fun normalize_hifenUneAsPartes_D18() {
         assertEquals("bomdia", Normalizer.normalize("bom-dia"))
         assertEquals("escrevelos", Normalizer.normalize("escrevê-los"))
-        assertEquals("dagua", Normalizer.normalize("d'água"))
     }
 
     @Test

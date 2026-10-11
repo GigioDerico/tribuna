@@ -2358,3 +2358,31 @@ Sucesso significa: os dois Gradle em `BUILD SUCCESSFUL`; 85 testes em `:core` co
   - Q2-7 -> `recuosSucessivosNaoPassamDeHighWaterMenos3`
 - Desvios do plano e motivo: nenhum. Observação: a Tarefa 7, passo 3, rodou `:core:ktlintCheck :core:lint` verde sem formatar. Tempo do L30 nesta máquina: 3.399 chamadas de `advance`, total 151,1 ms, máximo 2,401 ms (evidência para a 0005, sem limiar).
 - Comandos rodados e resultado (saídas em `evidencias/`): `./gradlew :core:test --rerun-tasks` BUILD SUCCESSFUL (`core-test.txt`); `./gradlew testDebugUnitTest lint ktlintCheck verifyMergedManifest` BUILD SUCCESSFUL, manifestos debug e release só com `RECORD_AUDIO` (`verificacao.txt`); contagem por classe (`contagem-testes.txt`); greps de `android`/`androidx`, `NotImplementedError` e `@Ignore`/`@Disabled` vazios, exit=1 (`regras-align.txt`); `git diff main` dos quatro contratos com 0 linhas e assinaturas do `Aligner` idênticas (`contratos.txt`). Não revisado nem aprovado por mim: revisão é do `revisor`, teste do `qa-publicacao`.
+
+### Quebras Q2 acrescentadas na rodada 2 (para o QA; saída em `evidencias/quebras-q2-rodada2.txt`)
+
+Cada uma aplicada isoladamente em `Aligner.kt`, vista vermelha e restaurada com `git checkout`; todas ficam verdes no código de produção.
+
+| Quebra | Troca em `Aligner.kt` | Teste que fica vermelho |
+|---|---|---|
+| V4 | `candidates.singleOrNull()?.takeIf { it.lastWord >= params.shortThreshold }` → `candidates.singleOrNull()` | `AlignerTest.recuperacao_candidatoUnicoComPalavraNovaSemCasarNaoSalta_A2` |
+| V6 | `if (match.similarity >= params.longThreshold) candidates += match` → `if (match.similarity >= params.longThreshold && match.lastWord >= params.shortThreshold) candidates += match` | `AlignerTest.recuperacao_ambiguidadeContaAntesDoFiltroA2` |
+| V7 | `abs(match.similarity - current.similarity) <= EPSILON &&` → `false &&` (sem desempate por distância, D9) | `AlignerTest.empate_vaiParaAPosicaoMaisProximaDoCursor_D9` |
+| V8 | `return state.copy(missStreak = 0, lastMove = Move.Stay, ...) // D6` → sem `missStreak = 0` | `AlignerTest.vencedorNoCursor_zeraMissStreak_D6` |
+| V10 | `if (misses >= MISSES_FOR_RECOVERY && heard.size` → `if (misses >= 1 && heard.size` | `AlignerTest.recuperacao_soNoSegundoMiss_D7` |
+
+### Rodada 2 (retrabalho após REPROVADO do revisor; só testes)
+
+**Agente:** motor-voz.
+
+- Feito: 5 testes novos em `AlignerTest` (achados 1 e 2 do `code_review.md`) e correção do OPR-012 (achado 4). Código de produção intocado (`git diff` de `src/main` vazio).
+  - A recuperação usa cópias de "no fim do ano a" do L30 (trecho literal de `etapa0/textos/L30.txt`); o teste troca a forma falada de 1 ou 2 tokens da cópia para montar o caso (ex.: "fim do ano o", média 0,857 como calculou o revisor). O caso (a) do revisor foi executado e confirmado: duas posições ≥ limite longo, só uma casa a palavra mais nova, e o código fica parado.
+  - D7/D9 usa "no fim do ano" repetido 4 vezes (trecho literal do L30), cursor 8, fala "ano no fim": vence o token 9 (distância 1), não o 5.
+  - D6 usa T01. A recuperação em dois passos (V10) chama `advance` duas vezes com a mesma cauda, o que é legítimo numa função pura.
+  - OPR-012: `etapa0/textos/` não tem apóstrofo; removida a linha de "d'água" (teste renomeado para `normalize_hifenUneAsPartes_D18`). OPR-012 marcado resolvido.
+- Os testes novos foram escritos já com o código correto (verdes) e vistos vermelhos com cada quebra da tabela acima, não o contrário: a lacuna era de teste, não de código.
+- Total em `:core`: 90 testes (85 + 5), 0 falhas, 0 ignorados.
+- Comandos: ver "Comandos da rodada 2" abaixo. Não declaro o código revisado nem aprovado: é do `revisor` e do `qa-publicacao`.
+
+
+**Comandos da rodada 2** (em `etapa0/`; saídas em `evidencias/verificacao-rodada2.txt` e `evidencias/quebras-q2-rodada2.txt`): `./gradlew :core:test --rerun-tasks` BUILD SUCCESSFUL, 90 testes, 0 falhas, 0 ignorados; `./gradlew testDebugUnitTest lint ktlintCheck verifyMergedManifest` BUILD SUCCESSFUL.
