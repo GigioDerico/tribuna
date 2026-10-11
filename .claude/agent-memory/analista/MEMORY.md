@@ -1,3 +1,4 @@
 - [Interpretações do align (0002)](align_interpretacoes.md) — words = cauda, cursor = último token, miss/recuperação, peso comum 0,5 provisório
 - [Decisões Vosk etapa0 (0003)](vosk_etapa0_decisoes.md) — base de tempo, formatos de exportação, padrões provisórios, manifesto = portão 1
+- [Decisões ferramentas etapa0 (0004)](ferramentas_etapa0_decisoes.md) — métricas, janela de toque, alcance literal, paridade Kotlin, vosk = portão 6 na 0005
 - [Parâmetros provisórios](feedback_parametros_provisorios.md) — valor ausente no PRD/TRD: PROVISÓRIO com fonte ou limite de escopo, nunca inventado
