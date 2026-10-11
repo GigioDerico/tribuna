@@ -16,8 +16,13 @@ class NativeLibScanTest {
     private val aligned = ElfFixtures.elf64(16_384L, 16_384L)
     private val misaligned = ElfFixtures.elf64(4_096L)
 
-    private fun apk(vararg entries: Pair<String, ByteArray>): File {
-        val file = tmp.newFile("app.apk")
+    private fun apk(vararg entries: Pair<String, ByteArray>): File = archive("app.apk", *entries)
+
+    private fun archive(
+        name: String,
+        vararg entries: Pair<String, ByteArray>,
+    ): File {
+        val file = tmp.newFile(name)
         ZipOutputStream(file.outputStream()).use { zip ->
             entries.forEach { (name, bytes) ->
                 zip.putNextEntry(ZipEntry(name))
@@ -85,6 +90,65 @@ class NativeLibScanTest {
         assertEquals(
             listOf("app.apk: lib/arm64-v8a/libc++_shared.so tem segmento LOAD alinhado a 4096 bytes (mínimo 16384)"),
             NativeLibScan.check(file, required, minAlign = 16_384L),
+        )
+    }
+
+    @Test
+    fun aabComAsDuasLibsAlinhadasEmBaseLib_semProblemas() {
+        val file =
+            archive(
+                "app.aab",
+                "base/lib/arm64-v8a/libvosk.so" to aligned,
+                "base/lib/arm64-v8a/libjnidispatch.so" to aligned,
+                "base/lib/x86_64/libvosk.so" to aligned,
+                "base/lib/x86_64/libjnidispatch.so" to aligned,
+            )
+        assertEquals(
+            emptyList<String>(),
+            NativeLibScan.check(file, required, minAlign = 16_384L, libRoot = NativeLibScan.BUNDLE_LIB_ROOT),
+        )
+    }
+
+    @Test
+    fun aabComLibDesalinhadaEAbiIncompleta_eReportado() {
+        val file =
+            archive(
+                "app.aab",
+                "base/lib/arm64-v8a/libvosk.so" to misaligned,
+                "base/lib/arm64-v8a/libjnidispatch.so" to aligned,
+                "base/lib/x86/libvosk.so" to aligned,
+            )
+        assertEquals(
+            listOf(
+                "app.aab: base/lib/arm64-v8a/libvosk.so tem segmento LOAD alinhado a 4096 bytes (mínimo 16384)",
+                "app.aab: x86 sem libjnidispatch.so",
+            ),
+            NativeLibScan.check(file, required, minAlign = 16_384L, libRoot = NativeLibScan.BUNDLE_LIB_ROOT),
+        )
+    }
+
+    @Test
+    fun aabSemBaseLib_falhaExplicitamente() {
+        // Um AAB com as libs fora de base/lib/ (ou um APK lido como AAB) não pode passar em silêncio (Q3).
+        val file = archive("app.aab", "lib/arm64-v8a/libvosk.so" to aligned, "lib/arm64-v8a/libjnidispatch.so" to aligned)
+        assertEquals(
+            listOf("app.aab: nenhuma biblioteca nativa em base/lib/<abi>/; exigidas: libjnidispatch.so, libvosk.so"),
+            NativeLibScan.check(file, required, minAlign = 16_384L, libRoot = NativeLibScan.BUNDLE_LIB_ROOT),
+        )
+    }
+
+    @Test
+    fun relatorio_listaCadaLibComOAlinhamento() {
+        val file =
+            archive(
+                "app.aab",
+                "base/lib/x86/libvosk.so" to misaligned,
+                "base/lib/arm64-v8a/libvosk.so" to aligned,
+                "base/assets/model-pt/uuid" to ByteArray(4),
+            )
+        assertEquals(
+            listOf("app.aab: base/lib/arm64-v8a/libvosk.so LOAD 16384", "app.aab: base/lib/x86/libvosk.so LOAD 4096"),
+            NativeLibScan.report(file, NativeLibScan.BUNDLE_LIB_ROOT),
         )
     }
 }

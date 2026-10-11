@@ -1,4 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Tribuna Etapa 0</string>
+    <string name="text_label">Texto</string>
+    <string name="test_texts">Textos de teste</string>
+    <string name="listen">Ouvir</string>
+    <string name="pause">Pausar</string>
+    <string name="stop">Parar</string>
+    <string name="debug_panel">Depuração</string>
+    <string name="try_again">Tentar de novo</string>
+    <string name="preparing_model">Preparando modelo…</string>
+    <string name="error_model_missing">Modelo de voz ausente.</string>
+    <string name="error_model_corrupt">Falha ao preparar o modelo de voz.</string>
+    <string name="error_mic_unavailable">Microfone ou arquivo de áudio indisponível.</string>
+    <string name="error_permission">Sem permissão de microfone.</string>
+    <string name="error_internal">Erro no reconhecimento de voz.</string>
+    <string name="preset">Sensibilidade</string>
+    <string name="preset_conservador">Conservador</string>
+    <string name="preset_normal">Normal</string>
+    <string name="preset_agil">Ágil</string>
+    <string name="vocabulary">Vocabulário restrito</string>
+    <string name="strategy">Reconhecedor</string>
+    <string name="strategy_new">Novo por sessão</string>
+    <string name="strategy_reset">reset()</string>
+    <string name="source">Fonte de áudio</string>
+    <string name="source_mic">Microfone</string>
+    <string name="refresh_wav">Atualizar WAV</string>
+    <string name="level_threshold">Limiar de nível: %1$.3f</string>
+    <string name="animation">Animação: %1$d ms</string>
+    <string name="export_name">Nome da exportação</string>
+    <string name="export">Exportar</string>
+    <string name="export_disabled">Exportação só com texto de teste idêntico.</string>
+    <string name="export_failed">Exportação recusada: nome inválido ou falha ao gravar.</string>
+    <string name="export_done">Exportado: %1$s</string>
+    <string name="debug_partial">Parcial: %1$s</string>
+    <string name="debug_final">Final: %1$s</string>
+    <string name="debug_tail">Cauda: %1$s</string>
+    <string name="debug_align">cursor %1$d · highWater %2$d · missStreak %3$d · %4$s · score %5$.3f</string>
+    <string name="debug_engine">sessão %1$s · motor %2$s · nível %3$.3f</string>
+    <string name="debug_latency">latência 2: %1$s ms · latência 3: %2$s ms</string>
+    <string name="debug_times">instalação %1$s ms · prepare %2$s ms · beginSession %3$s ms · 1º parcial %4$s ms</string>
+    <string name="debug_vocabulary">vocabulário: %1$s palavras</string>
 </resources>

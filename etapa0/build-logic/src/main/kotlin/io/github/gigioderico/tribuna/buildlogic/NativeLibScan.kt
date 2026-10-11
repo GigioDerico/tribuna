@@ -4,27 +4,52 @@ import java.io.File
 import java.util.zip.ZipFile
 
 /**
- * Varre as .so em lib/<abi>/ de um APK: exige as bibliotecas pedidas em toda ABI e confere o alinhamento
- * dos segmentos LOAD de toda .so (TRD §Qualidade de código: "em todas as ABIs").
+ * Varre as .so em <libRoot><abi>/ de um APK (`lib/`) ou de um AAB (`base/lib/`): exige as bibliotecas pedidas
+ * em toda ABI e confere o alinhamento dos segmentos LOAD de toda .so (TRD §Qualidade de código: "em todas as
+ * ABIs"; OPR-005).
  */
 object NativeLibScan {
-    private val LIB_ENTRY = Regex("^lib/([^/]+)/([^/]+\\.so)$")
+    const val APK_LIB_ROOT = "lib/"
+    const val BUNDLE_LIB_ROOT = "base/lib/"
+
+    private fun entryPattern(libRoot: String) = Regex("^" + Regex.escape(libRoot) + "([^/]+)/([^/]+\\.so)$")
+
+    /** Uma linha por .so com os alinhamentos dos segmentos LOAD, para a evidência (spec 0003, B5). */
+    fun report(
+        archive: File,
+        libRoot: String = APK_LIB_ROOT,
+    ): List<String> =
+        ZipFile(archive).use { zip ->
+            val pattern = entryPattern(libRoot)
+            zip
+                .entries()
+                .asSequence()
+                .filter { pattern.matches(it.name) }
+                .sortedBy { it.name }
+                .map { entry ->
+                    val bytes = zip.getInputStream(entry).use { it.readBytes() }
+                    val aligns = runCatching { ElfAlignment.loadSegmentAlignments(bytes) }.getOrNull()
+                    "${archive.name}: ${entry.name} LOAD ${aligns?.distinct()?.joinToString("/") ?: "ELF inválido"}"
+                }.toList()
+        }
 
     fun check(
         apk: File,
         requiredLibs: Set<String>,
         minAlign: Long,
+        libRoot: String = APK_LIB_ROOT,
     ): List<String> {
+        val entryPattern = entryPattern(libRoot)
         val problems = mutableListOf<String>()
         ZipFile(apk).use { zip ->
             val byAbi =
                 zip
                     .entries()
                     .asSequence()
-                    .mapNotNull { entry -> LIB_ENTRY.matchEntire(entry.name)?.let { it.groupValues[1] to entry } }
+                    .mapNotNull { entry -> entryPattern.matchEntire(entry.name)?.let { it.groupValues[1] to entry } }
                     .groupBy({ it.first }, { it.second })
             if (byAbi.isEmpty()) {
-                problems += "${apk.name}: nenhuma biblioteca nativa em lib/<abi>/; exigidas: ${requiredLibs.sorted().joinToString()}"
+                problems += "${apk.name}: nenhuma biblioteca nativa em $libRoot<abi>/; exigidas: ${requiredLibs.sorted().joinToString()}"
                 return problems
             }
             for ((abi, entries) in byAbi.toSortedMap()) {

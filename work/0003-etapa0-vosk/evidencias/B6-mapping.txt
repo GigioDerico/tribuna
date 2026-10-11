@@ -1,0 +1,2 @@
+com.sun.jna.Native -> com.sun.jna.Native:
+org.vosk.Recognizer -> org.vosk.Recognizer:

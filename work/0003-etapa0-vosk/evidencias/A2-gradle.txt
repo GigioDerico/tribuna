@@ -1,0 +1,151 @@
+> Task :build-logic:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :build-logic:pluginDescriptors
+> Task :build-logic:processResources
+> Task :build-logic:compileKotlin
+> Task :build-logic:compileJava NO-SOURCE
+> Task :build-logic:classes
+> Task :build-logic:jar
+> Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :build-logic:pluginUnderTestMetadata
+> Task :build-logic:processTestResources NO-SOURCE
+> Task :core:processResources NO-SOURCE
+> Task :core:processTestFixturesResources NO-SOURCE
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugBuildConfig
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :app:processDebugNavigationResources
+> Task :app:javaPreCompileDebug
+> Task :app:parseDebugLocalResources
+> Task :app:mapDebugSourceSetPaths
+> Task :app:compileDebugNavigationResources
+> Task :app:generateDebugRFile
+> Task :app:checkDebugAarMetadata
+> Task :build-logic:compileTestKotlin
+> Task :build-logic:compileTestJava NO-SOURCE
+> Task :build-logic:testClasses UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :app:processDebugManifestForPackage
+> Task :app:javaPreCompileDebugUnitTest
+> Task :app:mergeDebugResources
+> Task :core:processTestResources NO-SOURCE
+> Task :app:preDebugAndroidTestBuild SKIPPED
+> Task :core:writeJvmLintModelMetadata
+> Task :app:extractProguardFiles
+
+> Task :app:verifyDebugMergedManifest
+verifyDebugMergedManifest: OK /Users/giorgioderico/Projetos/Tribuna/etapa0/app/build/intermediates/merged_manifest/debug/processDebugMainManifest/AndroidManifest.xml -> android.permission.RECORD_AUDIO
+
+> Task :app:preReleaseBuild UP-TO-DATE
+> Task :app:extractDeepLinksRelease
+> Task :app:processReleaseMainManifest
+
+> Task :app:verifyReleaseMergedManifest
+verifyReleaseMergedManifest: OK /Users/giorgioderico/Projetos/Tribuna/etapa0/app/build/intermediates/merged_manifest/release/processReleaseMainManifest/AndroidManifest.xml -> android.permission.RECORD_AUDIO
+
+> Task :app:verifyMergedManifest
+> Task :app:loadKtlintReporters
+> Task :core:loadKtlintReporters
+> Task :app:runKtlintCheckOverAndroidTestDebugSourceSet NO-SOURCE
+> Task :app:ktlintAndroidTestDebugSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverAndroidTestReleaseSourceSet NO-SOURCE
+> Task :app:ktlintAndroidTestReleaseSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverAndroidTestSourceSet NO-SOURCE
+> Task :app:ktlintAndroidTestSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverDebugSourceSet NO-SOURCE
+> Task :app:ktlintDebugSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverReleaseSourceSet NO-SOURCE
+> Task :app:ktlintReleaseSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverTestDebugSourceSet NO-SOURCE
+> Task :app:ktlintTestDebugSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverTestFixturesDebugSourceSet NO-SOURCE
+> Task :app:ktlintTestFixturesDebugSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverTestFixturesReleaseSourceSet NO-SOURCE
+> Task :app:ktlintTestFixturesReleaseSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverTestFixturesSourceSet NO-SOURCE
+> Task :app:ktlintTestFixturesSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverTestReleaseSourceSet NO-SOURCE
+> Task :app:ktlintTestReleaseSourceSetCheck SKIPPED
+> Task :core:compileKotlin
+> Task :core:compileJava NO-SOURCE
+> Task :core:classes UP-TO-DATE
+> Task :core:jar
+> Task :app:processDebugResources
+> Task :core:compileTestFixturesKotlin
+> Task :core:compileTestFixturesJava NO-SOURCE
+> Task :core:testFixturesClasses UP-TO-DATE
+> Task :core:testFixturesJar
+> Task :build-logic:test
+> Task :testDebugUnitTest
+> Task :core:generateJvmMainLintModel
+> Task :core:compileTestKotlin
+> Task :core:compileTestJava NO-SOURCE
+> Task :core:testClasses UP-TO-DATE
+> Task :core:runKtlintCheckOverKotlinScripts
+> Task :core:runKtlintCheckOverTestFixturesSourceSet
+> Task :app:runKtlintCheckOverKotlinScripts
+> Task :app:compileDebugKotlin
+> Task :core:runKtlintCheckOverMainSourceSet
+> Task :app:runKtlintCheckOverTestSourceSet
+> Task :core:lintAnalyzeJvmMain
+> Task :core:runKtlintCheckOverTestSourceSet
+> Task :app:runKtlintCheckOverMainSourceSet
+> Task :core:test
+> Task :app:compileDebugJavaWithJavac
+> Task :app:processDebugJavaRes
+> Task :core:testDebugUnitTest
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:generateDebugLintReportModel
+> Task :app:generateDebugAndroidTestLintModel
+> Task :app:generateDebugUnitTestLintModel
+> Task :core:generateJvmTestLintModel
+> Task :app:ktlintKotlinScriptCheck
+> Task :app:ktlintMainSourceSetCheck
+> Task :core:ktlintKotlinScriptCheck
+> Task :app:ktlintTestSourceSetCheck
+> Task :app:ktlintCheck
+> Task :core:ktlintMainSourceSetCheck
+> Task :core:ktlintTestFixturesSourceSetCheck
+> Task :core:ktlintTestSourceSetCheck
+> Task :core:ktlintCheck
+> Task :app:lintAnalyzeDebugAndroidTest
+
+> Task :app:compileDebugUnitTestKotlin
+w: file:///Users/giorgioderico/Projetos/Tribuna/etapa0/app/src/test/kotlin/io/github/gigioderico/tribuna/etapa0/speech/EngineHarness.kt:22:30 This declaration needs opt-in. Its usage should be marked with '@kotlinx.coroutines.ExperimentalCoroutinesApi' or '@OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)'
+w: file:///Users/giorgioderico/Projetos/Tribuna/etapa0/app/src/test/kotlin/io/github/gigioderico/tribuna/etapa0/speech/EngineHarness.kt:27:38 This declaration needs opt-in. Its usage should be marked with '@kotlinx.coroutines.ExperimentalCoroutinesApi' or '@OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)'
+w: file:///Users/giorgioderico/Projetos/Tribuna/etapa0/app/src/test/kotlin/io/github/gigioderico/tribuna/etapa0/viewmodel/ReaderHarness.kt:80:13 'lateinit' is unnecessary: definitely initialized in constructors.
+w: file:///Users/giorgioderico/Projetos/Tribuna/etapa0/app/src/test/kotlin/io/github/gigioderico/tribuna/etapa0/viewmodel/ReaderHarness.kt:98:43 This declaration needs opt-in. Its usage should be marked with '@kotlinx.coroutines.ExperimentalCoroutinesApi' or '@OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)'
+w: file:///Users/giorgioderico/Projetos/Tribuna/etapa0/app/src/test/kotlin/io/github/gigioderico/tribuna/etapa0/viewmodel/ReaderHarness.kt:112:29 This declaration needs opt-in. Its usage should be marked with '@kotlinx.coroutines.ExperimentalCoroutinesApi' or '@OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)'
+
+> Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processDebugUnitTestJavaRes
+> Task :core:lintAnalyzeJvmTest
+> Task :app:lintAnalyzeDebugUnitTest
+> Task :app:testDebugUnitTest
+
+> Task :core:lintReportJvm
+Wrote HTML report to file:///Users/giorgioderico/Projetos/Tribuna/etapa0/core/build/reports/lint-results.html
+Wrote SARIF report to file:///Users/giorgioderico/Projetos/Tribuna/etapa0/core/build/reports/lint-results.sarif
+
+> Task :core:lintJvm
+> Task :core:lint
+> Task :app:lintAnalyzeDebug
+
+> Task :app:lintReportDebug
+Wrote HTML report to file:///Users/giorgioderico/Projetos/Tribuna/etapa0/app/build/reports/lint-results-debug.html
+Wrote SARIF report to file:///Users/giorgioderico/Projetos/Tribuna/etapa0/app/build/reports/lint-results-debug.sarif
+
+> Task :app:lintDebug
+> Task :app:lint
+
+[Incubating] Problems report is available at: file:///Users/giorgioderico/Projetos/Tribuna/etapa0/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 13s
+75 actionable tasks: 75 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.7.1/userguide/configuration_cache_enabling.html

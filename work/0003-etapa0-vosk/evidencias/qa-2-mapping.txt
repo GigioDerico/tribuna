@@ -1,0 +1,2 @@
+189262:com.sun.jna.Native -> com.sun.jna.Native:
+223985:org.vosk.Recognizer -> org.vosk.Recognizer:

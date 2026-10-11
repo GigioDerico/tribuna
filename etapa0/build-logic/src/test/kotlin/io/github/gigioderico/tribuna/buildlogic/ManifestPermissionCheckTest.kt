@@ -84,4 +84,48 @@ class ManifestPermissionCheckTest {
             problems(manifest(perm("android.permission.WAKE_LOCK"), perm(recordAudio), perm("android.permission.INTERNET"))),
         )
     }
+
+    @Test
+    fun declaracaoDePermissaoPropria_falha() {
+        // XML de E1 da CIA 0003: o que o androidx.core injeta sem o tools:node="remove".
+        val nome = "io.github.gigioderico.tribuna.etapa0.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        assertEquals(
+            listOf(
+                "permissão não permitida: $nome",
+                "declaração de permissão não permitida: $nome",
+            ),
+            problems(
+                manifest(
+                    perm(recordAudio),
+                    "<permission android:name=\"$nome\" android:protectionLevel=\"signature\" />",
+                    perm(nome),
+                ),
+            ),
+        )
+    }
+
+    @Test
+    fun soADeclaracao_semUsesPermission_tambemFalha() {
+        assertEquals(
+            listOf("declaração de permissão não permitida: x.y.MINHA"),
+            problems(manifest(perm(recordAudio), "<permission android:name=\"x.y.MINHA\" />")),
+        )
+    }
+
+    @Test
+    fun grupoEArvoreDePermissao_falham() {
+        assertEquals(
+            listOf(
+                "declaração de permissão não permitida: x.y.ARVORE",
+                "declaração de permissão não permitida: x.y.GRUPO",
+            ),
+            problems(
+                manifest(
+                    perm(recordAudio),
+                    "<permission-tree android:name=\"x.y.ARVORE\" />",
+                    "<permission-group android:name=\"x.y.GRUPO\" />",
+                ),
+            ),
+        )
+    }
 }

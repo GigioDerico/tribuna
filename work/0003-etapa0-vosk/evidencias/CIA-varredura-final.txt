@@ -1,0 +1,6 @@
+bibliotecas: 77; classes: 13076
+androidx.core:core-ktx:1.18.0 androidx/core/content/ContextKt.class ContextCompat.registerReceiver flag=repassada_por_receiveBroadcasts
+androidx.compose.ui:ui-android:1.11.4 androidx/compose/ui/adaptive/MediaQuery_androidKt$obtainUiMediaScope$4$1.class ContextCompat.registerReceiver flag=2_EXPORTED
+classes com chamada: 2
+OK: nenhuma chamada com RECEIVER_NOT_EXPORTED ou flag não constante
+exit=0

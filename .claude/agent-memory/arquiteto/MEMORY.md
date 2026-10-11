@@ -1,4 +1,7 @@
 - [Toolchain da Etapa 0](build_toolchain_etapa0.md) — AGP 9.4.1/Gradle 9.7.1/KGP 2.4.21, matriz KGP×AGP, JDK 17 forçado no gradle.properties do usuário
 - [Desenho das verificações Gradle](verificacoes_gradle_desenho.md) — build-logic testado, fake em testFixtures, aliases testDebugUnitTest, OPR-001
 - [Decisões do align na 0002](align_decisoes_0002.md) — words=cauda (interpretação), guarda A2 da palavra nova, Ágil salta, golden=0006
+- [Manifesto, core e Compose na 0003](manifesto_core_compose_0003.md) — permissão do androidx.core, backup excluindo tudo, compileSdk 36 limita Compose a 1.11/lifecycle 2.10
 - [Prova do plano em cópia](prova_do_plano_em_copia.md) — validar código do plano numa cópia de etapa0 no scratchpad antes de entregar
+- [Fatos do Vosk na 0003](vosk_android_fatos_0003.md) — léxico com acento no Gr.fst, StorageService externo, 16 KB só 64 bits, ABIs da JNA, R8/AWT, log do Kaldi
+- [Arquitetura do etapa0/:app](arquitetura_etapa0_app_0003.md) — VoskEngine puro com costuras, ReaderController puro no ViewModel, paralelo só com worktree

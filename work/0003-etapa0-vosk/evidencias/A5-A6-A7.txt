@@ -1,0 +1,14 @@
+== git diff main --stat -- etapa0/core/src/main
+(fim)
+== SpeechService
+== res/layout
+== A7 persist
+== A7 escritas
+app/src/main/kotlin/io/github/gigioderico/tribuna/etapa0/speech/ModelInstaller.kt:4:import java.io.FileOutputStream
+app/src/main/kotlin/io/github/gigioderico/tribuna/etapa0/speech/ModelInstaller.kt:82:        assets.open(path).use { input -> FileOutputStream(destination).use { output -> input.copyTo(output) } }
+app/src/main/kotlin/io/github/gigioderico/tribuna/etapa0/export/ExportWriter.kt:4:import java.io.FileOutputStream
+app/src/main/kotlin/io/github/gigioderico/tribuna/etapa0/export/ExportWriter.kt:40:            FileOutputStream(file).use { it.write(content.toByteArray(Charsets.UTF_8)) }
+== Log.
+== registerReceiver
+== android imports em core/src/main
+(fim)

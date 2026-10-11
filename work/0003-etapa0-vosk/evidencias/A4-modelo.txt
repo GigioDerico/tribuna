@@ -1,0 +1,17 @@
+OK: zip sha256=6e1ce909032e1afa7a88e68a3d628ecafff302bdf195befab308826c395e93b7
+OK: uuid=vosk-model-small-pt-0.3 sha256=6e1ce909032e1afa7a88e68a3d628ecafff302bdf195befab308826c395e93b7
+  16007119 app/src/main/assets/model-pt/Gr.fst
+  15510922 app/src/main/assets/model-pt/HCLr.fst
+        29 app/src/main/assets/model-pt/README
+        54 app/src/main/assets/model-pt/disambig_tid.int
+  13549849 app/src/main/assets/model-pt/final.mdl
+    168048 app/src/main/assets/model-pt/ivector/final.dubm
+   8288887 app/src/main/assets/model-pt/ivector/final.ie
+     22575 app/src/main/assets/model-pt/ivector/final.mat
+       547 app/src/main/assets/model-pt/ivector/global_cmvn.stats
+        95 app/src/main/assets/model-pt/ivector/online_cmvn.conf
+        35 app/src/main/assets/model-pt/ivector/splice.conf
+       153 app/src/main/assets/model-pt/mfcc.conf
+      1923 app/src/main/assets/model-pt/phones.txt
+        96 app/src/main/assets/model-pt/uuid
+      2481 app/src/main/assets/model-pt/word_boundary.int

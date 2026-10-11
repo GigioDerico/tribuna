@@ -1,0 +1,10 @@
+== check
+:app:verifyDebugMergedManifest SKIPPED
+:app:verifyReleaseMergedManifest SKIPPED
+:app:verifyMergedManifest SKIPPED
+== assembleRelease
+:app:verifyReleaseMergedManifest SKIPPED
+== bundleRelease
+:app:verifyReleaseMergedManifest SKIPPED
+== assembleDebug
+:app:verifyDebugMergedManifest SKIPPED

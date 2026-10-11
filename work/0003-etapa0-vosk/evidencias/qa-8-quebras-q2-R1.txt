@@ -1,0 +1,6 @@
+BASE rc=0 falhas=0 compilacao=False
+## Q2-R1 (bloqueante 1: Error com sessao atual): VERMELHO rc=1 falhas=1
+   - VoskEngineSessionTest.erroDoReconhecedorComSessaoTrocadaNoMeioDoBloco_saiComOIdAntigo
+## Q2-R1b (Error com ultimo id emitido): VERMELHO rc=1 falhas=1
+   - VoskEngineSessionTest.erroDoReconhecedorComSessaoTrocadaNoMeioDoBloco_saiComOIdAntigo
+FINAL (restaurado) rc=0 falhas=0

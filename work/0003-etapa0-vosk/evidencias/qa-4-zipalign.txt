@@ -1,0 +1,3 @@
+74082234 res/Qq.xml (OK - compressed)
+74082608 resources.arsc (OK)
+Verification successful

@@ -1,0 +1,7 @@
+> Task :app:verifyDebugMergedManifest FAILED
+> Task :app:verifyReleaseMergedManifest FAILED
+    - permissão não permitida: io.github.gigioderico.tribuna.etapa0.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+    - declaração de permissão não permitida: io.github.gigioderico.tribuna.etapa0.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+    - permissão não permitida: io.github.gigioderico.tribuna.etapa0.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+    - declaração de permissão não permitida: io.github.gigioderico.tribuna.etapa0.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+BUILD FAILED in 629ms

@@ -1,0 +1,3 @@
+app/build/test-results/testDebugUnitTest arquivos 26 tests 228 skipped 0 failures 0 errors 0
+core/build/test-results/test arquivos 13 tests 118 skipped 0 failures 0 errors 0
+build-logic/build/test-results/test arquivos 3 tests 27 skipped 0 failures 0 errors 0

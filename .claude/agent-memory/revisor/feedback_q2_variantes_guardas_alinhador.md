@@ -1,6 +1,6 @@
 ---
 name: q2-variantes-guardas-alinhador
-description: 0002 — quebras do construtor só cobriam o caso sob medida; variantes da recuperação (ambiguidade, A2, nº misses, nº de palavras) passaram verdes em duas rodadas; enumerar TODA cláusula de cada if na rodada 1
+description: 0002 e 0003 — quebrar a guarda inteira não basta; cada operando de cada if (inclusive cada fase numa guarda de fases do ciclo de vida) precisa de quebra própria já na rodada 1
 metadata:
   type: feedback
 ---
@@ -10,6 +10,10 @@ No Aligner, as quebras planejadas (Q2-1..Q2-7) ficaram todas vermelhas, mas vari
 Na rodada 2, os testes novos pegaram tudo o que eu tinha listado. Mas a cláusula irmã no **mesmo `if`** (`heard.size >= RECOVERY_WORDS`, ou seja, 4 palavras) ficou verde, e eu não a tinha listado na rodada 1. Isso custou uma terceira rodada. No Ágil (k = 2) ela é alcançável: rodando no jshell, saltou 3.087 tokens com 3 palavras.
 
 Na rodada 3, o construtor fez uma varredura de 109 quebras com operador mínimo (`>=`→`>`, ±1, `&&`→`||`) e travou todas. As que eu inventei fora da tabela e ficaram verdes eram **troca de variável de estado**: base da janela `cursor + W` → `highWater + W` (só testada com cursor == highWater) e `heard.size` → `words.size` (palavras normalizadas contra itens brutos). A varredura por operador não pega esse tipo de troca. Aprovei e mandei os dois casos para o OPR (015 e 016), porque não tocam a regra 6 nem a recuperação.
+
+De novo na 0003 (2026-10-11), rodada 2: na rodada 1, a R21 tirava a guarda **inteira** do `onActivityStop` (`phase != Reading && phase != Paused`). O teste novo pegou essa quebra. Mas tirar só o operando `Paused` ficou verde: o `onStop` real com a leitura pausada não fecha a captura, e o microfone fica aberto em segundo plano. Isso custou outra rodada. Em guardas de fase, quebre **cada fase** separadamente e confira se existe teste partindo de cada estado da tabela da Máquina de estados (Reading, Paused, Preparing, Idle), não só do caminho feliz.
+
+Na rodada 3 da 0003, a varredura da interface (fase × método de ciclo de vida) fechou tudo o que era ciclo de vida. As 2 quebras minhas que ficaram verdes estavam nos **ramos de falha/recuperação**: a fase de fallback quando `resume` não reabre a captura (`Paused`→`Idle`) e o `if (fromCapture) stopCapture()` do `onError`. Aprovei e mandei para o OPR-031. Na rodada 1, inclua a fase de fallback de cada ramo de falha e cada `if` condicional dentro de handlers de erro.
 
 **Why:** o construtor escreve o teste sob medida para a quebra que eu nomeio. Se a minha lista de quebras está incompleta, o retrabalho também fica incompleto.
 

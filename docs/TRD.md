@@ -286,8 +286,9 @@ O app pede só o microfone, não tem acesso à rede e não grava nada sobre o di
 **Manifesto**
 
 - Única permissão: RECORD_AUDIO. Sem INTERNET, sem ACCESS_NETWORK_STATE. A tela ligada usa a flag da janela, então WAKE_LOCK não é necessário.
-- android:allowBackup="false" e regras de extração de dados vazias, para nada ir ao backup na nuvem.
-- O build verifica o manifesto final mesclado: falha se alguma biblioteca trouxer INTERNET.
+- A permissão própria `<applicationId>.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION`, que o androidx.core (1.9+) injeta, é removida no manifesto do app com `tools:node="remove"`, tanto o `<permission>` quanto o `<uses-permission>`. Por isso nenhum código do app chama `ContextCompat.registerReceiver` (nem `Context.receiveBroadcasts` do core-ktx) com `RECEIVER_NOT_EXPORTED`: do Android 8 ao 12L essa chamada lança exceção sem a permissão. Se um receptor não exportado for necessário, usar `Context.registerReceiver(…, RECEIVER_NOT_EXPORTED)` só a partir do API 33. A cada troca de versão de dependência, a varredura de `registerReceiver` no classpath de release confirma que nenhuma biblioteca usa esse caminho.
+- android:allowBackup="false", e regras de extração e de backup que excluem todos os domínios (`root`, `file`, `database`, `sharedpref`, `external` e os `device_*`), em `cloud-backup` e em `device-transfer` (`android:dataExtractionRules`, Android 12+) e em `android:fullBackupContent` (Android 8–11). Seção ausente ou vazia não exclui nada, e no Android 12+ `allowBackup="false"` sozinho não desliga a transferência entre aparelhos.
+- O build verifica o manifesto final mesclado: falha se houver `uses-permission` além de RECORD_AUDIO ou qualquer declaração `<permission>`, `<permission-group>` ou `<permission-tree>`.
 
 **Onde o texto vive**
 
