@@ -1,6 +1,6 @@
 # Spec — 0004-etapa0-ferramentas
 
-**Autor:** analista · **Data:** 2026-10-11 · **Aprovação:** automática, pendente de conferência
+**Autor:** analista · **Data:** 2026-10-11 · **Aprovação:** conferida pelo orquestrador em 2026-10-11 (critérios por comando em dados sintéticos de etapa0/textos/, parâmetros só dos docs, só stdlib, sem portão humano; única mudança em Kotlin é teste JVM de referência, align/ de main intocado)
 
 Brainstorm: `work/0004-etapa0-ferramentas/brainstorm.md`. As decisões D1–D22 citadas abaixo estão lá, com alternativas e motivo.
 

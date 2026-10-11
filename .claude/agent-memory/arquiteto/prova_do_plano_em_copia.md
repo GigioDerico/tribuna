@@ -9,6 +9,8 @@ Para planos que trazem o código inteiro (a skill writing-plans exige; o constru
 
 Na 0003 acrescentei: (1) simulação tarefa a tarefa numa segunda cópia limpa (`scripts/sim.sh` no scratchpad: aplica os arquivos na ordem do plano e roda build/teste no fim de cada tarefa e no "ver falhar"), que pega dependência de compilação entre tarefas; (2) runner de quebras Q2 por troca de texto (`q2.py`: aplica, roda `testDebugUnitTest --rerun-tasks`, lê os XML, restaura), com a lista reaproveitada para gerar a tabela do plano. Quebra que sobrevive vira teste novo ou guarda removida.
 
+Na 0004 (Python): snapshot dos arquivos provados, `q2.py` com a lista de trocas reaproveitada na tabela do plano, `gen.py` que injeta os arquivos e falha se algum critério ficar sem teste ou alguma quebra sobreviver; para o DP, busca aleatória de entradas que distinguem cada mutante.
+
 **Why:** na 0002 a prova achou erro de algoritmo do TRD (A2), testes mal desenhados (T03 refrão, hífen em maiúsculas, "capítulo" solto) e formatação do ktlint antes de chegar ao construtor; cada um seria uma falha na escada.
 
 **How to apply:** repetir em PLAN com lógica não trivial; declarar no plano a seção "Prova do plano" com contagens reais; um protótipo em Python no scratchpad é bom para explorar o algoritmo antes do Kotlin. Ver [[align-decisoes-0002]].
