@@ -1,2 +1,3 @@
 - [Interpretações do align (0002)](align_interpretacoes.md) — words = cauda, cursor = último token, miss/recuperação, peso comum 0,5 provisório
+- [Decisões Vosk etapa0 (0003)](vosk_etapa0_decisoes.md) — base de tempo, formatos de exportação, padrões provisórios, manifesto = portão 1
 - [Parâmetros provisórios](feedback_parametros_provisorios.md) — valor ausente no PRD/TRD: PROVISÓRIO com fonte ou limite de escopo, nunca inventado
