@@ -5,7 +5,7 @@ metadata:
   type: project
 ---
 
-Medido em 2026-10-11 numa cópia de etapa0 (CIA 0003, portão 1 pendente):
+Medido em 2026-10-11 numa cópia de etapa0 (CIA 0003; portão 1 aprovado pelo humano em 2026-10-11, opção A):
 
 - androidx.core 1.18.0 injeta `<permission signature>` E `<uses-permission>` de `${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION`. `tools:node="remove"` nos dois funciona (debug, release e bundle; aapt2 mostra só RECORD_AUDIO).
 - `ContextCompat.registerReceiver` com RECEIVER_NOT_EXPORTED (4) no API 26–32 lança RuntimeException se a permissão não estiver no app. No grafo Compose+Vosk o único chamador é o `MediaQuery` do compose-ui (DOCK_EVENT, flag 2 = EXPORTED), que não depende dela.

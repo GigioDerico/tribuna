@@ -1,6 +1,6 @@
 # Análise de impacto — 0003-etapa0-vosk (portão humano 1: manifesto)
 
-**Autor:** arquiteto · **Data:** 2026-10-11 · **Aprovação humana:** pendente
+**Autor:** arquiteto · **Data:** 2026-10-11 · **Aprovação humana:** aprovada por Giorgio Derico em 2026-10-11, opção A (portão humano 1), com os quatro itens de "O que o humano precisa aprovar" e rejeição da alternativa (B). O texto do TRD §Manifesto entra no mesmo commit do manifesto (Plano de migração, 2 e 3; `impl_plan.md`, Tarefa 2).
 
 Escopo: só o `etapa0/app/src/main/AndroidManifest.xml` e dois recursos XML novos que ele referencia. Nenhum contrato Kotlin do TRD (`SpeechEngine`, `SpeechEvent`, `SessionId`, `Token`, `Aligner`/`AlignState`, `PrompterUiState`, `ReadingPhase`), nenhuma chave de DataStore e nenhuma regra do `CLAUDE.md` muda. Origem: spec 0003, "Perguntas em aberto" 1; brainstorm D23, D24, D25; OPR-001 e OPR-002.
 

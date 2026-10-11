@@ -1,6 +1,6 @@
 # Spec — 0003-etapa0-vosk
 
-**Autor:** analista · **Data:** 2026-10-11 · **Aprovação:** automática, pendente de conferência. **Depende do portão humano 1 (manifesto: OPR-001, OPR-002, Activity), que precisa de CIA do arquiteto e aprovação humana antes do BUILD.** Ver "Perguntas em aberto".
+**Autor:** analista · **Data:** 2026-10-11 · **Aprovação:** conferida pelo orquestrador em 2026-10-11. Portão humano 1 (manifesto: OPR-001, OPR-002, Activity) aprovado por Giorgio Derico em 2026-10-11, opção A da CIA (`change_impact_analysis.md`): remover `DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` e seu `<permission>` com `tools:node="remove"`; regras de backup excluindo os 9 domínios + `fullBackupContent`; `.MainActivity` lançadora `exported`; verificação passa a reprovar `<permission>` e `registerReceiver`. Regra 1 intacta.
 
 Brainstorm: `work/0003-etapa0-vosk/brainstorm.md`. As decisões D1–D28 citadas abaixo estão lá, com alternativas e motivo.
 
