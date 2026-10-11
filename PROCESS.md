@@ -20,7 +20,7 @@ Como o trabalho anda, quem faz o quê e onde cada coisa fica. As regras curtas e
 | `revisor` | Revisa o diff em contexto limpo; segunda camada de privacidade | Não | `code_review.md` |
 | `qa-publicacao` | Testa no aparelho, roda métricas, prepara a publicação | Não (só scripts de teste e de build) | `test_result.md`, `release_check.md` |
 
-A sessão principal do Claude Code é o **orquestrador**: abre a pasta da tarefa, chama os agentes na ordem, confere os portões e leva as decisões ao humano. Ela não implementa nem revisa.
+A sessão principal do Claude Code é o **orquestrador**: abre a pasta da tarefa, chama os agentes na ordem, confere os portões automáticos e leva ao humano só o que cai num portão humano. Ela não implementa nem revisa.
 
 ## Onde ficam as coisas
 
@@ -42,14 +42,36 @@ templates/                      modelos de cada artefato
 
 Numeração das tarefas: quatro dígitos sequenciais e um nome curto. O orquestrador cria a pasta copiando os modelos de `templates/`.
 
+## Autonomia e portões humanos
+
+Modelos: `analista`, `arquiteto` e `revisor` rodam em Opus (decidem e julgam); `motor-voz`, `interface` e `qa-publicacao` rodam em Sonnet. Em tarefa simples de execução (renomear, ajuste mecânico, script curto, tarefa só de texto), o orquestrador pode chamar o agente de construção com `model: haiku`; na dúvida, Sonnet. Código que toca `align/`, a máquina de estados ou o ciclo de vida de sessão não usa Haiku.
+
+Spec e plano não têm aprovação humana. Os agentes decidem, registram as decisões no próprio artefato (o que estava em aberto, a escolha e o porquê) e o orquestrador confere um **portão automático**, só com checklist, sem opinar:
+
+- **Spec:** critérios de aceite verificáveis por comando ou número; "Fora do escopo" preenchido; nenhum critério depende de decisão pendente; nada cai num portão humano.
+- **Plano:** cada critério do spec tem passo e comando de verificação; testes vêm antes do código; seção de privacidade preenchida; nenhuma assinatura de contrato muda; nenhuma permissão nova no manifesto.
+
+Passou: o orquestrador registra "conferida pelo orquestrador em <data>" no cabeçalho e segue. Falhou: devolve ao autor com o item que falhou (conta como falha na escada).
+
+**Portões humanos que continuam** (o que é difícil de desfazer ou muda o produto):
+
+1. Mudança de contrato do TRD, de chave do DataStore, do manifesto ou de regra inegociável (CIA e aprovação humana, CLAUDE.md regra 5 e regra de processo 3).
+2. Mudança de requisito ou escopo do PRD.
+3. Troca do motor de voz e aprovação da arquitetura ao fim da Etapa 0.
+4. Autorização de publicação e envio à Play.
+5. Impasse no nível 3 da escada, ou ação irreversível (apagar dados ou repositório, push forçado).
+6. Instalação ou gasto fora do ambiente do projeto (instalar software, criar conta, serviço pago).
+
+Em dúvida se algo cai num portão humano, cai.
+
 ## O ciclo
 
 ```
 [0. CIA]    arquiteto      só se a tarefa toca contrato do TRD, schema do DataStore ou regra inegociável
    │
-[1. INTAKE] analista ───► brainstorm.md (superpowers) ───► spec.md ───► APROVAÇÃO HUMANA
+[1. INTAKE] analista ───► brainstorm.md (superpowers) ───► spec.md ───► PORTÃO AUTOMÁTICO
    │
-[2. PLAN]   arquiteto ──► impl_plan.md (writing-plans + revisão de privacidade) ───► APROVAÇÃO HUMANA
+[2. PLAN]   arquiteto ──► impl_plan.md (writing-plans + revisão de privacidade) ───► PORTÃO AUTOMÁTICO
    │
 [3. BUILD]  motor-voz e/ou interface ──► código + testes; tudo verde localmente
    │
@@ -70,13 +92,13 @@ Obrigatória antes de mudar qualquer um destes: `SpeechEngine`/`SpeechEvent`/`Se
 
 ### 1. Intake
 
-O `analista` primeiro roda a skill `superpowers:brainstorming` e grava `brainstorm.md` na pasta da tarefa (não em `docs/superpowers/`). Como o analista não fala direto com o humano, as perguntas da skill vão numa seção "Perguntas ao humano" do `brainstorm.md`; o orquestrador as leva ao humano e devolve as respostas ao analista. O brainstorm é dispensado quando o pedido já está coberto pelo PRD e pelo TRD, ou é mudança trivial. Ele não substitui o spec, que é o que o humano aprova.
+O `analista` primeiro roda a skill `superpowers:brainstorming` e grava `brainstorm.md` na pasta da tarefa (não em `docs/superpowers/`). O analista responde as perguntas da skill sozinho e registra pergunta, alternativas, escolha e porquê na seção "Decisões" do `brainstorm.md`; só uma pergunta que caia num portão humano vai ao orquestrador. O brainstorm é dispensado quando o pedido já está coberto pelo PRD e pelo TRD, ou é mudança trivial. Ele não substitui o spec.
 
 Depois, o `analista` escreve o `spec.md`: o que, por quê, requisitos do PRD atendidos, critérios de aceite verificáveis e **fora do escopo** obrigatório. Se o pedido contradiz o PRD, ele propõe a mudança no PRD em vez de inventar. Para itens que já estão no PRD e no TRD (a maior parte da v1), o `spec.md` é curto e aponta para eles.
 
 ### 2. Plan
 
-O `arquiteto` escreve o `impl_plan.md` com a skill `superpowers:writing-plans`, no formato de `templates/impl_plan.md` e na pasta da tarefa. O passo final da skill (executar o plano) não se aplica: a execução é dos agentes de construção, depois da aprovação humana. O plano traz: arquivos que mudam, ordem (contratos e `align/` → `speech/` → ViewModel → telas), testes a escrever primeiro, como verificar, riscos. Inclui a seção de privacidade: onde o texto do discurso passa, se algum caminho novo pode persistir texto ou áudio, se alguma dependência nova traz permissão. Consulta `REVIEW-QUESTIONS.md` (Q1, Q4, Q5, Q6) e o `opr_register.md` da área.
+O `arquiteto` escreve o `impl_plan.md` com a skill `superpowers:writing-plans`, no formato de `templates/impl_plan.md` e na pasta da tarefa. O passo final da skill (executar o plano) não se aplica: a execução é dos agentes de construção, depois do portão automático. O plano traz: arquivos que mudam, ordem (contratos e `align/` → `speech/` → ViewModel → telas), testes a escrever primeiro, como verificar, riscos. Inclui a seção de privacidade: onde o texto do discurso passa, se algum caminho novo pode persistir texto ou áudio, se alguma dependência nova traz permissão. Consulta `REVIEW-QUESTIONS.md` (Q1, Q4, Q5, Q6) e o `opr_register.md` da área.
 
 ### 3. Build
 

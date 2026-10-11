@@ -1,6 +1,6 @@
 # Spec — <NNNN>-<nome>
 
-**Autor:** analista · **Data:** <AAAA-MM-DD> · **Aprovação humana:** pendente | aprovado em <data> por <nome>
+**Autor:** analista · **Data:** <AAAA-MM-DD> · **Aprovação:** automática, pendente de conferência | conferida pelo orquestrador em <data> | humana em <data> por <nome> (só se caiu num portão)
 
 ## O que e por quê
 
@@ -28,4 +28,4 @@ Cada um com ação, resultado observável e, se houver, número.
 
 ## Perguntas em aberto
 
-- <Só o humano responde.>
+- <Só o que cai num portão humano. Sem portão: "Nenhuma".>

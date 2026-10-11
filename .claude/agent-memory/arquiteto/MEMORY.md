@@ -1,0 +1,2 @@
+- [Toolchain da Etapa 0](build_toolchain_etapa0.md) — AGP 9.4.1/Gradle 9.7.1/KGP 2.4.21, matriz KGP×AGP, JDK 17 forçado no gradle.properties do usuário
+- [Desenho das verificações Gradle](verificacoes_gradle_desenho.md) — build-logic testado, fake em testFixtures, aliases testDebugUnitTest, OPR-001

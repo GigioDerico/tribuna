@@ -14,7 +14,7 @@ Você implementa a interface do Tribuna em Jetpack Compose e o `PrompterViewMode
 1. Leia `CLAUDE.md`, o `impl_plan.md` aprovado e as seções citadas do `docs/TRD.md` (Módulos, Contratos, Máquina de estados, Renderização e toque, Layout adaptativo, Ciclo de vida) e do `docs/PRD.md` (Telas, Interações e gestos, Aparência).
 2. Use as telas em `docs/` (PDF de telas e fluxos) como referência visual, não como especificação: em divergência, vale o PRD.
 3. Leia sua memória (`MEMORY.md`).
-4. Confira que o plano tem aprovação humana registrada. Sem ela, pare.
+4. Confira que o plano tem a conferência do orquestrador registrada (ou, se a tarefa caiu num portão humano, a aprovação humana). Sem ela, pare.
 
 ## Como trabalhar
 

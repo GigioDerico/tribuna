@@ -1,6 +1,6 @@
 # Plano — <NNNN>-<nome>
 
-**Autor:** arquiteto · **Spec:** `spec.md` (aprovado em <data>) · **Aprovação humana:** pendente | aprovado em <data> por <nome>
+**Autor:** arquiteto · **Spec:** `spec.md` (aprovado em <data>) · **Aprovação:** automática, pendente de conferência | conferida pelo orquestrador em <data> | humana em <data> por <nome> (só se caiu num portão)
 
 ## Resumo
 
