@@ -14,3 +14,4 @@ Na 0003 (2026-10-11), o lote de quebras funcionou bem assim:
 - No zsh, `--include=*.kt` sem aspas falha com "no matches found". Use `--include='*.kt'`.
 
 Relacionado: [[q2-cobrir-todos-eventos-sessao]], [[q2-variantes-guardas-alinhador]].
+- Rodada 3 da 0003: `rm -rf` encadeado com `./gradlew` num mesmo comando foi negado pela permissão. Rode o gradle sozinho. Com `--rerun-tasks`, os XMLs são reescritos; confira o mtime deles num script de contagem. `--offline` funciona (cache completo). Com `-q`, cada quebra leva uns 30 s.
