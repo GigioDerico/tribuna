@@ -1,1 +1,2 @@
 - [Q2: quebrar todo caminho de evento com sessão](feedback_q2_cobrir_todos_eventos_sessao.md) — 0001: Error atrasado sem teste passou verde; quebre Partial, Final e Error um a um, e mais uma variante na re-revisão
+- [Q2: cada cláusula de guarda conservadora](feedback_q2_variantes_guardas_alinhador.md) — 0002: variantes na recuperação (ambiguidade, A2, nº misses) passaram verdes; quebre cada condição

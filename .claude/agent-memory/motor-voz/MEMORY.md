@@ -1,1 +1,2 @@
 - [Build etapa0 e ambiente](etapa0_build_ambiente.md) — AGP 9.4.1+KGP 2.4.21 ok, JDK 21 via daemon-jvm.properties, ktlint, zsh, evidências Q2 no XML
+- [Construção do align 0002](align_construcao_0002.md) — 85 testes verdes de primeira, Q2 por script, tempo L30, APIs para a 0003
