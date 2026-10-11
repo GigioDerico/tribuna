@@ -3,3 +3,4 @@
 - [Varredura de quebras 0002 r3](align_mutacao_rodada3.md) — limites exatos via nextUp, 13 equivalentes, ruído de float
 - [Construção 0003 Vosk T1-11](vosk_construcao_0003.md) — extrator do plano, modelo 15 arquivos, Vosk real ainda não exercitado
 - [Varredura 0003 rodada 2](vosk_rodada2_varredura.md) — 402 quebras por linha, 20 equivalentes, runner e pegadinhas
+- [Ferramentas 0004](ferramentas_0004.md) — 87 testes Py, L30 3,7 s, extrator de blocos, referências Kotlin
