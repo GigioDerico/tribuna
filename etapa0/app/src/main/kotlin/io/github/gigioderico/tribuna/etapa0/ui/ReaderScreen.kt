@@ -21,6 +21,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -76,9 +77,16 @@ fun ReaderScreen(
                         AssistChip(onClick = { controller.loadTestText(id) }, label = { Text(id) })
                     }
                 }
+                // Estado local só em `remember` (nunca `rememberSaveable`): o texto do discurso não é salvo (regra 2).
+                val sync = remember { FieldSync(state.text) }
+                var field by remember { mutableStateOf(sync.value) }
+                LaunchedEffect(state.text) { if (sync.received(state.text)) field = sync.value }
                 OutlinedTextField(
-                    value = state.text,
-                    onValueChange = controller::setText,
+                    value = field,
+                    onValueChange = {
+                        field = sync.typed(it)
+                        controller.setText(it)
+                    },
                     label = { Text(stringResource(R.string.text_label)) },
                     modifier = Modifier.fillMaxWidth().weight(1f),
                 )

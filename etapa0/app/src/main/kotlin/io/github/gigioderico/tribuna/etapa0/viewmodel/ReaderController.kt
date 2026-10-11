@@ -151,11 +151,18 @@ class ReaderController(
             resume(fromTap = false)
         }
 
-    /** `onStop` da Activity (TRD §Segundo plano; D16). */
+    /**
+     * `onStop` da Activity (TRD §Segundo plano; D16). Durante `Preparing` só marca o segundo plano: a carga do
+     * modelo segue, mas `startReading` não abre o microfone quando ela termina (OPR-027).
+     */
     fun onActivityStop(changingConfigurations: Boolean) =
         enqueue {
             if (changingConfigurations) return@enqueue
             val phase = mutableState.value.phase
+            if (phase == ReaderPhase.Preparing) {
+                backgrounded = true
+                return@enqueue
+            }
             if (phase != ReaderPhase.Reading && phase != ReaderPhase.Paused) return@enqueue
             endSession()
             stopCapture()
@@ -243,13 +250,19 @@ class ReaderController(
             mutableState.update { it.copy(phase = ReaderPhase.Idle, error = cause) }
             return
         }
-        if (!startCapture()) {
+        // O app foi ao segundo plano durante a carga: nada de microfone; fica pausado e o onStart reabre a captura.
+        val inBackground = backgrounded
+        if (!inBackground && !startCapture()) {
             mutableState.update { it.copy(phase = ReaderPhase.Idle) }
             return
         }
         recording = current.testTextId?.let { Recording(it, metaFor(current, info, prepareMs), originMs = clock()) }
         aligner = Aligner(current.tokens, current.settings.preset.params)
         reposition(0)
+        if (inBackground) {
+            mutableState.update { it.copy(phase = ReaderPhase.Paused, canExport = recording != null) }
+            return
+        }
         beginSession()
         mutableState.update { it.copy(phase = ReaderPhase.Reading, canExport = recording != null) }
     }
