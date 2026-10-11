@@ -4,6 +4,7 @@ import io.github.gigioderico.tribuna.etapa0.TestFiles
 import io.github.gigioderico.tribuna.etapa0.align.Tokenizer
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /** Toque em palavra ou vazio (TRD §Hit-test 1–4; spec 0003, D10): parte pura. */
@@ -98,5 +99,22 @@ class HitTestTest {
         for (token in big) assertEquals(token.index, HitTest.tokenAt(token.display.first, big))
         assertNull(HitTest.tokenAt(-1, big))
         assertNull(HitTest.tokenAt(0, emptyList()))
+    }
+
+    @Test
+    fun buscaBinaria_olhaPoucosTokens() {
+        val big = Tokenizer.tokenize(TestFiles.text("T09"))
+        var reads = 0
+        val counting =
+            object : AbstractList<io.github.gigioderico.tribuna.etapa0.align.Token>() {
+                override val size get() = big.size
+
+                override fun get(index: Int): io.github.gigioderico.tribuna.etapa0.align.Token {
+                    reads++
+                    return big[index]
+                }
+            }
+        assertEquals(0, HitTest.tokenAt(big[0].display.first, counting))
+        assertTrue("leituras: $reads de ${big.size} tokens", big.size > 50 && reads <= 8)
     }
 }

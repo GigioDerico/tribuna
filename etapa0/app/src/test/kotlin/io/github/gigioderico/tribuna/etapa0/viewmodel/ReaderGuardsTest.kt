@@ -340,4 +340,82 @@ class ReaderGuardsTest {
         assertEquals(null, debug.latency3Ms)
         assertEquals(null, debug.vocabularySize)
     }
+
+    @Test
+    fun capturaPerdidaComOMotorJaEmReady_naoPedeStopCaptureDeNovo() =
+        runTest {
+            val h = ReaderHarness(this)
+            h.load("T01")
+            h.listen()
+            h.pause()
+            val before = h.engine.calls.toList()
+            h.engine.loseCapture(EngineError.MicUnavailable)
+            h.settle()
+            assertEquals(before, h.engine.calls)
+            assertFalse(h.state.capturing)
+            assertEquals(EngineError.MicUnavailable, h.state.error)
+            assertEquals(ReaderPhase.Paused, h.state.phase)
+        }
+
+    @Test
+    fun erroDeSessaoAntigaSemSessaoAtiva_eIgnorado() =
+        runTest {
+            val h = ReaderHarness(this)
+            h.load("T01")
+            h.listen()
+            h.pause()
+            h.fake.recognizers
+                .single()
+                .error(EngineError.Internal)
+            h.settle()
+            assertEquals(null, h.state.error)
+            assertEquals(ReaderPhase.Paused, h.state.phase)
+            h.export()
+            assertEquals(listOf("0,1,error,\"Internal\",0"), h.rows("T01.hypotheses.csv"))
+        }
+
+    @Test
+    fun parcialDeSessaoAntigaSemSessaoAtiva_eIgnorado() =
+        runTest {
+            val h = ReaderHarness(this)
+            h.load("T01")
+            h.listen()
+            h.pause()
+            val old = h.fake.recognizers.single()
+            old.partial(listOf("ouvir", "bem"))
+            old.final(listOf("ouvir", "bem", "é"))
+            h.settle()
+            assertEquals(0, h.state.cursor)
+            assertEquals(emptyList<String>(), h.state.debug.tail)
+            h.export()
+            assertEquals(
+                listOf("0,1,partial,\"ouvir bem\",0", "0,1,final,\"ouvir bem é\",0"),
+                h.rows("T01.hypotheses.csv"),
+            )
+        }
+
+    @Test
+    fun recuoSeguidoDeRuido_naoGravaTrajetoriaNemRenovaOInstanteDoCursor() =
+        runTest {
+            val h = ReaderHarness(this)
+            h.load("T01")
+            h.listen()
+            h.clockSkew = 100
+            h.final("ouvir", "bem", "é", "uma", "habilidade", "que")
+            h.final("bem", "é", "uma")
+            assertEquals(3, h.state.cursor)
+            assertEquals(5, h.state.debug.highWater)
+            h.export()
+            val rows = h.rows("T01.trajectory.csv").size
+            h.clockSkew = 500
+            h.final("zzz")
+            assertEquals(3, h.state.cursor)
+            assertEquals(5, h.state.debug.highWater)
+            h.export()
+            assertEquals(rows, h.rows("T01.trajectory.csv").size)
+            h.clockSkew = 900
+            h.controller.onScrollSettled(3)
+            h.settle()
+            assertEquals(800L, h.state.debug.latency3Ms)
+        }
 }

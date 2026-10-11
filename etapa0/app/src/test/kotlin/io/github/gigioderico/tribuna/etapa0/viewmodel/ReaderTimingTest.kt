@@ -21,6 +21,7 @@ class ReaderTimingTest {
         runTest {
             val h = ReaderHarness(this)
             h.load("T01")
+            h.advance(50)
             h.engine.onPrepare = { h.clockSkew += 300 }
             h.engine.onBeginSession = { h.clockSkew += 7 }
             h.listen()
@@ -58,6 +59,7 @@ class ReaderTimingTest {
             h.load("T01")
             h.listen()
             assertNull(h.state.debug.latency2Ms)
+            h.clockSkew = 1_000
             h.tick = 1
             h.readThreeWords()
             h.tick = 0

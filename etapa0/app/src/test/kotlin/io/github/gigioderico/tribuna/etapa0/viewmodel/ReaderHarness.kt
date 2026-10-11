@@ -76,6 +76,12 @@ class RecordingEngine(
         fake.endSession()
     }
 
+    /** Como o VoskEngine quando a captura cai: o estado volta a Ready e sai um Error sem sessão (só sem sessão ativa). */
+    fun loseCapture(error: EngineError) {
+        fake.stopCapture()
+        fake.emitCaptureError(error)
+    }
+
     override fun release() {
         calls += "release"
         fake.release()

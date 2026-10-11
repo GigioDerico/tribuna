@@ -72,4 +72,24 @@ class FieldSyncTest {
         assertEquals("já carregado", sync.value)
         assertFalse(sync.received("já carregado"))
     }
+
+    @Test
+    fun ecoJaConsumido_naoSeguraUmTextoExternoIgual() {
+        val sync = FieldSync("")
+        sync.typed("a")
+        sync.typed("ab")
+        assertFalse(sync.received("a"))
+        // O mesmo "a" de novo não é eco de nada: o estado foi trocado por fora.
+        assertTrue(sync.received("a"))
+        assertEquals("a", sync.value)
+    }
+
+    @Test
+    fun textoExternoEsqueceOsEcosPendentes() {
+        val sync = FieldSync("")
+        sync.typed("x")
+        assertTrue(sync.received("texto do chip"))
+        assertTrue(sync.received("x"))
+        assertEquals("x", sync.value)
+    }
 }
