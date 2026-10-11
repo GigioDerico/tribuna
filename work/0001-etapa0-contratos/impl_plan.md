@@ -176,12 +176,12 @@ Total esperado: 45 testes, 0 falhas, 0 ignorados.
 - Criar: `etapa0/settings.gradle.kts`, `etapa0/gradle.properties`, `etapa0/gradle/libs.versions.toml`, `etapa0/gradle/gradle-daemon-jvm.properties`, `etapa0/.editorconfig`, `etapa0/local.properties` (não versionado)
 - Gerar: `etapa0/gradlew`, `etapa0/gradlew.bat`, `etapa0/gradle/wrapper/gradle-wrapper.jar`, `etapa0/gradle/wrapper/gradle-wrapper.properties`
 
-- [ ] **Passo 1: confirmar o branch**
+- [x] **Passo 1: confirmar o branch**
 
 Rodar: `git -C /Users/giorgioderico/Projetos/Tribuna branch --show-current`
 Esperado: `work/0001-etapa0-contratos`. Se for outro, `git checkout work/0001-etapa0-contratos`.
 
-- [ ] **Passo 2: acrescentar `.kotlin/` ao `.gitignore`**
+- [x] **Passo 2: acrescentar `.kotlin/` ao `.gitignore`**
 
 No bloco `# Gradle / build` de `/Users/giorgioderico/Projetos/Tribuna/.gitignore`, depois da linha `captures/`, acrescentar:
 
@@ -189,13 +189,13 @@ No bloco `# Gradle / build` de `/Users/giorgioderico/Projetos/Tribuna/.gitignore
 .kotlin/
 ```
 
-- [ ] **Passo 3: criar `etapa0/settings.gradle.kts` mínimo** (só para gerar o wrapper; é completado nas Tarefas 2, 5 e 6)
+- [x] **Passo 3: criar `etapa0/settings.gradle.kts` mínimo** (só para gerar o wrapper; é completado nas Tarefas 2, 5 e 6)
 
 ```kotlin
 rootProject.name = "tribuna-etapa0"
 ```
 
-- [ ] **Passo 4: gerar o wrapper 9.7.1 com checksum**
+- [x] **Passo 4: gerar o wrapper 9.7.1 com checksum**
 
 Rodar:
 
@@ -205,13 +205,13 @@ cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ~/.gradle/wrapper/dists/gradl
 
 Esperado: `BUILD SUCCESSFUL`; `etapa0/gradle/wrapper/gradle-wrapper.properties` contém `gradle-9.7.1-bin.zip` e `distributionSha256Sum=acd53f1e...`.
 
-- [ ] **Passo 5: criar `etapa0/gradle/gradle-daemon-jvm.properties`**
+- [x] **Passo 5: criar `etapa0/gradle/gradle-daemon-jvm.properties`**
 
 ```properties
 toolchainVersion=21
 ```
 
-- [ ] **Passo 6: criar `etapa0/gradle/libs.versions.toml`**
+- [x] **Passo 6: criar `etapa0/gradle/libs.versions.toml`**
 
 ```toml
 [versions]
@@ -242,7 +242,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintGradle" }
 ```
 
-- [ ] **Passo 7: criar `etapa0/gradle.properties`**
+- [x] **Passo 7: criar `etapa0/gradle.properties`**
 
 ```properties
 org.gradle.jvmargs=-Xmx4g -Dfile.encoding=UTF-8
@@ -250,7 +250,7 @@ android.useAndroidX=true
 kotlin.code.style=official
 ```
 
-- [ ] **Passo 8: criar `etapa0/.editorconfig`**
+- [x] **Passo 8: criar `etapa0/.editorconfig`**
 
 ```editorconfig
 root = true
@@ -259,23 +259,23 @@ root = true
 ktlint_code_style = ktlint_official
 ```
 
-- [ ] **Passo 9: criar `etapa0/local.properties`** (não versionado; já coberto por `local.properties` no `.gitignore`)
+- [x] **Passo 9: criar `etapa0/local.properties`** (não versionado; já coberto por `local.properties` no `.gitignore`)
 
 ```bash
 printf 'sdk.dir=%s\n' "$HOME/Library/Android/sdk" > /Users/giorgioderico/Projetos/Tribuna/etapa0/local.properties
 ```
 
-- [ ] **Passo 10: confirmar que o daemon usa o JDK 21**
+- [x] **Passo 10: confirmar que o daemon usa o JDK 21**
 
 Rodar: `cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew --version`
 Esperado: `Gradle 9.7.1` e uma linha `Daemon JVM:` apontando para o JDK 21 Temurin com a origem `gradle/gradle-daemon-jvm.properties` (não `org.gradle.java.home`). Se aparecer o 17, parar e seguir o risco R4.
 
-- [ ] **Passo 11: confirmar que nada indevido será versionado**
+- [x] **Passo 11: confirmar que nada indevido será versionado**
 
 Rodar: `git -C /Users/giorgioderico/Projetos/Tribuna status --porcelain etapa0 .gitignore`
 Esperado: aparecem `.gitignore`, `etapa0/settings.gradle.kts`, `etapa0/gradle.properties`, `etapa0/.editorconfig`, `etapa0/gradle/`, `etapa0/gradlew`, `etapa0/gradlew.bat`. Não aparecem `etapa0/local.properties`, `etapa0/.gradle/` nem `etapa0/.kotlin/`.
 
-- [ ] **Passo 12: commit**
+- [x] **Passo 12: commit**
 
 ```bash
 cd /Users/giorgioderico/Projetos/Tribuna && git add .gitignore etapa0/settings.gradle.kts etapa0/gradle.properties etapa0/.editorconfig etapa0/gradle etapa0/gradlew etapa0/gradlew.bat && git commit -m "chore(etapa0): wrapper Gradle 9.7.1, catalog e daemon no JDK 21 (TRD §Stack e versões)"

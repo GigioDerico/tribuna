@@ -5,6 +5,7 @@ local.properties
 .externalNativeBuild/
 .cxx/
 captures/
+.kotlin/
 
 # IDE (mantém só o que costuma ser compartilhado)
 .idea/*
