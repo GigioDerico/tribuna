@@ -1,0 +1,409 @@
+Quebras Q2, rodada 2 (motor/export), 0003-etapa0-vosk. Uma troca mínima por vez, restaurada com git checkout.
+Alvos: VoskEngine, ModelInstaller, VoskJson, AudioLevel, Vocabulary/Lexicon, export/* (ExportFiles, ExportWriter/ExportName, Recording, TestTextCatalog).
+Colunas: n | arquivo:linha | troca | antes dos testes novos | depois | testes vermelhos (até 3) | justificativa se verde
+Script: scratchpad run.py (aplica a troca, roda :app:testDebugUnitTest, lê os XMLs, restaura). Linhas 396 a 401 são pares e extras.
+
+0	VoskEngine.kt:51	check(!released)  =>  check(true)	GREEN	RED	VoskEngineRobustnessTest.prepareDepoisDoRelease_lanca	
+1	VoskEngine.kt:52	factory != null  =>  false	RED	RED	VoskEngineStateTest.prepareComOMotorAberto_naoRecarregaNemMudaOEstado	
+2	VoskEngine.kt:53	Preparing  =>  Ready	RED	RED	VoskEngineStateTest.sequenciaDeEstados	
+3	VoskEngine.kt:58	factory = loaded  =>  factory = factory	RED	RED	VoskEngineSessionTest.blocoLidoAntesDoEndSessionENaoEntregue_naoChegaAoReconhecedor;VoskEngineSessionTest.releaseDuranteUmBloco_fechaOReconhecedorQuandoOBlocoTermina;VoskEngineSessionTest.reconhecedorAntigoSoELiberadoDepoisDeTerminarOBloco (+30)	
+4	VoskEngine.kt:59	Ready  =>  Capturing	RED	RED	VoskEngineSessionTest.blocoLidoAntesDoEndSessionENaoEntregue_naoChegaAoReconhecedor;VoskEngineSessionTest.releaseDuranteUmBloco_fechaOReconhecedorQuandoOBlocoTermina;VoskEngineSessionTest.reconhecedorAntigoSoELiberadoDepoisDeTerminarOBloco (+41)	
+5	VoskEngine.kt:63	Failed  =>  Idle	RED	RED	VoskEngineStateTest.modeloAusente_prepareFalha_comFailedEModelMissing;VoskEngineRobustnessTest.startCaptureForaDoEstadoReady_lanca	
+6	VoskEngine.kt:64	Result.failure(e)  =>  Result.success(Unit)	RED	RED	VoskEngineStateTest.falhaDeCargaNaoFicaEmCache_tentarDeNovoCarrega;VoskEngineStateTest.modeloAusente_prepareFalha_comFailedEModelMissing	
+7	VoskEngine.kt:71	check(!released)  =>  check(true)	GREEN	GREEN		equivalente: depois do release o estado é Idle e o check seguinte (Ready) lança a mesma IllegalStateException
+8	VoskEngine.kt:72	== EngineState.Ready  =>  != EngineState.Idle	GREEN	RED	VoskEngineRobustnessTest.startCaptureForaDoEstadoReady_lanca	
+9	VoskEngine.kt:75	source.open()  =>  Unit	RED	RED	VoskEngineStateTest.semPermissao_geraPermissionRevokedSemSessao;VoskEngineStateTest.falhaAoAbrirAFonte_geraMicUnavailableSemSessao	
+10	VoskEngine.kt:77	e.error  =>  EngineError.Internal	RED	RED	VoskEngineStateTest.semPermissao_geraPermissionRevokedSemSessao;VoskEngineStateTest.falhaAoAbrirAFonte_geraMicUnavailableSemSessao	
+11	VoskEngine.kt:77	Error(null  =>  Error(current?.id	GREEN	GREEN		equivalente: com a fonte sem abrir não há captura, logo current é sempre null nesse ponto
+12	VoskEngine.kt:81	capture = started  =>  capture = null	RED	RED	VoskEngineSessionTest.releaseDuranteUmBloco_fechaOReconhecedorQuandoOBlocoTermina;VoskEngineSessionTest.stopCaptureDuranteALeitura_descartaOBloco;VoskEngineStateTest.stopCapture_paraOLaco_eFechaAFonte (+10)	
+13	VoskEngine.kt:82	Capturing  =>  Ready	RED	RED	VoskEngineSessionTest.blocoLidoAntesDoEndSessionENaoEntregue_naoChegaAoReconhecedor;VoskEngineSessionTest.releaseDuranteUmBloco_fechaOReconhecedorQuandoOBlocoTermina;VoskEngineSessionTest.reconhecedorAntigoSoELiberadoDepoisDeTerminarOBloco (+31)	
+14	VoskEngine.kt:84	captureDriver.start(started::step)  =>  Unit	RED	RED	VoskEngineSessionTest.blocoLidoAntesDoEndSessionENaoEntregue_naoChegaAoReconhecedor;VoskEngineSessionTest.releaseDuranteUmBloco_fechaOReconhecedorQuandoOBlocoTermina;VoskEngineSessionTest.reconhecedorAntigoSoELiberadoDepoisDeTerminarOBloco (+21)	
+15	VoskEngine.kt:92	capture = null  =>  Unit	GREEN	RED	VoskEngineRobustnessTest.stopCaptureDuasVezes_chamaODriverUmaVez	
+16	VoskEngine.kt:93	ended = current  =>  ended = null	RED	RED	VoskEngineSessionTest.releaseDuranteUmBloco_fechaOReconhecedorQuandoOBlocoTermina;VoskEngineStateTest.stopCapture_paraOLaco_eFechaAFonte	
+17	VoskEngine.kt:94	current = null  =>  Unit	GREEN	RED	VoskEngineRobustnessTest.stopCaptureComSessao_novaCapturaPermiteNovaSessao	
+18	VoskEngine.kt:95	Ready  =>  Capturing	RED	RED	VoskEngineStateTest.sequenciaDeEstados;VoskEngineRobustnessTest.stopCaptureComSessao_novaCapturaPermiteNovaSessao;VoskEngineRobustnessTest.stopCaptureDuasVezes_chamaODriverUmaVez (+1)	
+19	VoskEngine.kt:97	ended?.end()  =>  Unit	RED	RED	VoskEngineSessionTest.releaseDuranteUmBloco_fechaOReconhecedorQuandoOBlocoTermina;VoskEngineStateTest.stopCapture_paraOLaco_eFechaAFonte	
+20	VoskEngine.kt:98	stopped.active = false  =>  Unit	RED	RED	VoskEngineSessionTest.stopCaptureDuranteALeitura_descartaOBloco;VoskEngineStateTest.stopCapture_paraOLaco_eFechaAFonte;VoskEngineRobustnessTest.capturaParadaAntesDoPasso_naoLeNemUmBloco_efechaAFonteUmaVez	
+21	VoskEngine.kt:99	captureDriver.stop()  =>  Unit	RED	RED	VoskEngineStateTest.stopCapture_paraOLaco_eFechaAFonte;VoskEngineRobustnessTest.stopCaptureDuasVezes_chamaODriverUmaVez	
+22	VoskEngine.kt:107	&& current == null  =>  || current == null	GREEN	GREEN		equivalente: estado Recognizing se e só se current != null; os dois lados do && nunca divergem
+23	VoskEngine.kt:107	current == null  =>  true	GREEN	GREEN		equivalente: pelo mesmo invariante, o estado já exclui current != null
+24	VoskEngine.kt:107	EngineState.Capturing  =>  EngineState.Ready	RED	RED	VoskEngineSessionTest.blocoLidoAntesDoEndSessionENaoEntregue_naoChegaAoReconhecedor;VoskEngineSessionTest.releaseDuranteUmBloco_fechaOReconhecedorQuandoOBlocoTermina;VoskEngineSessionTest.reconhecedorAntigoSoELiberadoDepoisDeTerminarOBloco (+30)	
+25	VoskEngine.kt:110	checkNotNull(factory) { "beginSession antes de prepare" }  =>  factory!!	GREEN	GREEN		equivalente: inalcançável, Capturing exige Ready, que exige factory carregada; só mudaria o tipo da exceção
+26	VoskEngine.kt:111	nextSession++  =>  nextSession	RED	RED	VoskEngineSessionTest.erroDoReconhecedorComSessaoTrocadaNoMeioDoBloco_saiComOIdAntigo;VoskEngineSessionTest.resultadoProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo;VoskEngineSessionTest.estrategiaReset_reaproveitaOReconhecedor_comIdNovo (+1)	
+27	VoskEngine.kt:113	spare = null  =>  Unit	GREEN	RED	VoskEngineRobustnessTest.estrategiaReset_tresSessoesComOMesmoVocabulario_reaproveitamOMesmoReconhecedor	
+28	VoskEngine.kt:114	kept.vocabulary == vocabulary  =>  kept.vocabulary != vocabulary	RED	RED	VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo;VoskEngineSessionTest.estrategiaReset_reaproveitaOReconhecedor_comIdNovo;VoskEngineSessionTest.estrategiaReset_vocabularioMudou_criaReconhecedorNovo (+1)	
+29	VoskEngine.kt:114	kept.vocabulary == vocabulary  =>  true	RED	RED	VoskEngineSessionTest.estrategiaReset_vocabularioMudou_criaReconhecedorNovo	
+30	VoskEngine.kt:115	reused == null  =>  reused != null	RED	RED	VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo;VoskEngineSessionTest.estrategiaReset_reaproveitaOReconhecedor_comIdNovo;VoskEngineSessionTest.estrategiaReset_vocabularioMudou_criaReconhecedorNovo (+1)	
+31	VoskEngine.kt:115	kept.decoder.close()  =>  Unit	RED	RED	VoskEngineSessionTest.estrategiaReset_vocabularioMudou_criaReconhecedorNovo	
+32	VoskEngine.kt:119	create(vocabulary)  =>  create(null)	RED	RED	VoskEngineSessionTest.vocabulario_vaiParaOReconhecedorCriado_esemListaSemVocabulario	
+33	VoskEngine.kt:121	null  =>  throw e	RED	RED	VoskEngineSessionTest.reconhecedorQueNaoCria_emiteErroInternoDaSessao	
+34	VoskEngine.kt:124	Session(id, decoder, vocabulary)  =>  Session(id, decoder, null)	RED	RED	VoskEngineSessionTest.estrategiaReset_reaproveitaOReconhecedor_comIdNovo;VoskEngineSessionTest.estrategiaReset_vocabularioMudou_criaReconhecedorNovo;VoskEngineRobustnessTest.estrategiaReset_tresSessoesComOMesmoVocabulario_reaproveitamOMesmoReconhecedor	
+35	VoskEngine.kt:125	Recognizing  =>  Capturing	RED	RED	VoskEngineStateTest.prepareComOMotorAberto_naoRecarregaNemMudaOEstado;VoskEngineStateTest.sequenciaDeEstados;VoskEngineRobustnessTest.capturaPerdidaNoMeioDaSessao_novaCapturaPermiteNovaSessao (+2)	
+36	VoskEngine.kt:127	decoder == null  =>  decoder != null	RED	RED	VoskEngineSessionTest.reconhecedorQueNaoCria_emiteErroInternoDaSessao;VoskEngineSessionTest.finalProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo;VoskEngineSessionTest.todoEventoDoReconhecedor_levaOIdDele (+8)	
+37	VoskEngine.kt:127	Error(id,  =>  Error(SessionId(id.value + 1),	RED	RED	VoskEngineSessionTest.reconhecedorQueNaoCria_emiteErroInternoDaSessao	
+38	VoskEngine.kt:127	EngineError.Internal  =>  EngineError.MicUnavailable	RED	RED	VoskEngineSessionTest.reconhecedorQueNaoCria_emiteErroInternoDaSessao	
+39	VoskEngine.kt:135	current = null  =>  Unit	RED	RED	VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo;VoskEngineSessionTest.finalProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo;VoskEngineSessionTest.resultadoProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo (+6)	
+40	VoskEngine.kt:136	Capturing  =>  Ready	RED	RED	VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo;VoskEngineSessionTest.finalProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo;VoskEngineSessionTest.resultadoProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo (+7)	
+41	VoskEngine.kt:138	ended.end()  =>  Unit	RED	RED	VoskEngineSessionTest.blocoLidoAntesDoEndSessionENaoEntregue_naoChegaAoReconhecedor;VoskEngineSessionTest.reconhecedorAntigoSoELiberadoDepoisDeTerminarOBloco;VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo (+7)	
+42	VoskEngine.kt:142	stopCapture()  =>  Unit	RED	RED	VoskEngineSessionTest.releaseDuranteUmBloco_fechaOReconhecedorQuandoOBlocoTermina	
+43	VoskEngine.kt:145	released = true  =>  Unit	RED	RED	VoskEngineSessionTest.releaseDuranteUmBloco_fechaOReconhecedorQuandoOBlocoTermina;VoskEngineRobustnessTest.prepareDepoisDoRelease_lanca	
+44	VoskEngine.kt:146	kept = spare  =>  kept = null	RED	RED	VoskEngineSessionTest.release_fechaOReconhecedorGuardadoDaEstrategiaReset	
+45	VoskEngine.kt:147	spare = null  =>  Unit	GREEN	GREEN		equivalente: depois do release nenhum caminho lê spare (recycle checa released; beginSession lança)
+46	VoskEngine.kt:148	Idle  =>  Ready	GREEN	RED	VoskEngineRobustnessTest.release_voltaAIdle_eFechaOFluxoDeEventos	
+47	VoskEngine.kt:150	kept?.decoder?.close()  =>  Unit	RED	RED	VoskEngineSessionTest.release_fechaOReconhecedorGuardadoDaEstrategiaReset	
+48	VoskEngine.kt:151	channel.close()  =>  Unit	GREEN	RED	VoskEngineRobustnessTest.release_voltaAIdle_eFechaOFluxoDeEventos	
+49	VoskEngine.kt:159	==  =>  !=	RED	RED	VoskEngineSessionTest.blocoLidoAntesDoEndSessionENaoEntregue_naoChegaAoReconhecedor;VoskEngineSessionTest.reconhecedorAntigoSoELiberadoDepoisDeTerminarOBloco;VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo (+9)	
+50	VoskEngine.kt:160	decoder.close()  =>  Unit	RED	RED	VoskEngineSessionTest.blocoLidoAntesDoEndSessionENaoEntregue_naoChegaAoReconhecedor;VoskEngineSessionTest.reconhecedorAntigoSoELiberadoDepoisDeTerminarOBloco;VoskEngineSessionTest.endSession_naoEmiteFinal_eNaoPedeOResultado (+3)	
+51	VoskEngine.kt:161	return  =>  Unit	RED	RED	VoskEngineSessionTest.estrategiaNova_cadaSessaoCriaUmReconhecedor_comIdsCrescentes;VoskEngineRobustnessTest.stopCaptureComSessao_novaCapturaPermiteNovaSessao	
+52	VoskEngine.kt:163	decoder.reset()  =>  Unit	RED	RED	VoskEngineSessionTest.estrategiaReset_endSessionZeraEMantemOReconhecedor;VoskEngineRobustnessTest.estrategiaReset_tresSessoesComOMesmoVocabulario_reaproveitamOMesmoReconhecedor	
+53	VoskEngine.kt:166	spare == null && !released  =>  spare == null	RED	RED	VoskEngineSessionTest.releaseDuranteUmBloco_fechaOReconhecedorQuandoOBlocoTermina	
+54	VoskEngine.kt:166	spare == null && !released  =>  !released	RED	RED	VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo	
+55	VoskEngine.kt:166	spare == null && !released  =>  spare == null || !released	RED	RED	VoskEngineSessionTest.releaseDuranteUmBloco_fechaOReconhecedorQuandoOBlocoTermina;VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo	
+56	VoskEngine.kt:167	Spare(decoder, vocabulary)  =>  Spare(decoder, null)	RED	RED	VoskEngineSessionTest.estrategiaReset_reaproveitaOReconhecedor_comIdNovo;VoskEngineSessionTest.estrategiaReset_vocabularioMudou_criaReconhecedorNovo;VoskEngineRobustnessTest.estrategiaReset_tresSessoesComOMesmoVocabulario_reaproveitamOMesmoReconhecedor	
+57	VoskEngine.kt:168	true  =>  false	RED	RED	VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo;VoskEngineSessionTest.release_fechaOReconhecedorGuardadoDaEstrategiaReset;VoskEngineSessionTest.estrategiaReset_reaproveitaOReconhecedor_comIdNovo (+2)	
+58	VoskEngine.kt:170	false  =>  true	RED	RED	VoskEngineSessionTest.releaseDuranteUmBloco_fechaOReconhecedorQuandoOBlocoTermina;VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo	
+59	VoskEngine.kt:173	!keep  =>  keep	RED	RED	VoskEngineSessionTest.releaseDuranteUmBloco_fechaOReconhecedorQuandoOBlocoTermina;VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo;VoskEngineSessionTest.release_fechaOReconhecedorGuardadoDaEstrategiaReset (+3)	
+60	VoskEngine.kt:173	decoder.close()  =>  Unit	RED	RED	VoskEngineSessionTest.releaseDuranteUmBloco_fechaOReconhecedorQuandoOBlocoTermina;VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo	
+61	VoskEngine.kt:182	capture !== lost  =>  false	GREEN	RED	VoskEngineRobustnessTest.passoDeCapturaAntiga_queFalhaDepoisDaNovaCaptura_naoDerrubaANova	
+62	VoskEngine.kt:183	capture = null  =>  Unit	GREEN	RED	VoskEngineRobustnessTest.capturaPerdida_stopCaptureDepois_naoMexeNoDriver	
+63	VoskEngine.kt:184	ended = current  =>  ended = null	RED	RED	VoskEngineStateTest.permissaoPerdidaDuranteACaptura_geraPermissionRevoked_eFechaACaptura	
+64	VoskEngine.kt:185	current = null  =>  Unit	GREEN	RED	VoskEngineRobustnessTest.capturaPerdidaNoMeioDaSessao_novaCapturaPermiteNovaSessao	
+65	VoskEngine.kt:186	Ready  =>  Capturing	RED	RED	VoskEngineStateTest.permissaoPerdidaDuranteACaptura_geraPermissionRevoked_eFechaACaptura;VoskEngineRobustnessTest.capturaPerdidaNoMeioDaSessao_novaCapturaPermiteNovaSessao;VoskEngineRobustnessTest.leituraNegativa_eMicUnavailable_fechaAFonteEEncerraOLaco (+1)	
+66	VoskEngine.kt:188	ended?.end()  =>  Unit	RED	RED	VoskEngineStateTest.permissaoPerdidaDuranteACaptura_geraPermissionRevoked_eFechaACaptura	
+67	VoskEngine.kt:189	Error(null, error)  =>  Error(ended?.id, error)	RED	RED	VoskEngineStateTest.permissaoPerdidaDuranteACaptura_geraPermissionRevoked_eFechaACaptura	
+68	VoskEngine.kt:189	Error(null, error)  =>  Error(null, EngineError.Internal)	RED	RED	VoskEngineStateTest.permissaoPerdidaDuranteACaptura_geraPermissionRevoked_eFechaACaptura;VoskEngineRobustnessTest.leituraNegativa_eMicUnavailable_fechaAFonteEEncerraOLaco;VoskEngineRobustnessTest.fonteQueLanca_encerraOLaco_eFechaAFonteUmaVez	
+69	VoskEngine.kt:189	channel.trySend(SpeechEvent.Error(null, error))  =>  Unit	RED	RED	VoskEngineStateTest.permissaoPerdidaDuranteACaptura_geraPermissionRevoked_eFechaACaptura;VoskEngineRobustnessTest.leituraNegativa_eMicUnavailable_fechaAFonteEEncerraOLaco;VoskEngineRobustnessTest.fonteQueLanca_encerraOLaco_eFechaAFonteUmaVez	
+70	VoskEngine.kt:207	!active  =>  false	GREEN	RED	VoskEngineRobustnessTest.capturaParadaAntesDoPasso_naoLeNemUmBloco_efechaAFonteUmaVez	
+71	VoskEngine.kt:212	fail(e.error)  =>  fail(EngineError.Internal)	RED	RED	VoskEngineStateTest.permissaoPerdidaDuranteACaptura_geraPermissionRevoked_eFechaACaptura;VoskEngineRobustnessTest.fonteQueLanca_encerraOLaco_eFechaAFonteUmaVez	
+72	VoskEngine.kt:214	!active  =>  false	RED	RED	VoskEngineSessionTest.stopCaptureDuranteALeitura_descartaOBloco	
+73	VoskEngine.kt:215	count < 0  =>  count <= 0	GREEN	RED	VoskEngineRobustnessTest.leituraSemAmostras_naoEmiteLevelNemEntregaAoReconhecedor_eOLacoContinua;VoskEngineRobustnessTest.passoDeCapturaAntiga_queFalhaDepoisDaNovaCaptura_naoDerrubaANova	
+74	VoskEngine.kt:215	count < 0  =>  count < -1	GREEN	RED	VoskEngineRobustnessTest.leituraNegativa_eMicUnavailable_fechaAFonteEEncerraOLaco	
+75	VoskEngine.kt:215	MicUnavailable  =>  Internal	GREEN	RED	VoskEngineRobustnessTest.leituraNegativa_eMicUnavailable_fechaAFonteEEncerraOLaco	
+76	VoskEngine.kt:216	count == 0  =>  count == 1	GREEN	RED	VoskEngineRobustnessTest.leituraSemAmostras_naoEmiteLevelNemEntregaAoReconhecedor_eOLacoContinua	
+77	VoskEngine.kt:216	return true  =>  return false	GREEN	RED	VoskEngineRobustnessTest.leituraSemAmostras_naoEmiteLevelNemEntregaAoReconhecedor_eOLacoContinua;VoskEngineRobustnessTest.passoDeCapturaAntiga_queFalhaDepoisDaNovaCaptura_naoDerrubaANova	
+78	VoskEngine.kt:217	AudioLevel.rms(buffer, count)  =>  AudioLevel.rms(buffer, buffer.size)	GREEN	RED	VoskEngineRobustnessTest.blocoMenorQueOBuffer_levelEReconhecedorUsamSoAsAmostrasLidas	
+79	VoskEngine.kt:217	channel.trySend(SpeechEvent.Level(AudioLevel.rms(buffer, count)))  =>  Unit	RED	RED	VoskEngineSessionTest.foraDeSessao_nenhumBlocoChegaAoReconhecedor_eLevelContinua;VoskEngineRobustnessTest.blocoMenorQueOBuffer_levelEReconhecedorUsamSoAsAmostrasLidas	
+80	VoskEngine.kt:218	synchronized(lock) { current }  =>  (null as Session?)	NOCOMPILE	RED	VoskEngineSessionTest.releaseDuranteUmBloco_fechaOReconhecedorQuandoOBlocoTermina;VoskEngineSessionTest.reconhecedorAntigoSoELiberadoDepoisDeTerminarOBloco;VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo (+10)	
+81	VoskEngine.kt:219	session?.feed(buffer, count)  =>  session?.feed(buffer, buffer.size)	GREEN	RED	VoskEngineRobustnessTest.blocoMenorQueOBuffer_levelEReconhecedorUsamSoAsAmostrasLidas	
+82	VoskEngine.kt:219	session?.feed(buffer, count)  =>  Unit	RED	RED	VoskEngineSessionTest.releaseDuranteUmBloco_fechaOReconhecedorQuandoOBlocoTermina;VoskEngineSessionTest.reconhecedorAntigoSoELiberadoDepoisDeTerminarOBloco;VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo (+10)	
+83	VoskEngine.kt:220	return true  =>  return false	RED	RED	VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo;VoskEngineSessionTest.todoEventoDoReconhecedor_levaOIdDele;VoskEngineSessionTest.foraDeSessao_nenhumBlocoChegaAoReconhecedor_eLevelContinua (+1)	
+84	VoskEngine.kt:224	source.close()  =>  Unit	RED	RED	VoskEngineSessionTest.stopCaptureDuranteALeitura_descartaOBloco;VoskEngineStateTest.stopCapture_paraOLaco_eFechaAFonte;VoskEngineRobustnessTest.capturaParadaAntesDoPasso_naoLeNemUmBloco_efechaAFonteUmaVez	
+85	VoskEngine.kt:225	false  =>  true	RED	RED	VoskEngineStateTest.stopCapture_paraOLaco_eFechaAFonte;VoskEngineRobustnessTest.capturaParadaAntesDoPasso_naoLeNemUmBloco_efechaAFonteUmaVez	
+86	VoskEngine.kt:229	source.close()  =>  Unit	RED	RED	VoskEngineStateTest.permissaoPerdidaDuranteACaptura_geraPermissionRevoked_eFechaACaptura;VoskEngineRobustnessTest.leituraNegativa_eMicUnavailable_fechaAFonteEEncerraOLaco;VoskEngineRobustnessTest.fonteQueLanca_encerraOLaco_eFechaAFonteUmaVez	
+87	VoskEngine.kt:230	active = false  =>  Unit	GREEN	GREEN		equivalente: o laço já termina ao receber false e nada chama step de novo (contrato do CaptureDriver)
+88	VoskEngine.kt:231	captureLost(this, error)  =>  Unit	RED	RED	VoskEngineStateTest.permissaoPerdidaDuranteACaptura_geraPermissionRevoked_eFechaACaptura;VoskEngineRobustnessTest.capturaPerdidaNoMeioDaSessao_novaCapturaPermiteNovaSessao;VoskEngineRobustnessTest.leituraNegativa_eMicUnavailable_fechaAFonteEEncerraOLaco (+2)	
+89	VoskEngine.kt:232	false  =>  true	GREEN	RED	VoskEngineRobustnessTest.leituraNegativa_eMicUnavailable_fechaAFonteEEncerraOLaco;VoskEngineRobustnessTest.fonteQueLanca_encerraOLaco_eFechaAFonteUmaVez;VoskEngineRobustnessTest.passoDeCapturaAntiga_queFalhaDepoisDaNovaCaptura_naoDerrubaANova	
+90	VoskEngine.kt:256	if (ended) return  =>  if (false) return	RED	RED	VoskEngineSessionTest.reconhecedorComExcecao_naoRecebeMaisAudio	
+91	VoskEngine.kt:257	feeding = true  =>  Unit	RED	RED	VoskEngineSessionTest.reconhecedorAntigoSoELiberadoDepoisDeTerminarOBloco;VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo	
+92	VoskEngine.kt:262	active.accept(samples, count)  =>  !active.accept(samples, count)	RED	RED	VoskEngineSessionTest.finalProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo;VoskEngineSessionTest.todoEventoDoReconhecedor_levaOIdDele;VoskEngineSessionTest.resultadoProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo (+2)	
+93	VoskEngine.kt:262	accept(samples, count)  =>  accept(samples, samples.size)	GREEN	RED	VoskEngineRobustnessTest.blocoMenorQueOBuffer_levelEReconhecedorUsamSoAsAmostrasLidas	
+94	VoskEngine.kt:263	resultJson()  =>  partialJson()	RED	RED	VoskEngineSessionTest.finalProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo;VoskEngineSessionTest.todoEventoDoReconhecedor_levaOIdDele	
+95	VoskEngine.kt:263	Final(id,  =>  Final(SessionId(nextSession - 1),	RED	RED	VoskEngineSessionTest.finalProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo	
+96	VoskEngine.kt:263	Final(id,  =>  Final(synchronized(lock) { current }?.id ?: id,	RED	RED	VoskEngineSessionTest.finalProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo	
+97	VoskEngine.kt:265	partialJson()  =>  resultJson()	RED	RED	VoskEngineSessionTest.todoEventoDoReconhecedor_levaOIdDele;VoskEngineSessionTest.resultadoProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo;VoskEngineSessionTest.endSession_naoEmiteFinal_eNaoPedeOResultado (+1)	
+98	VoskEngine.kt:265	Partial(id,  =>  Partial(synchronized(lock) { current }?.id ?: id,	RED	RED	VoskEngineSessionTest.resultadoProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo	
+99	VoskEngine.kt:265	Partial(id,  =>  Partial(SessionId(nextSession - 1),	RED	RED	VoskEngineSessionTest.resultadoProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo	
+100	VoskEngine.kt:268	failed = true  =>  failed = false	RED	RED	VoskEngineSessionTest.reconhecedorComExcecao_naoRecebeMaisAudio;VoskEngineRobustnessTest.estrategiaReset_reconhecedorComExcecao_eFechadoENaoReaproveitado	
+101	VoskEngine.kt:268	synchronized(this) { failed = true }  =>  Unit	RED	RED	VoskEngineSessionTest.reconhecedorComExcecao_naoRecebeMaisAudio;VoskEngineRobustnessTest.estrategiaReset_reconhecedorComExcecao_eFechadoENaoReaproveitado	
+102	VoskEngine.kt:269	Error(id,  =>  Error(synchronized(lock) { current }?.id ?: id,	RED	RED	VoskEngineSessionTest.erroDoReconhecedorComSessaoTrocadaNoMeioDoBloco_saiComOIdAntigo	
+103	VoskEngine.kt:269	Error(id,  =>  Error(SessionId(nextSession - 1),	RED	RED	VoskEngineSessionTest.erroDoReconhecedorComSessaoTrocadaNoMeioDoBloco_saiComOIdAntigo	
+104	VoskEngine.kt:269	EngineError.Internal  =>  EngineError.MicUnavailable	RED	RED	VoskEngineSessionTest.todoEventoDoReconhecedor_levaOIdDele;VoskEngineSessionTest.erroDoReconhecedorComSessaoTrocadaNoMeioDoBloco_saiComOIdAntigo;VoskEngineSessionTest.reconhecedorComExcecao_naoRecebeMaisAudio (+1)	
+105	VoskEngine.kt:271	channel.trySend(event)  =>  Unit	RED	RED	VoskEngineSessionTest.finalProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo;VoskEngineSessionTest.todoEventoDoReconhecedor_levaOIdDele;VoskEngineSessionTest.erroDoReconhecedorComSessaoTrocadaNoMeioDoBloco_saiComOIdAntigo (+4)	
+106	VoskEngine.kt:275	feeding = false  =>  Unit	RED	RED	VoskEngineSessionTest.endSession_naoEmiteFinal_eNaoPedeOResultado;VoskEngineSessionTest.estrategiaReset_endSessionZeraEMantemOReconhecedor	
+107	VoskEngine.kt:276	if (failed) ended = true  =>  Unit	RED	RED	VoskEngineSessionTest.reconhecedorComExcecao_naoRecebeMaisAudio;VoskEngineRobustnessTest.estrategiaReset_reconhecedorComExcecao_eFechadoENaoReaproveitado	
+108	VoskEngine.kt:276	if (failed)  =>  if (!failed)	RED	RED	VoskEngineSessionTest.todoEventoDoReconhecedor_levaOIdDele;VoskEngineSessionTest.reconhecedorComExcecao_naoRecebeMaisAudio;VoskEngineRobustnessTest.estrategiaReset_reconhecedorComExcecao_eFechadoENaoReaproveitado (+1)	
+109	VoskEngine.kt:277	ended  =>  true	RED	RED	VoskEngineSessionTest.todoEventoDoReconhecedor_levaOIdDele;VoskEngineRobustnessTest.blocoMenorQueOBuffer_levelEReconhecedorUsamSoAsAmostrasLidas	
+110	VoskEngine.kt:277	ended  =>  false	RED	RED	VoskEngineSessionTest.releaseDuranteUmBloco_fechaOReconhecedorQuandoOBlocoTermina;VoskEngineSessionTest.reconhecedorAntigoSoELiberadoDepoisDeTerminarOBloco;VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo (+4)	
+111	VoskEngine.kt:279	if (releaseNow)  =>  if (!releaseNow)	RED	RED	VoskEngineSessionTest.releaseDuranteUmBloco_fechaOReconhecedorQuandoOBlocoTermina;VoskEngineSessionTest.reconhecedorAntigoSoELiberadoDepoisDeTerminarOBloco;VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo (+6)	
+112	VoskEngine.kt:279	release(active)  =>  Unit	RED	RED	VoskEngineSessionTest.releaseDuranteUmBloco_fechaOReconhecedorQuandoOBlocoTermina;VoskEngineSessionTest.reconhecedorAntigoSoELiberadoDepoisDeTerminarOBloco;VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo (+4)	
+113	VoskEngine.kt:286	if (ended) return  =>  if (false) return	GREEN	GREEN		equivalente isolado: par redundante com o check de decoderReleased; o par quebrado junto fica vermelho (linhas 396, 397, 398)
+114	VoskEngine.kt:287	ended = true  =>  Unit	RED	RED	VoskEngineSessionTest.releaseDuranteUmBloco_fechaOReconhecedorQuandoOBlocoTermina;VoskEngineSessionTest.reconhecedorAntigoSoELiberadoDepoisDeTerminarOBloco;VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo	
+115	VoskEngine.kt:288	!feeding  =>  true	RED	RED	VoskEngineSessionTest.reconhecedorAntigoSoELiberadoDepoisDeTerminarOBloco;VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo	
+116	VoskEngine.kt:288	!feeding  =>  false	RED	RED	VoskEngineSessionTest.blocoLidoAntesDoEndSessionENaoEntregue_naoChegaAoReconhecedor;VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo;VoskEngineSessionTest.release_fechaOReconhecedorGuardadoDaEstrategiaReset (+8)	
+117	VoskEngine.kt:290	if (releaseNow)  =>  if (!releaseNow)	RED	RED	VoskEngineSessionTest.blocoLidoAntesDoEndSessionENaoEntregue_naoChegaAoReconhecedor;VoskEngineSessionTest.reconhecedorAntigoSoELiberadoDepoisDeTerminarOBloco;VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo (+9)	
+118	VoskEngine.kt:290	decoder?.let(::release)  =>  Unit	RED	RED	VoskEngineSessionTest.blocoLidoAntesDoEndSessionENaoEntregue_naoChegaAoReconhecedor;VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo;VoskEngineSessionTest.release_fechaOReconhecedorGuardadoDaEstrategiaReset (+8)	
+119	VoskEngine.kt:296	if (decoderReleased) return  =>  if (false) return	GREEN	GREEN		equivalente isolado: par redundante com o check de ended em end(); o par quebrado junto fica vermelho (linha 396)
+120	VoskEngine.kt:297	decoderReleased = true  =>  Unit	GREEN	GREEN		equivalente isolado: idem 119 (par 397 vermelho)
+121	VoskEngine.kt:298	failed  =>  false	GREEN	RED	VoskEngineRobustnessTest.estrategiaReset_reconhecedorComExcecao_eFechadoENaoReaproveitado	
+122	VoskEngine.kt:298	failed  =>  !failed	RED	RED	VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo;VoskEngineSessionTest.release_fechaOReconhecedorGuardadoDaEstrategiaReset;VoskEngineSessionTest.estrategiaReset_reaproveitaOReconhecedor_comIdNovo (+3)	
+123	VoskEngine.kt:300	broken  =>  !broken	RED	RED	VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo;VoskEngineSessionTest.release_fechaOReconhecedorGuardadoDaEstrategiaReset;VoskEngineSessionTest.estrategiaReset_reaproveitaOReconhecedor_comIdNovo (+3)	
+124	VoskEngine.kt:300	active.close()  =>  Unit	RED	RED	VoskEngineSessionTest.erroDoReconhecedorComSessaoTrocadaNoMeioDoBloco_saiComOIdAntigo;VoskEngineSessionTest.reconhecedorComExcecao_naoRecebeMaisAudio;VoskEngineRobustnessTest.estrategiaReset_reconhecedorComExcecao_eFechadoENaoReaproveitado (+1)	
+125	VoskEngine.kt:300	recycle(active, vocabulary)  =>  recycle(active, null)	RED	RED	VoskEngineSessionTest.estrategiaReset_reaproveitaOReconhecedor_comIdNovo;VoskEngineSessionTest.estrategiaReset_vocabularioMudou_criaReconhecedorNovo;VoskEngineRobustnessTest.estrategiaReset_tresSessoesComOMesmoVocabulario_reaproveitamOMesmoReconhecedor	
+126	VoskEngine.kt:305	16_000  =>  16_001	GREEN	RED	VoskEngineRobustnessTest.constantes_16kHz_eBlocoDeDuzentosMilissegundos	
+127	VoskEngine.kt:308	3_200  =>  3_201	GREEN	RED	VoskEngineRobustnessTest.constantes_16kHz_eBlocoDeDuzentosMilissegundos	
+128	ModelInstaller.kt:21	targetUuid.trim() != sourceUuid.trim()  =>  targetUuid.trim() == sourceUuid.trim()	RED	RED	ModelInstallerTest.uuidIgualNoDestino_naoCopia;ModelInstallerTest.uuidDiferenteNoDestino_copiaDeNovo;ModelInstallerTest.mesmaVersao_naoCopia_diferenteOuAusente_copia (+3)	
+129	ModelInstaller.kt:21	targetUuid.trim()  =>  targetUuid	RED	RED	ModelInstallerTest.mesmaVersao_naoCopia_diferenteOuAusente_copia	
+130	ModelInstaller.kt:21	sourceUuid.trim()  =>  sourceUuid	GREEN	RED	ModelInstallerTest.needsCopy_ignoraQuebraDeLinhaEEspacosDaOrigem	
+131	ModelInstaller.kt:21	targetUuid == null ||  =>  targetUuid.isNullOrEmpty() ||	GREEN	GREEN		equivalente: firstLine devolve null para vazio, então targetUuid nunca é vazio
+132	ModelInstaller.kt:42	"$assetDir/$UUID"  =>  "$assetDir/uuid.txt"	RED	RED	ModelInstallerTest.uuidIgualNoDestino_naoCopia;ModelInstallerTest.semModeloNoDestino_copiaTudo_comUuidPorUltimo;ModelInstallerTest.uuidDiferenteNoDestino_copiaDeNovo (+5)	
+133	ModelInstaller.kt:43	IOException  =>  java.io.FileNotFoundException	GREEN	RED	ModelInstallerTest.falhaGenericaDeIOAoLerOUuid_devolveModelMissing	
+134	ModelInstaller.kt:44	ModelMissing  =>  ModelCorrupt	RED	RED	ModelInstallerTest.modeloAusenteNosAssets_devolveModelMissing;ModelInstallerTest.falhaGenericaDeIOAoLerOUuid_devolveModelMissing	
+135	ModelInstaller.kt:45	ModelMissing  =>  ModelCorrupt	GREEN	RED	ModelInstallerTest.uuidSoComEspacos_devolveModelMissing;ModelInstallerTest.uuidVazio_devolveModelMissing	
+136	ModelInstaller.kt:48	targetUuidFile.isFile  =>  true	RED	RED	ModelInstallerTest.uuidIgualNoDestino_naoCopia;ModelInstallerTest.semModeloNoDestino_copiaTudo_comUuidPorUltimo;ModelInstallerTest.copiaInterrompidaAnterior_naoVazaParaOModeloNovo (+3)	
+137	ModelInstaller.kt:48	targetUuidFile.inputStream().use(::firstLine)  =>  null	RED	RED	ModelInstallerTest.uuidIgualNoDestino_naoCopia;ModelInstallerTest.uuidComAcentoEEspacos_eLidoEmUtf8EAparado	
+138	ModelInstaller.kt:49	!ModelVersion  =>  ModelVersion	RED	RED	ModelInstallerTest.uuidIgualNoDestino_naoCopia;ModelInstallerTest.semModeloNoDestino_copiaTudo_comUuidPorUltimo;ModelInstallerTest.uuidDiferenteNoDestino_copiaDeNovo (+4)	
+139	ModelInstaller.kt:49	copied = false  =>  copied = true	RED	RED	ModelInstallerTest.uuidIgualNoDestino_naoCopia;ModelInstallerTest.uuidComAcentoEEspacos_eLidoEmUtf8EAparado	
+140	ModelInstaller.kt:49	sourceUuid.trim()  =>  sourceUuid	GREEN	GREEN		equivalente: sourceUuid já vem aparado de firstLine; o id é o mesmo
+141	ModelInstaller.kt:50	"$assetDir.tmp"  =>  "$assetDir"	RED	RED	ModelInstallerTest.uuidIgualNoDestino_naoCopia;ModelInstallerTest.semModeloNoDestino_copiaTudo_comUuidPorUltimo;ModelInstallerTest.uuidDiferenteNoDestino_copiaDeNovo (+5)	
+142	ModelInstaller.kt:52	temp.deleteRecursively()  =>  Unit	GREEN	RED	ModelInstallerTest.copiaInterrompidaAnterior_naoVazaParaOModeloNovo	
+143	ModelInstaller.kt:53	copyTree(assetDir, temp)  =>  Unit	RED	RED	ModelInstallerTest.semModeloNoDestino_copiaTudo_comUuidPorUltimo;ModelInstallerTest.uuidAusenteNoDestino_copia;ModelInstallerTest.falhaNaCopia_devolveModelCorrupt_eNaoDeixaCopiaPelaMetade	
+144	ModelInstaller.kt:54	copyFile("$assetDir/$UUID", File(temp, UUID))  =>  Unit	RED	RED	ModelInstallerTest.uuidIgualNoDestino_naoCopia;ModelInstallerTest.semModeloNoDestino_copiaTudo_comUuidPorUltimo;ModelInstallerTest.uuidDiferenteNoDestino_copiaDeNovo (+2)	
+145	ModelInstaller.kt:55	target.deleteRecursively()  =>  Unit	RED	RED	ModelInstallerTest.uuidDiferenteNoDestino_copiaDeNovo;ModelInstallerTest.uuidAusenteNoDestino_copia	
+146	ModelInstaller.kt:56	!temp.renameTo(target)  =>  temp.renameTo(target)	RED	RED	ModelInstallerTest.uuidIgualNoDestino_naoCopia;ModelInstallerTest.semModeloNoDestino_copiaTudo_comUuidPorUltimo;ModelInstallerTest.uuidDiferenteNoDestino_copiaDeNovo (+4)	
+147	ModelInstaller.kt:58	temp.deleteRecursively()  =>  Unit	RED	RED	ModelInstallerTest.falhaNaCopia_devolveModelCorrupt_eNaoDeixaCopiaPelaMetade	
+148	ModelInstaller.kt:59	ModelCorrupt  =>  ModelMissing	RED	RED	ModelInstallerTest.falhaNaCopia_devolveModelCorrupt_eNaoDeixaCopiaPelaMetade	
+149	ModelInstaller.kt:61	copied = true  =>  copied = false	RED	RED	ModelInstallerTest.semModeloNoDestino_copiaTudo_comUuidPorUltimo;ModelInstallerTest.uuidDiferenteNoDestino_copiaDeNovo;ModelInstallerTest.uuidAusenteNoDestino_copia	
+150	ModelInstaller.kt:61	sourceUuid.trim()  =>  sourceUuid	GREEN	GREEN		equivalente: idem 140
+151	ModelInstaller.kt:69	children.isEmpty()  =>  children.isNotEmpty()	RED	RED	ModelInstallerTest.uuidIgualNoDestino_naoCopia;ModelInstallerTest.semModeloNoDestino_copiaTudo_comUuidPorUltimo;ModelInstallerTest.uuidDiferenteNoDestino_copiaDeNovo (+4)	
+152	ModelInstaller.kt:70	path != "$assetDir/$UUID"  =>  true	GREEN	RED	ModelInstallerTest.uuidEAbertoDuasVezes_aSegundaPorUltimo	
+153	ModelInstaller.kt:70	path != "$assetDir/$UUID"  =>  path == "$assetDir/$UUID"	RED	RED	ModelInstallerTest.semModeloNoDestino_copiaTudo_comUuidPorUltimo;ModelInstallerTest.uuidAusenteNoDestino_copia;ModelInstallerTest.uuidEAbertoDuasVezes_aSegundaPorUltimo (+1)	
+154	ModelInstaller.kt:70	path.removePrefix("$assetDir/")  =>  path	RED	RED	ModelInstallerTest.semModeloNoDestino_copiaTudo_comUuidPorUltimo;ModelInstallerTest.uuidAusenteNoDestino_copia	
+155	ModelInstaller.kt:73	"$path/$child"  =>  child	RED	RED	ModelInstallerTest.uuidIgualNoDestino_naoCopia;ModelInstallerTest.semModeloNoDestino_copiaTudo_comUuidPorUltimo;ModelInstallerTest.uuidDiferenteNoDestino_copiaDeNovo (+4)	
+156	ModelInstaller.kt:81	!parent.isDirectory  =>  parent.isDirectory	RED	RED	ModelInstallerTest.uuidIgualNoDestino_naoCopia;ModelInstallerTest.semModeloNoDestino_copiaTudo_comUuidPorUltimo;ModelInstallerTest.uuidDiferenteNoDestino_copiaDeNovo (+4)	
+157	ModelInstaller.kt:81	!parent.mkdirs()  =>  parent.mkdirs()	RED	RED	ModelInstallerTest.uuidIgualNoDestino_naoCopia;ModelInstallerTest.semModeloNoDestino_copiaTudo_comUuidPorUltimo;ModelInstallerTest.uuidDiferenteNoDestino_copiaDeNovo (+4)	
+158	ModelInstaller.kt:82	input.copyTo(output)  =>  Unit	RED	RED	ModelInstallerTest.uuidIgualNoDestino_naoCopia;ModelInstallerTest.semModeloNoDestino_copiaTudo_comUuidPorUltimo;ModelInstallerTest.uuidDiferenteNoDestino_copiaDeNovo (+2)	
+159	ModelInstaller.kt:87	Charsets.UTF_8  =>  Charsets.ISO_8859_1	GREEN	RED	ModelInstallerTest.uuidComAcentoEEspacos_eLidoEmUtf8EAparado	
+160	ModelInstaller.kt:89	?.trim()  =>  ?.toString()	GREEN	RED	ModelInstallerTest.uuidSoComEspacos_devolveModelMissing	
+161	ModelInstaller.kt:90	it.isNotEmpty()  =>  true	GREEN	RED	ModelInstallerTest.uuidSoComEspacos_devolveModelMissing;ModelInstallerTest.uuidVazio_devolveModelMissing	
+162	ModelInstaller.kt:93	"model-pt"  =>  "model"	RED	RED	ModelInstallerTest.uuidIgualNoDestino_naoCopia;ModelInstallerTest.semModeloNoDestino_copiaTudo_comUuidPorUltimo;ModelInstallerTest.uuidDiferenteNoDestino_copiaDeNovo (+6)	
+163	ModelInstaller.kt:94	"uuid"  =>  "UUID"	GREEN	RED	ModelInstallerTest.uuidEAbertoDuasVezes_aSegundaPorUltimo	
+164	VoskJson.kt:9	\"partial\"  =>  \"partia\"	RED	RED	VoskEngineSessionTest.todoEventoDoReconhecedor_levaOIdDele;VoskEngineSessionTest.resultadoProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo;VoskEngineSessionTest.estrategiaReset_reaproveitaOReconhecedor_comIdNovo (+3)	
+165	VoskJson.kt:9	\\s*:  =>  \\s:	GREEN	RED	VoskJsonTest.espacosAoRedorDosDoisPontos_variam	
+166	VoskJson.kt:9	:\\s*\"  =>  :\\s\"	GREEN	RED	VoskJsonTest.espacosAoRedorDosDoisPontos_variam	
+167	VoskJson.kt:10	\"text\"  =>  \"tex\"	RED	RED	VoskEngineSessionTest.finalProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo;VoskEngineSessionTest.todoEventoDoReconhecedor_levaOIdDele;VoskJsonTest.escapesDeUmCaractere_saoDecodificados (+6)	
+168	VoskJson.kt:10	\\s*:  =>  \\s:	GREEN	RED	VoskJsonTest.espacosAoRedorDosDoisPontos_variam	
+169	VoskJson.kt:10	:\\s*\"  =>  :\\s\"	GREEN	RED	VoskJsonTest.espacosAoRedorDosDoisPontos_variam	
+170	VoskJson.kt:14	stringAfter(json, partialKey) ?: stringAfter(json, textKey)  =>  stringAfter(json, textKey) ?: stringAfter(json, partialKey)	GREEN	GREEN		equivalente: o Vosk emite exatamente uma das chaves por JSON (formato da doc 0.3.75, C6); a ordem só importa com as duas presentes
+171	VoskJson.kt:14	return emptyList()  =>  return listOf("")	RED	RED	VoskJsonTest.textoVazio_viraListaVazia;VoskJsonTest.jsonCortado_naoLancaEDevolveListaVazia	
+172	VoskJson.kt:15	split(' ')  =>  split(',')	RED	RED	VoskEngineSessionTest.finalProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo;VoskEngineSessionTest.todoEventoDoReconhecedor_levaOIdDele;VoskEngineSessionTest.resultadoProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo (+6)	
+173	VoskJson.kt:15	.filter { it.isNotEmpty() }  =>  	RED	RED	VoskJsonTest.textoVazio_viraListaVazia;VoskJsonTest.espacosRepetidosNoTexto_naoViramPalavraVazia	
+174	VoskJson.kt:19	separator = ","  =>  separator = ", "	RED	RED	VoskJsonTest.gramatica_escapaAspasEBarra;VoskJsonTest.gramatica_eUmArrayComUmaFrasePorPalavra	
+175	VoskJson.kt:19	prefix = "["  =>  prefix = ""	RED	RED	VoskJsonTest.gramatica_escapaAspasEBarra;VoskJsonTest.gramatica_controleEEspaco_naoViramEscape;VoskJsonTest.gramatica_eUmArrayComUmaFrasePorPalavra	
+176	VoskJson.kt:19	postfix = "]"  =>  postfix = ""	RED	RED	VoskJsonTest.gramatica_escapaAspasEBarra;VoskJsonTest.gramatica_controleEEspaco_naoViramEscape;VoskJsonTest.gramatica_eUmArrayComUmaFrasePorPalavra	
+177	VoskJson.kt:19	quote(it)  =>  it	RED	RED	VoskJsonTest.gramatica_escapaAspasEBarra;VoskJsonTest.gramatica_controleEEspaco_naoViramEscape;VoskJsonTest.gramatica_eUmArrayComUmaFrasePorPalavra	
+178	VoskJson.kt:25	return null  =>  return ""	RED	RED	VoskEngineSessionTest.finalProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo;VoskEngineSessionTest.todoEventoDoReconhecedor_levaOIdDele;VoskJsonTest.escapesDeUmCaractere_saoDecodificados (+6)	
+179	VoskJson.kt:27	match.range.last + 1  =>  match.range.last	RED	RED	VoskEngineSessionTest.finalProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo;VoskEngineSessionTest.todoEventoDoReconhecedor_levaOIdDele;VoskEngineSessionTest.resultadoProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo (+10)	
+180	VoskJson.kt:28	i < json.length  =>  i < json.length - 1	GREEN	RED	VoskJsonTest.aspasDeFechamentoComoUltimoCaractere_aindaFecham	
+181	VoskJson.kt:31	c == '"'  =>  c == '\''	RED	RED	VoskEngineSessionTest.finalProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo;VoskEngineSessionTest.todoEventoDoReconhecedor_levaOIdDele;VoskEngineSessionTest.resultadoProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo (+10)	
+182	VoskJson.kt:32	out.toString()  =>  ""	RED	RED	VoskEngineSessionTest.finalProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo;VoskEngineSessionTest.todoEventoDoReconhecedor_levaOIdDele;VoskEngineSessionTest.resultadoProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo (+10)	
+183	VoskJson.kt:35	&& i + 1 < json.length  =>  || i + 1 < json.length	RED	RED	VoskEngineSessionTest.finalProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo;VoskEngineSessionTest.todoEventoDoReconhecedor_levaOIdDele;VoskEngineSessionTest.resultadoProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo (+10)	
+184	VoskJson.kt:35	i + 1 < json.length  =>  i + 1 <= json.length	GREEN	RED	VoskJsonTest.jsonCortado_naoLancaEDevolveListaVazia	
+185	VoskJson.kt:36	json[i + 1]  =>  json[i]	RED	RED	VoskJsonTest.escapesDeUmCaractere_saoDecodificados;VoskJsonTest.escapesUnicode_saoDecodificados	
+186	VoskJson.kt:38	'n'  =>  'm'	GREEN	RED	VoskJsonTest.escapesDeUmCaractere_saoDecodificados	
+187	VoskJson.kt:39	'\n'  =>  'n'	GREEN	RED	VoskJsonTest.escapesDeUmCaractere_saoDecodificados	
+188	VoskJson.kt:42	't'  =>  'm'	GREEN	RED	VoskJsonTest.escapesDeUmCaractere_saoDecodificados	
+189	VoskJson.kt:43	'\t'  =>  't'	GREEN	RED	VoskJsonTest.escapesDeUmCaractere_saoDecodificados	
+190	VoskJson.kt:46	'r'  =>  'm'	GREEN	RED	VoskJsonTest.escapesDeUmCaractere_saoDecodificados	
+191	VoskJson.kt:47	'\r'  =>  'r'	GREEN	RED	VoskJsonTest.escapesDeUmCaractere_saoDecodificados	
+192	VoskJson.kt:50	'b'  =>  'm'	GREEN	RED	VoskJsonTest.escapesDeUmCaractere_saoDecodificados	
+193	VoskJson.kt:51	'\b'  =>  'b'	GREEN	RED	VoskJsonTest.escapesDeUmCaractere_saoDecodificados	
+194	VoskJson.kt:54	'f'  =>  'm'	GREEN	RED	VoskJsonTest.escapesDeUmCaractere_saoDecodificados	
+195	VoskJson.kt:55	'\u000C'  =>  'f'	GREEN	RED	VoskJsonTest.escapesDeUmCaractere_saoDecodificados	
+196	VoskJson.kt:59	i + 5 >= json.length  =>  i + 5 > json.length	GREEN	RED	VoskJsonTest.jsonCortado_naoLancaEDevolveListaVazia	
+197	VoskJson.kt:59	return null  =>  return ""	GREEN	GREEN		equivalente: stringAfter devolve null ou vazio e ambos viram lista vazia em words()
+198	VoskJson.kt:60	i + 2, i + 6  =>  i + 2, i + 5	RED	RED	VoskJsonTest.escapesUnicode_saoDecodificados	
+199	VoskJson.kt:60	toInt(16)  =>  toInt(10)	RED	RED	VoskJsonTest.escapesUnicode_saoDecodificados	
+200	VoskJson.kt:61	i += 4  =>  i += 3	RED	RED	VoskJsonTest.escapesUnicode_saoDecodificados	
+201	VoskJson.kt:65	out.append(next)  =>  out.append('\\')	GREEN	RED	VoskJsonTest.escapesDeUmCaractere_saoDecodificados	
+202	VoskJson.kt:68	i += 2  =>  i += 1	RED	RED	VoskJsonTest.escapesDeUmCaractere_saoDecodificados;VoskJsonTest.escapesUnicode_saoDecodificados	
+203	VoskJson.kt:73	out.append(c)  =>  out.append(c.uppercaseChar())	RED	RED	VoskEngineSessionTest.finalProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo;VoskEngineSessionTest.todoEventoDoReconhecedor_levaOIdDele;VoskEngineSessionTest.resultadoProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo (+10)	
+204	VoskJson.kt:76	i++  =>  i += 2	RED	RED	VoskEngineSessionTest.finalProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo;VoskEngineSessionTest.todoEventoDoReconhecedor_levaOIdDele;VoskEngineSessionTest.resultadoProduzidoDepoisDeEndSessionENovoBeginSession_saiComOIdAntigo (+10)	
+205	VoskJson.kt:78	return null  =>  return out.toString()	GREEN	RED	VoskJsonTest.jsonCortado_naoLancaEDevolveListaVazia	
+206	VoskJson.kt:83	append('"')  =>  append(' ')	RED	RED	VoskJsonTest.gramatica_escapaAspasEBarra;VoskJsonTest.gramatica_controleEEspaco_naoViramEscape;VoskJsonTest.gramatica_eUmArrayComUmaFrasePorPalavra	
+207	VoskJson.kt:86	c == '"'  =>  c == '\''	RED	RED	VoskJsonTest.gramatica_escapaAspasEBarra	
+208	VoskJson.kt:86	"\\\""  =>  "\""	RED	RED	VoskJsonTest.gramatica_escapaAspasEBarra	
+209	VoskJson.kt:87	c == '\\'  =>  c == '/'	RED	RED	VoskJsonTest.gramatica_escapaAspasEBarra	
+210	VoskJson.kt:87	"\\\\"  =>  "\\"	RED	RED	VoskJsonTest.gramatica_escapaAspasEBarra	
+211	VoskJson.kt:88	c < ' '  =>  c <= ' '	GREEN	RED	VoskJsonTest.gramatica_controleEEspaco_naoViramEscape	
+212	VoskJson.kt:88	%04x  =>  %04X	GREEN	RED	VoskJsonTest.gramatica_controleEEspaco_naoViramEscape	
+213	VoskJson.kt:88	%04x  =>  %03x	GREEN	RED	VoskJsonTest.gramatica_controleEEspaco_naoViramEscape	
+214	VoskJson.kt:92	append('"')  =>  append(' ')	RED	RED	VoskJsonTest.gramatica_escapaAspasEBarra;VoskJsonTest.gramatica_controleEEspaco_naoViramEscape;VoskJsonTest.gramatica_eUmArrayComUmaFrasePorPalavra	
+215	AudioLevel.kt:11	count <= 0  =>  count < 0	RED	RED	AudioLevelTest.contagemZero_daZero	
+216	AudioLevel.kt:11	return 0f  =>  return 1f	RED	RED	AudioLevelTest.contagemZero_daZero	
+217	AudioLevel.kt:13	0 until count  =>  0..count	RED	RED	AudioLevelTest.meioDaEscala_daMeio;AudioLevelTest.ondaQuadradaEmFundoDeEscala_daUm;AudioLevelTest.blocoDeZeros_daZero (+1)	
+218	AudioLevel.kt:13	0 until count  =>  1 until count	RED	RED	AudioLevelTest.meioDaEscala_daMeio;AudioLevelTest.soContaAsAmostrasLidas	
+219	AudioLevel.kt:15	s * s  =>  s + s	RED	RED	AudioLevelTest.meioDaEscala_daMeio;AudioLevelTest.ondaQuadradaEmFundoDeEscala_daUm;AudioLevelTest.soContaAsAmostrasLidas	
+220	AudioLevel.kt:15	sum +=  =>  sum =	RED	RED	AudioLevelTest.meioDaEscala_daMeio;AudioLevelTest.ondaQuadradaEmFundoDeEscala_daUm;AudioLevelTest.soContaAsAmostrasLidas	
+221	AudioLevel.kt:17	sum / count  =>  sum / samples.size	RED	RED	AudioLevelTest.soContaAsAmostrasLidas;VoskEngineRobustnessTest.blocoMenorQueOBuffer_levelEReconhecedorUsamSoAsAmostrasLidas	
+222	AudioLevel.kt:17	32768.0  =>  32767.0	RED	RED	AudioLevelTest.meioDaEscala_daMeio;AudioLevelTest.soContaAsAmostrasLidas	
+223	AudioLevel.kt:17	sqrt(sum / count)  =>  (sum / count)	RED	RED	AudioLevelTest.meioDaEscala_daMeio;AudioLevelTest.ondaQuadradaEmFundoDeEscala_daUm;AudioLevelTest.soContaAsAmostrasLidas	
+224	ExportFiles.kt:11	t_ms,session  =>  t_ms,sessao	RED	RED	ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas;ExportFilesTest.cabecalhos_saoOsDeD7EDeTestesEtapa0	
+225	ExportFiles.kt:11	words,accepted  =>  text,accepted	RED	RED	ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas;ExportFilesTest.cabecalhos_saoOsDeD7EDeTestesEtapa0	
+226	ExportFiles.kt:12	t_ms,rms  =>  t_ms,level	RED	RED	ExportFilesTest.cabecalhos_saoOsDeD7EDeTestesEtapa0;ExportFilesTest.trajetoria_nivelEEventos	
+227	ExportFiles.kt:13	t_ms,cursor,move,score  =>  t_ms,cursor,move	RED	RED	ExportFilesTest.cabecalhos_saoOsDeD7EDeTestesEtapa0;ExportFilesTest.trajetoria_nivelEEventos	
+228	ExportFiles.kt:14	t_ms,evento,detalhe  =>  t_ms,evento	RED	RED	ExportFilesTest.cabecalhos_saoOsDeD7EDeTestesEtapa0;ExportFilesTest.trajetoria_nivelEEventos	
+229	ExportFiles.kt:39	"hypotheses.csv"  =>  "hypotheses.txt"	RED	RED	ReaderSessionTest.eventosAtrasadosEntramNaExportacaoComOIdOriginalEAccepted0;ReaderReadingTest.limiarAcimaDoUltimoNivel_parcialIgnorado_cursorParado;ExportFilesTest.cabecalhos_saoOsDeD7EDeTestesEtapa0 (+2)	
+230	ExportFiles.kt:40	"level.csv"  =>  "levels.csv"	RED	RED	ExportFilesTest.cabecalhos_saoOsDeD7EDeTestesEtapa0;ReaderExportTest.textoDeTeste_habilitaAExportacao_comONomeDoTexto	
+231	ExportFiles.kt:41	"trajectory.csv"  =>  "trajetoria.csv"	RED	RED	ReaderTapTest.toqueNaPalavraDuranteALeitura_endSessionRepositionBeginSession_nessaOrdem;ReaderTapTest.toqueNaPalavraAtual_tambemGravaOReposition;ReaderReadingTest.recuoCurto_trajetoriaGravaOCursor_eOHighWaterFicaNoMaior (+3)	
+232	ExportFiles.kt:42	"events.csv"  =>  "eventos.csv"	RED	RED	ReaderTapTest.pausarEOuvir_gravamPausaToqueERetomaToque;ReaderTapTest.toqueNaPalavraDuranteALeitura_endSessionRepositionBeginSession_nessaOrdem;ExportFilesTest.cabecalhos_saoOsDeD7EDeTestesEtapa0 (+1)	
+233	ExportFiles.kt:43	"meta.txt"  =>  "meta.csv"	RED	RED	ExportFilesTest.cabecalhos_saoOsDeD7EDeTestesEtapa0;ReaderExportTest.meta_trazTodasAsChaves_eOIdDoModeloIgualAoUuid;ReaderExportTest.textoDeTeste_habilitaAExportacao_comONomeDoTexto	
+234	ExportFiles.kt:48	row.session ?: ""  =>  row.session ?: "0"	RED	RED	ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas;ExportFilesTest.hipoteses_lidasDeVolta_saoIguaisAsGravadas	
+235	ExportFiles.kt:48	joinToString(" ")  =>  joinToString(",")	RED	RED	ReaderSessionTest.eventosAtrasadosEntramNaExportacaoComOIdOriginalEAccepted0;ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas;ExportFilesTest.hipoteses_aspasNasPalavras_saoDobradas_eVoltam (+2)	
+236	ExportFiles.kt:48	if (row.accepted) 1 else 0  =>  if (row.accepted) 0 else 1	RED	RED	ReaderSessionTest.eventosAtrasadosEntramNaExportacaoComOIdOriginalEAccepted0;ReaderReadingTest.limiarAcimaDoUltimoNivel_parcialIgnorado_cursorParado;ExportFilesTest.hipoteses_erroComSessao_guardaOIdDaSessao (+5)	
+237	ExportFiles.kt:48	${quote(row.words.joinToString(" "))}  =>  ${row.words.joinToString(" ")}	RED	RED	ReaderSessionTest.eventosAtrasadosEntramNaExportacaoComOIdOriginalEAccepted0;ExportFilesTest.hipoteses_erroComSessao_guardaOIdDaSessao;ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas (+4)	
+238	ExportFiles.kt:48	${row.kind}  =>  ${row.kind.uppercase()}	RED	RED	ReaderSessionTest.eventosAtrasadosEntramNaExportacaoComOIdOriginalEAccepted0;ExportFilesTest.hipoteses_erroComSessao_guardaOIdDaSessao;ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas (+4)	
+239	ExportFiles.kt:48	${row.tMs}  =>  ${row.tMs + 1}	RED	RED	ReaderSessionTest.eventosAtrasadosEntramNaExportacaoComOIdOriginalEAccepted0;ExportFilesTest.hipoteses_erroComSessao_guardaOIdDaSessao;ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas (+3)	
+240	ExportFiles.kt:51	"%.6f"  =>  "%.5f"	RED	RED	ExportFilesTest.trajetoria_nivelEEventos	
+241	ExportFiles.kt:51	Locale.ROOT  =>  Locale.GERMANY	RED	RED	ExportFilesTest.trajetoria_nivelEEventos	
+242	ExportFiles.kt:51	${it.tMs}  =>  ${it.tMs + 1}	RED	RED	ExportFilesTest.trajetoria_nivelEEventos	
+243	ExportFiles.kt:51	it.rms  =>  it.rms * 2	RED	RED	ExportFilesTest.trajetoria_nivelEEventos	
+244	ExportFiles.kt:54	it.cursor  =>  it.cursor + 1	RED	RED	ReaderTapTest.toqueNaPalavraDuranteALeitura_endSessionRepositionBeginSession_nessaOrdem;ReaderTapTest.toqueNaPalavraAtual_tambemGravaOReposition;ReaderReadingTest.recuoCurto_trajetoriaGravaOCursor_eOHighWaterFicaNoMaior (+2)	
+245	ExportFiles.kt:54	it.move.name  =>  it.move.ordinal	RED	RED	ReaderTapTest.toqueNaPalavraDuranteALeitura_endSessionRepositionBeginSession_nessaOrdem;ReaderTapTest.toqueNaPalavraAtual_tambemGravaOReposition;ReaderReadingTest.t01PorParciaisEFinais_cursorChegaAoUltimoToken_eTrajetoriaTemUmaLinhaPorMudanca (+1)	
+246	ExportFiles.kt:54	it.score  =>  it.score.toInt()	RED	RED	ReaderTapTest.toqueNaPalavraDuranteALeitura_endSessionRepositionBeginSession_nessaOrdem;ReaderTapTest.toqueNaPalavraAtual_tambemGravaOReposition;ReaderReadingTest.t01PorParciaisEFinais_cursorChegaAoUltimoToken_eTrajetoriaTemUmaLinhaPorMudanca (+1)	
+247	ExportFiles.kt:54	${it.tMs}  =>  ${it.tMs + 1}	RED	RED	ReaderTapTest.toqueNaPalavraDuranteALeitura_endSessionRepositionBeginSession_nessaOrdem;ReaderTapTest.toqueNaPalavraAtual_tambemGravaOReposition;ReaderReadingTest.t01PorParciaisEFinais_cursorChegaAoUltimoToken_eTrajetoriaTemUmaLinhaPorMudanca (+1)	
+248	ExportFiles.kt:56	it.event  =>  it.event.uppercase()	RED	RED	ReaderTapTest.pausarEOuvir_gravamPausaToqueERetomaToque;ReaderTapTest.toqueNaPalavraDuranteALeitura_endSessionRepositionBeginSession_nessaOrdem;ExportFilesTest.trajetoria_nivelEEventos	
+249	ExportFiles.kt:56	it.detail  =>  ""	RED	RED	ReaderTapTest.toqueNaPalavraDuranteALeitura_endSessionRepositionBeginSession_nessaOrdem;ExportFilesTest.trajetoria_nivelEEventos	
+250	ExportFiles.kt:56	${it.tMs}  =>  ${it.tMs + 1}	RED	RED	ReaderTapTest.pausarEOuvir_gravamPausaToqueERetomaToque;ReaderTapTest.toqueNaPalavraDuranteALeitura_endSessionRepositionBeginSession_nessaOrdem;ExportFilesTest.trajetoria_nivelEEventos	
+251	ExportFiles.kt:59	separator = "\n"  =>  separator = "\r\n"	RED	RED	ExportFilesTest.meta_trazTodasAsChavesDeD11_naOrdem;ExportFilesTest.meta_chaveAusente_viraValorVazio_eTerminaComQuebraDeLinha	
+252	ExportFiles.kt:59	postfix = "\n"  =>  postfix = ""	GREEN	RED	ExportFilesTest.meta_chaveAusente_viraValorVazio_eTerminaComQuebraDeLinha	
+253	ExportFiles.kt:59	"$it=  =>  "$it:	RED	RED	ExportFilesTest.meta_trazTodasAsChavesDeD11_naOrdem;ExportFilesTest.meta_chaveAusente_viraValorVazio_eTerminaComQuebraDeLinha;ReaderExportTest.meta_trazTodasAsChaves_eOIdDoModeloIgualAoUuid	
+254	ExportFiles.kt:59	.orEmpty()  =>   ?: "null"	GREEN	RED	ExportFilesTest.meta_chaveAusente_viraValorVazio_eTerminaComQuebraDeLinha	
+255	ExportFiles.kt:63	.filter { it.isNotEmpty() }  =>  	RED	RED	ExportFilesTest.hipoteses_aspasNasPalavras_saoDobradas_eVoltam;ExportFilesTest.hipoteses_lidasDeVolta_saoIguaisAsGravadas;ExportFilesTest.linhasVaziasNoFinalDoCsv_saoIgnoradasNaLeitura (+1)	
+256	ExportFiles.kt:64	==  =>  !=	RED	RED	ExportFilesTest.hipoteses_aspasNasPalavras_saoDobradas_eVoltam;ExportFilesTest.hipoteses_lidasDeVolta_saoIguaisAsGravadas;ExportFilesTest.linhasVaziasNoFinalDoCsv_saoIgnoradasNaLeitura (+2)	
+257	ExportFiles.kt:65	drop(1)  =>  drop(0)	RED	RED	ExportFilesTest.hipoteses_aspasNasPalavras_saoDobradas_eVoltam;ExportFilesTest.hipoteses_lidasDeVolta_saoIguaisAsGravadas;ExportFilesTest.linhasVaziasNoFinalDoCsv_saoIgnoradasNaLeitura (+1)	
+258	ExportFiles.kt:77	!row.accepted || row.kind == Recording.KIND_ERROR  =>  !row.accepted	RED	RED	ExportFilesTest.reprocessar_soAsAceitas_zerandoAFraseACadaSessao	
+259	ExportFiles.kt:77	!row.accepted || row.kind == Recording.KIND_ERROR  =>  row.kind == Recording.KIND_ERROR	RED	RED	ExportFilesTest.reprocessar_soAsAceitas_zerandoAFraseACadaSessao;ReaderExportTest.hipotesesLidasDeVolta_entregamAsMesmasPalavrasDaSessaoAoVivo	
+260	ExportFiles.kt:77	!row.accepted  =>  false	RED	RED	ExportFilesTest.reprocessar_soAsAceitas_zerandoAFraseACadaSessao;ReaderExportTest.hipotesesLidasDeVolta_entregamAsMesmasPalavrasDaSessaoAoVivo	
+261	ExportFiles.kt:77	row.kind == Recording.KIND_ERROR  =>  false	RED	RED	ExportFilesTest.reprocessar_soAsAceitas_zerandoAFraseACadaSessao	
+262	ExportFiles.kt:78	row.session != session  =>  row.session == session	RED	RED	ExportFilesTest.reprocessar_soAsAceitas_zerandoAFraseACadaSessao	
+263	ExportFiles.kt:78	row.session != session  =>  false	RED	RED	ExportFilesTest.reprocessar_soAsAceitas_zerandoAFraseACadaSessao	
+264	ExportFiles.kt:79	reconciler.reset()  =>  Unit	RED	RED	ExportFilesTest.reprocessar_soAsAceitas_zerandoAFraseACadaSessao	
+265	ExportFiles.kt:80	session = row.session  =>  Unit	RED	RED	ExportFilesTest.reprocessar_soAsAceitas_zerandoAFraseACadaSessao	
+266	ExportFiles.kt:84	Recording.KIND_PARTIAL  =>  Recording.KIND_FINAL	MISSING	RED	ExportFilesTest.reprocessar_soAsAceitas_zerandoAFraseACadaSessao;ReaderExportTest.hipotesesLidasDeVolta_entregamAsMesmasPalavrasDaSessaoAoVivo	
+267	ExportFiles.kt:84	onPartial  =>  onFinal	RED	RED	ExportFilesTest.reprocessar_soAsAceitas_zerandoAFraseACadaSessao;ReaderExportTest.hipotesesLidasDeVolta_entregamAsMesmasPalavrasDaSessaoAoVivo	
+268	ExportFiles.kt:85	onFinal  =>  onPartial	RED	RED	ExportFilesTest.reprocessar_soAsAceitas_zerandoAFraseACadaSessao;ReaderExportTest.hipotesesLidasDeVolta_entregamAsMesmasPalavrasDaSessaoAoVivo	
+269	ExportFiles.kt:95	separator = "\n"  =>  separator = ""	RED	RED	ReaderTapTest.pausarEOuvir_gravamPausaToqueERetomaToque;ReaderTapTest.toqueNaPalavraDuranteALeitura_endSessionRepositionBeginSession_nessaOrdem;ReaderTapTest.toqueNaPalavraAtual_tambemGravaOReposition (+10)	
+270	ExportFiles.kt:95	postfix = "\n"  =>  postfix = ""	RED	RED	ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas;ExportFilesTest.trajetoria_nivelEEventos	
+271	ExportFiles.kt:95	listOf(header) + rows.map(format)  =>  rows.map(format)	RED	RED	ReaderTapTest.pausarEOuvir_gravamPausaToqueERetomaToque;ReaderTapTest.toqueNaPalavraDuranteALeitura_endSessionRepositionBeginSession_nessaOrdem;ReaderTapTest.toqueNaPalavraAtual_tambemGravaOReposition (+10)	
+272	ExportFiles.kt:97	value.replace("\"", "\"\"")  =>  value	GREEN	RED	ExportFilesTest.hipoteses_aspasNasPalavras_saoDobradas_eVoltam	
+273	ExportFiles.kt:100	indexOf('"')  =>  lastIndexOf('"')	RED	RED	ExportFilesTest.hipoteses_aspasNasPalavras_saoDobradas_eVoltam;ExportFilesTest.hipoteses_lidasDeVolta_saoIguaisAsGravadas;ExportFilesTest.linhasVaziasNoFinalDoCsv_saoIgnoradasNaLeitura (+1)	
+274	ExportFiles.kt:101	lastIndexOf('"')  =>  indexOf('"')	RED	RED	ExportFilesTest.hipoteses_aspasNasPalavras_saoDobradas_eVoltam;ExportFilesTest.hipoteses_lidasDeVolta_saoIguaisAsGravadas;ExportFilesTest.linhasVaziasNoFinalDoCsv_saoIgnoradasNaLeitura (+1)	
+275	ExportFiles.kt:102	firstQuote in 0 until lastQuote  =>  firstQuote in 0..lastQuote	GREEN	RED	ExportFilesTest.hipoteses_linhaSemParDeAspas_falhaNaLeitura	
+276	ExportFiles.kt:102	firstQuote in 0 until lastQuote  =>  firstQuote >= 0	GREEN	RED	ExportFilesTest.hipoteses_linhaSemParDeAspas_falhaNaLeitura	
+277	ExportFiles.kt:103	substring(0, firstQuote)  =>  substring(1, firstQuote)	RED	RED	ExportFilesTest.hipoteses_aspasNasPalavras_saoDobradas_eVoltam;ExportFilesTest.hipoteses_lidasDeVolta_saoIguaisAsGravadas;ExportFilesTest.linhasVaziasNoFinalDoCsv_saoIgnoradasNaLeitura (+1)	
+278	ExportFiles.kt:103	split(',')  =>  split(';')	RED	RED	ExportFilesTest.hipoteses_aspasNasPalavras_saoDobradas_eVoltam;ExportFilesTest.hipoteses_lidasDeVolta_saoIguaisAsGravadas;ExportFilesTest.linhasVaziasNoFinalDoCsv_saoIgnoradasNaLeitura (+1)	
+279	ExportFiles.kt:104	lastQuote + 1  =>  lastQuote	RED	RED	ExportFilesTest.hipoteses_aspasNasPalavras_saoDobradas_eVoltam;ExportFilesTest.hipoteses_lidasDeVolta_saoIguaisAsGravadas;ExportFilesTest.linhasVaziasNoFinalDoCsv_saoIgnoradasNaLeitura (+1)	
+280	ExportFiles.kt:104	.removePrefix(",")  =>  	RED	RED	ExportFilesTest.hipoteses_aspasNasPalavras_saoDobradas_eVoltam;ExportFilesTest.hipoteses_lidasDeVolta_saoIguaisAsGravadas;ExportFilesTest.linhasVaziasNoFinalDoCsv_saoIgnoradasNaLeitura (+1)	
+281	ExportFiles.kt:105	firstQuote + 1  =>  firstQuote	RED	RED	ExportFilesTest.hipoteses_aspasNasPalavras_saoDobradas_eVoltam;ExportFilesTest.hipoteses_lidasDeVolta_saoIguaisAsGravadas;ExportFilesTest.linhasVaziasNoFinalDoCsv_saoIgnoradasNaLeitura (+1)	
+282	ExportFiles.kt:105	.replace("\"\"", "\"")  =>  	RED	RED	ExportFilesTest.hipoteses_aspasNasPalavras_saoDobradas_eVoltam;ExportFilesTest.hipoteses_lidasDeVolta_saoIguaisAsGravadas	
+283	ExportFiles.kt:107	head[0].toLong()  =>  head[0].toLong() + 1	RED	RED	ExportFilesTest.hipoteses_aspasNasPalavras_saoDobradas_eVoltam;ExportFilesTest.hipoteses_lidasDeVolta_saoIguaisAsGravadas;ExportFilesTest.linhasVaziasNoFinalDoCsv_saoIgnoradasNaLeitura	
+284	ExportFiles.kt:108	head[1]  =>  head[2]	RED	RED	ExportFilesTest.hipoteses_aspasNasPalavras_saoDobradas_eVoltam;ExportFilesTest.hipoteses_lidasDeVolta_saoIguaisAsGravadas;ExportFilesTest.linhasVaziasNoFinalDoCsv_saoIgnoradasNaLeitura (+1)	
+285	ExportFiles.kt:108	takeIf { it.isNotEmpty() }  =>  takeIf { true }	RED	RED	ExportFilesTest.hipoteses_lidasDeVolta_saoIguaisAsGravadas	
+286	ExportFiles.kt:109	head[2]  =>  head[1]	RED	RED	ExportFilesTest.hipoteses_aspasNasPalavras_saoDobradas_eVoltam;ExportFilesTest.hipoteses_lidasDeVolta_saoIguaisAsGravadas;ExportFilesTest.linhasVaziasNoFinalDoCsv_saoIgnoradasNaLeitura (+1)	
+287	ExportFiles.kt:110	.filter { it.isNotEmpty() }  =>  	GREEN	RED	ExportFilesTest.hipoteses_aspasNasPalavras_saoDobradas_eVoltam	
+288	ExportFiles.kt:110	split(' ')  =>  split(',')	RED	RED	ExportFilesTest.hipoteses_aspasNasPalavras_saoDobradas_eVoltam;ExportFilesTest.hipoteses_lidasDeVolta_saoIguaisAsGravadas;ReaderExportTest.hipotesesLidasDeVolta_entregamAsMesmasPalavrasDaSessaoAoVivo	
+289	ExportFiles.kt:111	tail == "1"  =>  tail != "0"	GREEN	GREEN		equivalente: o writer só emite 0 ou 1 em accepted; os dois testes concordam em todo o domínio
+290	ExportFiles.kt:111	tail == "1"  =>  tail.isNotEmpty()	RED	RED	ExportFilesTest.hipoteses_aspasNasPalavras_saoDobradas_eVoltam;ExportFilesTest.hipoteses_lidasDeVolta_saoIguaisAsGravadas;ReaderExportTest.hipotesesLidasDeVolta_entregamAsMesmasPalavrasDaSessaoAoVivo	
+291	ExportFiles.kt:19	"app_version"  =>  "app_version_"	GREEN	RED	ExportFilesTest.meta_chaveAusente_viraValorVazio_eTerminaComQuebraDeLinha;ExportFilesTest.metaKeys_sao_asDeD11_literais	
+292	ExportFiles.kt:20	"vosk_android_version"  =>  "vosk_android_version_"	RED	RED	ExportFilesTest.meta_chaveAusente_viraValorVazio_eTerminaComQuebraDeLinha;ExportFilesTest.metaKeys_sao_asDeD11_literais;ReaderExportTest.meta_trazTodasAsChaves_eOIdDoModeloIgualAoUuid	
+293	ExportFiles.kt:21	"model_id"  =>  "model_id_"	RED	RED	ExportFilesTest.meta_trazTodasAsChavesDeD11_naOrdem;ExportFilesTest.meta_chaveAusente_viraValorVazio_eTerminaComQuebraDeLinha;ExportFilesTest.metaKeys_sao_asDeD11_literais (+1)	
+294	ExportFiles.kt:22	"text_id"  =>  "text_id_"	RED	RED	ExportFilesTest.metaKeys_sao_asDeD11_literais;ReaderExportTest.meta_trazTodasAsChaves_eOIdDoModeloIgualAoUuid	
+295	ExportFiles.kt:23	"preset"  =>  "preset_"	RED	RED	ExportFilesTest.metaKeys_sao_asDeD11_literais;ReaderExportTest.meta_trazTodasAsChaves_eOIdDoModeloIgualAoUuid	
+296	ExportFiles.kt:24	"vocabulary"  =>  "vocabulary_"	RED	RED	ExportFilesTest.metaKeys_sao_asDeD11_literais;ReaderExportTest.meta_trazTodasAsChaves_eOIdDoModeloIgualAoUuid	
+297	ExportFiles.kt:25	"recognizer_strategy"  =>  "recognizer_strategy_"	RED	RED	ExportFilesTest.metaKeys_sao_asDeD11_literais;ReaderExportTest.meta_trazTodasAsChaves_eOIdDoModeloIgualAoUuid	
+298	ExportFiles.kt:26	"audio_source"  =>  "audio_source_"	RED	RED	ExportFilesTest.metaKeys_sao_asDeD11_literais;ReaderExportTest.meta_trazTodasAsChaves_eOIdDoModeloIgualAoUuid	
+299	ExportFiles.kt:27	"wav_name"  =>  "wav_name_"	GREEN	RED	ExportFilesTest.metaKeys_sao_asDeD11_literais	
+300	ExportFiles.kt:28	"level_threshold"  =>  "level_threshold_"	RED	RED	ExportFilesTest.metaKeys_sao_asDeD11_literais;ReaderExportTest.meta_trazTodasAsChaves_eOIdDoModeloIgualAoUuid	
+301	ExportFiles.kt:29	"animation_ms"  =>  "animation_ms_"	RED	RED	ExportFilesTest.metaKeys_sao_asDeD11_literais;ReaderExportTest.meta_trazTodasAsChaves_eOIdDoModeloIgualAoUuid	
+302	ExportFiles.kt:30	"install_ms"  =>  "install_ms_"	RED	RED	ExportFilesTest.metaKeys_sao_asDeD11_literais;ReaderExportTest.meta_trazTodasAsChaves_eOIdDoModeloIgualAoUuid	
+303	ExportFiles.kt:31	"prepare_ms"  =>  "prepare_ms_"	GREEN	RED	ExportFilesTest.metaKeys_sao_asDeD11_literais	
+304	ExportFiles.kt:32	"device_model"  =>  "device_model_"	GREEN	RED	ExportFilesTest.meta_chaveAusente_viraValorVazio_eTerminaComQuebraDeLinha;ExportFilesTest.metaKeys_sao_asDeD11_literais	
+305	ExportFiles.kt:33	"android_version"  =>  "android_version_"	GREEN	RED	ExportFilesTest.meta_chaveAusente_viraValorVazio_eTerminaComQuebraDeLinha;ExportFilesTest.metaKeys_sao_asDeD11_literais	
+306	ExportWriter.kt:21	"^" +   =>  	GREEN	GREEN		equivalente: Regex.matches() já exige a cadeia inteira, a âncora ^ é redundante
+307	ExportWriter.kt:21	Regex.escape(textId)  =>  textId	GREEN	RED	ExportNameAndWriterTest.nome_comQuebraDeLinhaHifenOuSufixoVazio_ePontoNoIdDoTexto_saoInvalidos	
+308	ExportWriter.kt:21	(_[a-z0-9]+)*  =>  (_[a-z0-9]+)+	RED	RED	ExportNameAndWriterTest.nomeValido_eOIdDoTextoComSufixoOpcional;ReaderTapTest.pausarEOuvir_gravamPausaToqueERetomaToque;ReaderTapTest.toqueNaPalavraDuranteALeitura_endSessionRepositionBeginSession_nessaOrdem (+8)	
+309	ExportWriter.kt:21	(_[a-z0-9]+)*  =>  (_[a-z0-9]+)?	RED	RED	ExportNameAndWriterTest.nomeValido_eOIdDoTextoComSufixoOpcional;ExportNameAndWriterTest.nome_comQuebraDeLinhaHifenOuSufixoVazio_ePontoNoIdDoTexto_saoInvalidos	
+310	ExportWriter.kt:21	[a-z0-9]  =>  [a-zA-Z0-9]	RED	RED	ExportNameAndWriterTest.nomeInvalido_outroTexto_textoLivre_ouCaminho	
+311	ExportWriter.kt:21	[a-z0-9]+  =>  [a-z0-9]*	RED	RED	ExportNameAndWriterTest.nome_comQuebraDeLinhaHifenOuSufixoVazio_ePontoNoIdDoTexto_saoInvalidos;ExportNameAndWriterTest.nomeInvalido_outroTexto_textoLivre_ouCaminho	
+312	ExportWriter.kt:21	*$"  =>  *"	GREEN	GREEN		equivalente: idem, $ é redundante com matches() (o caso da quebra de linha final é de containsMatchIn, linha 313, vermelha)
+313	ExportWriter.kt:21	.matches(name)  =>  .containsMatchIn(name)	GREEN	RED	ExportNameAndWriterTest.nome_comQuebraDeLinhaHifenOuSufixoVazio_ePontoNoIdDoTexto_saoInvalidos	
+314	ExportWriter.kt:21	(_  =>  ([_-]	GREEN	RED	ExportNameAndWriterTest.nome_comQuebraDeLinhaHifenOuSufixoVazio_ePontoNoIdDoTexto_saoInvalidos	
+315	ExportWriter.kt:36	?: throw IOException("armazenamento externo do app indisponível")  =>  ?: return emptyList()	RED	RED	ExportNameAndWriterTest.writer_semDiretorio_falhaComIOException	
+316	ExportWriter.kt:37	!dir.isDirectory && !dir.mkdirs()  =>  !dir.isDirectory || !dir.mkdirs()	RED	RED	ExportNameAndWriterTest.writer_gravaUmArquivoPorSufixo_emUtf8	
+317	ExportWriter.kt:37	!dir.mkdirs()  =>  dir.mkdirs()	RED	RED	ExportNameAndWriterTest.writer_gravaUmArquivoPorSufixo_emUtf8	
+318	ExportWriter.kt:37	!dir.isDirectory  =>  dir.isDirectory	RED	RED	ExportNameAndWriterTest.writer_gravaUmArquivoPorSufixo_emUtf8	
+319	ExportWriter.kt:39	"$name.$suffix"  =>  "$name$suffix"	RED	RED	ExportNameAndWriterTest.writer_gravaUmArquivoPorSufixo_emUtf8	
+320	ExportWriter.kt:40	Charsets.UTF_8  =>  Charsets.ISO_8859_1	RED	RED	ExportNameAndWriterTest.writer_gravaUmArquivoPorSufixo_emUtf8	
+321	ExportWriter.kt:40	it.write(content.toByteArray(Charsets.UTF_8))  =>  Unit	RED	RED	ExportNameAndWriterTest.writer_gravaUmArquivoPorSufixo_emUtf8	
+322	ExportWriter.kt:41	file.name  =>  file.path	RED	RED	ExportNameAndWriterTest.writer_gravaUmArquivoPorSufixo_emUtf8	
+323	Recording.kt:49	nowMs - originMs  =>  nowMs	RED	RED	ExportFilesTest.hipoteses_erroComSessao_guardaOIdDaSessao;ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas;ExportFilesTest.trajetoria_nivelEEventos	
+324	Recording.kt:49	nowMs - originMs  =>  originMs - nowMs	RED	RED	ReaderTapTest.pausarEOuvir_gravamPausaToqueERetomaToque;ReaderReadingTest.t01PorParciaisEFinais_cursorChegaAoUltimoToken_eTrajetoriaTemUmaLinhaPorMudanca;ExportFilesTest.hipoteses_erroComSessao_guardaOIdDaSessao (+2)	
+325	Recording.kt:58	event.session.value  =>  event.session.value + 1	RED	RED	ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas;ReaderExportTest.hipotesesLidasDeVolta_entregamAsMesmasPalavrasDaSessaoAoVivo	
+326	Recording.kt:58	KIND_PARTIAL  =>  KIND_FINAL	RED	RED	ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas;ReaderExportTest.hipotesesLidasDeVolta_entregamAsMesmasPalavrasDaSessaoAoVivo	
+327	Recording.kt:58	event.words  =>  emptyList()	RED	RED	ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas	
+328	Recording.kt:58	accepted)  =>  !accepted)	RED	RED	ReaderReadingTest.limiarAcimaDoUltimoNivel_parcialIgnorado_cursorParado;ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas;ReaderExportTest.hipotesesLidasDeVolta_entregamAsMesmasPalavrasDaSessaoAoVivo	
+329	Recording.kt:59	KIND_FINAL  =>  KIND_PARTIAL	RED	RED	ReaderSessionTest.eventosAtrasadosEntramNaExportacaoComOIdOriginalEAccepted0;ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas;ReaderExportTest.hipotesesLidasDeVolta_entregamAsMesmasPalavrasDaSessaoAoVivo	
+330	Recording.kt:59	event.session.value  =>  event.session.value + 1	RED	RED	ReaderSessionTest.eventosAtrasadosEntramNaExportacaoComOIdOriginalEAccepted0;ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas;ReaderExportTest.hipotesesLidasDeVolta_entregamAsMesmasPalavrasDaSessaoAoVivo	
+331	Recording.kt:59	event.words  =>  emptyList()	RED	RED	ReaderSessionTest.eventosAtrasadosEntramNaExportacaoComOIdOriginalEAccepted0;ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas;ReaderExportTest.hipotesesLidasDeVolta_entregamAsMesmasPalavrasDaSessaoAoVivo	
+332	Recording.kt:59	accepted)  =>  !accepted)	RED	RED	ReaderSessionTest.eventosAtrasadosEntramNaExportacaoComOIdOriginalEAccepted0;ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas;ReaderExportTest.hipotesesLidasDeVolta_entregamAsMesmasPalavrasDaSessaoAoVivo	
+333	Recording.kt:60	event.session?.value  =>  null	GREEN	RED	ExportFilesTest.hipoteses_erroComSessao_guardaOIdDaSessao	
+334	Recording.kt:60	KIND_ERROR  =>  KIND_FINAL	RED	RED	ExportFilesTest.hipoteses_erroComSessao_guardaOIdDaSessao;ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas	
+335	Recording.kt:60	listOf(event.cause.name)  =>  emptyList()	RED	RED	ExportFilesTest.hipoteses_erroComSessao_guardaOIdDaSessao;ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas	
+336	Recording.kt:60	event.cause.name  =>  event.cause.toString()	GREEN	GREEN		equivalente: EngineError é enum sem toString próprio, name == toString()
+337	Recording.kt:60	accepted)  =>  !accepted)	RED	RED	ExportFilesTest.hipoteses_erroComSessao_guardaOIdDaSessao;ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas	
+338	Recording.kt:61	return  =>  HypothesisRow(0L, null, "", emptyList(), false)	RED	RED	ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas	
+339	Recording.kt:63	hypotheses += row  =>  Unit	RED	RED	ReaderSessionTest.eventosAtrasadosEntramNaExportacaoComOIdOriginalEAccepted0;ExportFilesTest.hipoteses_erroComSessao_guardaOIdDaSessao;ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas (+1)	
+340	Recording.kt:70	elapsed(nowMs)  =>  nowMs	RED	RED	ExportFilesTest.trajetoria_nivelEEventos	
+341	Recording.kt:70	rms)  =>  0f)	RED	RED	ExportFilesTest.trajetoria_nivelEEventos	
+342	Recording.kt:79	elapsed(nowMs)  =>  nowMs	RED	RED	ExportFilesTest.trajetoria_nivelEEventos	
+343	Recording.kt:79	cursor,  =>  cursor + 1,	RED	RED	ReaderTapTest.toqueNaPalavraDuranteALeitura_endSessionRepositionBeginSession_nessaOrdem;ReaderTapTest.toqueNaPalavraAtual_tambemGravaOReposition;ReaderReadingTest.recuoCurto_trajetoriaGravaOCursor_eOHighWaterFicaNoMaior (+2)	
+344	Recording.kt:79	move,  =>  Move.values()[0],	RED	RED	ReaderTapTest.toqueNaPalavraDuranteALeitura_endSessionRepositionBeginSession_nessaOrdem;ReaderTapTest.toqueNaPalavraAtual_tambemGravaOReposition;ReaderReadingTest.t01PorParciaisEFinais_cursorChegaAoUltimoToken_eTrajetoriaTemUmaLinhaPorMudanca (+1)	
+345	Recording.kt:87	elapsed(nowMs)  =>  nowMs	RED	RED	ExportFilesTest.trajetoria_nivelEEventos	
+346	Recording.kt:87	event, detail  =>  detail, event	RED	RED	ReaderTapTest.pausarEOuvir_gravamPausaToqueERetomaToque;ReaderTapTest.toqueNaPalavraDuranteALeitura_endSessionRepositionBeginSession_nessaOrdem;ExportFilesTest.trajetoria_nivelEEventos	
+347	Recording.kt:91	"partial"  =>  "parcial"	RED	RED	ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas;ExportFilesTest.reprocessar_soAsAceitas_zerandoAFraseACadaSessao;ExportFilesTest.hipoteses_aspasNasPalavras_saoDobradas_eVoltam	
+348	Recording.kt:92	"final"  =>  "fim"	RED	RED	ReaderSessionTest.eventosAtrasadosEntramNaExportacaoComOIdOriginalEAccepted0;ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas;ExportFilesTest.hipoteses_aspasNasPalavras_saoDobradas_eVoltam	
+349	Recording.kt:93	"error"  =>  "erro"	RED	RED	ExportFilesTest.hipoteses_erroComSessao_guardaOIdDaSessao;ExportFilesTest.hipoteses_umaLinhaPorEvento_comPalavrasEntreAspas;ExportFilesTest.reprocessar_soAsAceitas_zerandoAFraseACadaSessao	
+350	Recording.kt:94	"pausa_toque"  =>  "pausa"	RED	RED	ReaderTapTest.pausarEOuvir_gravamPausaToqueERetomaToque;ExportFilesTest.trajetoria_nivelEEventos	
+351	Recording.kt:95	"retoma_toque"  =>  "retoma"	RED	RED	ReaderTapTest.pausarEOuvir_gravamPausaToqueERetomaToque	
+352	Recording.kt:96	"toque_palavra"  =>  "toque"	RED	RED	ReaderTapTest.toqueNaPalavraDuranteALeitura_endSessionRepositionBeginSession_nessaOrdem;ExportFilesTest.trajetoria_nivelEEventos	
+353	TestTextCatalog.kt:14	.sorted()  =>  .toList()	NOCOMPILE	RED	TestTextCatalogTest.idsVemEmOrdemAlfabetica_independenteDaOrdemDeEntrada	
+354	TestTextCatalog.kt:14	.sorted()  =>  .sortedDescending()	RED	RED	TestTextCatalogTest.catalogoDosAssets_leOsTxtDeTextos;TestTextCatalogTest.idsVemEmOrdemAlfabetica_independenteDaOrdemDeEntrada	
+355	TestTextCatalog.kt:16	texts[id]  =>  texts[id.uppercase()]	GREEN	RED	TestTextCatalogTest.letraMaiusculaOuMinusculaTrocada_naoIdentifica_eIdNaoTemCaixaAlta	
+356	TestTextCatalog.kt:19	it.value == text  =>  text.startsWith(it.value)	RED	RED	TestTextCatalogTest.textoDeTesteComAlgoAcrescentado_naoIdentifica	
+357	TestTextCatalog.kt:19	it.value == text  =>  it.value.startsWith(text)	RED	RED	TestTextCatalogTest.semAQuebraDeLinhaFinal_naoIdentifica;TestTextCatalogTest.textoQualquer_naoIdentifica	
+358	TestTextCatalog.kt:19	it.value == text  =>  it.value.endsWith(text)	RED	RED	TestTextCatalogTest.textoDeTesteComAlgoAcrescentado_naoIdentifica;TestTextCatalogTest.textoQualquer_naoIdentifica	
+359	TestTextCatalog.kt:19	it.value == text  =>  text in it.value	RED	RED	TestTextCatalogTest.textoDeTesteComAlgoAcrescentado_naoIdentifica;TestTextCatalogTest.semAQuebraDeLinhaFinal_naoIdentifica;TestTextCatalogTest.textoQualquer_naoIdentifica	
+360	TestTextCatalog.kt:19	it.value == text  =>  it.value.trim() == text.trim()	RED	RED	TestTextCatalogTest.semAQuebraDeLinhaFinal_naoIdentifica	
+361	TestTextCatalog.kt:19	it.value == text  =>  it.value.equals(text, ignoreCase = true)	GREEN	RED	TestTextCatalogTest.letraMaiusculaOuMinusculaTrocada_naoIdentifica_eIdNaoTemCaixaAlta	
+362	TestTextCatalog.kt:19	it.value == text  =>  true	RED	RED	ReaderTapTest.pausarEOuvir_gravamPausaToqueERetomaToque;ReaderTapTest.toqueNaPalavraDuranteALeitura_endSessionRepositionBeginSession_nessaOrdem;ReaderTapTest.toqueNaPalavraAtual_tambemGravaOReposition (+16)	
+363	TestTextCatalog.kt:19	?.key  =>  ?.key?.lowercase()	RED	RED	ReaderTapTest.pausarEOuvir_gravamPausaToqueERetomaToque;ReaderTapTest.toqueNaPalavraDuranteALeitura_endSessionRepositionBeginSession_nessaOrdem;ReaderTapTest.toqueNaPalavraAtual_tambemGravaOReposition (+10)	
+364	TestTextCatalog.kt:22	"textos"  =>  "texts"	RED	RED	TestTextCatalogTest.catalogoDosAssets_leOsTxtDeTextos	
+365	TestTextCatalog.kt:28	it.endsWith(".txt")  =>  true	RED	RED	TestTextCatalogTest.catalogoDosAssets_leOsTxtDeTextos	
+366	TestTextCatalog.kt:30	name.removeSuffix(".txt")  =>  name	RED	RED	TestTextCatalogTest.catalogoDosAssets_leOsTxtDeTextos	
+367	TestTextCatalog.kt:30	Charsets.UTF_8  =>  Charsets.ISO_8859_1	RED	RED	TestTextCatalogTest.catalogoDosAssets_leOsTxtDeTextos	
+368	TestTextCatalog.kt:30	"$ASSET_DIR/$name"  =>  name	GREEN	RED	TestTextCatalogTest.catalogoDosAssets_leOsTxtDeTextos	
+369	Vocabulary.kt:12	it.isNotEmpty() &&   =>  	GREEN	RED	VocabularyTest.lexico_palavraVazia_eIgnorada_eGrafiasVemOrdenadasEContadas	
+370	Vocabulary.kt:12	it != Vocabulary.UNKNOWN  =>  true	RED	RED	VocabularyTest.simbolosInternosDoModelo_naoEntram	
+371	Vocabulary.kt:12	it[0] !in INTERNAL_PREFIXES  =>  true	RED	RED	VocabularyTest.simbolosInternosDoModelo_naoEntram	
+372	Vocabulary.kt:13	groupBy(Normalizer::normalize)  =>  groupBy { it }	RED	RED	LexiconRealModelTest.t02_formasFaladasForaDoLexico_eAsQueContinuamSemGrafiaDepoisDaExpansao;LexiconRealModelTest.t02_vocabularioExpandido_trazAGrafiaDoLexico;VocabularyTest.comLexico_grafiasAcrescentadasVemEmOrdemAlfabetica_naoNaDoTexto (+3)	
+373	Vocabulary.kt:14	spellings.sorted()  =>  spellings	GREEN	RED	VocabularyTest.lexico_palavraVazia_eIgnorada_eGrafiasVemOrdenadasEContadas	
+374	Vocabulary.kt:16	byNormalized.values.sumOf { it.size }  =>  byNormalized.size	GREEN	RED	VocabularyTest.lexico_palavraVazia_eIgnorada_eGrafiasVemOrdenadasEContadas	
+375	Vocabulary.kt:19	byNormalized[normalized]  =>  byNormalized[normalized.lowercase()]	GREEN	GREEN		equivalente: as chaves vêm de Normalizer, que já devolve minúsculas
+376	Vocabulary.kt:22	"<#!"  =>  "<#"	RED	RED	VocabularyTest.simbolosInternosDoModelo_naoEntram	
+377	Vocabulary.kt:22	"<#!"  =>  "#!"	RED	RED	VocabularyTest.simbolosInternosDoModelo_naoEntram	
+378	Vocabulary.kt:22	"<#!"  =>  "<!"	RED	RED	VocabularyTest.simbolosInternosDoModelo_naoEntram	
+379	Vocabulary.kt:37	[-'’]  =>  [-’]	GREEN	RED	VocabularyTest.comLexico_apostrofoUneNaFalaMasSeparaNoLexico	
+380	Vocabulary.kt:37	[-'’]  =>  [-']	GREEN	RED	VocabularyTest.comLexico_apostrofoUneNaFalaMasSeparaNoLexico	
+381	Vocabulary.kt:37	[-'’]  =>  [']	GREEN	RED	VocabularyTest.comLexico_apostrofoUneNaFalaMasSeparaNoLexico	
+382	Vocabulary.kt:44	LinkedHashSet<String>()  =>  HashSet<String>()	RED	RED	VocabularyTest.comLexico_grafiasAcrescentadasVemEmOrdemAlfabetica_naoNaDoTexto;VocabularyTest.comLexico_comecaPelaFormaDoTrd_eAcrescentaAGrafiaDoLexico;VocabularyTest.semLexico_cadaPalavraDeTokenSpokenUmaVez_maisUnk	
+383	Vocabulary.kt:45	spoken.addAll(form)  =>  spoken.add(form.first())	RED	RED	LexiconRealModelTest.t02_vocabularioExpandido_trazAGrafiaDoLexico;VocabularyTest.comLexico_comecaPelaFormaDoTrd_eAcrescentaAGrafiaDoLexico;VocabularyTest.semLexico_cadaPalavraDeTokenSpokenUmaVez_maisUnk	
+384	Vocabulary.kt:46	spoken.toList() + UNKNOWN  =>  listOf(UNKNOWN) + spoken.toList()	RED	RED	ReaderLifecycleTest.vocabularioLigado_vaiParaOBeginSession_comUnkNoFim;VocabularyTest.semLexico_cadaPalavraDeTokenSpokenUmaVez_maisUnk	
+385	Vocabulary.kt:46	 + UNKNOWN  =>  	RED	RED	ReaderLifecycleTest.vocabularioLigado_vaiParaOBeginSession_comUnkNoFim;VocabularyTest.semLexico_cadaPalavraDeTokenSpokenUmaVez_maisUnk	
+386	Vocabulary.kt:47	LinkedHashSet<String>(spoken)  =>  LinkedHashSet<String>()	RED	RED	LexiconRealModelTest.t02_vocabularioExpandido_trazAGrafiaDoLexico;VocabularyTest.comLexico_comecaPelaFormaDoTrd_eAcrescentaAGrafiaDoLexico	
+387	Vocabulary.kt:49	token.display.last + 1  =>  token.display.last	RED	RED	VocabularyTest.comLexico_comecaPelaFormaDoTrd_eAcrescentaAGrafiaDoLexico;VocabularyTest.comLexico_apostrofoUneNaFalaMasSeparaNoLexico	
+388	Vocabulary.kt:50	shown.replace(joiners, " ")  =>  shown	GREEN	RED	VocabularyTest.comLexico_apostrofoUneNaFalaMasSeparaNoLexico	
+389	Vocabulary.kt:50	" "  =>  ""	GREEN	RED	VocabularyTest.comLexico_apostrofoUneNaFalaMasSeparaNoLexico	
+390	Vocabulary.kt:52	sortedSetOf<String>()  =>  linkedSetOf<String>()	GREEN	RED	VocabularyTest.comLexico_grafiasAcrescentadasVemEmOrdemAlfabetica_naoNaDoTexto	
+391	Vocabulary.kt:53	it !in spoken  =>  true	RED	RED	VocabularyTest.comLexico_comecaPelaFormaDoTrd_eAcrescentaAGrafiaDoLexico;VocabularyTest.comLexico_apostrofoUneNaFalaMasSeparaNoLexico	
+392	Vocabulary.kt:53	it !in spoken  =>  false	RED	RED	LexiconRealModelTest.t02_vocabularioExpandido_trazAGrafiaDoLexico;VocabularyTest.comLexico_grafiasAcrescentadasVemEmOrdemAlfabetica_naoNaDoTexto;VocabularyTest.comLexico_comecaPelaFormaDoTrd_eAcrescentaAGrafiaDoLexico (+1)	
+393	Vocabulary.kt:53	lexicon.spellings(key)  =>  lexicon.spellings(key).take(1)	RED	RED	LexiconRealModelTest.t02_vocabularioExpandido_trazAGrafiaDoLexico;VocabularyTest.comLexico_comecaPelaFormaDoTrd_eAcrescentaAGrafiaDoLexico	
+394	Vocabulary.kt:54	spoken.toList() + extra + UNKNOWN  =>  extra.toList() + spoken + UNKNOWN	RED	RED	VocabularyTest.comLexico_grafiasAcrescentadasVemEmOrdemAlfabetica_naoNaDoTexto;VocabularyTest.comLexico_comecaPelaFormaDoTrd_eAcrescentaAGrafiaDoLexico;VocabularyTest.comLexico_apostrofoUneNaFalaMasSeparaNoLexico	
+395	Vocabulary.kt:54	 + extra  =>  	RED	RED	LexiconRealModelTest.t02_vocabularioExpandido_trazAGrafiaDoLexico;VocabularyTest.comLexico_grafiasAcrescentadasVemEmOrdemAlfabetica_naoNaDoTexto;VocabularyTest.comLexico_comecaPelaFormaDoTrd_eAcrescentaAGrafiaDoLexico (+1)	
+396	VoskEngine.kt:286,296	if (ended) return & if (decoderReleased) return  =>  if (false) return & if (false) return	novo	RED	VoskEngineRobustnessTest.estrategiaReset_reconhecedorComExcecao_eFechadoENaoReaproveitado;VoskEngineRobustnessTest.reconhecedorComExcecao_endSessionDepois_naoFechaDeNovo	
+397	VoskEngine.kt:286,297	if (ended) return & decoderReleased = true  =>  if (false) return & Unit	novo	RED	VoskEngineRobustnessTest.estrategiaReset_reconhecedorComExcecao_eFechadoENaoReaproveitado;VoskEngineRobustnessTest.reconhecedorComExcecao_endSessionDepois_naoFechaDeNovo	
+398	VoskEngine.kt:256,286	if (ended) return & if (ended) return  =>  if (false) return & if (false) return	novo	RED	VoskEngineSessionTest.reconhecedorComExcecao_naoRecebeMaisAudio	
+399	ModelInstaller.kt:70	path != "$assetDir/$UUID"  =>  true	novo	RED	ModelInstallerTest.uuidEAbertoDuasVezes_aSegundaPorUltimo	
+400	VoskEngine.kt:300	if (broken) active.close() else recycle(active, vocabulary)  =>  active.close()	novo	RED	VoskEngineSessionTest.estrategiaReset_sessaoAntigaAtrasada_guardaSoOReconhecedorMaisNovo;VoskEngineSessionTest.release_fechaOReconhecedorGuardadoDaEstrategiaReset;VoskEngineSessionTest.estrategiaReset_reaproveitaOReconhecedor_comIdNovo (+2)	
+401	VoskEngine.kt:300	if (broken) active.close() else recycle(active, vocabulary)  =>  recycle(active, vocabulary)	novo	RED	VoskEngineRobustnessTest.estrategiaReset_reconhecedorComExcecao_eFechadoENaoReaproveitado	
+
+Total: 402 quebras; vermelhas 382; verdes 20 (todas justificadas como equivalentes acima).
