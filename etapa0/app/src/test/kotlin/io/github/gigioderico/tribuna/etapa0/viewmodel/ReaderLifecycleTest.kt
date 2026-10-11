@@ -59,6 +59,26 @@ class ReaderLifecycleTest {
         }
 
     @Test
+    fun onStopDeVerdadeComALeituraPausada_fechaACaptura_eNaVoltaReabreMantendoPausada() =
+        runTest {
+            val h = ReaderHarness(this)
+            h.load("T01")
+            h.listen()
+            h.pause()
+            assertTrue(h.state.capturing)
+            h.controller.onActivityStop(changingConfigurations = false)
+            h.settle()
+            assertEquals("stopCapture", h.engine.calls.last())
+            assertFalse(h.state.capturing)
+            assertEquals(ReaderPhase.Paused, h.state.phase)
+            h.controller.onActivityStart()
+            h.settle()
+            assertEquals("startCapture", h.engine.calls.last())
+            assertTrue(h.state.capturing)
+            assertEquals(ReaderPhase.Paused, h.state.phase)
+        }
+
+    @Test
     fun falhaNoPrepare_mostraOErro_eTentarDeNovoPreparaOutraVez() =
         runTest {
             val h = ReaderHarness(this)
