@@ -1874,7 +1874,7 @@ Esperado: `BUILD SUCCESSFUL`. Em `build-logic/build/test-results/test/`: `Manife
 cd /Users/giorgioderico/Projetos/Tribuna && git add etapa0/settings.gradle.kts etapa0/build.gradle.kts etapa0/build-logic && git commit -m "build(etapa0): verifyMergedManifest e verify16kAlignment no build-logic, com testes (TRD §Qualidade de código)"
 ```
 
-- [ ] **Passo 10: quebra C (Q2) — a varredura deixa de reprovar desalinhamento**
+- [x] **Passo 10: quebra C (Q2) — a varredura deixa de reprovar desalinhamento**
 
 Em `NativeLibScan.kt`, trocar `aligns.filter { it < minAlign }` por `aligns.filter { it < 0 }`.
 
@@ -1888,7 +1888,7 @@ Esperado: `FAILED` em `NativeLibScanTest.libExigidaDesalinhada_eReportada` e `Na
 
 Restaurar: `git -C /Users/giorgioderico/Projetos/Tribuna checkout -- etapa0/build-logic/src/main/kotlin/io/github/gigioderico/tribuna/buildlogic/NativeLibScan.kt`
 
-- [ ] **Passo 11: confirmar a restauração**
+- [x] **Passo 11: confirmar a restauração**
 
 Rodar: `cd /Users/giorgioderico/Projetos/Tribuna/etapa0 && ./gradlew testDebugUnitTest && git -C /Users/giorgioderico/Projetos/Tribuna status --porcelain etapa0/build-logic`
 Esperado: `BUILD SUCCESSFUL` e nenhuma linha do `git status`.
