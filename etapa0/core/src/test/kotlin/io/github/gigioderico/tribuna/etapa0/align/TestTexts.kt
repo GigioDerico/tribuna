@@ -11,4 +11,6 @@ object TestTexts {
     }
 
     fun read(name: String): String = File(dir, "$name.txt").readText(Charsets.UTF_8)
+
+    fun tokens(name: String): List<Token> = Tokenizer.tokenize(read(name))
 }
