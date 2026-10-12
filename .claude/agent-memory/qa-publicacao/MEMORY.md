@@ -1,1 +1,2 @@
 - [Ambiente Etapa 0](ambiente_etapa0.md) — QA sem aparelho, comandos, armadilhas, quebras Q2 já usadas na 0001
+- [S23 lições](aparelho_s23_licoes.md) — cabo cai, DND lento, pasta exportacoes, rotação fecha painel, estado pendente da 0005
