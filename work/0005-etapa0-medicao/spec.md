@@ -1,6 +1,6 @@
 # Spec — 0005-etapa0-medicao
 
-**Autor:** analista · **Data:** 2026-10-12 · **Aprovação:** conferida pelo orquestrador em 2026-10-12, com ressalva: o portão humano 6 (verdade-terreno, passo D1) fica separado e só bloqueia esse passo; plano, preparação e gravações andam sem ele. A tarefa tem um portão humano 6 (Pergunta 1). Ele precisa de resposta antes do passo D (verdade-terreno), mas não bloqueia o PLAN, a preparação nem as gravações. O resultado final vai ao portão humano 3.
+**Autor:** analista · **Data:** 2026-10-12 · **Aprovação:** conferida pelo orquestrador em 2026-10-12, com ressalva: o portão humano 6 (verdade-terreno, passo D1) fica separado e só bloqueia esse passo; plano, preparação e gravações andam sem ele. **Portão 6 decidido por Giorgio Derico em 2026-10-12: opção A** (pacote `vosk` em versão fixa num venv FORA do repositório e modelo grande de português, GPLv3, em pasta fora do repositório, com SHA-256 registrado). Fica de fora desta aprovação: WAV no LFS (cota) e consentimento da voz2, que continuam como portão condicional antes do push dos WAV.. A tarefa tem um portão humano 6 (Pergunta 1). Ele precisa de resposta antes do passo D (verdade-terreno), mas não bloqueia o PLAN, a preparação nem as gravações. O resultado final vai ao portão humano 3.
 
 Brainstorm: `work/0005-etapa0-medicao/brainstorm.md`. As decisões D1–D28 citadas abaixo estão lá, com as alternativas e o motivo.
 

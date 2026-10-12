@@ -6,3 +6,5 @@
 - [Fatos do Vosk na 0003](vosk_android_fatos_0003.md) — léxico com acento no Gr.fst, StorageService externo, 16 KB só 64 bits, ABIs da JNA, R8/AWT, log do Kaldi
 - [Arquitetura do etapa0/:app](arquitetura_etapa0_app_0003.md) — VoskEngine puro com costuras, ReaderController puro no ViewModel, paralelo só com worktree
 - [Ferramentas Python da 0004](ferramentas_etapa0_0004.md) — Python 3.13 sem pytest/vosk, .tsv de paridade, NW com desempate por trechos, recuperação literal trivial, glob zsh
+- [Aparelho e Mac na 0005](medicao_aparelho_0005.md) — S23 4 KB, uiautomator 2,3 s, vosk 0.3.45 sem wheel mac (usar 0.3.44), zsh/bash, .pyc velho na Q2
+- [Sincronização e veredito da 0005](sincronizacao_e_veredito_0005.md) — 4 ferramentas na própria tarefa, Pearson em dB, palma no meio do patamar, reproduções _r_
