@@ -4662,9 +4662,9 @@ Se a calibração recomendar configuração diferente da D10 (D28): PARAR E PEDI
 
 ## Registro da construção (preenchido pelo agente de construção)
 
-**Agente:** motor-voz · **Commit(s):** <hash>
+**Agente:** motor-voz · **Commit(s):** 65c8e54, f67e9ba, 1dc1a78, d965c34, a0709a9 (sincronizar, folha, veredito, nivel, cadeia); evidências no commit seguinte
 
-- Feito: <...>
-- Testes criados: <...>
-- Desvios do plano e motivo: <nenhum | ...>
-- Comandos rodados e resultado: <...>
+- Feito: Tarefas 1 a 6 no worktree `Tribuna-0005-ferramentas` (branch `work/0005-ferramentas`): `sincronizar.py`, `folha.py`, `veredito.py`, `nivel.py` copiados dos blocos do plano sem alterar a lógica (extração por faixa de linhas), mais `testes/sinal.py`. Testes escritos e vistos falhar (`ModuleNotFoundError` previsto, `1 testes, 0 falhas, 1 erros`) antes de cada ferramenta entrar. Só stdlib, sem rede, sem escrita de WAV.
+- Testes criados: `test_sincronizar.py` 32, `test_folha.py` 24, `test_veredito.py` 51, `test_nivel.py` 11, `test_cli_0005.py` 3 = 121 novos; suíte total 270 (149 antigos + 121).
+- Desvios do plano e motivo: nenhum de lógica. Só a mensagem do commit da Tarefa 3 ficou "veredito.py, veredito da Etapa 0 e relatório (spec 0005 C1, C2, D9, E2, E3, F1, F2, H1)" em vez do texto do plano (que citava só D9); mais completa, sem efeito no código.
+- Comandos rodados e resultado: `python3 etapa0/ferramentas/testar.py` -> `270 testes, 0 falhas, 0 erros, 0 pulados` (`evidencias/b-testar.txt`). `grep` de imports -> só stdlib e módulos locais (`evidencias/b-imports.txt`); grep de rede/subprocess: `rc=1`, nada; escritas `open(..., "w")` só de `--json`/`-o` (texto). Quebras Q2: as 145 da tabela rodadas, não só as ★ (script de runner fora do repositório), cada uma sozinha, com `__pycache__` removido, `-B`: 144 vermelhas, 1 verde (S35, o equivalente declarado), `git diff --stat` vazio depois de cada (`evidencias/b-quebras-q2.txt`). Em `etapa0/`: `ANDROID_HOME=$HOME/Library/Android/sdk ./gradlew :core:test verifyMergedManifest` -> BUILD SUCCESSFUL (122 testes `:core`; `local.properties` não foi preciso copiar). Não declaro o código aprovado; falta o REVIEW.
