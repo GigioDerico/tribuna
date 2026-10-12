@@ -1,0 +1,5 @@
+cursor 0 · highWater 0 · missStreak 0 · Reposition · score 0,000
+sessão - · motor Capturing · nível 0,006
+latência 2: - ms · latência 3: 8827 ms
+instalação 352 ms · prepare 659 ms · beginSession 30 ms · 1º parcial - ms
+vocabulário: - palavras

@@ -1,0 +1,4 @@
+2026-10-12T11:13:47 logcat limpo
+2026-10-12T11:17:46 logcat limpo
+2026-10-12T11:19:12 preparado T01
+11:24:12 rotação travada em retrato (accelerometer_rotation=0 user_rotation=0); o aparelho estava em paisagem

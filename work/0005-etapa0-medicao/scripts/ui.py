@@ -170,7 +170,16 @@ def campo(atual, novo):
     return 0
 
 
+def topo():
+    """Rola o painel de depuração até o topo (as linhas de estado ficam lá; tocar/rolar as deixa fora da tela).
+    Achado da Fase C (B1): sem isto, `linhas` depois de `tocar Parar` volta vazio. Gestos dentro do painel (y>=1700)."""
+    for _ in range(4):
+        adb("shell", "input", "swipe", "540", "1700", "540", "2250", "200")
+    time.sleep(0.5)
+
+
 def linhas(regex):
+    topo()
     padrao = re.compile(regex)
     achadas = [n[0] for n in dump() if padrao.search(n[0])]
     for t in achadas:

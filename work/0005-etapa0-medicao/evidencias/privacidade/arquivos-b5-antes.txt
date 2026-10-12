@@ -1,0 +1,17 @@
+interno: ./files/model-pt/Gr.fst
+interno: ./files/model-pt/HCLr.fst
+interno: ./files/model-pt/README
+interno: ./files/model-pt/disambig_tid.int
+interno: ./files/model-pt/final.mdl
+interno: ./files/model-pt/ivector/final.dubm
+interno: ./files/model-pt/ivector/final.ie
+interno: ./files/model-pt/ivector/final.mat
+interno: ./files/model-pt/ivector/global_cmvn.stats
+interno: ./files/model-pt/ivector/online_cmvn.conf
+interno: ./files/model-pt/ivector/splice.conf
+interno: ./files/model-pt/mfcc.conf
+interno: ./files/model-pt/phones.txt
+interno: ./files/model-pt/uuid
+interno: ./files/model-pt/word_boundary.int
+interno: ./files/profileInstalled
+interno: ./shared_prefs/android.app.ActivityThread.IDS.xml

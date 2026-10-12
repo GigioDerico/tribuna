@@ -1,0 +1,6 @@
+ro.product.model=SM-S911B
+ro.build.version.release=16
+ro.build.version.sdk=36
+ro.product.cpu.abilist=arm64-v8a,armeabi-v7a,armeabi
+PAGE_SIZE=4096
+MemTotal:        7242456 kB

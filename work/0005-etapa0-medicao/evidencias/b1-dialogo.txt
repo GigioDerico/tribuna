@@ -1,0 +1,3 @@
+com.google.android.permissioncontroller	Permitir que o app Tribuna Etapa 0 grave áudio?
+com.google.android.permissioncontroller	Durante o uso do app
+com.google.android.permissioncontroller	Apenas esta vez

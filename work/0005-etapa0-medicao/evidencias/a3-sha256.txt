@@ -1,0 +1,2 @@
+cfd79ae2cede39aeea4ac3716d8516b7b553847219301eae947b5b59b361502b  etapa0/app/build/outputs/apk/debug/app-debug.apk
+cfd79ae2cede39aeea4ac3716d8516b7b553847219301eae947b5b59b361502b  /var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T//tribuna-0005/instalado.apk
