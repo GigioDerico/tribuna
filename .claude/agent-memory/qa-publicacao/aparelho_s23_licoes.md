@@ -14,3 +14,6 @@ metadata:
 - G2 no S23: partida a frio mediana 730 ms (n=10); primeira cópia instalação ~273 ms, prepare ~520 ms (n=3). `pm clear` do app de teste NÃO foi bloqueado.
 - `dumpsys audio` completo lista apps pessoais: filtrar pelo pacote etapa0.
 - Pendente na 0005: B8/C13 e números das ferramentas novas, depois do merge APROVADO.
+
+## Causa das quedas do adb (diagnóstico do humano, 2026-10-12)
+Não era o cabo: era o bloqueio de segurança do Samsung (Auto Blocker, "Bloquear comandos por cabo USB"). O humano desativou o Auto Blocker. A chave não é legível por `adb shell settings`; confirme só por estabilidade. Se o adb voltar a cair, antes de culpar o cabo peça ao humano para conferir Auto Blocker, "Desativar tempo limite de autorização do adb" e o bloqueio de tela.
