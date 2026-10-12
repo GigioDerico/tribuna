@@ -5,3 +5,4 @@
 - [Varredura 0003 rodada 2](vosk_rodada2_varredura.md) — 402 quebras por linha, 20 equivalentes, runner e pegadinhas
 - [Ferramentas 0004](ferramentas_0004.md) — 87 testes Py, L30 3,7 s, extrator de blocos, referências Kotlin
 - [Ferramentas 0004 rodada 2](ferramentas_0004_rodada2.md) — 149 testes, scripts de quebra/equivalência, pegadinha do sed que não casa
+- [Ferramentas 0005](ferramentas_0005.md) — 270 testes, runner Q2 por tabela do plano (145 quebras, 25 min), Gradle no worktree
