@@ -1,0 +1,24 @@
+# B7 repetido 2026-10-12 12:2x, release instalado (flags sem DEBUGGABLE), reprodução pela fonte WAV do ensaio sintético (Luciana, fora do repo)
+app_version=0.0.1
+vosk_android_version=0.3.75
+model_id=vosk-model-small-pt-0.3 sha256=6e1ce909032e1afa7a88e68a3d628ecafff302bdf195befab308826c395e93b7
+text_id=T01
+preset=Normal
+vocabulary=off
+recognizer_strategy=NewPerSession
+audio_source=wav
+wav_name=T01_ensaio_sala_t1.wav
+level_threshold=0.0
+animation_ms=375
+install_ms=7
+prepare_ms=426
+device_model=samsung SM-S911B
+android_version=16 (API 36)
+--- trajectory.csv: linhas      148, últimas:
+91235,212,Short,1.0
+91851,213,Short,1.0
+92444,214,Short,1.0
+tokens do T01: 215 (índices 0..214)
+pm: release sem DEBUGGABLE
+cfd79ae2cede39aeea4ac3716d8516b7b553847219301eae947b5b59b361502b  /var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T//inst.apk
+cfd79ae2cede39aeea4ac3716d8516b7b553847219301eae947b5b59b361502b  ../../etapa0/app/build/outputs/apk/debug/app-debug.apk

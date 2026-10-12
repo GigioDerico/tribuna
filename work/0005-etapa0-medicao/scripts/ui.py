@@ -130,6 +130,15 @@ def tocar(texto, rolar=6):
         if volta < rolar:
             adb("shell", "input", "swipe", "540", "2000", "540", "1400", "300")
             time.sleep(0.5)
+    # o painel pode ter ficado rolado além do item: volta para cima (B7, release; H-cabo 2026-10-12)
+    for _ in range(rolar + 2):
+        adb("shell", "input", "swipe", "700", "1690", "700", "2250", "300")
+        time.sleep(0.5)
+        n = achar(dump(), texto)
+        if n is not None and n[3]:
+            x, y = centro(n[2])
+            adb("shell", "input", "tap", str(x), str(y))
+            return 0
     print(f"ui.py: '{texto}' não está na tela (ou aparece mais de uma vez)", file=sys.stderr)
     return 1
 
@@ -230,6 +239,13 @@ def interruptor(rotulo, valor):
     for _ in range(2):
         lista = dump()
         r = achar(lista, rotulo)
+        for gesto in (("700", "1690", "700", "2250"),) * 6 + (("700", "2200", "700", "1600"),) * 12:
+            if r is not None:
+                break
+            adb("shell", "input", "swipe", *gesto, "300")
+            time.sleep(0.5)
+            lista = dump()
+            r = achar(lista, rotulo)
         if r is None:
             print(f"ui.py: '{rotulo}' não achado", file=sys.stderr)
             return 1
