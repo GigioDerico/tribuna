@@ -21,12 +21,12 @@ case "${1:-}" in
     comm -13 "$PRIV/arquivos-$2.txt" "$PRIV/arquivos-$3.txt" > "$novos"
     echo "novos: $(wc -l < "$novos")"; cat "$novos"
     ruins=$(grep -E -i "$AUDIO" "$novos" || true)
-    fora=$(grep '^externo: ' "$novos" | grep -v "/files/exports/" || true)
+    fora=$(grep '^externo: ' "$novos" | grep -v "/files/exportacoes/" || true)
     internos=$(grep '^interno: ' "$novos" || true)
     if [ -n "$ruins$fora$internos" ]; then
-      echo "REPROVA: arquivo novo de áudio, fora de exports/ ou no armazenamento interno:"; echo "$ruins$fora$internos"; exit 1
+      echo "REPROVA: arquivo novo de áudio, fora de exportacoes/ ou no armazenamento interno:"; echo "$ruins$fora$internos"; exit 1
     fi
-    echo "PASSA: nenhum arquivo novo de áudio; novos só em exports/" ;;
+    echo "PASSA: nenhum arquivo novo de áudio; novos só em exportacoes/" ;;
   logcat-limpar) adb logcat -c; log "logcat limpo" ;;
   logcat)
     r="$2"; bruto="$TMPD/logcat-$r.txt"

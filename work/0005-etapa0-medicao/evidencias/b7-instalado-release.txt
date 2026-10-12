@@ -1,0 +1,7 @@
+package:/data/app/~~NWNWWyZXF3g4dmtWnArQZw==/io.github.gigioderico.tribuna.etapa0-crZ94hOlNTcRQzO5jnBZhA==/base.apk
+fb8326b9b83748dd3b366c21c0b18a5fa2184b0567b3ce42a7be8197da89ce40  /var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T//tribuna-0005/inst-rel.apk
+fb8326b9b83748dd3b366c21c0b18a5fa2184b0567b3ce42a7be8197da89ce40  etapa0/app/build/outputs/apk/release/app-release.apk
+    versionName=0.0.1
+    flags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    pkgFlags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ]
+Physical size: 1080x2340

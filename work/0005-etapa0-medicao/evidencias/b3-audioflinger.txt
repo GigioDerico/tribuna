@@ -1,22 +1,21 @@
-# dumpsys media.audio_flinger, trecho da thread de entrada (16 kHz) e linhas do pacote; resto do dump (outros apps) não entra
-Input thread 0xb400006f41942408, name AudioIn_6A6, tid 22067, type 3 (RECORD):
-  I/O handle: 1702
-  Standby: no
+       S   2512     no    5175/   1027   26081    3008 S  0x604 00000001 00000001  16000  1   d  4   -22     0     0     0          -22      false 00003680  13952       0 f         0        0      false        false 1.000000 1.000000     Y     2     0   61.98 k 
+   10-05 07:01:07.202 removeTrack_l (0xb400006f6f2d9780)         969     no   27856/  10378    7977    1258 T  0x200 00000001 00000001  16000  0   2  0  -inf     0     0     0         -inf      false 00000000    644       0 I         0        0      false        false 1.000000 1.000000     Y     2     0       new 
   Sample rate: 16000 Hz
-  HAL frame count: 320
-  HAL format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
-  HAL buffer size: 640 bytes
-  Channel count: 1
-  Channel mask: 0x00000010 (front)
-  Processing format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
-  Processing frame size: 2 bytes
-  Timestamp stats: n=13705 disc=6 cold=0 nRdy=0 err=0 rate=1 jitterMs(ave=-0.00012 std=0.341666 min=-8.27302 max=8.25411) localSR(15999.5, 2.74211e-08) correctedJitterMs(ave=0.000228349 std=0.0265935 min=-0.442031 max=0.939792)
-20: 26738  10429  io.github.gigioderico.tribuna.etapa0
-38:    51169    1   26738  10429  io.github.gigioderico.tribuna.etapa0
-2079:  Track-7723: uid: 10429 io.github.gigioderico.tribuna.etapa0  sessions: 2  actual_seconds: 118.572362 { 26738 }
-2116:  uid: 10429 io.github.gigioderico.tribuna.etapa0  sessions: 2  actual_seconds: 118.572664 { 26738 }
-# cabeçalho das colunas do track (Format 00000001 = PCM_16_BIT; Chn mask 00000010 = mono; SRate; ST/source 6 = VOICE_RECOGNITION):
-Type     Id Active Client(pid/uid) Session Port Id S  Flags   Format Chn mask  SRate ST Usg CT  G db  L dB  R dB  VS dB 
-# linha da trilha de entrada do pacote (pid 26738), capturada ao vivo durante o ensaio (Active=yes):
-       yes   5180   26738/  10429   51169    5959  A  0x000 00000001 00000010  16000      6 00052300   6400    640   n   40.09 t
-   10-12 11:19:13.821 AT::add       (0xb400006f61464f48)     no   5180   26738/  10429   51169    5959  r1 0x000 00000001 00000010  16000      6 00000000   6400      0   
+  Timestamp stats: n=25251 disc=7 cold=0 nRdy=0 err=0 rate=1.00002 jitterMs(ave=-0.000432658 std=0.407298 min=-8.27302 max=8.25411) localSR(16000.1, 1.41309e-08) correctedJitterMs(ave=-8.97587e-05 std=0.0281481 min=-0.442031 max=0.939792)
+       yes   5184   11155/  10429   51209    5964  A  0x000 00000001 00000010  16000      6 00058340   6400      0   n    0.08 t
+        no   5062    3428/  10378   50089    5823  P  0x000 00000001 00000010  16000      1 000030C0    960    320   n   20.17 t
+   10-12 08:56:10.409 AT::add       (0xb400006f70df4d48)     no   5062    3428/  10378   50089    5823  r1 0x000 00000001 00000010  16000      1 00000000    960      0   n       new
+   10-12 09:31:53.220 AT::add       (0xb400006f70df4748)     no   5101   29925/  10429   50417    5863  r1 0x000 00000001 00000010  16000      6 00000000   6400      0   n       new
+   10-12 09:32:05.155 removeTrack_l (0xb400006f70df4748)     no   5101   29925/  10429   50417    5863  T  0x200 00000001 00000010  16000      6 0002E2C0   6400    320   n   20.08 t
+   10-12 09:33:02.923 AT::add       (0xb400006f6f3cf548)     no   5102   29925/  10429   50425    5865  r1 0x000 00000001 00000010  16000      6 00000000   6400      0   n       new
+   10-12 09:35:16.643 removeTrack_l (0xb400006f6f3cf548)     no   5102   29925/  10429   50425    5865  T  0x200 00000001 00000010  16000      6 00209F40   6400    320   n   20.65 t
+   10-12 09:35:21.036 AT::add       (0xb400006f6f253148)     no   5103   29925/  10429   50433    5867  r1 0x000 00000001 00000010  16000      6 00000000   6400      0   n       new
+   10-12 09:35:29.336 removeTrack_l (0xb400006f6f253148)     no   5103   29925/  10429   50433    5867  T  0x200 00000001 00000010  16000      6 000201C0   6400    320   n   20.12 t
+   10-12 09:53:32.252 AT::add       (0xb400006f6f250148)     no   5113   24698/  10281   50569    5889  r1 0x000 00000001 00000010  16000      6 00000000 128000      0   n       new
+   10-12 09:53:33.741 removeTrack_l (0xb400006f6f250148)     no   5113   24698/  10281   50569    5889  T  0x200 00000001 00000010  16000      6 00005500 128000    320   n   20.63 t
+   10-12 11:14:04.156 AT::add       (0xb400006f6f254948)     no   5179   26738/  10429   51161    5957  r1 0x000 00000001 00000010  16000      6 00000000   6400      0   n       new
+   10-12 11:14:21.160 removeTrack_l (0xb400006f6f254948)     no   5179   26738/  10429   51161    5957  T  0x200 00000001 00000010  16000      6 00041B40   6400    320   n   20.20 t
+   10-12 11:19:13.821 AT::add       (0xb400006f61464f48)     no   5180   26738/  10429   51169    5959  r1 0x000 00000001 00000010  16000      6 00000000   6400      0   n       new
+   10-12 11:24:23.742 removeTrack_l (0xb400006f61464f48)     no   5180   26738/  10429   51169    5959  T  0x200 00000001 00000010  16000      6 004BA3C0   6400    320   n   20.18 t
+   10-12 11:45:42.154 AT::add       (0xb400006f6f252b48)     no   5184   11155/  10429   51209    5964  r1 0x000 00000001 00000010  16000      6 00000000   6400      0   n       new
+mediana 200.0 n 558 min 143 max 445 duracao_s 111.843

@@ -16,3 +16,68 @@ screen_off_timeout=600000
 stay_on_while_plugged_in=2
 accelerometer_rotation=1
 user_rotation=0
+== depois 2026-10-12T11:43:38
+airplane_mode_on=0
+zen_mode=0
+screen_brightness=114
+screen_brightness_mode=1
+screen_off_timeout=600000
+stay_on_while_plugged_in=0
+accelerometer_rotation=1
+user_rotation=0
+--- /Users/giorgioderico/Projetos/Tribuna/work/0005-etapa0-medicao/evidencias/aparelho-estado-antes.env	2026-10-12 11:10:23
++++ /var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T//tribuna-0005/depois.env	2026-10-12 11:43:38
+@@ -1,6 +1,6 @@
+ airplane_mode_on=0
+ zen_mode=0
+-screen_brightness=104
++screen_brightness=114
+ screen_brightness_mode=1
+ screen_off_timeout=600000
+ stay_on_while_plugged_in=0
+== aplicado sessao 2026-10-12T11:44:41
+airplane_mode_on=1
+zen_mode=0
+screen_brightness=255
+screen_brightness_mode=0
+screen_off_timeout=600000
+stay_on_while_plugged_in=2
+accelerometer_rotation=1
+user_rotation=0
+== aplicado (retomada, zen confirmado depois) 2026-10-12T11:45:08
+airplane_mode_on=1
+zen_mode=0
+screen_brightness=255
+screen_brightness_mode=0
+screen_off_timeout=600000
+stay_on_while_plugged_in=2
+accelerometer_rotation=0
+user_rotation=0
+== depois 2026-10-12T12:00:51
+airplane_mode_on=0
+zen_mode=0
+screen_brightness=90
+screen_brightness_mode=1
+screen_off_timeout=600000
+stay_on_while_plugged_in=0
+accelerometer_rotation=1
+user_rotation=0
+--- /Users/giorgioderico/Projetos/Tribuna/work/0005-etapa0-medicao/evidencias/aparelho-estado-antes.env	2026-10-12 11:10:23
++++ /var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T//tribuna-0005/depois.env	2026-10-12 12:00:51
+@@ -1,6 +1,6 @@
+ airplane_mode_on=0
+ zen_mode=0
+-screen_brightness=104
++screen_brightness=90
+ screen_brightness_mode=1
+ screen_off_timeout=600000
+ stay_on_while_plugged_in=0
+== aplicado sessao 2026-10-12T12:05:25
+airplane_mode_on=1
+zen_mode=0
+screen_brightness=255
+screen_brightness_mode=0
+screen_off_timeout=600000
+stay_on_while_plugged_in=2
+accelerometer_rotation=1
+user_rotation=0

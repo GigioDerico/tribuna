@@ -1,0 +1,2 @@
+novos:        0
+PASSA: nenhum arquivo novo de áudio; novos só em exportacoes/

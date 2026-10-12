@@ -1,3 +1,8 @@
+externo: /sdcard/Android/data/io.github.gigioderico.tribuna.etapa0/files/exportacoes/T01_ensaio_sala_t1.events.csv
+externo: /sdcard/Android/data/io.github.gigioderico.tribuna.etapa0/files/exportacoes/T01_ensaio_sala_t1.hypotheses.csv
+externo: /sdcard/Android/data/io.github.gigioderico.tribuna.etapa0/files/exportacoes/T01_ensaio_sala_t1.level.csv
+externo: /sdcard/Android/data/io.github.gigioderico.tribuna.etapa0/files/exportacoes/T01_ensaio_sala_t1.meta.txt
+externo: /sdcard/Android/data/io.github.gigioderico.tribuna.etapa0/files/exportacoes/T01_ensaio_sala_t1.trajectory.csv
 interno: ./files/model-pt/Gr.fst
 interno: ./files/model-pt/HCLr.fst
 interno: ./files/model-pt/README
