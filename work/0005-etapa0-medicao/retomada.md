@@ -32,12 +32,17 @@ Ferramentas novas de medição, no worktree `/Users/giorgioderico/Projetos/Tribu
 2. Bloqueante: o CS4 passa sem nada para checar. Precisa da mesma guarda do CS2 (nada para checar ⇒ NÃO MEDIDO).
 3. Importantes: marca de sensibilidade some no Markdown; proveniência (sha256) sem teste; dois pontos do `nivel.py` sem teste.
 
-O **arquiteto** estava escrevendo a "Correção de desenho" (seção "Correções da revisão rodada 1" do plano, no worktree, com tarefas 7+ para o `motor-voz` e uma seção "Mudanças para o QA"). Se o arquivo existir, está pronto; se não, rechamar o arquiteto com o `code_review.md` do worktree.
+**Correção de desenho: PRONTA** (arquiteto, commit `8ef6911` no worktree, seção "Correções da revisão rodada 1" do `impl_plan.md` do worktree, decisões C1 a C7, Tarefas 7 a 10 para o `motor-voz`, seção "Mudanças para o QA" Q-C1 a Q-C7). Nenhum portão humano. Resumo:
+- **C1 (bloqueante 1):** folha de d fica como está; ferramenta nova `vizinhas.py` gera `<nome>.m200.folha.events.csv` e `<nome>.p200.folha.events.csv` a partir dela; `metricas.py` (0004) não muda; `veredito.py` confere proveniência, igualdade dos arquivos comuns, e o invariante `ler_eventos(folha_k, desl_k) == ler_eventos(folha_d, d)`. O procedimento antigo agora sai com código 2.
+- **C2 (bloqueante 2):** CS4 ganha a guarda do CS2 (nada para checar ⇒ NÃO MEDIDO) e uma segunda guarda (cada intervalo de "sem movimento" exige movimento automático com t ≥ fim do intervalo). Só transforma PASSOU em NÃO MEDIDO.
+- **OPR-047:** recomendação do arquiteto: lacuna declarada no relatório, não critério novo (decisão do analista/humano se quiserem critério).
+- **Prova na cópia:** os dois casos do revisor agora dão SENSÍVEL AO DESLOCAMENTO; testes 270 → 325, 75 de 75 quebras novas vermelhas, 144 de 145 antigas vermelhas (S35 é o equivalente aceito).
+- **OPR-048 (analista):** registrar no spec o texto de esclarecimento do E1.
 
 ## Próximos passos, em ordem
 
-1. Conferir a correção de desenho do arquiteto (portão automático; avaliar se muda critério ou número do protocolo — seria portão humano 2).
-2. `motor-voz` executa as tarefas 7+ no worktree (teste antes, Q2 por operando e por constante; lição de todas as tarefas anteriores).
+1. ~~Conferir a correção de desenho do arquiteto~~ (feito: sem portão humano; a correção não muda critério nem número do protocolo).
+2. `motor-voz` executa as Tarefas 7 a 10 no worktree `/Users/giorgioderico/Projetos/Tribuna-0005-ferramentas` (teste antes, Q2 por operando e por constante; lição de todas as tarefas anteriores). **É aqui que a retomada começa.**
 3. `revisor` rodada 2 (ferramentas). APROVADO → `git merge --no-ff work/0005-ferramentas` em `work/0005-etapa0-medicao`. O OPR-043..047 do revisor está no registro do worktree (conflito trivial de numeração com o OPR-042/043/044/045 da árvore principal: renumerar no merge).
 4. `qa-publicacao`: aplicar as "Mudanças para o QA" nos scripts e fazer C11 (B8) e C13, que esperavam o merge.
 5. **Humano, S1** (Giorgio, sala silenciosa, S23 no cabo, MacBook gravando o WAV com QuickTime, palma no começo de cada take; cerca de 2 h). O QA conduz.
