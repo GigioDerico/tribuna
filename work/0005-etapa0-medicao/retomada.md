@@ -68,3 +68,11 @@ Tempo do humano estimado: 7 a 8 h em 4 ou 5 encontros, sem o tablet.
 - Nunca abrir `~/.gradle/gradle.properties`. Não editar `.claude/settings.json` (o modo auto bloqueia; o humano aplica as regras de permissão).
 - Limites de uso: agentes já caíram por limite de sessão e semanal; se um agente falhar por limite, ver o estado em disco e relançar só o que falta.
 - Respostas ao humano em pt-br, caveman ultra; commits normais com `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`.
+
+## Atualização (2026-10-14, fim da sessão)
+
+- Ferramentas (Tarefas 7 a 10) mergeadas: merge `e3247f5` em `work/0005-etapa0-medicao`. Revisão rodada 2 APROVADA (`code_review.md`). OPR-043 a 046 do branch viraram 050 a 053 (`af9661d`).
+- Scripts do QA (Q-C1 a Q-C7, C11 parcial sem aparelho): commits `7d5f6dc`, `4ba60fb`. Revisão dos scripts APROVADA (`code_review_scripts_qa.md`, `618122d`). OPR-054 e 055 abertos (`136caa7`).
+- Roteiro da S1: `s1-roteiro.md` (`1f7fd2e`).
+- **Próximo passo (outra sessão, com o S23 no cabo):** item 0 do roteiro: confirmar APK debug; C11 refeito com debug (OPR-054); C13 (F3); D23 (toque fora da tela); B7 com release. Depois, a S1 com o humano.
+- Decisões humanas abertas: Pergunta 2 (cota LFS e consentimento da `voz2`), antes do push dos WAV. Menores do OPR-049 e OPR-054/055 não bloqueiam a S1.
