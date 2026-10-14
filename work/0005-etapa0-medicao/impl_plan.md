@@ -6138,13 +6138,13 @@ O `rc_aceito "$rc" 0` para o QA em qualquer código diferente de 0 do `vizinhas.
 
 ## Registro da construção (rodada 2, correções da revisão; preenchido pelo motor-voz)
 
-**Agente:** motor-voz · **Commit(s):**
+**Agente:** motor-voz · **Commit(s):** b96fbe6 (Tarefa 7), 8e3b8fd (Tarefa 8), fff44ae (Tarefa 9); evidências no commit seguinte
 
-- Feito:
-- Testes (esperado 325):
-- Quebras Q2 (esperado: 75 novas vermelhas; 145 antigas: 144 vermelhas, 1 verde (S35, o equivalente já aceito pelo revisor)):
-- Desvios do plano e motivo:
-- Comandos rodados e resultado:
+- Feito: Tarefa 7 (`vizinhas.py` e `test_vizinhas.py`, copiados do plano por faixa de linhas); Tarefa 8 (patch de testes aplicado, visto falhar com `314 testes, 2 falhas, 113 erros`, igual ao esperado; patch do `veredito.py` aplicado; 314 verdes); Tarefa 9 (patch de testes das lacunas de `nivel`, `folha`, `sincronizar`; passou de primeira, como esperado, porque só acrescenta testes); Tarefa 10 (quebras Q2 e verificação).
+- Testes (esperado 325): 325 testes, 0 falhas, 0 erros, 0 pulados (7 + 37 de veredito/cadeia + 11 de lacunas = 55 novos; 270 -> 325).
+- Quebras Q2: novas **74 de 74 vermelhas** (a tabela do plano tem 74 linhas, não 75; o plano diz 75, diferença registrada, número não ajustado); antigas **144 de 145 vermelhas**, 1 verde (S35, o equivalente já aceito). V34, V21, V33 e V43 com os trechos novos do passo 2. Saída em `evidencias/b2-quebras-q2.txt`.
+- Desvios do plano e motivo: nenhum de lógica. Só a contagem 74 vs 75 acima (a lista de ids Z01-Z09, V40-V71, RV15-27, RN, RF, RS tem 74 itens; nenhuma linha deixou de ser exercida: o runner leu a tabela e reportou 0 "não casa").
+- Comandos rodados e resultado: `testar.py` inteiro -> `325 testes, 0 falhas, 0 erros, 0 pulados`; `git diff a728aae --stat` nos arquivos que não podem mudar -> vazio; imports de `vizinhas.py` só `argparse`, `sys`, `pathlib`, `folha`, `metricas`; grep de rede/subprocess -> `rc=1`; `git status` dos fontes limpo depois das quebras (`evidencias/b2-verificacao.txt`). Gradle não rodado (a tarefa não toca Kotlin).
 
 
 ---
