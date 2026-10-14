@@ -6003,7 +6003,7 @@ git commit -m "test(etapa0): lacunas de nivel, folha e sincronizar (revisão 000
 
 ### Tarefa 10 (motor-voz): quebras Q2, verificação e evidências
 
-- [ ] **Passo 1: as 75 quebras novas,** uma a uma, com o mesmo runner da Tarefa 6 (fora do repositório; aplica a troca, apaga todo `__pycache__`, roda `PYTHONDONTWRITEBYTECODE=1 python3 -B etapa0/ferramentas/testar.py`, restaura o arquivo). `⏎` é quebra de linha. Esperado: **75 vermelhas, 0 verdes** (resultado da prova do arquiteto). Saída em `work/0005-etapa0-medicao/evidencias/b2-quebras-q2.txt`.
+- [ ] **Passo 1: as 74 quebras novas** (o texto original dizia 75; ver R3-3 nas Correções da revisão rodada 3), uma a uma, com o mesmo runner da Tarefa 6 (fora do repositório; aplica a troca, apaga todo `__pycache__`, roda `PYTHONDONTWRITEBYTECODE=1 python3 -B etapa0/ferramentas/testar.py`, restaura o arquivo). `⏎` é quebra de linha. Esperado: **74 vermelhas, 0 verdes** (resultado da prova do arquiteto; a tabela abaixo tem 74 linhas). Saída em `work/0005-etapa0-medicao/evidencias/b2-quebras-q2.txt`.
 
 | Id | Arquivo | De | Para | Resultado na prova |
 |---|---|---|---|---|
@@ -6147,6 +6147,221 @@ O `rc_aceito "$rc" 0` para o QA em qualquer código diferente de 0 do `vizinhas.
 - Comandos rodados e resultado: `testar.py` inteiro -> `325 testes, 0 falhas, 0 erros, 0 pulados`; `git diff a728aae --stat` nos arquivos que não podem mudar -> vazio; imports de `vizinhas.py` só `argparse`, `sys`, `pathlib`, `folha`, `metricas`; grep de rede/subprocess -> `rc=1`; `git status` dos fontes limpo depois das quebras (`evidencias/b2-verificacao.txt`). Gradle não rodado (a tarefa não toca Kotlin).
 
 
+## Correções da revisão rodada 3 (OPR-055 e contagem; arquiteto, 2026-10-14)
+
+Fonte: `code_review_scripts_qa.md`, achados 3 e 4 (MENOR, OPR-055). A contagem 74/75 vem do registro da construção da rodada 2 e da revisão dela. Esta seção substitui o que diz o contrário no Q-C1, no Q-C3, na Fase F (passo 4) e na Fase G (passo 1). O resto do plano continua valendo.
+
+**Fora de portão humano, confirmado.** Nada aqui muda contrato do TRD (`SpeechEngine`, `SpeechEvent`, `SessionId`, `Token`, `Aligner`/`AlignState`, `PrompterUiState`, `ReadingPhase`), manifesto, chave do DataStore ou regra inegociável do `CLAUDE.md`. Também não muda critério, número nem protocolo do spec. O R3-1 é regra de git de dado de teste. O R3-2 mexe só num script de condução da medição (`work/0005-etapa0-medicao/scripts/medir.sh`), sem tocar em ferramenta, app ou `docs/`. O R3-3 é correção de texto. Não há CIA.
+
+### Decisões
+
+**R3-1. As folhas das reproduções vão para o git (achado 3).**
+- *Regra:* as três folhas de cada reprodução (`etapa0/eventos/reproducoes/<rep>.folha.events.csv`, `<rep>.m200.folha.events.csv` e `<rep>.p200.folha.events.csv`) entram no git no mesmo commit que os relatórios dessa reprodução e a tabela do `veredito.py` que as leu (`calibracao-<preset>.{json,md}` do F1, a do F2 e a do limiar do F4). A regra vale também para os outros arquivos que essa tabela leu: `trajetorias/reproducoes/<rep>.*`, `eventos/reproducoes/<rep>.events.csv` e `relatorios/<rodada>/reproducoes/<rep>.*`. O A10 já põe esses arquivos no repositório, e o H4 os aceita. Nada muda no `.gitignore` nem no `.gitattributes`. Conferido em 2026-10-14: `git check-ignore -v etapa0/eventos/reproducoes/T04_giorgio_sala_t1_r_normal_off_novo_l0000.folha.events.csv` sai com `rc=1` (o arquivo não é ignorado) e `git check-attr filter` responde `unspecified` (ele fica fora do LFS).
+- *Por quê:* o `veredito.py rodada --sufixo` grava em `lidos` o sha256 de cada arquivo que leu, entre eles as três folhas de cada reprodução (V69). Sem esses arquivos no git, ninguém consegue reconferir a tabela de calibração, que sustenta CS7 e F1 a F4 no relatório final. "Dado derivado, reproduzível a partir do WAV" não basta, por três motivos. (1) Refazer a reprodução exige o aparelho, e a trajetória do app não sai igual byte a byte, então o `d` da reprodução e a folha mudam. (2) A folha da reprodução também traz as correções da revisão (D7), e essas não saem de comando nenhum. (3) A tabela confere sha256, não equivalência. O custo é desprezível: cada folha tem poucas linhas de texto (tempos, nome do evento, índice de token, menos de 1 KB). São no máximo 3 folhas × 3 presets × as gravações da S1 com folha (T04, T05, T06, L30), mais as do F2 e as do F4, ou seja, dezenas de KB no git comum. O limite de tamanho do LFS (spec C3) só conta os WAV (`*.wav`), e as reproduções não geram WAV no repositório.
+- *Privacidade (Q6):* as folhas têm só tempos, nomes de evento da lista do TESTES-ETAPA0 e índices de token de textos de `etapa0/textos/`. Não têm texto do discurso nem áudio.
+
+**R3-2. `medir.sh metricas` troca os seis relatórios juntos, ou nenhum (achado 4).**
+- *Problema, reproduzido na prova:* o `> "$rel/$saida$suf.md"` trunca o `.md` antes de o `metricas.py` rodar. Com código 2, o `metricas.py` não escreve o `.json` (`metricas.py:536-546`), o `.md` fica com 0 byte, o `.json` fica antigo e as corridas seguintes nem rodam. Com código 2 na corrida d+200, d e d−200 já foram trocados, e d+200 fica com `.md` vazio e `.json` antigo, o que dá um conjunto misto.
+- *Decisão:* as três corridas escrevem numa pasta temporária fora do repositório (`mktemp -d "$TMPD/metricas.XXXXXX"`, apagada no `EXIT` por `trap`). Os seis arquivos (`<saida>{,.m200,.p200}.{md,json}`) só vão para `$rel` depois da terceira corrida aceita (código ≤ 1). A outra opção, apagar os seis antes do laço, foi descartada: ela tira o relatório anterior do disco antes de saber se o novo sai, e depois de um PARAR deixa um buraco em vez do último conjunto coerente. O conteúdo é o mesmo porque o `metricas.py` não escreve o caminho do `--json` no relatório: as `entradas` levam só o nome e o sha256. Isso foi conferido no T3 da prova, em que `.md` e `.json` saem byte a byte iguais aos do `metricas.py` rodado direto.
+- *O que muda no comportamento visível:*
+  - Com sucesso (código 0 ou 1 nas três corridas): os mesmos seis arquivos, com o mesmo conteúdo. O `medir.sh` sai com 0, como antes. Os relatórios aparecem juntos no fim, não um por corrida. O diário ganha uma linha: `metricas <saida>: seis relatórios trocados (d, .m200, .p200) em etapa0/relatorios/<rodada>[/reproducoes]`.
+  - Com código 2 em qualquer corrida: o `medir.sh` continua saindo com 1 e a mesma mensagem `PARAR: código 2 (entrada inválida); ver stderr acima` (o `rc_aceito` não muda). Antes dela, o diário ganha `metricas <saida>: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)`. Nenhum arquivo de `$rel` muda. Na primeira vez de uma gravação, nenhum arquivo é criado: antes ficava um `.md` vazio.
+  - O código 2 do `vizinhas.py` e o do `sincronizar.py` não mudam. Não sobra pasta em `$TMPD` depois de sair, nem com PARAR.
+- *O que a correção não cobre:* um relatório antigo feito por uma versão anterior do `metricas.py` que ninguém rodou de novo. Isso continua sendo regra de processo (Q-C4, Q-C5: qualquer mudança de ferramenta obriga a refazer `medir.sh metricas` e a rodada). A correção garante só que os seis relatórios de uma gravação sempre saem da mesma execução.
+
+**R3-3. Contagem das quebras novas da Tarefa 10: 74, não 75.**
+- A tabela do passo 1 da Tarefa 10 tem 74 linhas (Z01–Z09, V40–V71 com os `b`/`c`, RV15–RV27, RN, RF, RS). Conferido com `awk '/^### Tarefa 10/{f=1} /^## Mudanças para o QA/{f=0} f && /^\| [A-Z]+[0-9]+[a-z]? \|/' work/0005-etapa0-medicao/impl_plan.md | wc -l` → `74`, tanto no texto atual quanto no commit em que a tabela entrou (`git show 8ef6911:work/0005-etapa0-medicao/impl_plan.md`, 2026-10-12, a seção da rodada 1).
+- *Origem do 75:* o "75" foi escrito pelo arquiteto no commit 8ef6911 e atribuído à prova de 2026-10-12. A tabela publicada nesse mesmo commit já tinha 74 linhas, então o 75 foi erro de contagem no texto, não uma quebra que saiu da tabela. A evidência `evidencias/b2-quebras-q2.txt` mostra `linhas: 74` e 74 vermelhas, e o runner não reportou nenhum "não casa".
+- *Feito nesta revisão:* "75" virou "74" no passo 1 da Tarefa 10 (título e esperado) e na linha da Rodada 1 do Portão automático, nos dois lugares com nota para cá. O registro da construção da rodada 2 (motor-voz) fica como está, porque é a história da divergência.
+
+### Tarefa para o QA (qa-publicacao), na árvore principal
+
+Arquivos que mudam: `work/0005-etapa0-medicao/scripts/medir.sh` (R3-2), `work/0005-etapa0-medicao/evidencias/qc/r3-medir-troca-junta.txt` (novo) e `work/0005-etapa0-medicao/evidencias/qc/LEIA-ME.md` (uma linha). O R3-1 não muda arquivo agora: ele entra na Fase G, no momento de commitar cada tabela de calibração.
+
+1. **Guardar a versão antiga antes de mudar:** `mkdir -p "$TMPDIR/tribuna-0005" && git show HEAD:work/0005-etapa0-medicao/scripts/medir.sh > "$TMPDIR/tribuna-0005/medir.antigo.sh" && shasum -a 256 "$TMPDIR/tribuna-0005/medir.antigo.sh"`. Esperado: `bd3804a0877c212fb70bbe2e228fd1432be1fa5e53e42c6b2dcc26d0a7d37a0d`. Com outro valor, PARAR e avisar o arquiteto, porque o patch abaixo foi provado contra este.
+2. **Criar o ensaio** em `$TMPDIR/tribuna-0005/r3-ensaio.sh` (fora do repositório) com o conteúdo exato abaixo. Ele monta um repositório descartável com as ferramentas e o caso sintético T04 (`test_cli_0005._caso_t04`, texto `etapa0/textos/T04.txt`) e faz três testes:
+   - T1: hipóteses inválidas, código 2 na corrida d;
+   - T2: folha de d corrigida, com código 2 forçado na corrida d+200 por uma linha posta só na cópia descartável do `metricas.py`;
+   - T3: folha corrigida e sem falha, comparando o resultado com o `metricas.py` rodado direto.
+
+```bash
+#!/usr/bin/env bash
+# r3-ensaio.sh <raiz do Tribuna> <pasta nova, fora do repositório> <medir.sh a testar> <rótulo>
+# Prova do R3-2 (impl_plan 0005, Correções da revisão rodada 3) num repositório descartável, caso sintético T04.
+set -uo pipefail
+TRIB="$1"; P="$2"; MEDIR="$3"; ROT="$4"
+R="$P/repo"; N=T04_giorgio_sala_t1; REL="$R/etapa0/relatorios/S1"; S="$R/work/0005-etapa0-medicao/scripts"
+export TMPDIR="$P/tmp"; export PYTHONDONTWRITEBYTECODE=1
+[ -e "$P" ] && { echo "PARAR: $P já existe; use uma pasta nova" >&2; exit 2; }
+mkdir -p "$R/etapa0" "$S" "$TMPDIR"
+git -C "$R" init -q . && printf '__pycache__/\n' > "$R/.gitignore"
+cp -R "$TRIB/etapa0/ferramentas" "$TRIB/etapa0/textos" "$R/etapa0/"
+cp "$TRIB/work/0005-etapa0-medicao/scripts/comum.sh" "$S/"
+mkdir -p "$R"/etapa0/{esperado,trajetorias,eventos,relatorios/S1}
+python3 -B - "$R" <<'EOF'
+import json, sys
+from pathlib import Path
+R = Path(sys.argv[1]); E = R / "etapa0"; sys.path.insert(0, str(E / "ferramentas"))
+from testes import sintetico as s
+from testes.test_cli_0005 import _caso_t04, _words, D_VIVO
+import folha
+nome, tempos, extras, traj, _ = _caso_t04()
+(E / "esperado" / f"{nome}.expected.csv").write_text(s.esperado_csv("T04", tempos), encoding="utf-8")
+(E / "esperado" / f"{nome}.words.csv").write_text(_words("T04", tempos, extras), encoding="utf-8")
+(E / "trajetorias" / f"{nome}.trajectory.csv").write_text(s.trajetoria_csv(traj), encoding="utf-8")
+(E / "trajetorias" / f"{nome}.hypotheses.csv").write_text("t_ms,session,kind,words,accepted\n", encoding="utf-8")
+(E / "eventos" / f"{nome}.events.csv").write_text(s.eventos_csv([]), encoding="utf-8")
+(E / "relatorios" / "S1" / f"{nome}.sinc.json").write_text(json.dumps({"deslocamento_ms": D_VIVO}), encoding="utf-8")
+sys.exit(folha.main([str(E / "textos" / "T04.txt"), str(E / "esperado" / f"{nome}.expected.csv"),
+                     str(E / "esperado" / f"{nome}.words.csv"), "--deslocamento-ms", str(D_VIVO),
+                     "-o", str(E / "eventos" / f"{nome}.folha.events.csv")]))
+EOF
+cp "$MEDIR" "$S/medir.sh"
+bash "$S/medir.sh" metricas S1 $N > /dev/null || { echo "PARAR: a primeira corrida (base) falhou" >&2; exit 2; }
+git -C "$R" add -A && git -C "$R" -c user.name=ensaio -c user.email=ensaio@invalid commit -qm base
+seis() { (cd "$REL" && shasum -a 256 $N.md $N.json $N.m200.md $N.m200.json $N.p200.md $N.p200.json 2>&1); }
+restaura() { git -C "$R" checkout -q -- . && git -C "$R" clean -q -f -- etapa0; }
+corrige_folha() { sed -i '' 's/^22800,improviso_inicio,$/22900,improviso_inicio,/' "$R/etapa0/eventos/$N.folha.events.csv"; }
+temporarias() { ls -d "$TMPDIR"/tribuna-0005/metricas.* 2>/dev/null | wc -l | tr -d ' '; }
+echo "=== $ROT: $(shasum -a 256 "$MEDIR" | cut -c1-12) ==="
+echo "--- T1: hipóteses inválidas (kind x): código 2 na corrida d"
+antes="$(seis)"
+printf 't_ms,session,kind,words,accepted\n100,1,x,a,1\n' > "$R/etapa0/trajetorias/$N.hypotheses.csv"
+bash "$S/medir.sh" metricas S1 $N; echo "medir.sh rc=$?"
+[ "$antes" = "$(seis)" ] && echo "T1: os seis relatórios iguais aos de antes" || echo "T1: RELATÓRIOS MUDARAM"
+echo "T1: $N.md com $(wc -c < "$REL/$N.md" | tr -d ' ') bytes; pastas temporárias restantes: $(temporarias)"
+restaura
+echo "--- T2: folha de d corrigida (22800 -> 22900) e código 2 forçado na corrida d+200"
+antes="$(seis)"
+corrige_folha
+python3 -B - "$R/etapa0/ferramentas/metricas.py" <<'EOF'
+import sys
+p = sys.argv[1]; s = open(p, encoding="utf-8").read(); a = "    args = parser.parse_args(argv)\n"
+assert s.count(a) == 1
+open(p, "w", encoding="utf-8").write(s.replace(a, a + "    if args.deslocamento_ms == 2700:\n"
+    "        print(\"metricas.py: falha forçada do ensaio\", file=sys.stderr)\n        return 2\n"))
+EOF
+bash "$S/medir.sh" metricas S1 $N; echo "medir.sh rc=$?"
+if [ "$antes" = "$(seis)" ]; then echo "T2: os seis relatórios iguais aos de antes"
+else echo "T2: RELATÓRIOS MUDARAM:"; diff <(echo "$antes") <(seis) | grep '^>' | sed 's/^> [0-9a-f]* */T2:   trocado /'; fi
+echo "T2: pastas temporárias restantes: $(temporarias)"
+restaura
+echo "--- T3: folha de d corrigida, sem falha: os seis trocam juntos e batem com o metricas.py direto"
+antes="$(seis)"
+corrige_folha
+bash "$S/medir.sh" metricas S1 $N; echo "medir.sh rc=$?"
+echo "T3: relatórios trocados: $(diff <(echo "$antes") <(seis) | grep -c '^>')"
+for kd in ":2500" ".m200:2300" ".p200:2700"; do
+  k="${kd%%:*}"; desl="${kd##*:}"
+  python3 -B "$R/etapa0/ferramentas/metricas.py" "$R/etapa0/trajetorias/$N.trajectory.csv" "$R/etapa0/esperado/$N.expected.csv" \
+    "$R/etapa0/eventos/$N.events.csv" "$R/etapa0/eventos/$N$k.folha.events.csv" --deslocamento-ms "$desl" \
+    --hipoteses "$R/etapa0/trajetorias/$N.hypotheses.csv" --json "$P/direto$k.json" > "$P/direto$k.md"
+  cmp -s "$P/direto$k.md" "$REL/$N$k.md" && cmp -s "$P/direto$k.json" "$REL/$N$k.json" \
+    && echo "T3: $N$k.md e .json iguais ao metricas.py direto" || echo "T3: $N$k DIFERENTE do metricas.py direto"
+done
+echo "T3: pastas temporárias restantes: $(temporarias)"
+echo "T3: git status fora de etapa0/relatorios, etapa0/eventos e evidencias: $(git -C "$R" status --short --untracked-files=all | grep -v -E ' (etapa0/(relatorios|eventos)|work/0005-etapa0-medicao/evidencias)/' | wc -l | tr -d ' ')"
+restaura
+```
+
+3. **Ver falhar com a versão antiga (teste antes da mudança):** `bash "$TMPDIR/tribuna-0005/r3-ensaio.sh" "$PWD" "$TMPDIR/tribuna-0005/r3-antigo" "$TMPDIR/tribuna-0005/medir.antigo.sh" ANTIGO 2>&1 | tee "$TMPDIR/tribuna-0005/r3-antigo.txt"` (da raiz do repositório). Esperado, como na prova de 2026-10-14:
+   - T1: `medir.sh rc=1`, `T1: RELATÓRIOS MUDARAM`, `T04_giorgio_sala_t1.md com 0 bytes`;
+   - T2: `medir.sh rc=1` e `T2: RELATÓRIOS MUDARAM:` com 5 linhas `trocado`: `.md`, `.json`, `.m200.md`, `.m200.json` e `.p200.md`. O `.p200.json` não muda, o que mostra o conjunto misto;
+   - T3: `medir.sh rc=0`, `relatórios trocados: 6`, três linhas `iguais ao metricas.py direto` e os dois contadores em 0.
+4. **Aplicar a correção** com o patch abaixo (`git apply --check` passou contra o `medir.sh` de sha `bd3804a0…` na prova): salvar em `$TMPDIR/tribuna-0005/medir-r3.patch`, rodar `git apply --check "$TMPDIR/tribuna-0005/medir-r3.patch" && git apply "$TMPDIR/tribuna-0005/medir-r3.patch"` e depois `bash -n work/0005-etapa0-medicao/scripts/medir.sh` (sem saída). Esperado: `shasum -a 256 work/0005-etapa0-medicao/scripts/medir.sh` → `9af077c606c642ae9bae0236f6db36190855611d1ccb2ce4e7427257906bbcfb`.
+
+```diff
+--- a/work/0005-etapa0-medicao/scripts/medir.sh
++++ b/work/0005-etapa0-medicao/scripts/medir.sh
+@@ -75,14 +75,21 @@
+       log "vizinhas ${folha##*/}: rc=$rc"
+       rc_aceito "$rc" 0
+     fi
++    # As três corridas escrevem numa pasta temporária fora do repositório; os seis relatórios só trocam juntos,
++    # depois da última corrida aceita (impl_plan 0005, Correções da revisão rodada 3, R3-2; OPR-055). Com código 2
++    # em qualquer corrida, nada em $rel muda.
++    tmp="$(mktemp -d "$TMPD/metricas.XXXXXX")"; trap 'rm -r -- "$tmp"' EXIT
+     for par in ":$d" ".m200:$((d - 200))" ".p200:$((d + 200))"; do
+       suf="${par%%:*}"; desl="${par##*:}"
+       eventos=("$ev"); [ -e "$folha" ] && eventos+=("${folha%.folha.events.csv}$suf.folha.events.csv")
+       set +e; python3 "$FERR/metricas.py" "$traj.trajectory.csv" "$E0/esperado/$nome.expected.csv" "${eventos[@]}" \
+-        --deslocamento-ms "$desl" --hipoteses "$traj.hypotheses.csv" --json "$rel/$saida$suf.json" > "$rel/$saida$suf.md"
++        --deslocamento-ms "$desl" --hipoteses "$traj.hypotheses.csv" --json "$tmp/$saida$suf.json" > "$tmp/$saida$suf.md"
+       rc=$?; set -e
+       log "metricas $saida$suf (d=$desl, eventos: ${eventos[*]##*/}): rc=$rc"
++      [ "$rc" -le 1 ] || log "metricas $saida: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)"
+       rc_aceito "$rc" 1
+-    done ;;
++    done
++    for suf in "" .m200 .p200; do mv -f -- "$tmp/$saida$suf.md" "$tmp/$saida$suf.json" "$rel/"; done
++    log "metricas $saida: seis relatórios trocados (d, .m200, .p200) em ${rel#"$RAIZ"/}" ;;
+   *) echo "uso: ver o cabeçalho" >&2; exit 2 ;;
+ esac
+```
+
+5. **Ver passar com a versão nova:** `bash "$TMPDIR/tribuna-0005/r3-ensaio.sh" "$PWD" "$TMPDIR/tribuna-0005/r3-novo" "$PWD/work/0005-etapa0-medicao/scripts/medir.sh" NOVO 2>&1 | tee "$TMPDIR/tribuna-0005/r3-novo.txt"`. Esperado:
+   - T1: `medir.sh rc=1`, a linha `nenhum relatório trocado` antes do `PARAR: código 2`, `T1: os seis relatórios iguais aos de antes`, `.md` com mais de 0 byte (1391 na prova) e `pastas temporárias restantes: 0`;
+   - T2: `medir.sh rc=1`, `nenhum relatório trocado`, `T2: os seis relatórios iguais aos de antes` e `0`;
+   - T3: `medir.sh rc=0`, a linha `seis relatórios trocados (d, .m200, .p200) em etapa0/relatorios/S1`, `relatórios trocados: 6`, três `iguais ao metricas.py direto` e os dois contadores em 0.
+6. **Quebras Q2 da correção** (cada uma prova que um pedaço do patch é necessário):
+
+```bash
+N="$PWD/work/0005-etapa0-medicao/scripts/medir.sh"; T="$TMPDIR/tribuna-0005"
+python3 - "$N" "$T" <<'EOF'
+import sys
+s = open(sys.argv[1], encoding="utf-8").read(); t = sys.argv[2]
+a = '      rc_aceito "$rc" 1\n    done\n    for suf in "" .m200 .p200; do mv -f -- "$tmp/$saida$suf.md" "$tmp/$saida$suf.json" "$rel/"; done\n'
+b = '      rc_aceito "$rc" 1\n      mv -f -- "$tmp/$saida$suf.md" "$tmp/$saida$suf.json" "$rel/"\n    done\n'
+c = '''tmp="$(mktemp -d "$TMPD/metricas.XXXXXX")"; trap 'rm -r -- "$tmp"' EXIT'''
+assert s.count(a) == 1 and s.count(c) == 1
+open(f"{t}/medir.quebra1.sh", "w", encoding="utf-8").write(s.replace(a, b))  # troca a cada corrida
+open(f"{t}/medir.quebra2.sh", "w", encoding="utf-8").write(s.replace(c, c.split("; trap")[0]))  # sem trap
+EOF
+for q in quebra1 quebra2; do bash "$T/r3-ensaio.sh" "$PWD" "$T/r3-$q" "$T/medir.$q.sh" "$q" 2>&1 | grep -E "^(===|T[123]:)"; done | tee "$T/r3-quebras.txt"
+```
+
+   Esperado, como na prova:
+   - `quebra1` (mv dentro do laço): vermelho em `T2: RELATÓRIOS MUDARAM:`, com 4 linhas `trocado` (`.md`, `.json`, `.m200.md`, `.m200.json`);
+   - `quebra2` (sem `trap`): vermelho em `pastas temporárias restantes`, com valor maior que 0 (2, 3 e 4 na prova; a corrida base também conta).
+   Nas duas, o resto fica igual ao do passo 5.
+7. **Evidência:** juntar em `work/0005-etapa0-medicao/evidencias/qc/r3-medir-troca-junta.txt` o seguinte:
+   - `shasum -a 256` do `r3-ensaio.sh`, do `medir.antigo.sh` e do `medir.sh` novo;
+   - as saídas `r3-antigo.txt`, `r3-novo.txt` e `r3-quebras.txt`, nessa ordem;
+   - o `git diff HEAD -- work/0005-etapa0-medicao/scripts/medir.sh`.
+   No `evidencias/qc/LEIA-ME.md`, acrescentar uma linha: "`r3-medir-troca-junta.txt`: R3-2 (OPR-055, achado 4). Com código 2 em qualquer corrida, nenhum dos seis relatórios muda. Com sucesso, os seis trocam juntos e batem com o `metricas.py` direto. Versão antiga e duas quebras em vermelho." Os repositórios descartáveis ficam em `$TMPDIR/tribuna-0005/` e saem na limpeza da Fase L.
+8. **Conferências na árvore principal:**
+   - `git status --short` mostra só `medir.sh` e os dois arquivos de `evidencias/qc/`. O ensaio escreve no diário do repositório descartável, não no da árvore principal;
+   - `git diff --stat HEAD -- etapa0 docs` fica vazio.
+   Commit: `fix(0005): medir.sh metricas troca os seis relatórios juntos ou nenhum (OPR-055, achado 4; impl_plan rodada 3, R3-2)`. Depois, o orquestrador chama o revisor, que revisa o diff do `medir.sh` contra este patch.
+9. **R3-1 na Fase G (quando houver reproduções; hoje `etapa0/eventos/reproducoes/` não existe):** depois de gerar cada tabela de calibração, commitar a tabela junto com tudo o que ela leu, com `suf` igual ao `--sufixo` dessa tabela (ex.: `_r_normal_off_novo_l0000`) e `tab` igual ao nome dela (ex.: `calibracao-normal`). Rodar em bash: no zsh um glob sem casamento quebra, e aqui as aspas mandam o glob para o git.
+
+```bash
+suf=_r_normal_off_novo_l0000; tab=calibracao-normal; rod=S1
+git add -- "etapa0/trajetorias/reproducoes/*$suf.*" "etapa0/eventos/reproducoes/*$suf.*" \
+  "etapa0/relatorios/$rod/reproducoes/*$suf.*" "etapa0/relatorios/$rod/$tab.json" "etapa0/relatorios/$rod/$tab.md" \
+  work/0005-etapa0-medicao/evidencias
+python3 -c 'import json, os, sys
+for j in sys.argv[1:]:
+    base = os.path.dirname(os.path.abspath(j))
+    for g in json.load(open(j, encoding="utf-8"))["gravacoes"]:
+        for r in g["lidos"]:
+            print(os.path.relpath(os.path.join(base, r)))' "etapa0/relatorios/$rod/$tab.json" \
+  | sort -u | xargs git ls-files --error-unmatch -- > /dev/null; echo "lidos no git: rc=$?"
+```
+
+   Esperado: `lidos no git: rc=0`, ou seja, todo arquivo cujo sha256 a tabela gravou, folhas das reproduções incluídas, está no índice do git. Com `rc=1`, o git diz qual arquivo ficou de fora: acrescentar e repetir. Commit: `docs(0005): calibração <preset> da <rodada> com as reproduções e suas folhas (spec F1; impl_plan rodada 3, R3-1)`. A conferência dos `lidos` foi provada em 2026-10-14 num repositório descartável: `rc=0` com todos os arquivos no índice e `rc=1` com uma folha fora dele, tanto em bash quanto em zsh.
+
+### Verificação desta rodada (o que conta como sucesso)
+
+| Item | Comando | Sucesso |
+|---|---|---|
+| R3-2 falha antes | passo 3 | T1 com `.md` de 0 byte; T2 com 5 `trocado` |
+| R3-2 passa depois | passo 5 | T1 e T2 com "os seis relatórios iguais aos de antes"; T3 com 6 trocados e 3 iguais ao direto; temporárias 0 |
+| Quebras da correção | passo 6 | `quebra1` e `quebra2` vermelhas no ponto indicado |
+| Nada fora do escopo | passo 8 | `git diff --stat HEAD -- etapa0 docs` vazio |
+| R3-1 | passo 9, na Fase G | `lidos no git: rc=0` em cada tabela de calibração |
+| R3-3 | `grep -n -E "7[5] quebras|7[5] vermelhas" work/0005-etapa0-medicao/impl_plan.md; echo "rc=$?"` | `rc=1` (sem saída; a classe `[5]` impede que esta linha case consigo mesma) |
+
 ---
 
 ## Portão automático do plano (checklist do PROCESS.md, conferida pelo arquiteto antes de entregar)
@@ -6159,7 +6374,8 @@ O `rc_aceito "$rc" 0` para o QA em qualquer código diferente de 0 do `vizinhas.
 - [x] Portões humanos explícitos: portão 6 já respondido (A, só no passo D1); portão 6 condicional (cota do LFS e consentimento) antes do push; portão 3 no fim. As paradas físicas (sessões, escuta, bateria, desbloqueio) são execução do roteiro do spec, não portões.
 - [x] Parâmetros: nenhum número novo de produto. As constantes das ferramentas vêm do spec (200 ms, ±200 ms), do código da 0003 (3.200 amostras, 16 kHz), do formato (1/32768) ou do roteiro (palma até 4 s). Busca local de 1 s, grade de 100/10 ms e empate de `1e-9` são escolhas de método, sem efeito no veredito além da resolução declarada, e estão provadas nos testes.
 - [x] Divergências registradas: A12 (OPR-041 para o analista), A7 (versão do `vosk`), A10 (nome das reproduções).
-- [x] **Rodada 1 (correções da revisão):** testes antes do código (Tarefas 7 e 8 com "ver falhar" medido na prova; Tarefa 9 com as quebras como prova); 75 quebras novas vermelhas e as 145 antigas de novo (144 + S35) na prova; os dois casos do revisor viram SENSÍVEL pela cadeia real; privacidade: o `vizinhas.py` só lê e escreve folhas de eventos (tempos, nomes de evento e índices de token), sem texto do discurso nem áudio, só stdlib e sem rede; nenhum número novo; nenhum portão humano (o esclarecimento do E1 não muda critério, número nem protocolo).
+- [x] **Rodada 1 (correções da revisão):** testes antes do código (Tarefas 7 e 8 com "ver falhar" medido na prova; Tarefa 9 com as quebras como prova); 74 quebras novas vermelhas (o texto original dizia 75; R3-3) e as 145 antigas de novo (144 + S35) na prova; os dois casos do revisor viram SENSÍVEL pela cadeia real; privacidade: o `vizinhas.py` só lê e escreve folhas de eventos (tempos, nomes de evento e índices de token), sem texto do discurso nem áudio, só stdlib e sem rede; nenhum número novo; nenhum portão humano (o esclarecimento do E1 não muda critério, número nem protocolo).
+- [x] **Rodada 3 (OPR-055 e contagem):** sem contrato, manifesto, DataStore ou regra inegociável, então sem CIA nem portão humano. Teste antes da mudança no R3-2: o ensaio falha com o `medir.sh` atual (passo 3), passa com o patch (passo 5) e duas quebras ficam vermelhas (passo 6), tudo medido na prova de 2026-10-14. Privacidade: o R3-1 versiona só folhas e saídas das reproduções (tempos, eventos e índices de token de textos de teste), sem WAV no git comum, e o R3-2 escreve temporários em `$TMPDIR/tribuna-0005/`, fora do repositório, apagados na saída. Nenhum número novo.
 
 ---
 
