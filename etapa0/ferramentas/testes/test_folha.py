@@ -283,7 +283,7 @@ class EntradaTest(unittest.TestCase):
 
 
 class GuardasTest(unittest.TestCase):
-    """Achado 7 da revisão (RF08, RF12, RF13; OPR-044)."""
+    """Achado 7 da revisão (RF08, RF12, RF13; OPR-051)."""
 
     def test_sem_token_com_tempo_antes_ou_depois_da_fronteira_sai_com_2(self):
         for nome, sem_tempo in (("antes", range(0, 135)), ("depois", range(135, N))):

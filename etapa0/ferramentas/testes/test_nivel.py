@@ -196,7 +196,7 @@ class NivelTest(unittest.TestCase):
 
 
 class CausaENivelTest(unittest.TestCase):
-    """Achados 5 e 9 da revisão (RN02, RN11, RN04; OPR-046)."""
+    """Achados 5 e 9 da revisão (RN02, RN11, RN04; OPR-053)."""
 
     def test_D12_causa_no_relogio_do_app_com_deslocamento_grande(self):
         # movimento em 20.300 ms do app (23.300 do WAV com d = 3.000); a parcial de 21.500 vem depois dele

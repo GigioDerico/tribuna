@@ -893,7 +893,7 @@ class MotivoNoRelatorioTest(unittest.TestCase):
 
 
 class FinalProvenienciaTest(unittest.TestCase):
-    """OPR-045: a final confere de novo cada arquivo lido pelas rodadas (Q8) e os casos feitos à mão."""
+    """OPR-052: a final confere de novo cada arquivo lido pelas rodadas (Q8) e os casos feitos à mão."""
 
     def _tres(self, p):
         caminhos = []

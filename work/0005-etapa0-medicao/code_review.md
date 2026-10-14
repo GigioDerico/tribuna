@@ -1,178 +1,112 @@
-**Veredito: REPROVADO**
+**Veredito: APROVADO**
 
-# Revisão — 0005-etapa0-medicao (ferramentas: sincronizar, folha, veredito, nivel)
+# Revisão — 0005-etapa0-medicao (ferramentas), rodada 2
 
-**Revisor:** revisor · **Data:** 2026-10-12 · **Base do diff:** a4419fb (merge-base com `work/0005-etapa0-medicao`) → ff211d6 (`work/0005-ferramentas`, worktree `Tribuna-0005-ferramentas`)
+**Revisor:** revisor · **Data:** 2026-10-14 · **Base do diff:** a728aae → c23a9f0 (`work/0005-ferramentas`, worktree `Tribuna-0005-ferramentas`)
 
-Escopo: as quatro ferramentas novas, `testes/sinal.py`, os cinco arquivos de teste, as evidências e o Registro da construção. Os scripts bash do QA (`work/0005-etapa0-medicao/scripts/`, na árvore principal) ficam para a revisão seguinte. Eles entram aqui só onde decidem um número junto com estas ferramentas (`medir.sh metricas`, achado 1).
+A rodada 1 (REPROVADO, 2 bloqueantes e 3 importantes) está em `git show a728aae:work/0005-etapa0-medicao/code_review.md`. Este arquivo a substitui.
 
-Resumo: o código segue o plano e as 145 quebras da tabela dão o resultado declarado (144 vermelhas, S35 equivalente). Mesmo assim, há dois caminhos para PASSOU indevido no veredito. (1) A marca SENSÍVEL AO DESLOCAMENTO (spec D3) é cega para os intervalos da folha, e o `veredito.py` impede o procedimento certo. (2) O CS4 passa quando o cursor nunca se moveu (Q3).
+Escopo: `vizinhas.py` (novo), `veredito.py`, os seis arquivos de teste, as evidências `b2-*`, o Registro da construção (rodada 2) e a linha nova do `opr_register.md`. O bloco `medir.sh metricas` (Q-C1) é do QA e só entra depois do merge. Ele fica para a revisão dos scripts.
+
+Resumo: os dois bloqueantes e os três importantes da rodada 1 foram tratados. Conferi pelo código, pelos testes e por quebras que eu mesmo rodei. As 18 quebras da tabela nova que amostrei ficaram vermelhas. Das 30 quebras minhas, 24 ficaram vermelhas. As 6 verdes são lacunas menores de teste ou casos equivalentes, e nenhuma muda um número com o código de hoje. A diferença entre 74 e 75 é erro de contagem no plano: não falta teste. Há um problema de processo no registro (IDs de OPR repetidos entre os branches, achado 1). Ele não toca o código e se resolve no merge.
 
 ## Regras inegociáveis
 
 | Regra | Verificado como | Resultado |
 |---|---|---|
-| Só `RECORD_AUDIO` no manifesto mesclado | `cd etapa0 && ./gradlew --offline verifyMergedManifest`: `verifyDebugMergedManifest: OK ... -> android.permission.RECORD_AUDIO`, idem release, `BUILD SUCCESSFUL`, rc=0. O diff não toca Gradle nem manifesto. | OK |
-| Texto não persiste nem vai para log | O diff só tem ferramentas de PC. O `folha.py` só aceita texto idêntico a um de `etapa0/textos/` (`roteiro.identificar_texto`, folha.py:185). O stderr dele só cita palavras desses textos. `veredito`/`nivel`/`sincronizar` não leem texto. | OK |
-| Áudio não gravado fora de `etapa0/` | `grep` de `writeframes`/`setnchannels`/`wave.open(..."w...)`: só `testes/sinal.py:35-43`, ruído pseudoaleatório escrito em `TemporaryDirectory` (`test_sincronizar.py:26`, `apoio.Pasta`). Nenhuma ferramenta escreve WAV, só lê (`sincronizar.py:88`, `"rb"`). As escritas são `open(..., "w")` de `--json`/`-o` (texto). | OK |
-| Sem rede / só stdlib | `grep` de imports nos 10 arquivos: só stdlib (`argparse csv hashlib io json math re statistics sys wave array pathlib dataclasses`) e módulos locais. `subprocess`/`tempfile` só em `test_cli_0005.py` e `test_sincronizar.py`. Nenhum `socket`/`urllib`/`http`/`requests`. | OK |
+| Só `RECORD_AUDIO` no manifesto mesclado | `cd etapa0 && ./gradlew --offline verifyMergedManifest`: `verifyDebugMergedManifest: OK .../AndroidManifest.xml -> android.permission.RECORD_AUDIO`, idem `verifyReleaseMergedManifest`, `BUILD SUCCESSFUL in 7s`. O diff não toca Gradle nem manifesto. | OK |
+| Texto não persiste nem vai para log | O diff só tem ferramentas de PC. O `vizinhas.py` lê e escreve folhas de eventos (tempo, nome do evento, índice de token), sem texto. O `veredito.py` não lê texto. O stderr cita só nome de arquivo e de evento. | OK |
+| Áudio não gravado fora de `etapa0/` | O diff não tem escrita de WAV. As escritas são as duas folhas (`vizinhas.py:70-72`) e o `--json`/stdout do veredito. | OK |
+| Sem rede / só stdlib | `grep -n -E "^(import\|from) "`: `vizinhas.py` importa `argparse sys pathlib folha metricas`; `veredito.py` importa `argparse hashlib json os re sys pathlib metricas roteiro`. `grep -n -E "urllib\|socket\|http\|requests\|subprocess\|os\.system\|Popen"` nos dois → `rc=1`. `subprocess` só em `testes/test_cli.py` e `testes/test_cli_0005.py` (rodam as ferramentas pela linha de comando). | OK |
 | `align/` sem Android | O diff não toca `etapa0/core`. | OK |
-| Contratos do TRD inalterados | `git diff --stat work/0005-etapa0-medicao...work/0005-ferramentas -- etapa0/core etapa0/app docs etapa0/ferramentas/{metricas,alinhar,timestamps,roteiro}.py` vazio, e o mesmo contra `main`. Os testes da 0004 também não mudaram (só arquivos novos em `testes/`). | OK |
-| `SessionId` preso ao reconhecedor | Não se aplica (ferramentas de PC) | N.A. |
-| Cursor nunca abaixo de `highWater − 3` | Não se aplica | N.A. |
-| Só Compose | Não se aplica | N.A. |
+| Contratos do TRD inalterados | `git diff a728aae..c23a9f0 --stat -- etapa0/ferramentas/{metricas,alinhar,timestamps,roteiro,folha,sincronizar,nivel}.py etapa0/core etapa0/app docs` vazio. O `--stat` inteiro: só `vizinhas.py`, `veredito.py`, seis testes, `opr_register.md`, `impl_plan.md` e as duas evidências. | OK |
+| `SessionId` / `highWater − 3` / só Compose | Não se aplica (ferramentas de PC) | N.A. |
+
+## Achados da rodada 1: como ficaram
+
+| Rodada 1 | Tratamento | Conferido como |
+|---|---|---|
+| **B1** Sensibilidade cega para a folha | C1: `vizinhas.py` escreve a folha de d nos relógios das corridas ±200. `veredito.conferir_entradas(..., corrida)` aceita só `<nome>.events.csv` e a folha da corrida (`veredito.py:239`). `conferir_folhas` (`veredito.py:249-267`) exige uma folha em cada corrida e confere que `ler_eventos(folha_k, desl_k) == ler_eventos(folha_d, d)`. Ou seja, confere o invariante (mesmo instante no WAV), não a constante. A comparação entre corridas exclui só a folha (`veredito.py:308-311`). | Os meus dois casos da rodada 1 viraram teste pela cadeia real `folha → vizinhas → metricas → veredito` (`test_cli_0005.py:211-224`): `["PASSA","PASSA","REPROVA"]` com `('improviso', 46)` e `[2900, 2700, 3100]`, os dois `SENSÍVEL AO DESLOCAMENTO`. São os mesmos números que medi na rodada 1. A mesma folha nas três corridas agora sai com código 2 (`test_D3_a_mesma_folha_nas_tres_corridas_sai_com_2`). Z01, Z08 e minhas R2-24, R2-25 e R2-27 (sinal, ±10 ms, folha lida com deslocamento) derrubam esses testes. **Resolvido.** |
+| **B2** CS4 PASSOU sem nada para checar | C2: `_sem_leitura` vale para CS2 e CS4 (`veredito.py:179`). Além disso, `parados_depois` (`veredito.py:270-280`) só deixa PASSOU se houver movimento automático depois do fim de cada intervalo exigido "sem movimento". Isso pega a "captura que não reabriu", que a guarda pedida por mim sozinha não pegava. REPROVOU continua REPROVOU. | `Cs4ComCursorTest`: cursor 0/1, leitura 0, T07 parado depois da pausa, movimento em `b` e em `b−1`, Reposition e Stay não contam. Quebra ★ no worktree (abaixo) com 6 vermelhas. **Resolvido.** |
+| **I3** Sensível sem marca no Markdown | C3: `veredito.py:338-346` (motivo "sensível ao deslocamento: ...", preservado no PENDENTE) | `test_D3_reprovou_sensivel_aparece_no_markdown` confere a linha da tabela no `out`. **Resolvido**, com uma lacuna menor no PENDENTE de um REPROVOU (achado 4). |
+| **I4** Metade da proveniência sem teste | C4: RV15 e RV16 com teste. A rodada guarda `lidos` (caminho relativo e sha256), e a `final` recalcula cada um (`veredito.py:389-400`). Rodada sem `lidos` → `KeyError` → código 2 (`main`, `except (KeyError, TypeError)`). | RV15 e RV16 vermelhas (amostra minha). R2-11, R2-17, R2-18 e R2-30 (minhas) vermelhas. **Resolvido.** OPR-045 do worktree fica coberto. |
+| **I5** Dois pontos do `nivel.py` | C6: testes para RN02, RN11 e RN04 | RN11 vermelha (amostra minha). RN02 e RN04 vermelhas na evidência. **Resolvido**, junto com OPR-046. |
 
 ## Spec e plano
 
 | Critério | Implementação | Teste |
 |---|---|---|
-| D3: sincronização (correlação 200 ms, palma, deriva por metades, limite 200 ms) e folha, só stdlib, com teste e ≥ 1 quebra de cada | `sincronizar.py`, `folha.py` | `test_sincronizar.py` (32), `test_folha.py` (24). S01–S53 e F01–F29 vermelhas. Lacunas menores no OPR-043 e no OPR-044 |
-| D3: "veredito muda dentro de ±200 ms → sensível, não conta como PASSOU" | `veredito.py:247-277` | **Achado 1:** nos intervalos da folha (improviso, silêncio, pulo), a corrida ±200 é idêntica à corrida em `d` por construção |
-| D4: deslocamento, palma (app e WAV), deriva | `sincronizar.py:278-291` | `test_json_e_proveniencia`, `PalmaTest`, `DerivaTest`. A janela do pico no WAV não tem teste (RS03, OPR-043) |
-| D6: folha por regras do texto, fim de parágrafo no L30, relógio do app | `folha.py:34-43, 77-172` | `test_folha.py`. Regras conferidas contra `etapa0/textos/{T04,T05,T06,L30}.txt` (notas `//` das linhas 3, 3, 7 e 23/41/53) |
-| D7: pontos de escuta; nenhum REPROVA sem revisão | `folha.py:138`; `veredito.py:261-280` | `RevisaoEConfiguracaoTest`; V22, V23, V24 e RV10, RV11 vermelhas |
-| D9: ligações CS1–CS4, só sala no CS1, agregação por gravação e rodada, NÃO MEDIDO sem amostra | `veredito.py:53-64, 154-175, 289-348` | `RodadaTest`, `FinalTest`. **Achado 2:** CS4 sem mínimo de leitura |
-| D10: configuração oficial | `veredito.py:44-51, 260` | `test_D10_configuracao_diferente_nao_mede` (chave a chave) |
-| E1: corridas em d, d−200, d+200 | `veredito.py:236-253`; `medir.sh metricas` (plano, linhas 4083-4106) | Achado 1 |
-| E2: número, regra, n e estado por gravação e critério | `veredito.py:178-202, 354-371` | No CS4, o n de leitura e o cursor não aparecem (achado 2). Um REPROVOU sensível sai sem marca no relatório em Markdown (achado 3) |
-| E3: classes e janela de toque à parte | `veredito.py:184-193, 199-202` | `test_E3_classes_e_janela_de_toque_contadas`. A contagem da regra de recuperação (OPR-034) não está no veredito; fica para o relatório do QA |
-| F1, F2: `--sufixo`/`--config` | `veredito.py:229-237, 402-424` | `ReproducaoTest` |
-| F4/D12: nível só de parciais, nunca Final | `nivel.py:67-99` | `test_nivel.py`. Duas lacunas na atribuição da causa (achado 5) |
-| H1: final CS1–CS4 (S1+S2; S1+S3) | `veredito.py:318-348` | `FinalTest` |
-| Q8: sha256 das entradas, mesmos arquivos nas três corridas | `veredito.py:209-226, 251-255` | Metade da conferência não tem teste (achado 4) |
+| D3/E1 (com o esclarecimento C1, OPR-048 para o analista) | `vizinhas.py`; `veredito.py:239, 249-267, 308-316` | `test_vizinhas.py` (7); `SensibilidadeDeVerdadeTest`; `test_D3_*` de folha |
+| E2/Q3: CS4 com leitura, cursor e motor depois do intervalo | `veredito.py:157-169, 179, 216, 270-280, 331-336` | `Cs4ComCursorTest`, `test_E2_cs4_mostra_leitura_normal_e_fracao_lida` |
+| Achado 3: marca no Markdown | `veredito.py:338-346` | `MotivoNoRelatorioTest` |
+| Q8: `lidos` e `final` | `veredito.py:291-292, 315-316, 375-377, 389-400` | `FinalProvenienciaTest` |
+| C6: lacunas de `nivel`, `folha`, `sincronizar` | só testes | RN02/04/11, RF08/12/12b/13/13b, RS03/03b/05/06/13/15/21/23 na tabela |
+| C7: o que não muda | — | `git diff --stat` vazio nos arquivos listados |
 
-Desvios do plano: o Registro diz "nenhum de lógica". Conferi o código contra os blocos do plano e não achei desvio. Os achados 1 e 2 são do desenho do plano (A5, `medir.sh`), não da cópia.
+Desvios do plano: o Registro diz "nenhum de lógica" e aponta só a contagem 74 contra 75. Não achei outro desvio.
+
+**Contagem 74 contra 75 (Q7): erro de contagem no plano, sem teste faltando.** Evidência: a tabela do passo 1 da Tarefa 10 tem 74 linhas (extraídas por regex: 9 Z, 44 V, 21 R). Os números de V40 a V71 e de Z01 a Z09 não têm buraco, e não há id repetido. Todos os mutantes que C4 e C6 mandam testar (RV15, 16, 19, 26 e 27; RN02, 04 e 11; RF08, 12, 12b, 13 e 13b; RS03, 03b, 05, 06, 13, 15, 21 e 23) estão na tabela. A contagem de testes fecha: 270 + 7 + 37 + 11 = 325. O "75" aparece só no texto do plano (`impl_plan.md`, Tarefa 10 passo 1 e checklist do portão) e na `retomada.md` da árvore principal. Ele vem da prova do arquiteto, que não está no repositório. Não dá para provar que a prova não tinha uma 75ª linha. O que dá para afirmar é que toda decisão de C1 a C6 tem ao menos uma quebra na tabela e que as minhas 30 cobrem os operandos que sobravam (abaixo).
 
 ## Testes (Q2 e Q3)
 
-- `python3 etapa0/ferramentas/testar.py` (Python 3.13.12), rodado por mim: `Ran 270 tests ... OK` / `testar.py: 270 testes, 0 falhas, 0 erros, 0 pulados`.
-- **Tabela do plano (145 quebras):** rodei todas, uma a uma, em 6 cópias por `git archive HEAD etapa0/ferramentas etapa0/textos etapa0/core/src/test/resources`, com `PYTHONDONTWRITEBYTECODE=1 python3 -B` e `__pycache__` apagado antes de cada execução. O worktree não foi tocado. Resultado: **144 vermelhas, 1 verde (S35)**, igual a `evidencias/b-quebras-q2.txt`. Sobre a S35 (RMS ÷ 160 em vez de ÷ 3.200): o ganho constante vira soma em dB, e Pearson não vê. A única diferença é o piso de 1/32768, que corta valores diferentes abaixo de 1 LSB de RMS. Isso não ocorre com o ruído de fundo de uma gravação real. Aceito como equivalente.
-- **Uma quebra no próprio worktree**, como pede o processo: V17 (`or bool(sinc["motivos"])` removido) → `FAIL: test_D3_deriva_ou_palma_da_sincronizacao_vira_sensivel`, `51 testes, 1 falhas`. Desfeita com `git checkout -- etapa0/ferramentas/veredito.py`; `git status --short` vazio.
-- **95 quebras minhas fora da tabela:** cada operando, cada uso local de constante repetida (`TOLERANCIA_MS` na palma e na deriva, `JANELA_LOCAL_MS` em cada uso, `CORRIGIVEIS`/`INTERVALOS` em cada uso) e trocas de variável parecida (início↔fim, `t_app`↔`t_ms`, `m200`↔`p200`, `[0]`↔`[1]`↔`[2]`, `nome`↔`oficial`, voz↔ambiente, `+ s`↔`- s`). Resultado: **69 vermelhas, 26 verdes**. Tabela completa no fim. Julgamento das verdes:
-  - **Equivalentes por argumento (9):** RS17 (WAV < 200 ms já cai na faixa padrão ou dá "sem variância"); RS18 e RS19 (a grade fina de ±100 ms cobre o ponto grosso excluído, e o vizinho grosso tem correlação menor que o melhor); RS24 (o `wave` só abre `NONE`); RF02 (nota `//` não tem token, então `antes(ini) = antes(fim)`); RF13 (os textos são fixos e conferidos por identidade, e nenhuma nota fica no fim do texto); RV33 (o ambiente só pode ser `sala`/`salao`, validado em `ler_oficiais`); RV36 (arquivo ausente vira `OSError` → código 2 do mesmo jeito); RN12 (`level` e `aceitas` estão ordenados: `ler_level` recusa t decrescente e `aceitas` é `sorted`).
-  - **Inalcançáveis pela ferramenta (3):** RV26 (rodada com `--config` sem `--sufixo` lê o `meta.txt` oficial e sai toda NÃO MEDIDO, então a final não tem como passar); RV27 (todas as rodadas exigidas presentes e o critério NÃO SE APLICA em todas não ocorre, porque o T01 e os textos do CS2–CS4 são obrigatórios em toda rodada); RV19 (o mutante só põe NÃO MEDIDO a mais, ou seja, erra para o lado seguro). Vão para o OPR-045.
-  - **Lacunas reais de teste (14):** RV15, RV16 (achado 4); RN02, RN11 (achado 5); RS03, RS05, RS06, RS13, RS15, RS21, RS23 (OPR-043); RF08, RF12 (OPR-044); RN04 (OPR-046).
-- **Q3:** o achado 2 é o exemplo literal da Q3 ("nenhum salto errado num teste em que o cursor nunca se moveu").
-- **Diferencial com estrutura:** em vez de diferencial aleatório, montei à mão os dois casos que separam o comportamento das corridas ±200 (achado 1): `metricas.py` real, folha igual nas três corridas contra folha fixa no relógio do WAV. Os scripts ficam no scratchpad da sessão, fora do repositório.
+- `PYTHONDONTWRITEBYTECODE=1 python3 -B etapa0/ferramentas/testar.py` (Python 3.13.12), rodado por mim: `Ran 325 tests in 13.411s` / `OK` / `testar.py: 325 testes, 0 falhas, 0 erros, 0 pulados`.
+- **Quebra ★ no próprio worktree:** `veredito.py`, `            if parados:` → `            if False:` (a guarda do motor depois do intervalo, C2). Resultado: `testar.py: 325 testes, 6 falhas, 0 erros` (`test_Q3_cada_intervalo_exigido_conta_no_seu_criterio`, `..._movimento_no_fim_exato_... (t=10999)`, `..._reposition_ou_stay_... (Reposition)` e `(Stay)`, `..._sem_nenhum_movimento_automatico_nao_mede`, `..._t07_cursor_parado_depois_da_pausa_nao_mede`). Desfeita com `git checkout -- etapa0/ferramentas/veredito.py`; `git status --short` vazio.
+- **Amostra da tabela nova (18 de 74),** rodada por mim em cópias por `git archive HEAD etapa0/ferramentas etapa0/textos etapa0/core/src/test/resources`, com a troca lida da própria tabela: Z01, Z02, Z08, V42b, V50, V53, V57, V58, V59b, V61, V64c, V65b, RV15, RV16, RV19, RN11, RF12b e RS03b. **18 vermelhas**, iguais à `b2-quebras-q2.txt`.
+- **30 quebras minhas fora da tabela** (outro operando, relógio vizinho, corrida vizinha, primeiro ou último intervalo, outro papel). **24 vermelhas, 6 verdes:**
+
+| Id | Arquivo | De → Para | Resultado |
+|---|---|---|---|
+| R2-01 | `veredito.py:333` | `parados_depois(caminhos["d"], ...)` → `caminhos["m200"]` | **verde** (achado 2) |
+| R2-02 | `veredito.py:274` | trajetória com `d` → `0` (relógio só da trajetória) | vermelho |
+| R2-03 | `veredito.py:276` | eventos com `d` → `0` (relógio só dos eventos) | vermelho |
+| R2-04 | `veredito.py:275` | só a folha (sem o `events.csv` do app) na guarda | vermelho |
+| R2-05 | `veredito.py:275` | só o `events.csv` do app (sem a folha) na guarda | vermelho |
+| R2-06 | `veredito.py:279` | `max` → `min` | vermelho |
+| R2-07 | `veredito.py:333` | guarda também em REPROVOU | vermelho |
+| R2-08 | `veredito.py:332` | `EXIGIDOS[(c, …)]` → `[("CS4", …)]` | vermelho |
+| R2-09 | `veredito.py:332` | → `[("CS2", …)]` | vermelho |
+| R2-10 | `veredito.py:253` | `all(not folhas…)` → `any(...)` | vermelho |
+| R2-11 | `veredito.py:292` | `lidos` sem os JSON e o `meta.txt` | vermelho |
+| R2-12 | `veredito.py:265` | compara com `na_wav["m200"]` em vez de `["d"]` | vermelho |
+| R2-13 | `veredito.py:316` | contagem de eventos só da folha | vermelho |
+| R2-14 | `veredito.py:340` | marca sem os motivos do `sinc` | vermelho |
+| R2-15 | `veredito.py:341` | `{vizinhos[1]}` → `{vizinhos[0]}` | vermelho |
+| R2-16 | `veredito.py:179` | guarda de leitura também no CS3 | **verde** (lado seguro, ver abaixo) |
+| R2-17 | `veredito.py:398` | `final`: só `is_file()`, sem sha256 | vermelho |
+| R2-18 | `veredito.py:377` | `lidos` com sha fixo | vermelho |
+| R2-19 | `veredito.py:280` | só o primeiro tipo (`tipos[:1]`) | vermelho |
+| R2-20 | `veredito.py:280` | só o primeiro intervalo de cada tipo (`faixas[k][:1]`) | **verde** (achado 2) |
+| R2-21 | `veredito.py:280` | só o último intervalo de cada tipo (`faixas[k][-1:]`) | verde (equivalente) |
+| R2-22 | `veredito.py:216` | `leitura_normal` do CS4 ← `amostras.total` | vermelho |
+| R2-23 | `veredito.py:162` | `cursor == 0` → `cursor <= 1` | vermelho |
+| R2-24 | `vizinhas.py:25` | m200 `+200` → `+190` | vermelho |
+| R2-25 | `vizinhas.py:25` | p200 `−200` → `−190` | vermelho |
+| R2-26 | `vizinhas.py:35` | perde o primeiro evento | vermelho |
+| R2-27 | `vizinhas.py:35` | lê a folha com deslocamento 50 | vermelho |
+| R2-28 | `veredito.py:308-309` | `comuns` também sem o `events.csv` do app | **verde** (achado 3) |
+| R2-29 | `veredito.py:346` | PENDENTE de um REPROVOU perde o motivo | **verde** (achado 4) |
+| R2-30 | `veredito.py:396` | `final` confere só a primeira gravação | vermelho |
+
+  Julgamento das verdes:
+  - **R2-21 é equivalente.** Como `ultimo` é o maior movimento automático, "parado depois de algum intervalo" é o mesmo que "parado depois do intervalo que termina por último". Os intervalos de cada tipo saem ordenados do `metricas.intervalos`.
+  - **R2-16 fica do lado seguro.** O mutante só troca REPROVOU por NÃO MEDIDO no CS3 com o cursor parado, e os dois estados impedem a final de passar. O CS3 não mudou nesta rodada. Não registro.
+  - **R2-01, R2-20, R2-28 e R2-29 são lacunas menores de teste.** O código de hoje está certo (achados 2 a 4). No R2-01, a variante perigosa seria usar a folha da p200 (`b − 200`). Ela também é inofensiva: um movimento em `[b−200, b)` cai dentro do intervalo, que tem segundos, e já dá REPROVA no `metricas.py`.
+- **Q3:** o desenho da guarda nova é o certo. Ela reprova o "nada para checar" de dois jeitos: sem leitura ou cursor no 0, e motor parado depois do intervalo. Ela não troca REPROVOU por NÃO MEDIDO (R2-07 vermelha). Nas corridas ±200, os vizinhos usam `estado_base` sem a guarda do motor. Conferi que isso não esconde nada: um movimento que passe de `[b, b+200)` para dentro do intervalo na corrida d−200 vira REPROVA no `metricas.py`, e a marca de sensível aparece.
 
 ## Achados
 
 | # | Severidade | Arquivo:linha | Achado | Evidência | O que resolve |
 |---|---|---|---|---|---|
-| 1 | **BLOQUEANTE** | `veredito.py:251-253` (exige os mesmos arquivos, folha incluída, em d, d−200 e d+200); `veredito.py:273-274`; plano `medir.sh metricas` (impl_plan l. 4083-4106: uma folha só para as três corridas); `test_cli_0005.py:87-90` trava esse desenho | **A sensibilidade ao deslocamento (D3) não enxerga improviso, silêncio nem pulo.** A folha é derivada do `words.csv` (relógio do WAV) e gravada no relógio do app com `d` (`t_app = t_wav − d`). O `metricas.py` soma o deslocamento à trajetória **e** aos eventos (`metricas.py:157`, `ler_eventos(..., deslocamento, ...)`). Com a mesma folha em d±200, a folha anda junto com a trajetória, e só o `expected.csv` se desloca. O certo seria a folha ficar parada no relógio do WAV, onde foi medida. Consequências: (a) "movimento automático dentro de improviso/silêncio" (CS2 do T04 e do L30, CS4 do T06 e do L30) dá o mesmo resultado em d, d−200 e d+200, sempre; (b) a recuperação do CS3 fica igual quando o cursor é o gargalo; (c) as exclusões do CS1 (silêncio, improviso, 3 s pós-pulo) andam com a trajetória. Uma gravação cujo veredito muda dentro de ±200 ms sai PASSOU em vez de SENSÍVEL, ao contrário do spec D3. O caso típico é o "alcance" no começo do improviso (OPR-033): a última palavra antes do improviso é reconhecida com atraso parecido com o respiro. A pausa (`events.csv` do app) está certa, porque é medida no relógio do app. | `metricas.py` real, T01 com improviso depois do token 46, respiro de 600 ms, cursor 500 ms depois do fim de cada palavra (relógio do WAV): **mesma folha → `PASSA` em d, d−200 e d+200; folha fixa no WAV → `PASSA`, `PASSA`, `REPROVA` (`('improviso', 46)`)**. CS3, T05 com recuperação de 2.900 ms: **mesma folha → 2.900 / 2.900 / 2.900 ms, PASSA; folha fixa no WAV → 2.900 / 2.700 / 3.100 ms, REPROVA em d+200**. Pelo `veredito.py`, os dois saem PASSOU. | Folha por corrida. O `folha.py` roda com `--deslocamento-ms d−200` e `d+200` e grava `<nome>.m200.folha.events.csv` e `<nome>.p200.folha.events.csv`, que entram nas corridas ±200. O `events.csv` do app é o mesmo nas três. O `veredito.py` exige o mesmo `trajetoria`/`esperado`/`hipoteses`/`events.csv` do app nas três e, na folha, exige a de cada corrida: nome `<nome>[.m200\|.p200].folha.events.csv` e conteúdo igual ao da folha de `d` com os tempos somados de +200/−200 (assim é a mesma folha, só no outro relógio). Testes novos com `metricas.py` real: os dois casos acima viram SENSÍVEL; folha da corrida trocada → código 2. O `test_cli_0005` passa a gerar as três folhas. Isso muda o plano (A5 e `medir.sh`) e esclarece o E1 do spec ("a folha da corrida ±200 é a derivada com o mesmo deslocamento"). Volta ao arquiteto. |
-| 2 | **BLOQUEANTE** | `veredito.py:174-175` (`estado_base`, CS4) e `veredito.py:199-202` (`numeros`, CS4) | **CS4 PASSOU sem nada para checar (Q3).** O CS4 só exige o evento (silêncio ou pausa) na folha e "zero movimentos dentro". Não olha leitura normal nem cursor. Um T06 ou T07 em que o motor nunca saiu do token 0 (modelo que não carregou, captura que não reabriu) sai PASSOU, e o CS4 da rodada também. O T06 e o T07 só estão ligados ao CS4, então nenhum outro critério pega o problema. Os números do CS4 também não mostram cursor nem leitura, e o humano não tem como ver isso no relatório. O CS2 tem a guarda (`veredito.py:163-166`); o CS4 não. O spec E2 diz "zero amostras → NÃO MEDIDO". | Com o `Rodada` dos testes, T06 e T07 com `metricas_json(cursor=0, leitura=0, amostras=0)`: `T06_giorgio_sala_t1 PASSOU {'intervalos': {'pausa': 0, 'silencio': 1}, 'movimentos': 0, ...}`, `T07_giorgio_sala_t1 PASSOU`, `CS4 da rodada: PASSOU`. | No CS4, a mesma guarda do CS2: `leitura_normal == 0` ou `cursor_final.cursor == 0` → NÃO MEDIDO, com o motivo. `leitura_normal` e `fracao_lida` entram nos números do CS4. Testes: T06 e T07 com cursor parado → NÃO MEDIDO; borda `cursor == 1` → mede. O T07 diz "retoma no ponto certo", e isso não é medido por critério nenhum (D9). Vai ao analista no OPR-047. |
-| 3 | IMPORTANTE | `veredito.py:274-280, 362-367` | Um **REPROVOU sensível não aparece como sensível no relatório em Markdown.** O plano mantém REPROVOU (A5), mas o motivo fica `None` e a tabela mostra "-". O `sensivel: true` só existe no JSON. No PENDENTE, o motivo é sobrescrito e perde os motivos da sincronização e os estados em ±200. Com isso, o humano pode reprovar a arquitetura no portão 3 por um REPROVOU que está dentro da incerteza de sincronização, sem saber. | Leitura do código. `test_D3_reprova_em_d_continua_reprovado_e_marca_sensivel` só confere o JSON. | Pôr no motivo do REPROVOU sensível "sensível ao deslocamento: d−200 X, d+200 Y; <motivos do sinc>" e preservar isso no motivo do PENDENTE. Teste sobre o `out` (Markdown). |
-| 4 | IMPORTANTE | `veredito.py:252` e `veredito.py:220` | **Metade da proveniência (Q8) não tem teste.** RV15: sem a comparação `[0] != [1]`, um `m200.json` gerado com outra folha ou trajetória passa, e o teste só altera o `p200`. RV16: sem a checagem do nome de eventos, um `events.csv` de outra gravação passa, desde que o sha256 bata com o disco. O código está certo hoje, mas nada impede que essas conferências quebrem depois. | RV15 e RV16 verdes (270/270). | Um teste que altera o `m200.json` (mesma mensagem "não usaram os mesmos arquivos") e um teste com entrada `eventos` de outra gravação ("eventos de outra gravação"). |
-| 5 | IMPORTANTE | `nivel.py:71` e `nivel.py:67` | **A atribuição da causa no `nivel.py` tem dois buracos de teste que mudam o candidato a limiar (F4).** RN02: buscar a hipótese em `mv["t_ms"]` (relógio do WAV) em vez de `t_app` fica verde, porque os testes não têm hipótese entre `t_app` e `t_app + d`. Ao vivo, `d` passa de 2 s, e o erro atribuiria o movimento a uma parcial posterior. RN11: tirar `final` das aceitas fica verde, porque o único teste de Final não tem parcial antes dela. Com o mutante, um movimento causado por Final no silêncio (o caso comum, a Final chega no fim da frase) seria atribuído à parcial anterior e geraria candidato. É exatamente o que o A6 diz que não pode acontecer. | RN02 e RN11 verdes. | Teste com `d = 3000` e uma parcial aceita entre `t_app` e `t_app + d`: a causa é a anterior a `t_app`. Teste com parcial aceita antes de uma Final que causa o movimento: `causa_kind == "final"` e nenhum candidato. |
-| 6 | MENOR | `sincronizar.py:89, 164, 216, 219-221, 267` | Lacunas de teste na sincronização: a janela do pico da palma no WAV (RS03, número registrado no D4); o tamanho da janela local da palma (RS05, RS06, RS13); `--faixa-ms` fora da grade de 10 ms (RS15); `centro` com linhas não uniformes (RS21); largura de amostra do WAV (RS23). Nenhuma muda o `d` global. As da palma podem mudar o "confere". | Verdes listadas acima. | OPR-043 (motor-voz). |
-| 7 | MENOR | `folha.py:105, 142, 165, 224` | `ka`/`kb` `None` e `a`/`b` `None` sem teste (RF12, RF13). Sem a guarda, sai `TypeError` não capturado, com código 1, que no `folha.py` quer dizer "folha escrita com aviso" (nenhuma folha foi escrita). O `main` não captura `TypeError`. A borda do último token pulado com tempo (RF08) também não tem teste. Hoje é seguro: sem folha, o veredito dá NÃO MEDIDO pelos eventos exigidos. | Verdes listadas acima. | OPR-044 (motor-voz). |
-| 8 | MENOR | `veredito.py:308-309, 318-348` | A final não confere de novo o sha256 das entradas das rodadas (o JSON da rodada não guarda hashes, Q8). Três mutantes inalcançáveis ficam sem teste (RV19, RV26, RV27). | Leitura; verdes listadas acima. | OPR-045 (motor-voz). |
-| 9 | MENOR | `nivel.py:65` | A estatística de "leitura" sem o improviso não tem teste (RN04). Ela muda a mediana e o p95 da leitura e o `leitura_abaixo_do_candidato`, que vão à tabela do F4. | RN04 verde. | OPR-046 (motor-voz). |
+| 1 | IMPORTANTE (processo, não bloqueia o código) | `registers/opr_register.md:48-51` (worktree) contra o mesmo arquivo na árvore principal | **IDs de OPR repetidos entre os branches (Q8).** No worktree, OPR-043 a 046 são as lacunas da minha rodada 1 (sincronizar, folha, final, nivel). Em `work/0005-etapa0-medicao` (árvore principal), OPR-043, 044 e 045 são outros problemas: exportações em `files/exportacoes/`, queda do adb no S23 e o `ui.py` rolando nos dois sentidos. Os commits deste diff (`fff44ae` "OPR-043, OPR-044, OPR-046") e o plano citam os IDs do worktree. Os commits da árvore principal (`43dfede`, `4b1ed14`) citam os outros. No merge, o registro dá conflito, e as citações passam a apontar para dois problemas diferentes. | `grep "^\| OPR-04[1-9]"` nos dois arquivos: textos diferentes para 043, 044 e 045. | No merge (orquestrador): renumerar os OPR de um dos lados para IDs livres (o próximo livre nos dois é 049, que eu uso no achado 5), anotar na coluna Resolução das linhas renumeradas o ID antigo e os commits que o citam, e fechar OPR-043 a 046 do worktree citando `fff44ae`/`8e3b8fd`. Os commits não se reescrevem. |
+| 2 | MENOR | `veredito.py:280, 333` | A borda exata da guarda C2 só é testada com a pausa do `events.csv` do app (T07), não com intervalo da folha. Também não há teste com dois intervalos do mesmo tipo. Por isso R2-01 (guarda com a folha de outra corrida) e R2-20 (só o primeiro intervalo de cada tipo) ficam verdes. Hoje o código está certo. Com o R2-20, um L30 em que o motor parasse entre o primeiro e o último silêncio teria o CS4 PASSOU no salão. | R2-01 e R2-20 verdes. | Teste de borda `b`/`b−1` com o silêncio da folha (T06), e teste do L30 com dois silêncios e o último movimento entre eles → NÃO MEDIDO. OPR-049 (motor-voz). |
+| 3 | MENOR | `veredito.py:308-311` | Nenhum teste tem uma corrida vizinha sem o `events.csv` do app. Com o R2-28 (comuns sem o papel `eventos`), um `m200.json` sem pausa e sem toque passaria. A janela de toque e a pausa sumiriam só na vizinha. | R2-28 verde. | Teste com o `m200.json` sem a entrada `<nome>.events.csv` → código 2. OPR-049. |
+| 4 | MENOR | `veredito.py:346` | O motivo do PENDENTE só é testado quando o estado anterior era SENSÍVEL (`test_D7_pendente_guarda_o_motivo`). Um REPROVOU sensível sem revisão pode perder a marca sem nenhum teste falhar. | R2-29 verde. | Teste de REPROVOU sensível com `revisada=False`: o motivo contém "sensível ao deslocamento". OPR-049. |
+| 5 | MENOR | `impl_plan.md` (Tarefa 10, passo 1; checklist do portão) | O plano diz 75 quebras novas e a tabela tem 74. O Registro da construção já aponta a diferença sem ajustar o número. É erro de contagem, não teste faltando (ver Spec e plano). | Contagem acima. | O arquiteto corrige o número no plano quando mexer nele de novo. Vai no OPR-049. |
 
 ## Não verificado
 
-- Os scripts do QA (`work/0005-etapa0-medicao/scripts/*`). Revisão própria depois, como combinado. Só li o bloco `medir.sh metricas` do plano, porque ele decide o achado 1.
-- Nada foi rodado contra gravação real nem no aparelho (adb fora do escopo desta revisão). A prova com fala real do A3 (voz Luciana) é do arquiteto e não foi refeita.
-- Não refiz a `:core:test` (o diff não toca Kotlin; `git diff` vazio em `etapa0/core` e `etapa0/app`).
-
-## Tabela das 95 quebras do revisor
-
-Fonte: `PYTHONDONTWRITEBYTECODE=1 python3 -B etapa0/ferramentas/testar.py` numa cópia por quebra, restaurada depois. "vermelho" quer dizer que algum teste falhou.
-
-| Id | Arquivo | De | Para | Resultado |
-|---|---|---|---|---|
-| RS01 | `sincronizar.py` | `y = [wav.db(b + s) for b in self.bases]` | `y = [wav.db(b - s) for b in self.bases]` | vermelho |
-| RS02 | `sincronizar.py` | `base = t_app // SUB_MS + deslocamento // SUB_MS` | `base = t_app // SUB_MS - deslocamento // SUB_MS` | vermelho |
-| RS03 | `sincronizar.py` | `fatias = [k for k in range(base - raio - SUBS_BLOCO, base + raio) if 0 <= k < wav.n]` | `fatias = [k for k in range(base - raio, base + raio) if 0 <= k < wav.n]` | verde |
-| RS04 | `sincronizar.py` | `t_app, rms_app = max(candidatas, key=lambda linha: linha[1])` | `t_app, rms_app = max(candidatas, key=lambda linha: linha[0])` | vermelho |
-| RS05 | `sincronizar.py` | `locais = [... if abs(linha[0] - t_app) <= JANELA_LOCAL_MS]` | `... < JANELA_LOCAL_MS]` | verde |
-| RS06 | `sincronizar.py` | palma: `lo, hi = deslocamento - JANELA_LOCAL_MS, deslocamento + JANELA_LOCAL_MS` | `... - 2 * JANELA_LOCAL_MS, ... + 2 * JANELA_LOCAL_MS` | verde |
-| RS07 | `sincronizar.py` | `duracao = linhas[-1][0] - linhas[0][0]` | `duracao = linhas[-1][0]` | vermelho |
-| RS08 | `sincronizar.py` | `for pedaco in (linhas[:metade], linhas[metade:]):` | `for pedaco in (linhas[:metade], linhas):` | vermelho |
-| RS09 | `sincronizar.py` | palma `<= TOLERANCIA_MS` | `<= TOLERANCIA_MS - 10` | vermelho |
-| RS10 | `sincronizar.py` | palma `<= TOLERANCIA_MS` | `<= TOLERANCIA_MS + 10` | vermelho |
-| RS11 | `sincronizar.py` | deriva `> TOLERANCIA_MS` | `> TOLERANCIA_MS + 10` | vermelho |
-| RS12 | `sincronizar.py` | deriva `> TOLERANCIA_MS` | `> TOLERANCIA_MS - 10` | vermelho |
-| RS13 | `sincronizar.py` | `locais = [... <= JANELA_LOCAL_MS]` | `... <= JANELA_LOCAL_MS // 2]` | verde |
-| RS14 | `sincronizar.py` | faixa padrão `if lo > hi:` | `if lo >= hi:` | vermelho |
-| RS15 | `sincronizar.py` | `lo, hi = _teto10(faixa[0]), _piso10(faixa[1])` | `lo, hi = faixa[0], faixa[1]` | verde |
-| RS16 | `sincronizar.py` | `--faixa-ms` `if lo > hi:` | `if False:` | vermelho |
-| RS17 | `sincronizar.py` | `if wav.n < SUBS_BLOCO:` | `if wav.n < 1:` | verde (equivalente) |
-| RS18 | `sincronizar.py` | `range(lo, hi + 1, PASSO_GROSSO_MS)` | `range(lo, hi, PASSO_GROSSO_MS)` | verde (equivalente) |
-| RS19 | `sincronizar.py` | `min(hi, d + PASSO_GROSSO_MS) + 1, SUB_MS)` | `min(hi, d + PASSO_GROSSO_MS), SUB_MS)` | verde (equivalente) |
-| RS20 | `sincronizar.py` | `"sensivel": bool(motivos),` | `"sensivel": False,` | vermelho |
-| RS21 | `sincronizar.py` | `self.centro = math.fsum(t for t, _ in linhas) / len(linhas)` | `self.centro = linhas[0][0]` | verde |
-| RS22 | `sincronizar.py` | `linhas_fora_do_wav ... wav.dentro(b + s)` | `wav.dentro(b - s)` | vermelho |
-| RS23 | `sincronizar.py` | ` or w.getsampwidth() != 2` | (remove) | verde |
-| RS24 | `sincronizar.py` | `w.getcomptype() != "NONE" or ` | (remove) | verde (equivalente) |
-| RS25 | `sincronizar.py` | `if resultado_deriva["indeterminada"]:` | `if False:` (com guarda de None no elif) | vermelho |
-| RS26 | `sincronizar.py` | `_teto10(BLOCO_MS - t_min), _piso10(duracao_ms - t_max)` | `_teto10(BLOCO_MS - t_max), _piso10(duracao_ms - t_min)` | vermelho |
-| RS27 | `sincronizar.py` | `palma(linhas, wav, d, palma_ate_ms)` | `palma(linhas, wav, d, PALMA_ATE_MS)` | vermelho |
-| RS28 | `sincronizar.py` | `dbs = sorted(_db(rms) for _, rms in candidatas)` | `... in linhas)` | vermelho |
-| RF01 | `folha.py` | `if t.inicio < pos]` (antes) | `if t.inicio <= pos]` | vermelho |
-| RF02 | `folha.py` | `a, b = antes(lista[k].ini), depois(lista[k].fim)` | `a, b = antes(lista[k].fim), depois(lista[k].ini)` | verde (equivalente) |
-| RF03 | `folha.py` | `lista[k + 1:]` | `lista[k + 2:]` | vermelho |
-| RF04 | `folha.py` | `pulado = depois(seguinte.ini)` | `antes(seguinte.ini)` | vermelho |
-| RF05 | `folha.py` | `ka = _com_tempo_antes(esperado, a)` | `_com_tempo_depois(esperado, a)` | vermelho |
-| RF06 | `folha.py` | improviso `p.fim <= inicio_depois` | `p.inicio <= inicio_depois` | vermelho |
-| RF07 | `folha.py` | silêncio `p.inicio > fim_antes and p.fim < inicio_depois` | `p.fim > fim_antes and p.inicio < inicio_depois` | vermelho |
-| RF08 | `folha.py` | `range(pulado, b)` | `range(pulado, b - 1)` | verde |
-| RF09 | `folha.py` | `range(pulado, b)` | `range(pulado, b + 1)` | vermelho |
-| RF10 | `folha.py` | T05 `paragrafo_seguinte` | `na_nota` | vermelho |
-| RF11 | `folha.py` | T04 `na_nota` | `fim_do_paragrafo_seguinte` | vermelho |
-| RF12 | `folha.py` | `if ka is None or kb is None:` | `if ka is None:` | verde |
-| RF13 | `folha.py` | `if a is None or b is None:` | `if a is None:` | verde (equivalente nos textos fixos) |
-| RF14 | `folha.py` | `antes(seguinte.fim), depois(seguinte.fim)` | `antes(seguinte.ini), depois(seguinte.ini)` | vermelho |
-| RF15 | `folha.py` | `marcar(inicio_depois, "silencio_fim"` | `marcar(esperado[kb].fim, "silencio_fim"` | vermelho |
-| RF16 | `folha.py` | `marcar(fim_antes, "pulo_inicio"` | `marcar(esperado[ka].inicio, "pulo_inicio"` | vermelho |
-| RF17 | `folha.py` | `inicio_depois = ... esperado[kb].inicio` | `esperado[kb].fim` | vermelho |
-| RF18 | `folha.py` | `if texto_id not in REGRAS:` | `if False:` | vermelho |
-| RV01 | `veredito.py` | CS2 `salto ... or c["recuo"]` | `and` | vermelho |
-| RV02 | `veredito.py` | `numeros` CS4 | movimentos zerados | vermelho |
-| RV03 | `veredito.py` | `any(v != estado for v in vizinhos)` | `all(...)` | vermelho |
-| RV04 | `veredito.py` | `if estado == PASSOU and sensivel:` | `if sensivel:` | vermelho |
-| RV05 | `veredito.py` | `estado_base(c, m[k])` (vizinhos) | `estado_base(c, m["d"])` | vermelho |
-| RV06 | `veredito.py` | `if eventos[k] == 0]` | `< 0]` | vermelho |
-| RV07 | `veredito.py` | `EXIGIDOS.get((c, texto_id), ())` | `EXIGIDOS.get((texto_id, c), ())` | vermelho |
-| RV08 | `veredito.py` | `if diferentes:` | `if False:` | vermelho |
-| RV09 | `veredito.py` | `config.items()` | `CONFIG_OFICIAL.items()` | vermelho |
-| RV10 | `veredito.py` | `revisada = revisao.is_file() and ...` | `revisada = True or ...` | vermelho |
-| RV11 | `veredito.py` | `(PASSOU, REPROVOU, SENSIVEL) and not revisada` | `(REPROVOU, SENSIVEL) ...` | vermelho |
-| RV12 | `veredito.py` | `("m200", d - TOLERANCIA_MS)` | `d - TOLERANCIA_MS + 10` | vermelho |
-| RV13 | `veredito.py` | `("p200", d + TOLERANCIA_MS)` | `d + TOLERANCIA_MS - 10` | vermelho |
-| RV14 | `veredito.py` | `if m[chave]["deslocamento_ms"] != esperado:` | `if False:` | vermelho |
-| RV15 | `veredito.py` | `proveniencia[0] != proveniencia[1] or proveniencia[0] != proveniencia[2]` | `proveniencia[0] != proveniencia[2]` | **verde** |
-| RV16 | `veredito.py` | `if papel == "eventos" and not arquivo.startswith(nome + "."):` | `if False:` | **verde** |
-| RV17 | `veredito.py` | `"wav": oficial or nome` | `"wav": nome` | vermelho |
-| RV18 | `veredito.py` | `if not estados: return NAO_SE_APLICA` | `return PASSOU` | vermelho |
-| RV19 | `veredito.py` | ausentes `if ligado(c, t, amb)` | (remove a condição) | verde (lado seguro) |
-| RV20 | `veredito.py` | final `if e != NAO_SE_APLICA:` | `if True:` | vermelho |
-| RV21 | `veredito.py` | final `any(e == REPROVOU ...)` | `all(...)` | vermelho |
-| RV22 | `veredito.py` | final `all(e == PASSOU ...)` | `any(...)` | vermelho |
-| RV23 | `veredito.py` | final rodada repetida | `if False:` | vermelho |
-| RV24 | `veredito.py` | `range(3, 11)` (obrigatórios) | `range(3, 10)` | vermelho |
-| RV25 | `veredito.py` | `m.group(1) not in roteiro.IDS` | (remove) | vermelho |
-| RV26 | `veredito.py` | `r.get("sufixo") or r.get("config") != CONFIG_OFICIAL` | `r.get("sufixo")` | verde (inalcançável) |
-| RV27 | `veredito.py` | final `not motivos and estados and all(` | `not motivos and all(` | verde (inalcançável) |
-| RV28 | `veredito.py` | `cursor == 0` (CS2) | `cursor < 0` | vermelho |
-| RV29 | `veredito.py` | agregar `all(e == PASSOU)` | `all(e in (PASSOU, SENSIVEL))` | vermelho |
-| RV30 | `veredito.py` | agregar `all(e == PASSOU)` | `all(e != NAO_MEDIDO)` | vermelho |
-| RV31 | `veredito.py` | `if r == "NAO_SE_APLICA":` | `... and False:` | vermelho |
-| RV33 | `veredito.py` | `ambiente == "sala"` | `ambiente != "salao"` | verde (equivalente) |
-| RV34 | `veredito.py` | `_NOME.fullmatch(oficial).group(3)` | `.group(2)` | vermelho |
-| RV35 | `veredito.py` | `(m.group(2), m.group(3)) != (voz, amb)` | `(m.group(3), m.group(2))` | vermelho |
-| RV36 | `veredito.py` | `not caminho.is_file() or _sha256(...)` | `_sha256(...)` | verde (equivalente) |
-| RV37 | `veredito.py` | `caminhos.get("eventos", [])` | `[:1]` (só o 1º arquivo de eventos) | vermelho |
-| RV38 | `veredito.py` | `for g in gravacoes` (rodada) | `for g in gravacoes[1:]` | vermelho |
-| RN01 | `nivel.py` | `t_app = mv["t_ms"] - d` | `+ d` | vermelho |
-| RN02 | `nivel.py` | `_ultimo_ate(aceitas, t_app, ...)` | `_ultimo_ate(aceitas, mv["t_ms"], ...)` | **verde** |
-| RN03 | `nivel.py` | `_ultimo_ate(level, causa.t, ...)` | `_ultimo_ate(level, t_app, ...)` | vermelho |
-| RN04 | `nivel.py` | `fora`: `for k in INTERVALOS` | `for k in CORRIGIVEIS` | verde |
-| RN05 | `nivel.py` | `tem_movimento ... in CORRIGIVEIS` | `in INTERVALOS` | vermelho |
-| RN06 | `nivel.py` | `corrigiveis ... in CORRIGIVEIS` | `in INTERVALOS` | vermelho |
-| RN07 | `nivel.py` | `fora`: `a <= t < b` | `a < t < b` | vermelho |
-| RN08 | `nivel.py` | `fora`: `a <= t < b` | `a <= t <= b` | vermelho |
-| RN09 | `nivel.py` | `veredito.conferir_entradas(...)` | lista sem conferir sha | vermelho |
-| RN10 | `nivel.py` | `ler_eventos(conteudos, 0, ...)` | `ler_eventos(conteudos, relatorio["deslocamento_ms"], ...)` | vermelho |
-| RN11 | `nivel.py` | `h.kind in ("partial", "final")` | `h.kind in ("partial",)` | **verde** |
-| RN12 | `nivel.py` | `_ultimo_ate` com `break` | sem `break` | verde (equivalente) |
+- O bloco `medir.sh metricas` (Q-C1) e os demais scripts do QA: entram na revisão dos scripts depois do merge, como diz o próprio plano (Q-C7).
+- Não reexecutei as 74 quebras novas inteiras nem as 145 antigas. Rodei 18 da tabela nova, 30 minhas e a ★ no worktree. Para o resto, a fonte é a `b2-quebras-q2.txt` do motor-voz.
+- Não rodei nada contra gravação real nem no aparelho.
+- A prova do arquiteto (de onde vem o "75") não está no repositório.
+- O esclarecimento do E1 no spec (OPR-048) é do analista e ainda está aberto. Este APROVADO cobre o código, não esse texto do spec.

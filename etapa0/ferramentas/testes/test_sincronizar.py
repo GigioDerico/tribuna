@@ -312,7 +312,7 @@ class SaidaTest(unittest.TestCase):
 
 
 class LacunasTest(unittest.TestCase):
-    """Achado 6 da revisão (RS03, RS05, RS06, RS13, RS15, RS21, RS23; OPR-043)."""
+    """Achado 6 da revisão (RS03, RS05, RS06, RS13, RS15, RS21, RS23; OPR-050)."""
 
     LEVEL = "t_ms,rms\n1000,0.001\n2000,0.5\n2990,0.002\n3000,0.003\n3010,0.001\n1010,0.004\n"
 
