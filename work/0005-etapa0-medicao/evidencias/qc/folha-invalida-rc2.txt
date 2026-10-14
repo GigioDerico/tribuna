@@ -1,0 +1,13 @@
+# Folha inválida (cabeçalho diferente): medir.sh metricas, caso sintético T04 (OPR-054, achado 2a)
+# Repositório descartável no scratchpad, sem aparelho, texto etapa0/textos/T04.txt, d=2500. Folha de d com o cabeçalho trocado de t_ms,evento,detalhe para tempo,evento,indice.
+# O medir.sh sai com 1 (rc_aceito); o código 2 é o do vizinhas.py (entrada inválida), registrado na linha do diário.
+$ head -1 folha (boa)
+t_ms,evento,detalhe
+$ head -1 folha (inválida)
+tempo,evento,indice
+$ medir.sh metricas S1 T04_giorgio_sala_t1
+vizinhas.py: eventos: cabeçalho diferente de t_ms,evento,detalhe
+2026-10-14T20:21:47 vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=2
+PARAR: código 2 (entrada inválida); ver stderr acima
+medir.sh rc=1
+(nenhuma linha 'metricas ...' apareceu: as três corridas não rodaram)

@@ -10,3 +10,7 @@ Veredito: **SINCRONIZADO**
 
 - wav: T01_ensaio_sala_t1.wav sha256=896912b02fba89fd5b9b8d16c38a5cf93dc111957f81c2f4ba103a9fdb667ec1
 - level: T01_ensaio_sala_t1_r_normal_off_novo_l0000.level.csv sha256=ec63fc792995ba4417430d117cf790714fbc578755976ecb72c3be421e7ff4e3
+
+## Origem do level.csv (OPR-054, achado 1)
+
+O level.csv veio da reprodução de 2026-10-12 12:28, feita com o APK release instalado (C10), não com o debug que o C11 manda. O d = 0 vale para o caminho WAV -> app; o C11 será refeito no debug com o aparelho (item 0).

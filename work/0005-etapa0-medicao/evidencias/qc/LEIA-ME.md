@@ -8,5 +8,8 @@ de `etapa0/ferramentas/` e dados sintéticos do caso T04 (improviso; `testes/tes
   (`.m200.folha.events.csv`, `.p200.folha.events.csv`) e d = 2500 / 2300 / 2700.
 - `t04-tres-corridas.txt`: Salto errado PASSA, PASSA, REPROVA (o caso do revisor; o esperado do plano).
 - `medir-metricas-reproducao-sintetico.txt`: ramo `reproducao`.
-- Folha inválida: `vizinhas.py` sai com 2 e o script para com "PARAR: código 2".
+- `medir-reproducao-salto.txt`: ramo `reproducao` com as linhas de Salto errado PASSA, PASSA, REPROVA (OPR-054, achado 2b).
+- `folha-invalida-rc2.txt`: folha com cabeçalho diferente; `vizinhas.py` sai com 2 e o `medir.sh` para (ele mesmo sai com 1) com "PARAR: código 2"; nenhuma corrida roda (OPR-054, achado 2a).
 - Q-C5: `ls etapa0/relatorios/*/*.m200.json` não acha arquivo (lista vazia).
+
+Origem do `level.csv` do C11 parcial (`../b8-sinc-reproducao.txt`; OPR-054, achado 1): arquivo da reprodução de 2026-10-12 12:28, feita com o APK release instalado (C10), não com o debug que o C11 manda. O C11 não foi refeito aqui; fica para o item 0 com o aparelho.
