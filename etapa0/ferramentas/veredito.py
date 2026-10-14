@@ -24,6 +24,7 @@ Códigos de saída: 0 todos os critérios aplicáveis PASSOU e nada pendente; 1 
 import argparse
 import hashlib
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -34,6 +35,8 @@ import roteiro
 PASSOU, REPROVOU, NAO_MEDIDO = "PASSOU", "REPROVOU", "NÃO MEDIDO"
 SENSIVEL, PENDENTE, NAO_SE_APLICA = "SENSÍVEL AO DESLOCAMENTO", "PENDENTE DE REVISÃO", "NÃO SE APLICA"
 TOLERANCIA_MS = 200  # spec D3
+CORRIDAS = ("d", "m200", "p200")  # metricas.py com d, d − 200 e d + 200 (spec E1)
+FOLHA = ".folha.events.csv"  # folha de eventos (folha.py); as das corridas vizinhas saem do vizinhas.py
 REVISAO_CONCLUIDA = "Revisão concluída: sim"
 
 RODADAS = {  # spec D8: voz, ambiente, L30 obrigatório
@@ -151,6 +154,20 @@ def contar_eventos(conteudos):
 # ------------------------------------------------------------------ estado por gravação
 
 
+def _sem_leitura(m):
+    """Motivo para NÃO MEDIDO quando o motor não acompanhou nada (Q3), ou None."""
+    if m["amostras"]["leitura_normal"] == 0:
+        return "sem amostras de leitura normal"
+    if m["cursor_final"]["cursor"] == 0:
+        return "o cursor não saiu do token 0"
+    return None
+
+
+def _fracao_lida(m):
+    cf = m["cursor_final"]
+    return round(cf["cursor"] / cf["ultimo_token"], 4) if cf["ultimo_token"] else None
+
+
 def estado_base(criterio, m):
     """(estado, motivo) de um critério num relatório do metricas.py, sem sensibilidade nem revisão."""
     c = m["criterios"]
@@ -159,11 +176,9 @@ def estado_base(criterio, m):
         if a["amostras"] == 0:
             return NAO_MEDIDO, "sem amostras de leitura normal"
         return (PASSOU, None) if a["veredito"] == "PASSA" else (REPROVOU, None)
+    if criterio in ("CS2", "CS4") and _sem_leitura(m):
+        return NAO_MEDIDO, _sem_leitura(m)
     if criterio == "CS2":
-        if m["amostras"]["leitura_normal"] == 0:
-            return NAO_MEDIDO, "sem amostras de leitura normal"
-        if m["cursor_final"]["cursor"] == 0:
-            return NAO_MEDIDO, "o cursor não saiu do token 0"
         ruim = c["salto_errado"]["veredito"] == "REPROVA" or c["recuo"]["veredito"] == "REPROVA"
         return (REPROVOU, None) if ruim else (PASSOU, None)
     if criterio == "CS3":
@@ -185,13 +200,11 @@ def numeros(criterio, m, eventos):
         classes = {}
         for mv in s["por_movimento"]:
             classes[mv["classe"]] = classes.get(mv["classe"], 0) + 1
-        cf = m["cursor_final"]
         return {"amostras": m["amostras"]["total"], "leitura_normal": m["amostras"]["leitura_normal"],
                 "episodios_posicao": len(s["por_posicao"]), "movimentos": len(s["por_movimento"]),
                 "movimentos_por_classe": classes, "recuos": len(c["recuo"]["violacoes"]),
                 "amostras_janela_toque": sum(j["amostras_excluidas"] for j in m["janelas_toque"]),
-                "fracao_lida": round(cf["cursor"] / cf["ultimo_token"], 4) if cf["ultimo_token"] else None,
-                "eventos": eventos}
+                "fracao_lida": _fracao_lida(m), "eventos": eventos}
     if criterio == "CS3":
         return {"pulos": [{"recuperacao_ms": p["recuperacao_ms"], "alvo": p["alvo"],
                            "primeiro_pulado": p["primeiro_pulado"]} for p in c["recuperacao"]["pulos"]],
@@ -199,16 +212,22 @@ def numeros(criterio, m, eventos):
     movimentos = [mv for mv in c["salto_errado"]["por_movimento"] if mv["intervalo"] in ("silencio", "pausa")]
     return {"intervalos": {"silencio": eventos["silencio"], "pausa": eventos["pausa"]}, "movimentos": len(movimentos),
             "movimentos_por_classe": {k: sum(1 for mv in movimentos if mv["classe"] == k)
-                                      for k in ("alcance", "além do esperado")}}
+                                      for k in ("alcance", "além do esperado")},
+            "leitura_normal": m["amostras"]["leitura_normal"], "fracao_lida": _fracao_lida(m)}
 
 
 def ligado(criterio, texto_id, ambiente):
     return texto_id in LIGADOS[criterio] and (criterio not in SO_SALA or ambiente == "sala")
 
 
-def conferir_entradas(entradas, pastas, nome, oficial=None):
+def folha_da_corrida(nome, corrida):
+    return nome + ("" if corrida == "d" else "." + corrida) + FOLHA
+
+
+def conferir_entradas(entradas, pastas, nome, oficial=None, corrida="d"):
     """sha256 de cada arquivo citado pelo relatório igual ao do disco (Q8). Devolve {papel: [caminhos]}.
-    `oficial`: nome da gravação oficial, dono do esperado e do WAV quando `nome` é uma reprodução."""
+    `oficial`: nome da gravação oficial, dono do esperado e do WAV quando `nome` é uma reprodução.
+    `corrida`: d, m200 ou p200; os eventos só podem ser o events.csv do app e a folha dessa corrida."""
     caminhos = {}
     sufixos = {"trajetoria": ".trajectory.csv", "esperado": ".expected.csv", "hipoteses": ".hypotheses.csv",
                "wav": ".wav", "level": ".level.csv"}
@@ -217,13 +236,48 @@ def conferir_entradas(entradas, pastas, nome, oficial=None):
         papel, arquivo = e["papel"], e["arquivo"]
         if papel in sufixos and arquivo != dono.get(papel, nome) + sufixos[papel]:
             raise ErroEntrada(f"{nome}: o relatório usou {arquivo} como {papel}")
-        if papel == "eventos" and not arquivo.startswith(nome + "."):
-            raise ErroEntrada(f"{nome}: o relatório usou eventos de outra gravação ({arquivo})")
+        if papel == "eventos" and arquivo not in (nome + ".events.csv", folha_da_corrida(nome, corrida)):
+            raise ErroEntrada(f"{nome}: a corrida {corrida} usou {arquivo} como eventos; só valem {nome}.events.csv "
+                              f"e {folha_da_corrida(nome, corrida)}")
         caminho = pastas[papel] / arquivo
         if not caminho.is_file() or _sha256(caminho) != e["sha256"]:
             raise ErroEntrada(f"{nome}: {arquivo} mudou ou sumiu depois do relatório (Q8); rode de novo")
         caminhos.setdefault(papel, []).append(caminho)
     return caminhos
+
+
+def conferir_folhas(caminhos, m, nome):
+    """A folha de cada corrida vizinha é a folha de d no mesmo relógio do WAV (spec D3, E1): mesmos eventos, com
+    t + deslocamento da corrida igual a t + d. A folha fica parada onde foi medida; o resto anda ±200 ms."""
+    folhas = {k: [c for c in caminhos[k].get("eventos", []) if c.name.endswith(FOLHA)] for k in CORRIDAS}
+    if all(not folhas[k] for k in CORRIDAS):
+        return
+    na_wav = {}
+    for k in CORRIDAS:
+        if len(folhas[k]) != 1:
+            raise ErroEntrada(f"{nome}: a corrida {k} não usou a folha dela ({folha_da_corrida(nome, k)}); "
+                              "rode vizinhas.py e o metricas.py das três corridas")
+        try:
+            na_wav[k] = metricas.ler_eventos([folhas[k][0].read_text(encoding="utf-8")], m[k]["deslocamento_ms"], 10**9)
+        except metricas.ErroEntrada as erro:
+            raise ErroEntrada(f"{folhas[k][0].name}: {erro}") from None
+    for k in ("m200", "p200"):
+        if na_wav[k] != na_wav["d"]:
+            raise ErroEntrada(f"{nome}: {folhas[k][0].name} não é {folhas['d'][0].name} no relógio do WAV; "
+                              "rode vizinhas.py e o metricas.py das três corridas")
+
+
+def parados_depois(caminhos, d, tipos):
+    """Intervalos [(tipo, fim no relógio do WAV)] dos `tipos` sem nenhum movimento automático depois do fim (Q3):
+    sem o motor andando depois do intervalo, "zero movimentos dentro" não mostra nada."""
+    try:
+        trajetoria = metricas.ler_trajetoria(caminhos["trajetoria"][0].read_text(encoding="utf-8"), d)
+        conteudos = [c.read_text(encoding="utf-8") for c in caminhos.get("eventos", [])]
+        faixas = metricas.intervalos(metricas.ler_eventos(conteudos, d, 10**9))
+    except metricas.ErroEntrada as erro:
+        raise ErroEntrada(str(erro)) from None
+    ultimo = max((linha.t for linha in trajetoria if linha.move in metricas.AUTOMATICOS), default=None)
+    return [(k, b) for k in tipos for _, b, _ in faixas[k] if ultimo is None or ultimo < b]
 
 
 def avaliar_gravacao(oficial, texto_id, pastas, sufixo="", config=None):
@@ -236,7 +290,10 @@ def avaliar_gravacao(oficial, texto_id, pastas, sufixo="", config=None):
     arquivos = {"d": rel / f"{nome}.json", "m200": rel / f"{nome}.m200.json", "p200": rel / f"{nome}.p200.json",
                 "sinc": rel / f"{nome}.sinc.json", "meta": pastas["trajetoria"] / f"{nome}.meta.txt"}
     faltam = sorted(p.name for p in arquivos.values() if not p.is_file())
-    saida = {"nome": nome, "oficial": oficial, "texto": texto_id, "criterios": {}, "faltam": faltam, "motivos": []}
+    revisao = pastas["esperado"] / f"{oficial}.revisao.md"
+    lidos = {p for p in list(arquivos.values()) + [revisao] if p.is_file()}
+    saida = {"nome": nome, "oficial": oficial, "texto": texto_id, "criterios": {}, "faltam": faltam, "motivos": [],
+             "_lidos": lidos}
     if faltam:
         for c in criterios:
             saida["criterios"][c] = {"estado": NAO_MEDIDO, "motivo": "faltam " + ", ".join(faltam)}
@@ -248,17 +305,19 @@ def avaliar_gravacao(oficial, texto_id, pastas, sufixo="", config=None):
         if m[chave]["deslocamento_ms"] != esperado:
             raise ErroEntrada(f"{nome}: {arquivos[chave].name} com deslocamento {m[chave]['deslocamento_ms']}, "
                               f"esperado {esperado} (sincronizar deu {d})")
-    proveniencia = [sorted((e["papel"], e["arquivo"], e["sha256"]) for e in m[k]["entradas"]) for k in m]
-    if proveniencia[0] != proveniencia[1] or proveniencia[0] != proveniencia[2]:
+    comuns = [sorted((e["papel"], e["arquivo"], e["sha256"]) for e in m[k]["entradas"]
+                     if not e["arquivo"].endswith(FOLHA)) for k in CORRIDAS]
+    if comuns[0] != comuns[1] or comuns[0] != comuns[2]:
         raise ErroEntrada(f"{nome}: os três relatórios do metricas.py não usaram os mesmos arquivos")
-    caminhos = conferir_entradas(m["d"]["entradas"], pastas, nome, oficial)
-    conferir_entradas(sinc["entradas"], pastas, nome, oficial)
-    eventos = contar_eventos([c.read_text(encoding="utf-8") for c in caminhos.get("eventos", [])])
+    caminhos = {k: conferir_entradas(m[k]["entradas"], pastas, nome, oficial, k) for k in CORRIDAS}
+    conferir_folhas(caminhos, m, nome)
+    lidos.update(c for k in CORRIDAS for lista in caminhos[k].values() for c in lista)
+    lidos.update(c for lista in conferir_entradas(sinc["entradas"], pastas, nome, oficial).values() for c in lista)
+    eventos = contar_eventos([c.read_text(encoding="utf-8") for c in caminhos["d"].get("eventos", [])])
     meta = ler_meta(arquivos["meta"])
     if meta.get("text_id") != texto_id:
         raise ErroEntrada(f"{nome}: meta.txt com text_id={meta.get('text_id')}")
     diferentes = [f"{k}={meta.get(k)}" for k, v in config.items() if meta.get(k) != v]
-    revisao = pastas["esperado"] / f"{oficial}.revisao.md"
     revisada = revisao.is_file() and REVISAO_CONCLUIDA in revisao.read_text(encoding="utf-8").splitlines()
     saida.update({"deslocamento_ms": d, "sinc_motivos": sinc["motivos"], "revisada": revisada, "eventos": eventos,
                   "configuracao_diferente": diferentes})
@@ -270,13 +329,21 @@ def avaliar_gravacao(oficial, texto_id, pastas, sufixo="", config=None):
             estado, motivo = NAO_MEDIDO, "sem " + " e ".join(faltando) + " nos eventos"
         else:
             estado, motivo = estado_base(c, m["d"])
+            tipos = [k for k in EXIGIDOS.get((c, texto_id), ()) if k in metricas.SEM_MOVIMENTO]
+            parados = parados_depois(caminhos["d"], d, tipos) if estado == PASSOU and tipos else []
+            if parados:
+                estado = NAO_MEDIDO
+                motivo = "o cursor não andou depois de " + ", ".join(f"{k} (fim em {b} ms do WAV)" for k, b in parados)
         vizinhos = [estado_base(c, m[k])[0] for k in ("m200", "p200")]
         sensivel = estado != NAO_MEDIDO and (any(v != estado for v in vizinhos) or bool(sinc["motivos"]))
-        if estado == PASSOU and sensivel:
-            estado = SENSIVEL
-            motivo = "; ".join(sinc["motivos"] + [f"com d−200 e d+200: {vizinhos[0]}, {vizinhos[1]}"])
+        if sensivel:
+            marca = "sensível ao deslocamento: " + "; ".join(
+                sinc["motivos"] + [f"com d−200 e d+200: {vizinhos[0]}, {vizinhos[1]}"])
+            motivo = marca  # estado_base não dá motivo a PASSOU nem a REPROVOU
+            if estado == PASSOU:
+                estado = SENSIVEL
         if estado in (PASSOU, REPROVOU, SENSIVEL) and not revisada:
-            motivo = f"sem revisão concluída (D7); sem ela seria {estado}"
+            motivo = f"sem revisão concluída (D7); sem ela seria {estado}" + (f" ({motivo})" if motivo else "")
             estado = PENDENTE
         saida["criterios"][c] = {"estado": estado, "motivo": motivo, "sensivel": sensivel,
                                  "regra": REGRAS[c], "numeros": numeros(c, m["d"], eventos)}
@@ -297,10 +364,14 @@ def agregar(estados):
     return NAO_MEDIDO, [f"{n}: {e}" for n, e in estados if e != PASSOU]
 
 
-def rodada(nome_rodada, oficiais, pastas, sufixo="", config=None):
+def rodada(nome_rodada, oficiais, pastas, sufixo="", config=None, base=None):
+    """`base`: pasta do JSON da rodada; os arquivos lidos ficam com caminho relativo a ela e sha256 (Q8)."""
     voz, amb, _ = RODADAS[nome_rodada]
+    base = Path(base or Path.cwd()).resolve()
     presentes = {(texto_id, variante): nome for nome, texto_id, variante in oficiais}
     gravacoes = [avaliar_gravacao(nome, texto_id, pastas, sufixo, config) for nome, texto_id, _ in oficiais]
+    for g in gravacoes:
+        g["lidos"] = {os.path.relpath(p.resolve(), base): _sha256(p) for p in sorted(g.pop("_lidos"))}
     ausentes = [(t, v) for t, v in obrigatorios(nome_rodada) if (t, v) not in presentes]
     criterios = {}
     for c in CRITERIOS:
@@ -315,11 +386,18 @@ def rodada(nome_rodada, oficiais, pastas, sufixo="", config=None):
             "ausentes": [f"{t}{' variante ' + v if v else ''}" for t, v in ausentes], "pendencias": pendencias}
 
 
-def final(rodadas):
+def final(rodadas, bases):
+    """`bases`: pasta de cada JSON de rodada; cada arquivo que a rodada leu tem de estar igual (Q8)."""
     por_nome = {}
-    for r in rodadas:
+    for r, base in zip(rodadas, bases):
         if r.get("rodada") not in RODADAS:
             raise ErroEntrada("final: JSON que não é de veredito.py rodada")
+        for g in r["gravacoes"]:
+            for relativo, sha in g["lidos"].items():
+                caminho = Path(base) / relativo
+                if not caminho.is_file() or _sha256(caminho) != sha:
+                    raise ErroEntrada(f"final: {relativo} mudou ou sumiu depois da rodada {r['rodada']} (Q8); "
+                                      "rode a rodada de novo")
         if r.get("sufixo") or r.get("config") != CONFIG_OFICIAL:
             raise ErroEntrada(f"final: a rodada {r['rodada']} é de reprodução ou de outra configuração; "
                               "os critérios de saída usam só as gravações oficiais (D1, D10)")
@@ -422,10 +500,11 @@ def main(argv=None):
                 config[chave] = valor
             if args.sufixo and not re.fullmatch(r"(_[a-z0-9]+)+", args.sufixo):
                 raise ErroEntrada("--sufixo: só _[a-z0-9]+ (o nome da exportação do app não aceita outro caractere)")
-            res = rodada(args.rodada, oficiais, pastas, args.sufixo, config)
+            base = Path(args.json).resolve().parent if args.json else Path.cwd()
+            res = rodada(args.rodada, oficiais, pastas, args.sufixo, config, base)
             texto = relatorio_rodada(res)
         else:
-            res = final([_json(c) for c in args.rodadas])
+            res = final([_json(c) for c in args.rodadas], [Path(c).resolve().parent for c in args.rodadas])
             texto = relatorio_final(res)
     except (OSError, UnicodeDecodeError, ErroEntrada) as erro:
         print(f"veredito.py: {erro}", file=sys.stderr)
