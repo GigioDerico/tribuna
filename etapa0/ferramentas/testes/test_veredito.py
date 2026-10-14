@@ -892,6 +892,59 @@ class MotivoNoRelatorioTest(unittest.TestCase):
                          _estado(dados, "T09_giorgio_sala_t1", "CS2")["motivo"])
 
 
+class LacunasOpr049Test(unittest.TestCase):
+    """OPR-049 (revisão rodada 2 da 0005, achados 2 a 4): borda da guarda do motor com intervalo da folha, dois
+    intervalos do mesmo tipo, corrida vizinha sem o events.csv do app e motivo do PENDENTE de um REPROVOU sensível."""
+
+    def test_Q3_borda_da_guarda_com_o_silencio_da_folha(self):
+        # T06: silêncio da folha em [1.000, 31.000) no relógio do WAV; a guarda lê a folha de d (nem m200 nem p200)
+        for t, estado in ((31000, "PASSOU"), (30999, "NÃO MEDIDO")):
+            with self.subTest(t=t), Pasta() as p:
+                traj = [(0, 0, "Reposition"), (500, 40, "Short"), (t, 41, "Short")]
+                _, dados, _, _ = Rodada(p.dir).completa(T06={"trajetoria": traj}).rodar()
+                v = _estado(dados, "T06_giorgio_sala_t1", "CS4")
+                self.assertEqual(estado, v["estado"])
+                if estado == "NÃO MEDIDO":
+                    self.assertEqual(f"o cursor não andou depois de silencio (fim em {31000 + D} ms do WAV)",
+                                     v["motivo"])
+
+    def test_Q3_dois_silencios_o_ultimo_movimento_entre_eles_nao_mede(self):
+        folha = [(1000, "improviso_inicio", ""), (2000, "improviso_fim", ""), (3000, "pulo_inicio", "1804"),
+                 (4000, "pulo_fim", ""), (26000, "silencio_inicio", ""), (27000, "silencio_fim", ""),
+                 (30000, "silencio_inicio", ""), (60000, "silencio_fim", "")]
+        for t, estado in ((28000, "NÃO MEDIDO"), (60000, "PASSOU")):
+            with self.subTest(t=t), Pasta() as p:
+                traj = [(0, 0, "Reposition"), (500, 40, "Short"), (t, 41, "Short")]
+                _, dados, _, _ = Rodada(p.dir).completa(L30={"trajetoria": traj, "folha": folha}).rodar()
+                v = _estado(dados, "L30_giorgio_sala_t1", "CS4")
+                self.assertEqual(estado, v["estado"])
+                if estado == "NÃO MEDIDO":
+                    self.assertEqual(f"o cursor não andou depois de silencio (fim em {60000 + D} ms do WAV)",
+                                     v["motivo"])
+
+    def test_Q8_corrida_vizinha_sem_o_events_csv_do_app_sai_com_2(self):
+        for texto, nome in (("T07", "T07_giorgio_sala_t1"), ("T06", "T06_giorgio_sala_t1")):
+            for sufixo in (".m200.json", ".p200.json"):
+                with self.subTest(nome=nome, sufixo=sufixo), Pasta() as p:
+                    r = Rodada(p.dir).completa()
+                    _trocar_entradas(r, nome, sufixo, lambda es: [
+                        e for e in es if e["arquivo"] != f"{nome}.events.csv"])
+                    codigo, dados, _, err = r.rodar()
+                    self.assertEqual((2, None), (codigo, dados))
+                    self.assertIn("mesmos arquivos", err)
+
+    def test_D7_reprovou_sensivel_sem_revisao_fica_pendente_com_o_motivo(self):
+        with Pasta() as p:
+            r = Rodada(p.dir).completa(T01={"m": metricas_json(atraso="REPROVA"), "m200": metricas_json(),
+                                            "revisada": False})
+            _, dados, out, _ = r.rodar()
+        v = _estado(dados, "T01_giorgio_sala_t1", "CS1")
+        self.assertEqual("PENDENTE DE REVISÃO", v["estado"])
+        self.assertEqual("sem revisão concluída (D7); sem ela seria REPROVOU (sensível ao deslocamento: com d−200 e "
+                         "d+200: PASSOU, REPROVOU)", v["motivo"])
+        self.assertIn("sensível ao deslocamento", out)
+
+
 class FinalProvenienciaTest(unittest.TestCase):
     """OPR-052: a final confere de novo cada arquivo lido pelas rodadas (Q8) e os casos feitos à mão."""
 
