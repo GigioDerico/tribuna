@@ -1,0 +1,21 @@
+## git status --short depois das quebras
+?? work/0005-etapa0-medicao/evidencias/b2-quebras-q2.txt
+?? work/0005-etapa0-medicao/evidencias/b2-verificacao.txt
+(fim)
+
+## git diff a728aae --stat nos arquivos que não devem mudar
+(fim)
+
+## imports de vizinhas.py
+16:import argparse
+17:import sys
+18:from pathlib import Path
+20:import folha
+21:import metricas
+
+## grep de rede/subprocess
+rc=1
+
+## suíte inteira
+OK
+testar.py: 325 testes, 0 falhas, 0 erros, 0 pulados

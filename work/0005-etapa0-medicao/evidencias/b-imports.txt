@@ -1,0 +1,36 @@
+folha.py:21:import argparse
+folha.py:22:import csv
+folha.py:23:import io
+folha.py:24:import sys
+folha.py:25:from dataclasses import dataclass
+folha.py:27:import alinhar
+folha.py:28:import metricas
+folha.py:29:import roteiro
+sincronizar.py:27:import argparse
+sincronizar.py:28:import csv
+sincronizar.py:29:import hashlib
+sincronizar.py:30:import io
+sincronizar.py:31:import json
+sincronizar.py:32:import math
+sincronizar.py:33:import sys
+sincronizar.py:34:import wave
+sincronizar.py:35:from array import array
+sincronizar.py:36:from pathlib import Path
+veredito.py:24:import argparse
+veredito.py:25:import hashlib
+veredito.py:26:import json
+veredito.py:27:import re
+veredito.py:28:import sys
+veredito.py:29:from pathlib import Path
+veredito.py:31:import metricas
+veredito.py:32:import roteiro
+nivel.py:19:import argparse
+nivel.py:20:import json
+nivel.py:21:import math
+nivel.py:22:import statistics
+nivel.py:23:import sys
+nivel.py:24:from pathlib import Path
+nivel.py:26:import metricas
+nivel.py:27:import roteiro
+nivel.py:28:import sincronizar
+nivel.py:29:import veredito

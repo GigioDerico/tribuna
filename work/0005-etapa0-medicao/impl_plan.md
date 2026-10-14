@@ -92,6 +92,8 @@ O que muda número no relatório passa pelo ciclo normal (teste, revisão). São
 
 ### A4. `folha.py` (D5, D6, D7)
 
+> **Revisão rodada 1:** as corridas `d ± 200` usam a folha de `d` escrita com o próprio deslocamento (`vizinhas.py`, C1). O código do `folha.py` não muda.
+
 - **Onde está cada evento** (lido nos textos): T04 `// IMPROVISAR` (entre os tokens 46 "conversa" e 47 "Isso"); T05 `// PULAR` (pula os tokens 47 a 90; volta no 91 "Ouvir"); T06 `// SILÊNCIO` (entre 134 "rodeios" e 135 "Outra"); L30 `// L30 — Minuto 8 (` (improviso no **fim do parágrafo abaixo da nota**: entre 1120 e 1121), `// L30 — Minuto 15 (` (pula o parágrafo seguinte: 1804 a 1898; volta no 1899) e `// L30 — Minuto 18 (` (silêncio no fim do parágrafo abaixo: entre 2427 e 2428). As notas do L30 dizem "ao terminar o parágrafo abaixo"; as do T04 e T06 ficam no lugar do evento. Por isso a regra é por texto, e cada prefixo tem de aparecer exatamente uma vez (texto mudado = erro, não folha errada).
 - **Improviso** (D6: "faixa de palavras inseridas"): da primeira à última palavra do `words.csv` entre o fim do último token com tempo antes da fronteira e o início do primeiro com tempo depois. O tempo da palavra vem da transcrição, não do `alinhar.py`, para não depender de o NW ter casado uma palavra do improviso com um token.
 - **Silêncio:** do fim do token antes ao início do token depois. Palavra da transcrição dentro do silêncio gera aviso.
@@ -100,6 +102,8 @@ O que muda número no relatório passa pelo ciclo normal (teste, revisão). São
 - **Saída:** CSV no relógio do app (`t_wav − d`; `t_app < 0` é erro), um "revisar: ..." por fronteira no stderr e os avisos. Códigos 0, 1 (com aviso) e 2. Pausa e toque continuam vindo do `events.csv` do app.
 
 ### A5. `veredito.py` (D3, D7, D8, D9, D10, E2, E3, H1)
+
+> **Corrigido na revisão rodada 1:** sensibilidade com folha por corrida (C1), mínimos do CS4 (C2), motivo de sensível (C3) e proveniência na `final` (C4). Onde esta seção diz o contrário, vale "Correções da revisão rodada 1".
 
 - **Ligação (D9):** CS1 = T01, T10, L30 só na sala; CS2 = L30, T02, T03, T04, T08, T09 (salto **e** recuo); CS3 = T05, L30; CS4 = T06, T07, L30 (só movimentos automáticos em silêncio ou pausa).
 - **Mínimos (Q3):** CS1 sem amostras de leitura → NÃO MEDIDO; CS2 sem leitura normal ou com o cursor parado no token 0 → NÃO MEDIDO; CS3 sem pulo → NÃO MEDIDO. Eventos exigidos: T04 e L30 precisam de improviso (CS2), T05 e L30 de pulo (CS3), T06 de silêncio, T07 de pausa e L30 de pausa e silêncio (CS4). A contagem usa o `metricas.ler_eventos` e o `metricas.intervalos`, que já validam os pares.
@@ -4645,6 +4649,1504 @@ Se a calibração recomendar configuração diferente da D10 (D28): PARAR E PEDI
 7. **PARAR E PEDIR AO HUMANO (portão condicional, Pergunta 2):** "Os WAV somam <du -ch> no LFS. Cabe na cota da conta? E a autorização da segunda voz foi recebida? Só faço o push com as duas respostas." Com o sim: `git lfs ls-files | tee …/c3-lfs.txt` e o push do branch.
 8. Ao orquestrador: relatório pronto para o **portão humano 3**.
 
+## Correções da revisão rodada 1 (arquiteto, 2026-10-12)
+
+Fonte: `code_review.md` da rodada 1 (REPROVADO, commit a728aae): bloqueantes 1 e 2, achados 3 a 9, OPR-043 a OPR-047. Esta seção substitui o que diz o contrário em A4, A5, `medir.sh metricas` e na Fase F; o resto do plano continua valendo.
+
+### Decisões
+
+**C1. Folha por corrida, parada no relógio do WAV (bloqueante 1; spec D3, E1).**
+- *Problema, confirmado por comando na prova:* a folha é medida no relógio do WAV (`words.csv`, `expected.csv`) e gravada no relógio do app com `d` (`t_app = t_wav − d`). O `metricas.py` soma o deslocamento da corrida à trajetória, às hipóteses **e** a todos os eventos (`metricas.py:157`). Com a mesma folha nas três corridas, ela anda junto com a trajetória, e as corridas ±200 não mudam nada nos intervalos da folha (improviso, silêncio, pulo). O `veredito.py` exigia os mesmos arquivos nas três e travava esse erro.
+- *Decisão:* a folha de `d` continua como está (`<nome>.folha.events.csv`, saída do `folha.py`, com as correções da revisão D7; o `folha.py` não muda de código). Uma ferramenta nova e pequena, `vizinhas.py`, escreve a mesma folha nos relógios das corridas vizinhas: `<nome>.m200.folha.events.csv` com `t + 200` (corrida `d − 200`: `t_wav − (d − 200)`) e `<nome>.p200.folha.events.csv` com `t − 200` (corrida `d + 200`). O `events.csv` do app (pausa, toque), a trajetória e as hipóteses são os mesmos nas três corridas, porque foram medidos no relógio do app. O `metricas.py` **não muda**.
+- *O que o `veredito.py` passa a conferir (Q8):* (1) trajetória, esperado, hipóteses e `events.csv` do app iguais (nome e sha256) nas três corridas; (2) os eventos de cada corrida são só `<nome>.events.csv` e a folha **dessa** corrida (nome exato); (3) a folha está nas três ou em nenhuma, uma vez em cada; (4) a folha de cada vizinha é a de `d` no mesmo relógio do WAV: `metricas.ler_eventos(folha_k, deslocamento_k) == metricas.ler_eventos(folha_d, d)`. A conferência é o invariante (o mesmo instante do WAV), não a constante ±200, então ela pega tanto o sinal trocado quanto a folha sem deslocar; (5) o sha256 de todas as entradas das três corridas bate com o disco. Qualquer falha é código 2, "rode vizinhas.py e o metricas.py das três corridas".
+- *Alternativas descartadas:* (a) uma opção no `metricas.py` para eventos já no relógio do WAV, sem `vizinhas.py`: mudaria ferramenta aprovada na 0004 (fora do escopo do spec) e o D6 ("folha no relógio do app"); (b) rodar o `folha.py` três vezes, com `d − 200`, `d` e `d + 200`, a partir do `words.csv`: perderia as correções que a revisão faz direto na folha de `d` (Fase F, passo 4); (c) o `veredito.py` recalcular os critérios sem o `metricas.py`: duplicaria o cálculo.
+- *Prova (scratchpad, cadeia real `folha.py` → `vizinhas.py` → `metricas.py` → `veredito.py`, os dois casos do revisor):*
+
+| Caso | Mesma folha nas três (procedimento antigo) | Folha por corrida (C1) |
+|---|---|---|
+| T04, improviso depois do token 46, respiro de 600 ms, cursor 500 ms depois do fim de cada palavra, `d = 2.500` | salto: PASSA, PASSA, PASSA → veredito antigo: **PASSOU**; veredito novo: **código 2** ("a corrida m200 usou T04_giorgio_sala_t1.folha.events.csv como eventos") | PASSA, PASSA, REPROVA (`('improviso', 46)`) → **SENSÍVEL AO DESLOCAMENTO** ("com d−200 e d+200: PASSOU, REPROVOU") |
+| T05, recuperação de 2.900 ms em `d` | recuperação 2.900 / 2.900 / 2.900 → antigo: **PASSOU**; novo: **código 2** | 2.900 / 2.700 / 3.100, REPROVA em `d + 200` → **SENSÍVEL AO DESLOCAMENTO** |
+
+Os dois casos viraram teste (`SensibilidadeDeVerdadeTest`, Tarefa 8).
+
+- *Esclarecimento do E1 do spec (texto proposto; o analista registra no spec):* "E1. [...] As corridas com deslocamento −200 e +200 ms também ficam registradas (D3). Nelas só anda o que foi medido no relógio do app (trajetória, hipóteses e `events.csv` do app); a folha de eventos, medida no relógio do WAV, fica parada: cada corrida usa a folha de `d` escrita com o próprio deslocamento (`<nome>.m200.folha.events.csv` e `<nome>.p200.folha.events.csv`, do `vizinhas.py`)." **Não é portão humano:** não muda número, critério, regra de contagem nem texto do protocolo ou do PRD. É o que o D3 já pede ("veredito que muda dentro de ±200 ms"), aplicado à incerteza que existe de fato, a do relógio do app contra o do WAV.
+
+**C2. CS4 só passa com o motor acompanhando (bloqueante 2; Q3, spec E2).**
+- A guarda do CS2 vale para o CS4 (função única `_sem_leitura`): `leitura_normal == 0` → NÃO MEDIDO "sem amostras de leitura normal"; `cursor_final.cursor == 0` → NÃO MEDIDO "o cursor não saiu do token 0". Os números do CS4 ganham `leitura_normal` e `fracao_lida`.
+- **A guarda pedida sozinha não pega o caso que o revisor descreve como "captura que não reabriu".** No T07, se a captura não volta depois do Ouvir, o cursor fica no token da pausa (≠ 0), e as amostras depois do `retoma_toque` contam como leitura normal (≠ 0). Por isso entra uma segunda guarda, do mesmo tipo: para cada intervalo exigido do critério que é de "sem movimento" (improviso no CS2 do T04 e do L30; silêncio e pausa no CS4 do T06, do T07 e do L30), tem de haver um movimento automático (`Short`, `LongJump`, `Recovery`) com `t >= fim do intervalo` (o mesmo `[a, b)` do `metricas.py`). Sem isso, PASSOU vira NÃO MEDIDO "o cursor não andou depois de <tipo> (fim em <t> ms do WAV)". `Reposition` e `Stay` não contam. REPROVOU continua REPROVOU: um movimento dentro do intervalo é falha medida, com ou sem motor depois. O pulo (CS3) fica de fora, porque a recuperação já exige chegar ao alvo.
+- Não é critério novo nem número novo: é a condição para "zero movimentos dentro" ser evidência (Q3). Só leva PASSOU para NÃO MEDIDO.
+
+**C3. A marca de sensível aparece no Markdown (achado 3).** Todo estado sensível (PASSOU que vira SENSÍVEL e também REPROVOU) leva no motivo "sensível ao deslocamento: <motivos do sinc>; com d−200 e d+200: X, Y". No PENDENTE, o motivo anterior fica entre parênteses: "sem revisão concluída (D7); sem ela seria <estado> (<motivo>)".
+
+**C4. Proveniência completa e final que confere de novo (achado 4, OPR-045).** A rodada guarda, por gravação, `lidos`: cada arquivo lido (os três JSON do `metricas.py`, o `sinc.json`, o `meta.txt`, a `revisao.md` e todas as entradas citadas, inclusive as três folhas, o WAV e o `level.csv`), com caminho relativo à pasta do JSON da rodada e sha256. A `final` recalcula cada um e sai com 2 se algum mudou ou sumiu ("rode a rodada de novo"). Rodada sem `lidos` (JSON de antes desta correção) também sai com 2. Testes também para os mutantes RV15, RV16, RV19, RV26 e RV27.
+
+**C5. OPR-047 (retomada do T07): recomendação = lacuna declarada, não critério novo.**
+- O critério de saída do TRD é "Silêncio de 30 s e fala durante a pausa sem movimento do texto". "Retoma no ponto certo" é o resultado esperado do T07 na tabela do TESTES-ETAPA0, não um critério de saída. Pôr a retomada num critério mudaria o D9 do spec e acrescentaria uma exigência que o TRD não tem: isso seria decisão do analista com o humano, e eu não recomendo.
+- O que esta correção já cobre: (1) a guarda de C2 tira PASSOU de um T07 cujo motor não andou depois do `retoma_toque`, que é a falha grave; (2) a retomada do L30 (pausa do minuto 12) já entra no CS1 (sala) e no CS2 (os dois ambientes), porque as amostras depois do `retoma_toque` são leitura normal.
+- O que vai ao relatório (Mudanças para o QA, Q-C6): na seção "Lacunas do protocolo", "a retomada no ponto certo do T07 não é critério de saída; medida no L30 (CS1 e CS2) e mostrada como informação no T07", com o atraso do T07 (`criterios.atraso`: `ate_3`/`amostras`, `fracao`, `maior_atraso`) e o `cursor_final`, marcados "informativo, fora dos critérios". O analista fecha o OPR-047 com isso. Se ele ou o humano quiserem um critério, é mudança de spec (D9), e aí o portão é decidido por eles.
+
+**C6. Lacunas de teste (achados 5 a 9; OPR-043, 044, 046).** Só testes, nenhum código muda: `nivel.py` (RN02, RN11, RN04), `folha.py` (RF08, RF12 e os dois lados, RF13 e os dois lados, que deixa de ser "equivalente" porque o teste chama `fronteiras` com a nota no começo e no fim do texto), `sincronizar.py` (RS03 e a borda de cima da janela, RS05, RS06, RS13, RS15, RS21, RS23).
+
+**C7. O que não muda.** `metricas.py`, `alinhar.py`, `timestamps.py`, `roteiro.py`, o código do `folha.py`, do `sincronizar.py` e do `nivel.py`, o app, os contratos, o manifesto e os testes da 0004. Nenhum número novo: o único valor é o 200 ms do spec D3, que já estava em `veredito.TOLERANCIA_MS`. **Nenhum portão humano nesta correção.**
+
+### Arquivos que mudam (rodada 1)
+
+| Arquivo | Mudança | Origem | Agente |
+|---|---|---|---|
+| `etapa0/ferramentas/vizinhas.py` | novo | C1; spec D3, E1 | motor-voz |
+| `etapa0/ferramentas/testes/test_vizinhas.py` | novo (7 testes) | C1; Q2, Q8 | motor-voz |
+| `etapa0/ferramentas/veredito.py` | folha por corrida, guardas do CS4, motivo, `lidos` e `final` | C1 a C4 | motor-voz |
+| `etapa0/ferramentas/testes/test_veredito.py` | `Rodada` com três folhas e trajetória válida; 34 testes novos (51 → 85) | C1 a C4 | motor-voz |
+| `etapa0/ferramentas/testes/test_cli_0005.py` | cadeia com `vizinhas.py`; os dois casos do revisor pela cadeia real (3 → 6) | C1 | motor-voz |
+| `etapa0/ferramentas/testes/test_{nivel,folha,sincronizar}.py` | 3 + 3 + 5 testes | C6 | motor-voz |
+| `work/0005-etapa0-medicao/scripts/medir.sh` | bloco `metricas` | Mudanças para o QA | qa-publicacao |
+
+Total: 270 → **325 testes**.
+
+### Tarefa 7 (motor-voz): `vizinhas.py` (C1)
+
+No worktree `/Users/giorgioderico/Projetos/Tribuna-0005-ferramentas`, branch `work/0005-ferramentas`. Todo comando roda da raiz do worktree, com `PYTHONDONTWRITEBYTECODE=1` (A16).
+
+- [ ] **Passo 1: teste primeiro.** Criar `etapa0/ferramentas/testes/test_vizinhas.py` exatamente com:
+
+```python
+"""vizinhas.py: a folha de d nos relógios das corridas d − 200 e d + 200 (spec 0005, D3, E1; impl_plan 0005,
+Correções da revisão rodada 1, C1)."""
+
+import unittest
+
+import vizinhas
+from testes import sintetico as s
+from testes.apoio import Pasta, rodar
+
+FOLHA = [(1000, "pulo_inicio", "47"), (2500, "pulo_fim", ""), (30000, "silencio_inicio", ""),
+         (60000, "silencio_fim", "")]
+
+
+def _linhas(caminho):
+    return caminho.read_text(encoding="utf-8").splitlines()
+
+
+class VizinhasTest(unittest.TestCase):
+    def test_D3_m200_soma_200_e_p200_tira_200(self):
+        with Pasta() as p:
+            entrada = p.arquivo("T05_giorgio_sala_t1.folha.events.csv", s.eventos_csv(FOLHA))
+            codigo, out, err = rodar(vizinhas.main, [entrada])
+            self.assertEqual(0, codigo, err)
+            self.assertEqual(["t_ms,evento,detalhe", "1200,pulo_inicio,47", "2700,pulo_fim,", "30200,silencio_inicio,",
+                              "60200,silencio_fim,"], _linhas(p.dir / "T05_giorgio_sala_t1.m200.folha.events.csv"))
+            self.assertEqual(["t_ms,evento,detalhe", "800,pulo_inicio,47", "2300,pulo_fim,", "29800,silencio_inicio,",
+                              "59800,silencio_fim,"], _linhas(p.dir / "T05_giorgio_sala_t1.p200.folha.events.csv"))
+            self.assertEqual(s.eventos_csv(FOLHA), (p.dir / "T05_giorgio_sala_t1.folha.events.csv").read_text(
+                encoding="utf-8"), "a folha de d não muda")
+        self.assertIn("T05_giorgio_sala_t1.m200.folha.events.csv: +200 ms", out)
+        self.assertIn("T05_giorgio_sala_t1.p200.folha.events.csv: -200 ms", out)
+
+    def test_D7_sobrescreve_as_vizinhas_velhas(self):
+        with Pasta() as p:
+            entrada = p.arquivo("T06_giorgio_sala_t1.folha.events.csv", s.eventos_csv(FOLHA[2:]))
+            p.arquivo("T06_giorgio_sala_t1.m200.folha.events.csv", "velha\n")
+            codigo, _, _ = rodar(vizinhas.main, [entrada])
+            self.assertEqual(0, codigo)
+            self.assertEqual("30200,silencio_inicio,", _linhas(p.dir / "T06_giorgio_sala_t1.m200.folha.events.csv")[1])
+
+    def test_t_zero_na_p200_aceito_e_negativo_sai_com_2(self):
+        with Pasta() as p:
+            entrada = p.arquivo("T06_giorgio_sala_t1.folha.events.csv",
+                                s.eventos_csv([(200, "silencio_inicio", ""), (900, "silencio_fim", "")]))
+            codigo, _, _ = rodar(vizinhas.main, [entrada])
+            self.assertEqual(0, codigo)
+            self.assertEqual("0,silencio_inicio,", _linhas(p.dir / "T06_giorgio_sala_t1.p200.folha.events.csv")[1])
+        with Pasta() as p:
+            entrada = p.arquivo("T06_giorgio_sala_t1.folha.events.csv",
+                                s.eventos_csv([(199, "silencio_inicio", ""), (900, "silencio_fim", "")]))
+            codigo, out, err = rodar(vizinhas.main, [entrada])
+            self.assertEqual((2, ""), (codigo, out))
+            self.assertIn("negativo", err)
+            self.assertFalse((p.dir / "T06_giorgio_sala_t1.m200.folha.events.csv").exists(), "nada é escrito")
+
+    def test_nome_fora_do_padrao_sai_com_2(self):
+        for nome in ("T06_giorgio_sala_t1.events.csv", "T06_giorgio_sala_t1.m200.folha.events.csv",
+                     "T06_giorgio_sala_t1.p200.folha.events.csv", ".folha.events.csv"):
+            with self.subTest(nome=nome), Pasta() as p:
+                codigo, out, err = rodar(vizinhas.main, [p.arquivo(nome, s.eventos_csv(FOLHA))])
+                self.assertEqual((2, ""), (codigo, out))
+                self.assertTrue(err.startswith("vizinhas.py: "))
+                self.assertEqual([nome], [c.name for c in p.dir.iterdir()], "nada é escrito")
+
+    def test_folha_invalida_sai_com_2(self):
+        casos = {
+            "cabeçalho": "t,evento,detalhe\n1000,silencio_inicio,\n",
+            "evento fora da lista": s.eventos_csv([(1000, "palma", "")]),
+            "par sem fim": s.eventos_csv([(1000, "silencio_inicio", "")]),
+            "pulo sem índice": s.eventos_csv([(1000, "pulo_inicio", ""), (2000, "pulo_fim", "")]),
+        }
+        for nome, conteudo in casos.items():
+            with self.subTest(caso=nome), Pasta() as p:
+                codigo, out, _ = rodar(vizinhas.main, [p.arquivo("T06_giorgio_sala_t1.folha.events.csv", conteudo)])
+                self.assertEqual((2, ""), (codigo, out))
+                self.assertEqual(1, len(list(p.dir.iterdir())), "nada é escrito")
+
+    def test_arquivo_ausente_sai_com_2(self):
+        with Pasta() as p:
+            codigo, _, _ = rodar(vizinhas.main, [str(p.dir / "T06_giorgio_sala_t1.folha.events.csv")])
+        self.assertEqual(2, codigo)
+
+    def test_ajuda(self):
+        codigo, out, _ = rodar(vizinhas.main, ["--help"])
+        self.assertEqual(0, codigo)
+        self.assertIn("folha", out)
+
+
+if __name__ == "__main__":
+    unittest.main()
+```
+
+- [ ] **Passo 2: ver falhar.** `PYTHONDONTWRITEBYTECODE=1 python3 -B etapa0/ferramentas/testar.py test_vizinhas.py 2>&1 | tail -3`. Esperado: `ModuleNotFoundError: No module named 'vizinhas'` e `testar.py: 1 testes, 0 falhas, 1 erros, 0 pulados`.
+
+- [ ] **Passo 3: código.** Criar `etapa0/ferramentas/vizinhas.py` exatamente com:
+
+```python
+"""vizinhas.py <nome>.folha.events.csv: a mesma folha nos relógios das corridas d − 200 e d + 200.
+
+spec 0005, D3 e E1 (esclarecimento da revisão, rodada 1); impl_plan 0005, Correções da revisão rodada 1, C1.
+
+A folha (folha.py) é medida no relógio do WAV e gravada no relógio do app com o deslocamento d da
+sincronização: t_app = t_wav − d. O metricas.py soma o deslocamento da corrida a todos os eventos. Para a folha
+ficar parada no relógio do WAV, onde foi medida, enquanto a trajetória, as hipóteses e o events.csv do app andam
+200 ms, cada corrida vizinha precisa da folha com o próprio deslocamento:
+  corrida d − 200: t = t_wav − (d − 200) = t_d + 200  ->  <nome>.m200.folha.events.csv
+  corrida d + 200: t = t_wav − (d + 200) = t_d − 200  ->  <nome>.p200.folha.events.csv
+As duas saem da folha de d como ela está (com as correções da revisão, D7), na mesma pasta, e são sobrescritas
+a cada execução: são derivadas, não se editam.
+Códigos de saída: 0 as duas escritas; 2 entrada inválida (nome fora do padrão, folha inválida, tempo negativo).
+"""
+
+import argparse
+import sys
+from pathlib import Path
+
+import folha
+import metricas
+
+TOLERANCIA_MS = 200  # spec D3
+SUFIXO = ".folha.events.csv"
+CORRIDAS = {"m200": TOLERANCIA_MS, "p200": -TOLERANCIA_MS}  # soma ao t da folha de d
+
+
+class ErroEntrada(Exception):
+    """Código de saída 2."""
+
+
+def deslocar(conteudo, ms):
+    """Folha de d (texto CSV) -> mesma folha com ms somado a cada t_ms, no formato do folha.py."""
+    try:
+        eventos = metricas.ler_eventos([conteudo], 0, 10**9)
+        metricas.intervalos(eventos)
+    except metricas.ErroEntrada as erro:
+        raise ErroEntrada(str(erro)) from None
+    saida = [(ev.t + ms, ev.nome, ev.detalhe) for ev in eventos]
+    negativos = [t for t, _, _ in saida if t < 0]
+    if negativos:
+        raise ErroEntrada(f"t_ms {negativos[0]} negativo com {ms:+d} ms: a folha de d começa antes de {-ms} ms")
+    return folha.folha_csv(saida)
+
+
+def caminhos(entrada):
+    """<pasta>/<nome>.folha.events.csv -> {corrida: <pasta>/<nome>.<corrida>.folha.events.csv}."""
+    entrada = Path(entrada)
+    if not entrada.name.endswith(SUFIXO):
+        raise ErroEntrada(f"{entrada.name}: o nome tem de terminar em {SUFIXO}")
+    nome = entrada.name[: -len(SUFIXO)]
+    if not nome or nome.endswith(tuple(f".{c}" for c in CORRIDAS)):
+        raise ErroEntrada(f"{entrada.name}: é a folha de uma corrida vizinha; passe a folha de d")
+    return {c: entrada.with_name(f"{nome}.{c}{SUFIXO}") for c in CORRIDAS}
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(prog="vizinhas.py", description="Escreve as folhas das corridas d − 200 e "
+                                     "d + 200 a partir da folha de d (spec 0005, D3, E1).")
+    parser.add_argument("folha", help="<nome>.folha.events.csv, a folha de d (relógio do app com o d do sincronizar)")
+    args = parser.parse_args(argv)
+    try:
+        saidas = caminhos(args.folha)
+        with open(args.folha, encoding="utf-8", newline="") as f:
+            conteudo = f.read()
+        textos = {c: deslocar(conteudo, ms) for c, ms in CORRIDAS.items()}
+    except (OSError, UnicodeDecodeError, ErroEntrada) as erro:
+        print(f"vizinhas.py: {erro}", file=sys.stderr)
+        return 2
+    for c, caminho in saidas.items():
+        with open(caminho, "w", encoding="utf-8", newline="") as f:
+            f.write(textos[c])
+        print(f"{caminho.name}: {CORRIDAS[c]:+d} ms")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+```
+
+- [ ] **Passo 4: ver passar.** `PYTHONDONTWRITEBYTECODE=1 python3 -B etapa0/ferramentas/testar.py test_vizinhas.py 2>&1 | tail -1` → `testar.py: 7 testes, 0 falhas, 0 erros, 0 pulados`. E a suíte inteira: `PYTHONDONTWRITEBYTECODE=1 python3 -B etapa0/ferramentas/testar.py 2>&1 | tail -1` → `testar.py: 277 testes, 0 falhas, 0 erros, 0 pulados`.
+
+- [ ] **Passo 5: commit.**
+
+```bash
+git add etapa0/ferramentas/vizinhas.py etapa0/ferramentas/testes/test_vizinhas.py
+git commit -m "feat(etapa0): vizinhas.py, folha de d nos relógios das corridas d±200 (spec 0005 D3, E1; revisão 0005 achado 1)"
+```
+
+### Tarefa 8 (motor-voz): `veredito.py` (C1 a C4)
+
+As mudanças vêm como patch de `git`, gerado e conferido pelo arquiteto contra o commit a728aae (`git apply --check` sem erro, também com as linhas de contexto vazias sem o espaço, caso o editor apague). Copie cada bloco para um arquivo com a ferramenta Write, sem mudar nada.
+
+- [ ] **Passo 1: testes primeiro.** Gravar o bloco abaixo em `$TMPDIR/0005-c8-testes.patch` e rodar `git apply --check "$TMPDIR/0005-c8-testes.patch" && git apply "$TMPDIR/0005-c8-testes.patch"`. Se o `--check` falhar, **pare** e escale ao arquiteto com a saída (o worktree não está no a728aae mais a Tarefa 7).
+
+```diff
+diff --git a/etapa0/ferramentas/testes/test_cli_0005.py b/etapa0/ferramentas/testes/test_cli_0005.py
+index 611ee78..0505cf8 100644
+--- a/etapa0/ferramentas/testes/test_cli_0005.py
++++ b/etapa0/ferramentas/testes/test_cli_0005.py
+@@ -1,17 +1,24 @@
+-"""Linha de comando de verdade das ferramentas da 0005 e a cadeia sincronizar -> folha -> metricas -> veredito
+-(spec 0005, D3 a D6, E1; impl_plan 0005, Tarefa 6)."""
++"""Linha de comando de verdade das ferramentas da 0005 e a cadeia sincronizar -> folha -> vizinhas -> metricas ->
++veredito (spec 0005, D3 a D6, E1; impl_plan 0005, Tarefa 6 e Correções da revisão rodada 1, C1)."""
+ 
+ import csv
++import hashlib
+ import io
+ import json
+ import subprocess
+ import sys
+ import unittest
++from pathlib import Path
+ 
++import alinhar
++import folha
++import metricas
+ import roteiro
+ import veredito
++import vizinhas
+ from testes import sinal
+ from testes import sintetico as s
++from testes.apoio import rodar
+ from testes.test_veredito import Rodada
+ 
+ FERRAMENTAS = roteiro.FERRAMENTAS
+@@ -29,6 +36,7 @@ class AjudaTest(unittest.TestCase):
+             "folha.py": ["texto", "esperado", "transcricao", "--deslocamento-ms", "-o"],
+             "veredito.py": ["rodada", "final"],
+             "nivel.py": ["nomes", "--relatorios", "--json"],
++            "vizinhas.py": ["folha"],
+         }
+         for ferramenta, termos in esperado.items():
+             with self.subTest(ferramenta=ferramenta):
+@@ -39,7 +47,8 @@ class AjudaTest(unittest.TestCase):
+         with s.Pasta() as p:
+             x = p.arquivo("x.csv", "x\n")
+             for ferramenta, argv in (("sincronizar.py", [x, x]), ("folha.py", [x, x, x, "--deslocamento-ms", "0"]),
+-                                     ("veredito.py", ["final", x]), ("nivel.py", ["T01_giorgio_sala_t1", "--relatorios", p.arquivo("d", "")])):
++                                     ("veredito.py", ["final", x]),
++                                     ("vizinhas.py", [p.arquivo("x.folha.events.csv", "x\n")]), ("nivel.py", ["T01_giorgio_sala_t1", "--relatorios", p.arquivo("d", "")])):
+                 with self.subTest(ferramenta=ferramenta):
+                     r = _cli(ferramenta, *argv)
+                     self.assertEqual((2, ""), (r.returncode, r.stdout))
+@@ -84,10 +93,15 @@ class CadeiaTest(unittest.TestCase):
+                 traj.append((tempos[i][0] - d + 10, i, "Short"))
+             trajetoria = p.arquivo("T06_giorgio_sala_t1.trajectory.csv", s.trajetoria_csv(traj))
+             app = p.arquivo("T06_giorgio_sala_t1.events.csv", s.eventos_csv([]))
++            r = _cli("vizinhas.py", str(folha))
++            self.assertEqual(0, r.returncode, r.stderr)
+             for sufixo, desl in (("", d), (".m200", d - 200), (".p200", d + 200)):
+-                r = _cli("metricas.py", trajetoria, esperado, app, str(folha), "--deslocamento-ms", str(desl),
++                folha_corrida = p.dir / f"T06_giorgio_sala_t1{sufixo}.folha.events.csv"
++                r = _cli("metricas.py", trajetoria, esperado, app, str(folha_corrida), "--deslocamento-ms", str(desl),
+                          "--json", str(p.dir / f"T06_giorgio_sala_t1{sufixo}.json"))
+                 self.assertIn(r.returncode, (0, 1), r.stderr)
++                na_wav = metricas.ler_eventos([folha_corrida.read_text(encoding="utf-8")], desl, 10**9)
++                self.assertEqual(tempos[134][1], na_wav[0].t, "a folha de cada corrida fica no relógio do WAV")
+             dados = json.loads((p.dir / "T06_giorgio_sala_t1.json").read_text(encoding="utf-8"))
+             self.assertEqual("PASSA", dados["criterios"]["salto_errado"]["veredito"])
+             self.assertGreater(dados["amostras"]["excluidas_intervalo"], 90, "o silêncio da folha foi aplicado")
+@@ -108,5 +122,114 @@ class VereditoPeloProcessoTest(unittest.TestCase):
+             self.assertIn(f"| CS1 | {veredito.NAO_MEDIDO} |", res.stdout)
+ 
+ 
++D_VIVO = 2500
++
++
++def _sha(caminho):
++    return hashlib.sha256(Path(caminho).read_bytes()).hexdigest()
++
++
++def _words(texto_id, tempos, extras=()):
++    lista = [(t.formas[0][0], *tempos[t.indice]) for t in s.tokens(texto_id) if tempos[t.indice] is not None]
++    lista = sorted(lista + list(extras), key=lambda x: (x[1], x[2]))
++    saida = io.StringIO()
++    w = csv.writer(saida, lineterminator="\n")
++    w.writerow(alinhar.CABECALHO_TRANSCRICAO)
++    for palavra, ini, fim in lista:
++        w.writerow([palavra, ini, fim, "1.0"])
++    return saida.getvalue()
++
++
++def _caso_t04():
++    """Improviso depois do token 46 com respiro de 600 ms; o cursor chega 500 ms depois do fim de cada palavra."""
++    n = len(s.tokens("T04"))
++    tempos = [(6000 + 400 * i, 6300 + 400 * i) if i <= 46 else (34000 + 400 * (i - 47), 34300 + 400 * (i - 47))
++              for i in range(n)]
++    fim46 = tempos[46][1]
++    extras = [("exemplo", fim46 + 600 + 400 * k, fim46 + 900 + 400 * k) for k in range(20)]
++    traj = [(0, 0, "Reposition")] + [(tempos[i][1] + 500 - D_VIVO, i, "Short") for i in range(1, n)]
++    return "T04_giorgio_sala_t1", tempos, extras, traj, "CS2"
++
++
++def _caso_t05():
++    """Pulo do T05 (47 a 90) com recuperação de 2.900 ms em d, medida do pulo_fim (25.700 ms do WAV)."""
++    n = len(s.tokens("T05"))
++    tempos = [None if 47 <= i <= 90 else
++              ((6000 + 400 * i, 6300 + 400 * i) if i <= 46 else (25700 + 400 * (i - 91), 26000 + 400 * (i - 91)))
++              for i in range(n)]
++    traj = [(0, 0, "Reposition")] + [(tempos[i][1] + 500 - D_VIVO, i, "Short") for i in range(1, 47)]
++    traj.append((25700 + 2900 - D_VIVO, 97, "LongJump"))
++    traj += [(tempos[i][1] + 500 - D_VIVO, i, "Short") for i in range(98, n)]
++    return "T05_giorgio_sala_t1", tempos, (), traj, "CS3"
++
++
++class SensibilidadeDeVerdadeTest(unittest.TestCase):
++    """Os dois casos do revisor (achado 1) pela cadeia real folha -> vizinhas -> metricas -> veredito."""
++
++    def _rodada(self, raiz, caso, mesma_folha=False):
++        nome, tempos, extras, traj, criterio = caso
++        texto_id = nome.split("_")[0]
++        r = Rodada(raiz)
++        pa = r.pastas
++        esp = pa["esperado"] / f"{nome}.expected.csv"
++        esp.write_text(s.esperado_csv(texto_id, tempos), encoding="utf-8")
++        words = pa["esperado"] / f"{nome}.words.csv"
++        words.write_text(_words(texto_id, tempos, extras), encoding="utf-8")
++        tr = pa["trajetorias"] / f"{nome}.trajectory.csv"
++        tr.write_text(s.trajetoria_csv(traj), encoding="utf-8")
++        app = pa["eventos"] / f"{nome}.events.csv"
++        app.write_text(s.eventos_csv([]), encoding="utf-8")
++        f_d = pa["eventos"] / f"{nome}.folha.events.csv"
++        codigo, _, err = rodar(folha.main, [str(roteiro.TEXTOS / f"{texto_id}.txt"), str(esp), str(words),
++                                            "--deslocamento-ms", str(D_VIVO), "-o", str(f_d)])
++        self.assertIn(codigo, (0, 1), err)
++        self.assertEqual(0, rodar(vizinhas.main, [str(f_d)])[0])
++        for sufixo, desl in (("", D_VIVO), (".m200", D_VIVO - 200), (".p200", D_VIVO + 200)):
++            f = f_d if mesma_folha else pa["eventos"] / f"{nome}{sufixo}.folha.events.csv"
++            codigo, _, err = rodar(metricas.main, [str(tr), str(esp), str(app), str(f), "--deslocamento-ms", str(desl),
++                                                   "--json", str(pa["relatorios"] / f"{nome}{sufixo}.json")])
++            self.assertIn(codigo, (0, 1), err)
++        wav, level = pa["gravacoes"] / f"{nome}.wav", pa["trajetorias"] / f"{nome}.level.csv"
++        wav.write_bytes(b"RIFF" + nome.encode())
++        level.write_text("t_ms,rms\n200,0.1\n", encoding="utf-8")
++        sinc = {"deslocamento_ms": D_VIVO, "motivos": [],
++                "entradas": [{"papel": "wav", "arquivo": wav.name, "sha256": _sha(wav)},
++                             {"papel": "level", "arquivo": level.name, "sha256": _sha(level)}]}
++        (pa["relatorios"] / f"{nome}.sinc.json").write_text(json.dumps(sinc), encoding="utf-8")
++        meta = {**veredito.CONFIG_OFICIAL, "text_id": texto_id}
++        (pa["trajetorias"] / f"{nome}.meta.txt").write_text("".join(f"{k}={v}\n" for k, v in meta.items()),
++                                                           encoding="utf-8")
++        (pa["esperado"] / f"{nome}.revisao.md").write_text(veredito.REVISAO_CONCLUIDA + "\n", encoding="utf-8")
++        r.oficiais = [(nome, "")]
++        codigo, dados, _, err = r.rodar()
++        if codigo == 2:
++            return None, err
++        g = dados["gravacoes"][0]
++        return g["criterios"][criterio], [json.loads((pa["relatorios"] / f"{nome}{suf}.json").read_text(
++            encoding="utf-8"))["criterios"] for suf in ("", ".m200", ".p200")]
++
++    def test_D3_alcance_no_comeco_do_improviso_sai_sensivel(self):
++        with s.Pasta() as p:
++            v, crit = self._rodada(p.dir, _caso_t04())
++        self.assertEqual(["PASSA", "PASSA", "REPROVA"], [c["salto_errado"]["veredito"] for c in crit])
++        self.assertEqual([("improviso", 46)], [(m["intervalo"], m["cursor"])
++                                               for m in crit[2]["salto_errado"]["por_movimento"]])
++        self.assertEqual("SENSÍVEL AO DESLOCAMENTO", v["estado"])
++        self.assertIn("com d−200 e d+200: PASSOU, REPROVOU", v["motivo"])
++
++    def test_D3_recuperacao_de_2900_ms_sai_sensivel(self):
++        with s.Pasta() as p:
++            v, crit = self._rodada(p.dir, _caso_t05())
++        self.assertEqual([2900, 2700, 3100], [c["recuperacao"]["pulos"][0]["recuperacao_ms"] for c in crit])
++        self.assertEqual("SENSÍVEL AO DESLOCAMENTO", v["estado"])
++
++    def test_D3_a_mesma_folha_nas_tres_corridas_sai_com_2(self):
++        for caso in (_caso_t04(), _caso_t05()):
++            with self.subTest(caso=caso[0]), s.Pasta() as p:
++                v, err = self._rodada(p.dir, caso, mesma_folha=True)
++                self.assertIsNone(v)
++                self.assertIn(f"a corrida m200 usou {caso[0]}.folha.events.csv como eventos", err)
++
++
+ if __name__ == "__main__":
+     unittest.main()
+diff --git a/etapa0/ferramentas/testes/test_veredito.py b/etapa0/ferramentas/testes/test_veredito.py
+index 09ae963..7413cf3 100644
+--- a/etapa0/ferramentas/testes/test_veredito.py
++++ b/etapa0/ferramentas/testes/test_veredito.py
+@@ -1,8 +1,10 @@
+ """veredito.py com rodadas sintéticas em pasta temporária (spec 0005, D3, D7, D8, D9, D10; impl_plan 0005, A5).
+ 
+-O `Rodada` escreve, para cada gravação, arquivos de entrada com conteúdo único, os três JSON do metricas.py
+-(d, d − 200, d + 200) com a proveniência certa, o JSON do sincronizar.py, o meta.txt e a revisão. Um teste roda
+-o metricas.py de verdade para travar os campos que o veredito lê (Q4).
++O `Rodada` escreve, para cada gravação, arquivos de entrada com conteúdo único, a folha de d e as das corridas
++vizinhas (a mesma folha no relógio do WAV: t + 200 na de d − 200 e t − 200 na de d + 200), os três JSON do
++metricas.py (d, d − 200, d + 200) com a proveniência certa, o JSON do sincronizar.py, o meta.txt e a revisão.
++A trajetória é um CSV válido em que o cursor anda em 100.000 ms do app, depois de todos os intervalos padrão.
++Um teste roda o metricas.py de verdade para travar os campos que o veredito lê (Q4).
+ """
+ 
+ import copy
+@@ -18,6 +20,8 @@ from testes.apoio import Pasta, rodar
+ 
+ D = 1370
+ META_OFICIAL = dict(veredito.CONFIG_OFICIAL)
++TRAJETORIA = [(0, 0, "Reposition"), (100000, 150, "Short")]
++VIZINHAS = {"m200": 200, "p200": -200}  # soma ao t da folha de d (corridas d − 200 e d + 200)
+ 
+ 
+ def _sha(caminho):
+@@ -58,7 +62,9 @@ class Rodada:
+         self.oficiais = []
+ 
+     def gravacao(self, nome, variante="", eventos=(), folha=(), m=None, m200=None, p200=None, sinc_motivos=(),
+-                 meta=None, revisada=True, sem=(), deslocamentos=(D, D - 200, D + 200)):
++                 meta=None, revisada=True, sem=(), deslocamentos=(D, D - 200, D + 200), trajetoria=TRAJETORIA,
++                 folhas=None):
++        """`folhas`: {corrida: lista de eventos} troca a folha de uma corrida vizinha (padrão: a de d deslocada)."""
+         self.oficiais.append((nome, variante))
+         oficial, nome = nome, nome + self.sufixo
+         tp, ev = self.pastas["trajetorias"], self.pastas["eventos"]
+@@ -67,23 +73,29 @@ class Rodada:
+                     "hipoteses": tp / f"{nome}.hypotheses.csv"}
+         for papel, caminho in arquivos.items():
+             caminho.write_text(f"{papel} {nome}\n", encoding="utf-8")
++        arquivos["trajetoria"].write_text(s.trajetoria_csv(trajetoria), encoding="utf-8")
+         app = ev / f"{nome}.events.csv"
+         app.write_text(s.eventos_csv(eventos), encoding="utf-8")
+         entradas = [{"papel": p, "arquivo": c.name, "sha256": _sha(c)} for p, c in arquivos.items()]
+         entradas.append({"papel": "eventos", "arquivo": app.name, "sha256": _sha(app)})
++        por_corrida = {"d": list(entradas), "m200": list(entradas), "p200": list(entradas)}
+         if folha:
+-            f = ev / f"{nome}.folha.events.csv"
+-            f.write_text(s.eventos_csv(folha), encoding="utf-8")
+-            entradas.append({"papel": "eventos", "arquivo": f.name, "sha256": _sha(f)})
++            conteudos = {"d": folha, **{k: [(t + ms, e, x) for t, e, x in folha] for k, ms in VIZINHAS.items()},
++                         **(folhas or {})}
++            for corrida, lista in conteudos.items():
++                f = ev / veredito.folha_da_corrida(nome, corrida)
++                f.write_text(s.eventos_csv(lista), encoding="utf-8")
++                por_corrida[corrida].append({"papel": "eventos", "arquivo": f.name, "sha256": _sha(f)})
+         wav, level = self.pastas["gravacoes"] / f"{oficial}.wav", tp / f"{nome}.level.csv"
+         wav.write_bytes(b"RIFF" + oficial.encode())
+         level.write_text(f"level {nome}\n", encoding="utf-8")
+         rel = self.pastas["relatorios"]
+         base = m or metricas_json()
+-        for sufixo, dados, desl in ((".json", base, deslocamentos[0]), (".m200.json", m200 or base, deslocamentos[1]),
+-                                    (".p200.json", p200 or base, deslocamentos[2])):
++        for sufixo, dados, desl, corrida in ((".json", base, deslocamentos[0], "d"),
++                                             (".m200.json", m200 or base, deslocamentos[1], "m200"),
++                                             (".p200.json", p200 or base, deslocamentos[2], "p200")):
+             j = copy.deepcopy(dados)
+-            j["deslocamento_ms"], j["entradas"] = desl, entradas
++            j["deslocamento_ms"], j["entradas"] = desl, por_corrida[corrida]
+             (rel / f"{nome}{sufixo}").write_text(json.dumps(j), encoding="utf-8")
+         sinc = {"deslocamento_ms": D, "motivos": list(sinc_motivos),
+                 "entradas": [{"papel": "wav", "arquivo": wav.name, "sha256": _sha(wav)},
+@@ -621,5 +633,364 @@ class MetricasDeVerdadeTest(unittest.TestCase):
+         self.assertEqual({"trajetoria", "esperado", "eventos"}, {e["papel"] for e in jsons[0]["entradas"]})
+ 
+ 
++def _trocar_entradas(r, nome, sufixo, troca):
++    """Reescreve as entradas de <nome><sufixo> (relatório do metricas.py) com troca(lista) -> lista."""
++    caminho = r.pastas["relatorios"] / f"{nome}{sufixo}"
++    j = json.loads(caminho.read_text(encoding="utf-8"))
++    j["entradas"] = troca(j["entradas"])
++    caminho.write_text(json.dumps(j), encoding="utf-8")
++
++
++def _entrada(r, pasta, arquivo, papel="eventos"):
++    return {"papel": papel, "arquivo": arquivo, "sha256": _sha(r.pastas[pasta] / arquivo)}
++
++
++class FolhaPorCorridaTest(unittest.TestCase):
++    """Achado 1 da revisão: a folha fica parada no relógio do WAV; cada corrida usa a sua (spec D3, E1)."""
++
++    T06 = "T06_giorgio_sala_t1"
++
++    def test_D3_corrida_vizinha_com_a_folha_de_d_sai_com_2(self):
++        with Pasta() as p:
++            r = Rodada(p.dir).completa()
++            _trocar_entradas(r, self.T06, ".m200.json", lambda es: [
++                _entrada(r, "eventos", f"{self.T06}.folha.events.csv") if e["arquivo"].endswith(".folha.events.csv")
++                else e for e in es])
++            codigo, dados, _, err = r.rodar()
++        self.assertEqual((2, None), (codigo, dados))
++        self.assertIn(f"a corrida m200 usou {self.T06}.folha.events.csv como eventos", err)
++
++    def test_D3_corrida_d_com_a_folha_vizinha_sai_com_2(self):
++        with Pasta() as p:
++            r = Rodada(p.dir).completa()
++            _trocar_entradas(r, self.T06, ".json", lambda es: [
++                _entrada(r, "eventos", f"{self.T06}.p200.folha.events.csv") if e["arquivo"].endswith(".folha.events.csv")
++                else e for e in es])
++            codigo, _, _, err = r.rodar()
++        self.assertEqual(2, codigo)
++        self.assertIn(f"a corrida d usou {self.T06}.p200.folha.events.csv como eventos", err)
++
++    def test_D3_folha_vizinha_que_falta_sai_com_2(self):
++        with Pasta() as p:
++            r = Rodada(p.dir).completa()
++            _trocar_entradas(r, self.T06, ".p200.json",
++                             lambda es: [e for e in es if not e["arquivo"].endswith(".folha.events.csv")])
++            codigo, _, _, err = r.rodar()
++        self.assertEqual(2, codigo)
++        self.assertIn(f"a corrida p200 não usou a folha dela ({self.T06}.p200.folha.events.csv)", err)
++
++    def test_D3_folha_vizinha_igual_a_de_d_ou_com_sinal_trocado_sai_com_2(self):
++        folha = [(1000, "silencio_inicio", ""), (31000, "silencio_fim", "")]
++        mais = [(t + 200, e, x) for t, e, x in folha]
++        menos = [(t - 200, e, x) for t, e, x in folha]
++        for corrida, lista in (("m200", folha), ("p200", folha), ("m200", menos), ("p200", mais),
++                               ("m200", [(1200, "silencio_inicio", ""), (31100, "silencio_fim", "")])):
++            with self.subTest(corrida=corrida, lista=lista), Pasta() as p:
++                codigo, _, _, err = Rodada(p.dir).completa(T06={"folha": folha, "folhas": {corrida: lista}}).rodar()
++                self.assertEqual(2, codigo)
++                self.assertIn(f"{self.T06}.{corrida}.folha.events.csv não é {self.T06}.folha.events.csv no relógio "
++                              "do WAV", err)
++
++    def test_D3_folha_vizinha_com_outro_evento_ou_detalhe_sai_com_2(self):
++        folha = [(1000, "pulo_inicio", "47"), (2000, "pulo_fim", "")]
++        for lista in ([(1200, "pulo_inicio", "48"), (2200, "pulo_fim", "")],
++                      [(1200, "silencio_inicio", ""), (2200, "silencio_fim", "")]):
++            with self.subTest(lista=lista), Pasta() as p:
++                r = Rodada(p.dir).completa(T05={"folha": folha, "folhas": {"m200": lista},
++                                                "m": metricas_json(recuperacao="PASSA")})
++                codigo, _, _, err = r.rodar()
++                self.assertEqual(2, codigo)
++                self.assertIn("no relógio do WAV", err)
++
++    def test_D3_folha_vizinha_mudada_depois_sai_com_2(self):
++        with Pasta() as p:
++            r = Rodada(p.dir).completa()
++            with open(r.pastas["eventos"] / f"{self.T06}.p200.folha.events.csv", "a", encoding="utf-8") as f:
++                f.write("\n")
++            codigo, _, _, err = r.rodar()
++        self.assertEqual(2, codigo)
++        self.assertIn(f"{self.T06}.p200.folha.events.csv mudou ou sumiu", err)
++
++    def test_D3_folha_so_na_corrida_vizinha_sai_com_2(self):
++        with Pasta() as p:
++            r = Rodada(p.dir).completa()
++            nome = "T07_giorgio_sala_t1"
++            f = r.pastas["eventos"] / f"{nome}.m200.folha.events.csv"
++            f.write_text(s.eventos_csv([(1200, "silencio_inicio", ""), (2200, "silencio_fim", "")]), encoding="utf-8")
++            _trocar_entradas(r, nome, ".m200.json", lambda es: es + [_entrada(r, "eventos", f.name)])
++            codigo, _, _, err = r.rodar()
++        self.assertEqual(2, codigo)
++        self.assertIn(f"a corrida d não usou a folha dela ({nome}.folha.events.csv)", err)
++
++    def test_D3_folha_citada_duas_vezes_sai_com_2(self):
++        with Pasta() as p:
++            r = Rodada(p.dir).completa()
++            nome = self.T06
++            _trocar_entradas(r, nome, ".m200.json",
++                             lambda es: es + [e for e in es if e["arquivo"].endswith(".folha.events.csv")])
++            codigo, _, _, err = r.rodar()
++        self.assertEqual(2, codigo)
++        self.assertIn(f"a corrida m200 não usou a folha dela", err)
++
++    def test_D3_sem_folha_nas_tres_corridas_mede(self):
++        with Pasta() as p:
++            codigo, dados, _, err = Rodada(p.dir).completa().rodar()
++        self.assertEqual(0, codigo, err)
++        self.assertEqual("PASSOU", _estado(dados, "T07_giorgio_sala_t1", "CS4")["estado"])
++
++    def test_Q8_m200_com_outros_arquivos_sai_com_2(self):
++        with Pasta() as p:
++            r = Rodada(p.dir).completa()
++            _trocar_entradas(r, "T01_giorgio_sala_t1", ".m200.json",
++                             lambda es: [{**es[0], "sha256": "0" * 64}] + es[1:])
++            codigo, _, _, err = r.rodar()
++        self.assertEqual(2, codigo)
++        self.assertIn("não usaram os mesmos arquivos", err)
++
++    def test_Q8_eventos_de_outra_gravacao_sai_com_2(self):
++        with Pasta() as p:
++            r = Rodada(p.dir).completa()
++            outra = _entrada(r, "eventos", "T10_giorgio_sala_t1.events.csv")
++            for sufixo in (".json", ".m200.json", ".p200.json"):
++                _trocar_entradas(r, "T01_giorgio_sala_t1", sufixo,
++                                 lambda es: [outra if e["papel"] == "eventos" else e for e in es])
++            codigo, _, _, err = r.rodar()
++        self.assertEqual(2, codigo)
++        self.assertIn("a corrida d usou T10_giorgio_sala_t1.events.csv como eventos", err)
++
++
++class Cs4ComCursorTest(unittest.TestCase):
++    """Achado 2 da revisão: CS4 sem nada para checar sai NÃO MEDIDO, nunca PASSOU (Q3)."""
++
++    def test_Q3_t06_e_t07_com_o_motor_parado_nao_medem(self):
++        parado = metricas_json(cursor=0, leitura=0, amostras=0)
++        with Pasta() as p:
++            codigo, dados, _, _ = Rodada(p.dir).completa(T06={"m": parado}, T07={"m": parado}).rodar()
++        self.assertEqual(1, codigo)
++        for nome in ("T06_giorgio_sala_t1", "T07_giorgio_sala_t1"):
++            self.assertEqual(("NÃO MEDIDO", "sem amostras de leitura normal"),
++                             (_estado(dados, nome, "CS4")["estado"], _estado(dados, nome, "CS4")["motivo"]))
++        self.assertEqual("NÃO MEDIDO", dados["criterios"]["CS4"]["estado"])
++
++    def test_Q3_cs4_cursor_no_zero_nao_mede_e_no_um_mede(self):
++        for cursor, estado in ((0, "NÃO MEDIDO"), (1, "PASSOU")):
++            with self.subTest(cursor=cursor), Pasta() as p:
++                _, dados, _, _ = Rodada(p.dir).completa(T07={"m": metricas_json(cursor=cursor)}).rodar()
++                v = _estado(dados, "T07_giorgio_sala_t1", "CS4")
++                self.assertEqual(estado, v["estado"])
++                if cursor == 0:
++                    self.assertEqual("o cursor não saiu do token 0", v["motivo"])
++
++    def test_Q3_cs4_sem_leitura_normal_nao_mede(self):
++        with Pasta() as p:
++            _, dados, _, _ = Rodada(p.dir).completa(T06={"m": metricas_json(leitura=0)}).rodar()
++        self.assertEqual("sem amostras de leitura normal", _estado(dados, "T06_giorgio_sala_t1", "CS4")["motivo"])
++
++    def test_E2_cs4_mostra_leitura_normal_e_fracao_lida(self):
++        with Pasta() as p:
++            _, dados, out, _ = Rodada(p.dir).completa(T06={"m": metricas_json(leitura=480)}).rodar()
++        n = _estado(dados, "T06_giorgio_sala_t1", "CS4")["numeros"]
++        self.assertEqual((480, round(150 / 214, 4)), (n["leitura_normal"], n["fracao_lida"]))
++        self.assertIn('"leitura_normal": 480', out)
++
++    def test_Q3_t07_cursor_parado_depois_da_pausa_nao_mede(self):
++        traj = [(0, 0, "Reposition"), (500, 40, "Short")]  # pausa do T07 padrão: [1000, 11000) do app
++        with Pasta() as p:
++            _, dados, _, _ = Rodada(p.dir).completa(T07={"trajetoria": traj}).rodar()
++        v = _estado(dados, "T07_giorgio_sala_t1", "CS4")
++        self.assertEqual(("NÃO MEDIDO", f"o cursor não andou depois de pausa (fim em {11000 + D} ms do WAV)"),
++                         (v["estado"], v["motivo"]))
++
++    def test_Q3_movimento_no_fim_exato_do_intervalo_conta_e_um_ms_antes_nao(self):
++        for t, estado in ((11000, "PASSOU"), (10999, "NÃO MEDIDO")):
++            with self.subTest(t=t), Pasta() as p:
++                traj = [(0, 0, "Reposition"), (500, 40, "Short"), (t, 41, "Short")]
++                _, dados, _, _ = Rodada(p.dir).completa(T07={"trajetoria": traj}).rodar()
++                self.assertEqual(estado, _estado(dados, "T07_giorgio_sala_t1", "CS4")["estado"])
++
++    def test_Q3_reposition_ou_stay_depois_nao_contam_e_os_tres_automaticos_contam(self):
++        for move, estado in (("Reposition", "NÃO MEDIDO"), ("Stay", "NÃO MEDIDO"), ("Short", "PASSOU"),
++                             ("LongJump", "PASSOU"), ("Recovery", "PASSOU")):
++            with self.subTest(move=move), Pasta() as p:
++                traj = [(0, 0, "Reposition"), (500, 40, "Short"), (20000, 60, move)]
++                _, dados, _, _ = Rodada(p.dir).completa(T07={"trajetoria": traj}).rodar()
++                self.assertEqual(estado, _estado(dados, "T07_giorgio_sala_t1", "CS4")["estado"])
++
++    def test_Q3_sem_nenhum_movimento_automatico_nao_mede(self):
++        with Pasta() as p:
++            codigo, dados, _, err = Rodada(p.dir).completa(T06={"trajetoria": [(0, 0, "Reposition")]}).rodar()
++        self.assertNotEqual(2, codigo, err)
++        self.assertEqual("NÃO MEDIDO", _estado(dados, "T06_giorgio_sala_t1", "CS4")["estado"])
++
++    def test_Q3_cada_intervalo_exigido_conta_no_seu_criterio(self):
++        traj = [(0, 0, "Reposition"), (40000, 150, "Short")]  # L30: pausa até 25.000, silêncio até 60.000
++        with Pasta() as p:
++            _, dados, _, _ = Rodada(p.dir).completa(L30={"trajetoria": traj}, T04={"trajetoria": [
++                (0, 0, "Reposition"), (500, 10, "Short")]}).rodar()
++        v = _estado(dados, "L30_giorgio_sala_t1", "CS4")
++        self.assertEqual("NÃO MEDIDO", v["estado"])
++        self.assertIn("silencio (fim em", v["motivo"])
++        self.assertNotIn("pausa", v["motivo"])
++        self.assertEqual("PASSOU", _estado(dados, "L30_giorgio_sala_t1", "CS2")["estado"], "improviso termina em 2.000")
++        self.assertIn("improviso (fim em", _estado(dados, "T04_giorgio_sala_t1", "CS2")["motivo"])
++        self.assertEqual("PASSOU", _estado(dados, "L30_giorgio_sala_t1", "CS1")["estado"])
++
++    def test_Q3_pulo_nao_entra_na_guarda_do_cs3(self):
++        with Pasta() as p:
++            _, dados, _, _ = Rodada(p.dir).completa(T05={"trajetoria": [(0, 0, "Reposition"), (500, 10, "Short")],
++                                                         "m": metricas_json(recuperacao="PASSA")}).rodar()
++        self.assertEqual("PASSOU", _estado(dados, "T05_giorgio_sala_t1", "CS3")["estado"])
++
++    def test_Q3_reprovou_continua_reprovado_com_o_motor_parado_depois(self):
++        m = metricas_json(salto="REPROVA", movimentos=[("silencio", "alcance")])
++        with Pasta() as p:
++            _, dados, _, _ = Rodada(p.dir).completa(T06={"m": m, "trajetoria": [(0, 0, "Reposition")]}).rodar()
++        self.assertEqual("REPROVOU", _estado(dados, "T06_giorgio_sala_t1", "CS4")["estado"])
++
++
++class MotivoNoRelatorioTest(unittest.TestCase):
++    """Achado 3 da revisão: a marca de sensível aparece no Markdown, também no REPROVOU e no PENDENTE."""
++
++    def test_D3_reprovou_sensivel_aparece_no_markdown(self):
++        with Pasta() as p:
++            r = Rodada(p.dir).completa(T01={"m": metricas_json(atraso="REPROVA"), "m200": metricas_json()})
++            _, dados, out, _ = r.rodar()
++        v = _estado(dados, "T01_giorgio_sala_t1", "CS1")
++        self.assertEqual("REPROVOU", v["estado"])
++        self.assertEqual("sensível ao deslocamento: com d−200 e d+200: PASSOU, REPROVOU", v["motivo"])
++        self.assertIn("| REPROVOU |", out)
++        self.assertIn("| sensível ao deslocamento: com d−200 e d+200: PASSOU, REPROVOU |", out)
++
++    def test_D3_reprovou_com_motivo_da_sincronizacao(self):
++        with Pasta() as p:
++            r = Rodada(p.dir).completa(T01={"m": metricas_json(atraso="REPROVA"), "sinc_motivos": ["palma não confere"]})
++            _, dados, _, _ = r.rodar()
++        v = _estado(dados, "T01_giorgio_sala_t1", "CS1")
++        self.assertEqual(("REPROVOU", True), (v["estado"], v["sensivel"]))
++        self.assertIn("palma não confere", v["motivo"])
++
++    def test_D3_passou_sem_sensibilidade_fica_sem_motivo(self):
++        with Pasta() as p:
++            _, dados, _, _ = Rodada(p.dir).completa().rodar()
++        self.assertEqual(("PASSOU", None, False), tuple(_estado(dados, "T01_giorgio_sala_t1", "CS1")[k]
++                                                         for k in ("estado", "motivo", "sensivel")))
++
++    def test_D7_pendente_guarda_o_motivo(self):
++        with Pasta() as p:
++            r = Rodada(p.dir).completa(T10={"sinc_motivos": ["deriva acima de 200 ms"], "revisada": False})
++            _, dados, out, _ = r.rodar()
++        v = _estado(dados, "T10_giorgio_sala_t1", "CS1")
++        self.assertEqual("PENDENTE DE REVISÃO", v["estado"])
++        self.assertEqual("sem revisão concluída (D7); sem ela seria SENSÍVEL AO DESLOCAMENTO (sensível ao "
++                         "deslocamento: deriva acima de 200 ms; com d−200 e d+200: PASSOU, PASSOU)", v["motivo"])
++        self.assertIn("deriva acima de 200 ms", out)
++
++    def test_D7_pendente_sem_motivo_fica_curto(self):
++        with Pasta() as p:
++            _, dados, _, _ = Rodada(p.dir).completa(T09={"revisada": False}).rodar()
++        self.assertEqual("sem revisão concluída (D7); sem ela seria PASSOU",
++                         _estado(dados, "T09_giorgio_sala_t1", "CS2")["motivo"])
++
++
++class FinalProvenienciaTest(unittest.TestCase):
++    """OPR-045: a final confere de novo cada arquivo lido pelas rodadas (Q8) e os casos feitos à mão."""
++
++    def _tres(self, p):
++        caminhos = []
++        for nome, (voz, amb, com_l30) in (("S1", ("giorgio", "sala", True)), ("S2", ("voz2", "sala", False)),
++                                          ("S3", ("giorgio", "salao", True))):
++            r = Rodada(p.dir / nome, nome).completa(voz=voz, amb=amb, com_l30=com_l30)
++            codigo, _, _, err = r.rodar()
++            self.assertEqual(0, codigo, err)
++            caminhos.append(r.pastas["relatorios"] / "rodada.json")
++        return caminhos
++
++    def _final(self, caminhos):
++        return rodar(veredito.main, ["final", *map(str, caminhos)])
++
++    def test_Q8_rodada_guarda_os_arquivos_lidos_com_caminho_relativo(self):
++        with Pasta() as p:
++            r = Rodada(p.dir).completa()
++            _, dados, _, _ = r.rodar()
++            lidos = _estado_g(dados, "T06_giorgio_sala_t1")["lidos"]
++            esperado_sha = _sha(r.pastas["trajetorias"] / "T06_giorgio_sala_t1.meta.txt")
++        for k in ("T06_giorgio_sala_t1.json", "T06_giorgio_sala_t1.m200.json", "T06_giorgio_sala_t1.p200.json",
++                  "T06_giorgio_sala_t1.sinc.json", "../trajetorias/T06_giorgio_sala_t1.meta.txt",
++                  "../trajetorias/T06_giorgio_sala_t1.trajectory.csv", "../esperado/T06_giorgio_sala_t1.revisao.md",
++                  "../esperado/T06_giorgio_sala_t1.expected.csv", "../eventos/T06_giorgio_sala_t1.folha.events.csv",
++                  "../eventos/T06_giorgio_sala_t1.m200.folha.events.csv",
++                  "../eventos/T06_giorgio_sala_t1.p200.folha.events.csv", "../gravacoes/T06_giorgio_sala_t1.wav",
++                  "../trajetorias/T06_giorgio_sala_t1.level.csv"):
++            self.assertIn(k, lidos)
++        self.assertEqual(esperado_sha, lidos["../trajetorias/T06_giorgio_sala_t1.meta.txt"])
++
++    def test_Q8_arquivo_mudado_depois_da_rodada_faz_a_final_sair_com_2(self):
++        for pasta, arquivo in (("esperado", "T01_giorgio_sala_t1.expected.csv"),
++                               ("relatorios", "T01_giorgio_sala_t1.p200.json"),
++                               ("trajetorias", "T07_giorgio_sala_t1.meta.txt"),
++                               ("esperado", "T05_giorgio_sala_t1.revisao.md"),
++                               ("eventos", "T06_giorgio_sala_t1.m200.folha.events.csv")):
++            with self.subTest(arquivo=arquivo), Pasta() as p:
++                caminhos = self._tres(p)
++                with open(p.dir / "S3" / pasta / arquivo.replace("sala", "salao"), "a", encoding="utf-8") as f:
++                    f.write("x")
++                codigo, out, err = self._final(caminhos)
++                self.assertEqual((2, ""), (codigo, out))
++                self.assertIn(f"{arquivo.replace('sala', 'salao')} mudou ou sumiu depois da rodada S3", err)
++
++    def test_Q8_arquivo_apagado_depois_da_rodada_faz_a_final_sair_com_2(self):
++        with Pasta() as p:
++            caminhos = self._tres(p)
++            (p.dir / "S1" / "esperado" / "T09_giorgio_sala_t1.revisao.md").unlink()
++            codigo, _, err = self._final(caminhos)
++        self.assertEqual(2, codigo)
++        self.assertIn("T09_giorgio_sala_t1.revisao.md mudou ou sumiu depois da rodada S1", err)
++
++    def test_Q8_rodada_sem_lidos_sai_com_2(self):
++        with Pasta() as p:
++            caminhos = self._tres(p)
++            j = json.loads(caminhos[0].read_text(encoding="utf-8"))
++            del j["gravacoes"][0]["lidos"]
++            caminhos[0].write_text(json.dumps(j), encoding="utf-8")
++            codigo, _, err = self._final(caminhos)
++        self.assertEqual(2, codigo)
++        self.assertIn("JSON sem o campo esperado", err)
++
++    def test_final_recusa_outra_configuracao_sem_sufixo(self):
++        with Pasta() as p:
++            caminhos = self._tres(p)
++            j = json.loads(caminhos[1].read_text(encoding="utf-8"))
++            j["config"]["preset"] = "Agil"
++            caminhos[1].write_text(json.dumps(j), encoding="utf-8")
++            codigo, _, err = self._final(caminhos)
++        self.assertEqual(2, codigo)
++        self.assertIn("a rodada S2 é de reprodução ou de outra configuração", err)
++
++    def test_final_criterio_sem_nenhuma_rodada_aplicavel_nao_passa(self):
++        with Pasta() as p:
++            caminhos = self._tres(p)
++            for c in caminhos:
++                j = json.loads(c.read_text(encoding="utf-8"))
++                j["criterios"]["CS3"]["estado"] = veredito.NAO_SE_APLICA
++                c.write_text(json.dumps(j), encoding="utf-8")
++            saida = p.dir / "final.json"
++            codigo, _, _ = rodar(veredito.main, ["final", *map(str, caminhos), "--json", str(saida)])
++            dados = json.loads(saida.read_text(encoding="utf-8"))
++        self.assertEqual(1, codigo)
++        self.assertEqual(("NÃO MEDIDO", []), (dados["criterios"]["CS3"]["estado"], dados["criterios"]["CS3"]["rodadas"]))
++
++    def test_D8_ausente_so_conta_nos_criterios_ligados(self):
++        with Pasta() as p:
++            r = Rodada(p.dir).completa()
++            r.oficiais = [o for o in r.oficiais if not o[0].startswith("T10")]
++            _, dados, _, _ = r.rodar()
++        self.assertEqual({"CS1": "NÃO MEDIDO", "CS2": "PASSOU", "CS3": "PASSOU", "CS4": "PASSOU"},
++                         {c: v["estado"] for c, v in dados["criterios"].items()})
++
++
++def _estado_g(dados, nome):
++    return next(g for g in dados["gravacoes"] if g["nome"] == nome)
++
++
+ if __name__ == "__main__":
+     unittest.main()
+```
+
+- [ ] **Passo 2: ver falhar.** `PYTHONDONTWRITEBYTECODE=1 python3 -B etapa0/ferramentas/testar.py 2>&1 | tail -1`. Esperado (prova do arquiteto, executando este plano numa cópia do a728aae): `testar.py: 314 testes, 2 falhas, 113 erros, 0 pulados`, todos em `test_veredito` e `test_cli_0005`. O veredito antigo recusa as folhas das corridas vizinhas e não tem `lidos`, `folha_da_corrida` nem a guarda do CS4.
+
+- [ ] **Passo 3: código.** Gravar o bloco abaixo em `$TMPDIR/0005-c8-veredito.patch` e rodar `git apply --check "$TMPDIR/0005-c8-veredito.patch" && git apply "$TMPDIR/0005-c8-veredito.patch"`.
+
+```diff
+diff --git a/etapa0/ferramentas/veredito.py b/etapa0/ferramentas/veredito.py
+index d4d45a0..8c6cb83 100644
+--- a/etapa0/ferramentas/veredito.py
++++ b/etapa0/ferramentas/veredito.py
+@@ -24,6 +24,7 @@ Códigos de saída: 0 todos os critérios aplicáveis PASSOU e nada pendente; 1
+ import argparse
+ import hashlib
+ import json
++import os
+ import re
+ import sys
+ from pathlib import Path
+@@ -34,6 +35,8 @@ import roteiro
+ PASSOU, REPROVOU, NAO_MEDIDO = "PASSOU", "REPROVOU", "NÃO MEDIDO"
+ SENSIVEL, PENDENTE, NAO_SE_APLICA = "SENSÍVEL AO DESLOCAMENTO", "PENDENTE DE REVISÃO", "NÃO SE APLICA"
+ TOLERANCIA_MS = 200  # spec D3
++CORRIDAS = ("d", "m200", "p200")  # metricas.py com d, d − 200 e d + 200 (spec E1)
++FOLHA = ".folha.events.csv"  # folha de eventos (folha.py); as das corridas vizinhas saem do vizinhas.py
+ REVISAO_CONCLUIDA = "Revisão concluída: sim"
+ 
+ RODADAS = {  # spec D8: voz, ambiente, L30 obrigatório
+@@ -151,6 +154,20 @@ def contar_eventos(conteudos):
+ # ------------------------------------------------------------------ estado por gravação
+ 
+ 
++def _sem_leitura(m):
++    """Motivo para NÃO MEDIDO quando o motor não acompanhou nada (Q3), ou None."""
++    if m["amostras"]["leitura_normal"] == 0:
++        return "sem amostras de leitura normal"
++    if m["cursor_final"]["cursor"] == 0:
++        return "o cursor não saiu do token 0"
++    return None
++
++
++def _fracao_lida(m):
++    cf = m["cursor_final"]
++    return round(cf["cursor"] / cf["ultimo_token"], 4) if cf["ultimo_token"] else None
++
++
+ def estado_base(criterio, m):
+     """(estado, motivo) de um critério num relatório do metricas.py, sem sensibilidade nem revisão."""
+     c = m["criterios"]
+@@ -159,11 +176,9 @@ def estado_base(criterio, m):
+         if a["amostras"] == 0:
+             return NAO_MEDIDO, "sem amostras de leitura normal"
+         return (PASSOU, None) if a["veredito"] == "PASSA" else (REPROVOU, None)
++    if criterio in ("CS2", "CS4") and _sem_leitura(m):
++        return NAO_MEDIDO, _sem_leitura(m)
+     if criterio == "CS2":
+-        if m["amostras"]["leitura_normal"] == 0:
+-            return NAO_MEDIDO, "sem amostras de leitura normal"
+-        if m["cursor_final"]["cursor"] == 0:
+-            return NAO_MEDIDO, "o cursor não saiu do token 0"
+         ruim = c["salto_errado"]["veredito"] == "REPROVA" or c["recuo"]["veredito"] == "REPROVA"
+         return (REPROVOU, None) if ruim else (PASSOU, None)
+     if criterio == "CS3":
+@@ -185,13 +200,11 @@ def numeros(criterio, m, eventos):
+         classes = {}
+         for mv in s["por_movimento"]:
+             classes[mv["classe"]] = classes.get(mv["classe"], 0) + 1
+-        cf = m["cursor_final"]
+         return {"amostras": m["amostras"]["total"], "leitura_normal": m["amostras"]["leitura_normal"],
+                 "episodios_posicao": len(s["por_posicao"]), "movimentos": len(s["por_movimento"]),
+                 "movimentos_por_classe": classes, "recuos": len(c["recuo"]["violacoes"]),
+                 "amostras_janela_toque": sum(j["amostras_excluidas"] for j in m["janelas_toque"]),
+-                "fracao_lida": round(cf["cursor"] / cf["ultimo_token"], 4) if cf["ultimo_token"] else None,
+-                "eventos": eventos}
++                "fracao_lida": _fracao_lida(m), "eventos": eventos}
+     if criterio == "CS3":
+         return {"pulos": [{"recuperacao_ms": p["recuperacao_ms"], "alvo": p["alvo"],
+                            "primeiro_pulado": p["primeiro_pulado"]} for p in c["recuperacao"]["pulos"]],
+@@ -199,16 +212,22 @@ def numeros(criterio, m, eventos):
+     movimentos = [mv for mv in c["salto_errado"]["por_movimento"] if mv["intervalo"] in ("silencio", "pausa")]
+     return {"intervalos": {"silencio": eventos["silencio"], "pausa": eventos["pausa"]}, "movimentos": len(movimentos),
+             "movimentos_por_classe": {k: sum(1 for mv in movimentos if mv["classe"] == k)
+-                                      for k in ("alcance", "além do esperado")}}
++                                      for k in ("alcance", "além do esperado")},
++            "leitura_normal": m["amostras"]["leitura_normal"], "fracao_lida": _fracao_lida(m)}
+ 
+ 
+ def ligado(criterio, texto_id, ambiente):
+     return texto_id in LIGADOS[criterio] and (criterio not in SO_SALA or ambiente == "sala")
+ 
+ 
+-def conferir_entradas(entradas, pastas, nome, oficial=None):
++def folha_da_corrida(nome, corrida):
++    return nome + ("" if corrida == "d" else "." + corrida) + FOLHA
++
++
++def conferir_entradas(entradas, pastas, nome, oficial=None, corrida="d"):
+     """sha256 de cada arquivo citado pelo relatório igual ao do disco (Q8). Devolve {papel: [caminhos]}.
+-    `oficial`: nome da gravação oficial, dono do esperado e do WAV quando `nome` é uma reprodução."""
++    `oficial`: nome da gravação oficial, dono do esperado e do WAV quando `nome` é uma reprodução.
++    `corrida`: d, m200 ou p200; os eventos só podem ser o events.csv do app e a folha dessa corrida."""
+     caminhos = {}
+     sufixos = {"trajetoria": ".trajectory.csv", "esperado": ".expected.csv", "hipoteses": ".hypotheses.csv",
+                "wav": ".wav", "level": ".level.csv"}
+@@ -217,8 +236,9 @@ def conferir_entradas(entradas, pastas, nome, oficial=None):
+         papel, arquivo = e["papel"], e["arquivo"]
+         if papel in sufixos and arquivo != dono.get(papel, nome) + sufixos[papel]:
+             raise ErroEntrada(f"{nome}: o relatório usou {arquivo} como {papel}")
+-        if papel == "eventos" and not arquivo.startswith(nome + "."):
+-            raise ErroEntrada(f"{nome}: o relatório usou eventos de outra gravação ({arquivo})")
++        if papel == "eventos" and arquivo not in (nome + ".events.csv", folha_da_corrida(nome, corrida)):
++            raise ErroEntrada(f"{nome}: a corrida {corrida} usou {arquivo} como eventos; só valem {nome}.events.csv "
++                              f"e {folha_da_corrida(nome, corrida)}")
+         caminho = pastas[papel] / arquivo
+         if not caminho.is_file() or _sha256(caminho) != e["sha256"]:
+             raise ErroEntrada(f"{nome}: {arquivo} mudou ou sumiu depois do relatório (Q8); rode de novo")
+@@ -226,6 +246,40 @@ def conferir_entradas(entradas, pastas, nome, oficial=None):
+     return caminhos
+ 
+ 
++def conferir_folhas(caminhos, m, nome):
++    """A folha de cada corrida vizinha é a folha de d no mesmo relógio do WAV (spec D3, E1): mesmos eventos, com
++    t + deslocamento da corrida igual a t + d. A folha fica parada onde foi medida; o resto anda ±200 ms."""
++    folhas = {k: [c for c in caminhos[k].get("eventos", []) if c.name.endswith(FOLHA)] for k in CORRIDAS}
++    if all(not folhas[k] for k in CORRIDAS):
++        return
++    na_wav = {}
++    for k in CORRIDAS:
++        if len(folhas[k]) != 1:
++            raise ErroEntrada(f"{nome}: a corrida {k} não usou a folha dela ({folha_da_corrida(nome, k)}); "
++                              "rode vizinhas.py e o metricas.py das três corridas")
++        try:
++            na_wav[k] = metricas.ler_eventos([folhas[k][0].read_text(encoding="utf-8")], m[k]["deslocamento_ms"], 10**9)
++        except metricas.ErroEntrada as erro:
++            raise ErroEntrada(f"{folhas[k][0].name}: {erro}") from None
++    for k in ("m200", "p200"):
++        if na_wav[k] != na_wav["d"]:
++            raise ErroEntrada(f"{nome}: {folhas[k][0].name} não é {folhas['d'][0].name} no relógio do WAV; "
++                              "rode vizinhas.py e o metricas.py das três corridas")
++
++
++def parados_depois(caminhos, d, tipos):
++    """Intervalos [(tipo, fim no relógio do WAV)] dos `tipos` sem nenhum movimento automático depois do fim (Q3):
++    sem o motor andando depois do intervalo, "zero movimentos dentro" não mostra nada."""
++    try:
++        trajetoria = metricas.ler_trajetoria(caminhos["trajetoria"][0].read_text(encoding="utf-8"), d)
++        conteudos = [c.read_text(encoding="utf-8") for c in caminhos.get("eventos", [])]
++        faixas = metricas.intervalos(metricas.ler_eventos(conteudos, d, 10**9))
++    except metricas.ErroEntrada as erro:
++        raise ErroEntrada(str(erro)) from None
++    ultimo = max((linha.t for linha in trajetoria if linha.move in metricas.AUTOMATICOS), default=None)
++    return [(k, b) for k in tipos for _, b, _ in faixas[k] if ultimo is None or ultimo < b]
++
++
+ def avaliar_gravacao(oficial, texto_id, pastas, sufixo="", config=None):
+     """Estado de cada critério ligado de uma gravação da lista (ou da reprodução dela, com `sufixo`)."""
+     config = config or CONFIG_OFICIAL
+@@ -236,7 +290,10 @@ def avaliar_gravacao(oficial, texto_id, pastas, sufixo="", config=None):
+     arquivos = {"d": rel / f"{nome}.json", "m200": rel / f"{nome}.m200.json", "p200": rel / f"{nome}.p200.json",
+                 "sinc": rel / f"{nome}.sinc.json", "meta": pastas["trajetoria"] / f"{nome}.meta.txt"}
+     faltam = sorted(p.name for p in arquivos.values() if not p.is_file())
+-    saida = {"nome": nome, "oficial": oficial, "texto": texto_id, "criterios": {}, "faltam": faltam, "motivos": []}
++    revisao = pastas["esperado"] / f"{oficial}.revisao.md"
++    lidos = {p for p in list(arquivos.values()) + [revisao] if p.is_file()}
++    saida = {"nome": nome, "oficial": oficial, "texto": texto_id, "criterios": {}, "faltam": faltam, "motivos": [],
++             "_lidos": lidos}
+     if faltam:
+         for c in criterios:
+             saida["criterios"][c] = {"estado": NAO_MEDIDO, "motivo": "faltam " + ", ".join(faltam)}
+@@ -248,17 +305,19 @@ def avaliar_gravacao(oficial, texto_id, pastas, sufixo="", config=None):
+         if m[chave]["deslocamento_ms"] != esperado:
+             raise ErroEntrada(f"{nome}: {arquivos[chave].name} com deslocamento {m[chave]['deslocamento_ms']}, "
+                               f"esperado {esperado} (sincronizar deu {d})")
+-    proveniencia = [sorted((e["papel"], e["arquivo"], e["sha256"]) for e in m[k]["entradas"]) for k in m]
+-    if proveniencia[0] != proveniencia[1] or proveniencia[0] != proveniencia[2]:
++    comuns = [sorted((e["papel"], e["arquivo"], e["sha256"]) for e in m[k]["entradas"]
++                     if not e["arquivo"].endswith(FOLHA)) for k in CORRIDAS]
++    if comuns[0] != comuns[1] or comuns[0] != comuns[2]:
+         raise ErroEntrada(f"{nome}: os três relatórios do metricas.py não usaram os mesmos arquivos")
+-    caminhos = conferir_entradas(m["d"]["entradas"], pastas, nome, oficial)
+-    conferir_entradas(sinc["entradas"], pastas, nome, oficial)
+-    eventos = contar_eventos([c.read_text(encoding="utf-8") for c in caminhos.get("eventos", [])])
++    caminhos = {k: conferir_entradas(m[k]["entradas"], pastas, nome, oficial, k) for k in CORRIDAS}
++    conferir_folhas(caminhos, m, nome)
++    lidos.update(c for k in CORRIDAS for lista in caminhos[k].values() for c in lista)
++    lidos.update(c for lista in conferir_entradas(sinc["entradas"], pastas, nome, oficial).values() for c in lista)
++    eventos = contar_eventos([c.read_text(encoding="utf-8") for c in caminhos["d"].get("eventos", [])])
+     meta = ler_meta(arquivos["meta"])
+     if meta.get("text_id") != texto_id:
+         raise ErroEntrada(f"{nome}: meta.txt com text_id={meta.get('text_id')}")
+     diferentes = [f"{k}={meta.get(k)}" for k, v in config.items() if meta.get(k) != v]
+-    revisao = pastas["esperado"] / f"{oficial}.revisao.md"
+     revisada = revisao.is_file() and REVISAO_CONCLUIDA in revisao.read_text(encoding="utf-8").splitlines()
+     saida.update({"deslocamento_ms": d, "sinc_motivos": sinc["motivos"], "revisada": revisada, "eventos": eventos,
+                   "configuracao_diferente": diferentes})
+@@ -270,13 +329,21 @@ def avaliar_gravacao(oficial, texto_id, pastas, sufixo="", config=None):
+             estado, motivo = NAO_MEDIDO, "sem " + " e ".join(faltando) + " nos eventos"
+         else:
+             estado, motivo = estado_base(c, m["d"])
++            tipos = [k for k in EXIGIDOS.get((c, texto_id), ()) if k in metricas.SEM_MOVIMENTO]
++            parados = parados_depois(caminhos["d"], d, tipos) if estado == PASSOU and tipos else []
++            if parados:
++                estado = NAO_MEDIDO
++                motivo = "o cursor não andou depois de " + ", ".join(f"{k} (fim em {b} ms do WAV)" for k, b in parados)
+         vizinhos = [estado_base(c, m[k])[0] for k in ("m200", "p200")]
+         sensivel = estado != NAO_MEDIDO and (any(v != estado for v in vizinhos) or bool(sinc["motivos"]))
+-        if estado == PASSOU and sensivel:
+-            estado = SENSIVEL
+-            motivo = "; ".join(sinc["motivos"] + [f"com d−200 e d+200: {vizinhos[0]}, {vizinhos[1]}"])
++        if sensivel:
++            marca = "sensível ao deslocamento: " + "; ".join(
++                sinc["motivos"] + [f"com d−200 e d+200: {vizinhos[0]}, {vizinhos[1]}"])
++            motivo = marca  # estado_base não dá motivo a PASSOU nem a REPROVOU
++            if estado == PASSOU:
++                estado = SENSIVEL
+         if estado in (PASSOU, REPROVOU, SENSIVEL) and not revisada:
+-            motivo = f"sem revisão concluída (D7); sem ela seria {estado}"
++            motivo = f"sem revisão concluída (D7); sem ela seria {estado}" + (f" ({motivo})" if motivo else "")
+             estado = PENDENTE
+         saida["criterios"][c] = {"estado": estado, "motivo": motivo, "sensivel": sensivel,
+                                  "regra": REGRAS[c], "numeros": numeros(c, m["d"], eventos)}
+@@ -297,10 +364,14 @@ def agregar(estados):
+     return NAO_MEDIDO, [f"{n}: {e}" for n, e in estados if e != PASSOU]
+ 
+ 
+-def rodada(nome_rodada, oficiais, pastas, sufixo="", config=None):
++def rodada(nome_rodada, oficiais, pastas, sufixo="", config=None, base=None):
++    """`base`: pasta do JSON da rodada; os arquivos lidos ficam com caminho relativo a ela e sha256 (Q8)."""
+     voz, amb, _ = RODADAS[nome_rodada]
++    base = Path(base or Path.cwd()).resolve()
+     presentes = {(texto_id, variante): nome for nome, texto_id, variante in oficiais}
+     gravacoes = [avaliar_gravacao(nome, texto_id, pastas, sufixo, config) for nome, texto_id, _ in oficiais]
++    for g in gravacoes:
++        g["lidos"] = {os.path.relpath(p.resolve(), base): _sha256(p) for p in sorted(g.pop("_lidos"))}
+     ausentes = [(t, v) for t, v in obrigatorios(nome_rodada) if (t, v) not in presentes]
+     criterios = {}
+     for c in CRITERIOS:
+@@ -315,11 +386,18 @@ def rodada(nome_rodada, oficiais, pastas, sufixo="", config=None):
+             "ausentes": [f"{t}{' variante ' + v if v else ''}" for t, v in ausentes], "pendencias": pendencias}
+ 
+ 
+-def final(rodadas):
++def final(rodadas, bases):
++    """`bases`: pasta de cada JSON de rodada; cada arquivo que a rodada leu tem de estar igual (Q8)."""
+     por_nome = {}
+-    for r in rodadas:
++    for r, base in zip(rodadas, bases):
+         if r.get("rodada") not in RODADAS:
+             raise ErroEntrada("final: JSON que não é de veredito.py rodada")
++        for g in r["gravacoes"]:
++            for relativo, sha in g["lidos"].items():
++                caminho = Path(base) / relativo
++                if not caminho.is_file() or _sha256(caminho) != sha:
++                    raise ErroEntrada(f"final: {relativo} mudou ou sumiu depois da rodada {r['rodada']} (Q8); "
++                                      "rode a rodada de novo")
+         if r.get("sufixo") or r.get("config") != CONFIG_OFICIAL:
+             raise ErroEntrada(f"final: a rodada {r['rodada']} é de reprodução ou de outra configuração; "
+                               "os critérios de saída usam só as gravações oficiais (D1, D10)")
+@@ -422,10 +500,11 @@ def main(argv=None):
+                 config[chave] = valor
+             if args.sufixo and not re.fullmatch(r"(_[a-z0-9]+)+", args.sufixo):
+                 raise ErroEntrada("--sufixo: só _[a-z0-9]+ (o nome da exportação do app não aceita outro caractere)")
+-            res = rodada(args.rodada, oficiais, pastas, args.sufixo, config)
++            base = Path(args.json).resolve().parent if args.json else Path.cwd()
++            res = rodada(args.rodada, oficiais, pastas, args.sufixo, config, base)
+             texto = relatorio_rodada(res)
+         else:
+-            res = final([_json(c) for c in args.rodadas])
++            res = final([_json(c) for c in args.rodadas], [Path(c).resolve().parent for c in args.rodadas])
+             texto = relatorio_final(res)
+     except (OSError, UnicodeDecodeError, ErroEntrada) as erro:
+         print(f"veredito.py: {erro}", file=sys.stderr)
+```
+
+- [ ] **Passo 4: ver passar.** `PYTHONDONTWRITEBYTECODE=1 python3 -B etapa0/ferramentas/testar.py 2>&1 | tail -1` → `testar.py: 314 testes, 0 falhas, 0 erros, 0 pulados`.
+
+- [ ] **Passo 5: commit.**
+
+```bash
+git add etapa0/ferramentas/veredito.py etapa0/ferramentas/testes/test_veredito.py etapa0/ferramentas/testes/test_cli_0005.py
+git commit -m "fix(etapa0): veredito com folha por corrida, CS4 com motor acompanhando, motivo de sensível e final que confere os lidos (spec 0005 D3, E1, E2, Q8; revisão 0005 achados 1-4, OPR-045)"
+```
+
+### Tarefa 9 (motor-voz): testes das lacunas (C6)
+
+Estes testes passam de primeira, porque o código já está certo; o "ver falhar" deles é a quebra Q2 da Tarefa 10 (RN02, RN04, RN11, RF08, RF12, RF12b, RF13, RF13b, RS03, RS03b, RS05, RS06, RS13, RS15, RS21, RS23).
+
+- [ ] **Passo 1.** Gravar o bloco em `$TMPDIR/0005-c9-testes.patch` e rodar `git apply --check "$TMPDIR/0005-c9-testes.patch" && git apply "$TMPDIR/0005-c9-testes.patch"`.
+
+```diff
+diff --git a/etapa0/ferramentas/testes/test_folha.py b/etapa0/ferramentas/testes/test_folha.py
+index 03740be..087136c 100644
+--- a/etapa0/ferramentas/testes/test_folha.py
++++ b/etapa0/ferramentas/testes/test_folha.py
+@@ -281,5 +281,32 @@ class EntradaTest(unittest.TestCase):
+             self.assertIn(termo, out)
+ 
+ 
++
++class GuardasTest(unittest.TestCase):
++    """Achado 7 da revisão (RF08, RF12, RF13; OPR-044)."""
++
++    def test_sem_token_com_tempo_antes_ou_depois_da_fronteira_sai_com_2(self):
++        for nome, sem_tempo in (("antes", range(0, 135)), ("depois", range(135, N))):
++            with self.subTest(lado=nome):
++                codigo, linhas, err = _rodar("T06", _tempos(N, 134, sem_tempo=set(sem_tempo), gap=30000))
++                self.assertEqual((2, []), (codigo, linhas))
++                self.assertIn("silencio: nenhum token com tempo antes do token 134 ou depois do token 135", err)
++
++    def test_nota_no_comeco_ou_no_fim_do_texto_sai_com_erro(self):
++        base = roteiro.ler_texto("T06").replace("// SILÊNCIO", "// NOTA")
++        for texto in ("// SILÊNCIO de 30 s\n\n" + base, base + "\n\n// SILÊNCIO de 30 s\n"):
++            with self.subTest(texto=texto[:20]):
++                with self.assertRaises(folha.ErroEntrada) as erro:
++                    folha.fronteiras("T06", texto, roteiro.tokenizar(texto))
++                self.assertIn("não fica entre dois tokens", str(erro.exception))
++
++    def test_D7_ultimo_token_pulado_com_tempo_avisa(self):
++        tempos = PuloTest()._tempos_t05()
++        tempos[90] = (tempos[91][0] - 200, tempos[91][0] - 100)
++        codigo, _, err = _rodar("T05", tempos)
++        self.assertEqual(1, codigo)
++        self.assertIn("aviso: pulo: 1 token(s) do parágrafo pulado com tempo (primeiro: token 90)", err)
++
++
+ if __name__ == "__main__":
+     unittest.main()
+diff --git a/etapa0/ferramentas/testes/test_nivel.py b/etapa0/ferramentas/testes/test_nivel.py
+index 8135b26..e82e17c 100644
+--- a/etapa0/ferramentas/testes/test_nivel.py
++++ b/etapa0/ferramentas/testes/test_nivel.py
+@@ -41,7 +41,7 @@ class Gravacoes:
+         for p in self.pastas.values():
+             p.mkdir(parents=True, exist_ok=True)
+ 
+-    def gravacao(self, nome, level, hipoteses, eventos, movimentos=()):
++    def gravacao(self, nome, level, hipoteses, eventos, movimentos=(), deslocamento=D):
+         tp = self.pastas["trajetorias"]
+         (tp / f"{nome}.level.csv").write_text(level, encoding="utf-8")
+         hip = tp / f"{nome}.hypotheses.csv"
+@@ -54,9 +54,9 @@ class Gravacoes:
+         ev.write_text(s.eventos_csv(eventos), encoding="utf-8")
+         entradas = [{"papel": p, "arquivo": c.name, "sha256": _sha(c)}
+                     for p, c in (("trajetoria", traj), ("esperado", esp), ("eventos", ev), ("hipoteses", hip))]
+-        relatorio = {"deslocamento_ms": D, "entradas": entradas,
++        relatorio = {"deslocamento_ms": deslocamento, "entradas": entradas,
+                      "criterios": {"salto_errado": {"por_movimento": [
+-                         {"t_ms": t + D, "cursor": 5, "move": "Short", "intervalo": k, "esperado_no_inicio": 4,
++                         {"t_ms": t + deslocamento, "cursor": 5, "move": "Short", "intervalo": k, "esperado_no_inicio": 4,
+                           "classe": "alcance"} for t, k in movimentos]}}}
+         (self.pastas["relatorios"] / f"{nome}.json").write_text(json.dumps(relatorio), encoding="utf-8")
+         return self
+@@ -194,5 +194,41 @@ class NivelTest(unittest.TestCase):
+             self.assertIn(termo, out)
+ 
+ 
++
++class CausaENivelTest(unittest.TestCase):
++    """Achados 5 e 9 da revisão (RN02, RN11, RN04; OPR-046)."""
++
++    def test_D12_causa_no_relogio_do_app_com_deslocamento_grande(self):
++        # movimento em 20.300 ms do app (23.300 do WAV com d = 3.000); a parcial de 21.500 vem depois dele
++        hip = [(20100, "partial", "x", True), (21500, "partial", "y", True)]
++        with Pasta() as p:
++            g = Gravacoes(p.dir).gravacao("T06_giorgio_sala_t1", _level({**PICO, 21400: 0.003}), hip, SILENCIO,
++                                          movimentos=[(20300, "silencio")], deslocamento=3000)
++            _, dados, _, err = g.rodar("T06_giorgio_sala_t1")
++        mv = dados["gravacoes"][0]["movimentos"][0]
++        self.assertEqual((20300, 20100, 0.004), (mv["t_app_ms"], mv["causa_t_ms"], mv["causa_nivel"]), err)
++
++    def test_D12_final_depois_de_parcial_e_a_causa_e_nao_da_candidato(self):
++        hip = [(19000, "partial", "x", True), (20100, "final", "x y", True)]
++        with Pasta() as p:
++            g = Gravacoes(p.dir).gravacao("T06_giorgio_sala_t1", _level({**PICO, 30000: 0.006}), hip, SILENCIO,
++                                          movimentos=[(20300, "silencio")])
++            codigo, dados, _, _ = g.rodar("T06_giorgio_sala_t1")
++        mv = dados["gravacoes"][0]["movimentos"][0]
++        self.assertEqual(("final", 20100), (mv["causa_kind"], mv["causa_t_ms"]))
++        self.assertEqual(1, codigo)
++        self.assertIsNone(dados["recomendacao"]["candidato"])
++        self.assertIn("Final", dados["recomendacao"]["motivo"])
++
++    def test_F4_leitura_nao_inclui_o_improviso(self):
++        eventos = [(10000, "improviso_inicio", ""), (40000, "improviso_fim", "")]
++        with Pasta() as p:
++            g = Gravacoes(p.dir).gravacao("T04_giorgio_sala_t1", _level({20000: 0.9}), [], eventos)
++            _, dados, _, _ = g.rodar("T04_giorgio_sala_t1")
++        n = dados["gravacoes"][0]["niveis"]
++        self.assertEqual((150, 0.9), (n["improviso"]["n"], n["improviso"]["maximo"]))
++        self.assertEqual((299 - 150, 0.05), (n["leitura"]["n"], n["leitura"]["maximo"]))
++
++
+ if __name__ == "__main__":
+     unittest.main()
+diff --git a/etapa0/ferramentas/testes/test_sincronizar.py b/etapa0/ferramentas/testes/test_sincronizar.py
+index 5dce726..3d25dc8 100644
+--- a/etapa0/ferramentas/testes/test_sincronizar.py
++++ b/etapa0/ferramentas/testes/test_sincronizar.py
+@@ -310,5 +310,68 @@ class SaidaTest(unittest.TestCase):
+             self.assertIn(termo, out)
+ 
+ 
++
++class LacunasTest(unittest.TestCase):
++    """Achado 6 da revisão (RS03, RS05, RS06, RS13, RS15, RS21, RS23; OPR-043)."""
++
++    LEVEL = "t_ms,rms\n1000,0.001\n2000,0.5\n2990,0.002\n3000,0.003\n3010,0.001\n1010,0.004\n"
++
++    def _palma(self, energias, linhas=None, d=1000):
++        linhas = linhas or [(1000, 0.001), (2000, 0.5), (2600, 0.002), (3000, 0.003)]
++        chamadas = []
++
++        def buscar(serie, _wav, lo, hi, meio_do_empate=False):
++            chamadas.append((serie.linhas, lo, hi, meio_do_empate))
++            return d, 0.9
++
++        with mock.patch.object(sincronizar, "buscar", side_effect=buscar):
++            res = sincronizar.palma(linhas, sincronizar.Wav(energias), d, 4000)
++        return res, chamadas
++
++    def test_D4_janela_do_pico_da_palma_no_wav(self):
++        # linha da palma em 2.000 ms do app, d = 1.000: bloco termina na fatia 300; janela = fatias [180, 400)
++        for pico, esperado in ((180, 1800), (179, 2500), (399, 3990), (400, 2500)):
++            with self.subTest(pico=pico):
++                energias = [1] * 500
++                energias[250] = 50
++                energias[pico] = 100
++                res, _ = self._palma(energias)
++                self.assertEqual(esperado, res["wav_pico_ms"])
++
++    def test_D4_palma_usa_as_linhas_a_ate_1_s_e_busca_a_ate_1_s(self):
++        linhas = [(900, 0.001), (1000, 0.002), (1600, 0.004), (2000, 0.5), (2500, 0.003), (3000, 0.002),
++                  (3010, 0.001)]
++        _, chamadas = self._palma([1] * 500, linhas)
++        locais, lo, hi, meio = chamadas[0]
++        self.assertEqual([1000, 1600, 2000, 2500, 3000], [t for t, _ in locais])
++        self.assertEqual((0, 2000, True), (lo, hi, meio))
++
++    def test_faixa_fora_da_grade_de_10_ms_vai_para_dentro(self):
++        level = sinal.level_csv(AMOSTRAS, -40, 41000, ganho=0.5)
++        codigo, dados, _, _ = _rodar(level, "--faixa-ms", "-1005", "1005")
++        self.assertEqual(0, codigo)
++        self.assertEqual([-1000, 1000], dados["faixa_ms"])
++        self.assertEqual(0, dados["deslocamento_ms"] % 10)
++
++    def test_centro_e_a_media_dos_instantes(self):
++        serie = sincronizar.Serie([(0, 0.1), (100, 0.2), (1000, 0.3)])
++        self.assertAlmostEqual(1100 / 3, serie.centro)
++
++    def test_wav_de_8_ou_24_bits_sai_com_2(self):
++        import random
++        import wave
++        for largura in (1, 3):
++            with self.subTest(largura=largura), Pasta() as p:
++                caminho = p.dir / "l.wav"
++                with wave.open(str(caminho), "wb") as w:
++                    w.setnchannels(1)
++                    w.setsampwidth(largura)
++                    w.setframerate(16000)
++                    w.writeframes(random.Random(5).randbytes(16000 * 90 * largura))  # 90 s: lido como 16 bits, cobre
++                codigo, dados, out, err = _rodar(sinal.level_csv(AMOSTRAS, D, 38000), wav=str(caminho))
++                self.assertEqual((2, None, ""), (codigo, dados, out))
++                self.assertIn("16 kHz, mono, PCM 16 bits", err)
++
++
+ if __name__ == "__main__":
+     unittest.main()
+```
+
+- [ ] **Passo 2.** `PYTHONDONTWRITEBYTECODE=1 python3 -B etapa0/ferramentas/testar.py 2>&1 | tail -1` → `testar.py: 325 testes, 0 falhas, 0 erros, 0 pulados`.
+
+- [ ] **Passo 3: commit.**
+
+```bash
+git add etapa0/ferramentas/testes/test_nivel.py etapa0/ferramentas/testes/test_folha.py etapa0/ferramentas/testes/test_sincronizar.py
+git commit -m "test(etapa0): lacunas de nivel, folha e sincronizar (revisão 0005 achados 5-9; OPR-043, OPR-044, OPR-046)"
+```
+
+### Tarefa 10 (motor-voz): quebras Q2, verificação e evidências
+
+- [ ] **Passo 1: as 75 quebras novas,** uma a uma, com o mesmo runner da Tarefa 6 (fora do repositório; aplica a troca, apaga todo `__pycache__`, roda `PYTHONDONTWRITEBYTECODE=1 python3 -B etapa0/ferramentas/testar.py`, restaura o arquivo). `⏎` é quebra de linha. Esperado: **75 vermelhas, 0 verdes** (resultado da prova do arquiteto). Saída em `work/0005-etapa0-medicao/evidencias/b2-quebras-q2.txt`.
+
+| Id | Arquivo | De | Para | Resultado na prova |
+|---|---|---|---|---|
+| Z01 | `vizinhas.py` | `CORRIDAS = {"m200": TOLERANCIA_MS, "p200": -TOLERANCIA_MS}` | `CORRIDAS = {"m200": -TOLERANCIA_MS, "p200": TOLERANCIA_MS}` | vermelho |
+| Z02 | `vizinhas.py` | `negativos = [t for t, _, _ in saida if t < 0]` | `negativos = [t for t, _, _ in saida if t <= 0]` | vermelho |
+| Z03 | `vizinhas.py` | `    if negativos:⏎` | `    if False:⏎` | vermelho |
+| Z04 | `vizinhas.py` | `        metricas.intervalos(eventos)⏎` | (remove) | vermelho |
+| Z05 | `vizinhas.py` | `    if not entrada.name.endswith(SUFIXO):` | `    if False:` | vermelho |
+| Z06 | `vizinhas.py` | `    if not nome or nome.endswith(tuple(f".{c}" for c in CORRIDAS)):` | `    if not nome:` | vermelho |
+| Z07 | `vizinhas.py` | `    if not nome or nome.endswith(` | `    if nome.endswith(` | vermelho |
+| Z08 | `vizinhas.py` | `saida = [(ev.t + ms, ev.nome, ev.detalhe)` | `saida = [(ev.t - ms, ev.nome, ev.detalhe)` | vermelho |
+| Z09 | `vizinhas.py` | `saida = [(ev.t + ms, ev.nome, ev.detalhe)` | `saida = [(ev.t + ms, ev.nome, "")` | vermelho |
+| V40 | `veredito.py` | `    if m["amostras"]["leitura_normal"] == 0:⏎        return "sem` | `    if m["amostras"]["leitura_normal"] < 0:⏎        return "sem` | vermelho |
+| V41 | `veredito.py` | `    if m["cursor_final"]["cursor"] == 0:⏎        return "o cursor` | `    if m["cursor_final"]["cursor"] < 0:⏎        return "o cursor` | vermelho |
+| V42 | `veredito.py` | `if criterio in ("CS2", "CS4") and _sem_leitura(m):` | `if criterio in ("CS2",) and _sem_leitura(m):` | vermelho |
+| V42b | `veredito.py` | `if criterio in ("CS2", "CS4") and _sem_leitura(m):` | `if criterio in ("CS4",) and _sem_leitura(m):` | vermelho |
+| V43 | `veredito.py` | `"leitura_normal": m["amostras"]["leitura_normal"], "fracao_lida": _fracao_lida(m)}` | `"fracao_lida": _fracao_lida(m)}` | vermelho |
+| V43b | `veredito.py` | `"leitura_normal": m["amostras"]["leitura_normal"], "fracao_lida": _fracao_lida(m)}` | `"leitura_normal": m["amostras"]["leitura_normal"]}` | vermelho |
+| V44 | `veredito.py` | `return nome + ("" if corrida == "d" else "." + corrida) + FOLHA` | `return nome + "." + corrida + FOLHA` | vermelho |
+| V45 | `veredito.py` | `arquivo not in (nome + ".events.csv", folha_da_corrida(nome, corrida))` | `arquivo not in (folha_da_corrida(nome, corrida),)` | vermelho |
+| V46 | `veredito.py` | `arquivo not in (nome + ".events.csv", folha_da_corrida(nome, corrida))` | `arquivo not in (nome + ".events.csv", folha_da_corrida(nome, "d"))` | vermelho |
+| V46b | `veredito.py` | `arquivo not in (nome + ".events.csv", folha_da_corrida(nome, corrida))` | `not arquivo.startswith(nome + ".")` | vermelho |
+| V47 | `veredito.py` | `caminhos = {k: conferir_entradas(m[k]["entradas"], pastas, nome, oficial, k) for k in CORRIDAS}` | `caminhos = {k: conferir_entradas(m[k]["entradas"], pastas, nome, oficial) for k in CORRIDAS}` | vermelho |
+| V48 | `veredito.py` | `caminhos = {k: conferir_entradas(m[k]["entradas"], pastas, nome, oficial, k) for k in CORRIDAS}` | `caminhos = {k: conferir_entradas(m[k]["entradas"], pastas, nome, oficial, "d") if k == "d" else {"eventos": [pastas["eventos"] / folha_da_corrida(nome, k)]} for k in CORRIDAS}` | vermelho |
+| V49 | `veredito.py` | `    if all(not folhas[k] for k in CORRIDAS):` | `    if not folhas["d"]:` | vermelho |
+| V50 | `veredito.py` | `        if len(folhas[k]) != 1:` | `        if len(folhas[k]) == 0:` | vermelho |
+| V51 | `veredito.py` | `encoding="utf-8")], m[k]["deslocamento_ms"], 10**9)` | `encoding="utf-8")], m["d"]["deslocamento_ms"], 10**9)` | vermelho |
+| V52 | `veredito.py` | `    for k in ("m200", "p200"):⏎        if na_wav[k]` | `    for k in ("m200",):⏎        if na_wav[k]` | vermelho |
+| V52b | `veredito.py` | `    for k in ("m200", "p200"):⏎        if na_wav[k]` | `    for k in ("p200",):⏎        if na_wav[k]` | vermelho |
+| V53 | `veredito.py` | `        if na_wav[k] != na_wav["d"]:` | `        if False:` | vermelho |
+| V54 | `veredito.py` | `                     if not e["arquivo"].endswith(FOLHA)) for k in CORRIDAS]` | `                     ) for k in CORRIDAS]` | vermelho |
+| V55 | `veredito.py` | `    if comuns[0] != comuns[1] or comuns[0] != comuns[2]:` | `    if comuns[0] != comuns[2]:` | vermelho |
+| V55b | `veredito.py` | `    if comuns[0] != comuns[1] or comuns[0] != comuns[2]:` | `    if comuns[0] != comuns[1]:` | vermelho |
+| V56 | `veredito.py` | `ultimo = max((linha.t for linha in trajetoria if linha.move in metricas.AUTOMATICOS), default=None)` | `ultimo = max((linha.t for linha in trajetoria if linha.move != "Stay"), default=None)` | vermelho |
+| V56b | `veredito.py` | `ultimo = max((linha.t for linha in trajetoria if linha.move in metricas.AUTOMATICOS), default=None)` | `ultimo = max((linha.t for linha in trajetoria if linha.move != "Reposition"), default=None)` | vermelho |
+| V57 | `veredito.py` | `if ultimo is None or ultimo < b]` | `if ultimo is None or ultimo <= b]` | vermelho |
+| V58 | `veredito.py` | `if ultimo is None or ultimo < b]` | `if ultimo < b]` | vermelho |
+| V59 | `veredito.py` | `parados = parados_depois(caminhos["d"], d, tipos)` | `parados = parados_depois(caminhos["d"], 0, tipos)` | vermelho |
+| V59b | `veredito.py` | `return [(k, b) for k in tipos for _, b, _ in faixas[k]` | `return [(k, a) for k in tipos for a, _, _ in faixas[k]` | vermelho |
+| V60 | `veredito.py` | `tipos = [k for k in EXIGIDOS.get((c, texto_id), ()) if k in metricas.SEM_MOVIMENTO]` | `tipos = [k for k in EXIGIDOS.get((c, texto_id), ())]` | vermelho |
+| V60b | `veredito.py` | `tipos = [k for k in EXIGIDOS.get((c, texto_id), ()) if k in metricas.SEM_MOVIMENTO]` | `tipos = [k for k in metricas.SEM_MOVIMENTO]` | vermelho |
+| V61 | `veredito.py` | `if estado == PASSOU and tipos else []` | `if tipos else []` | vermelho |
+| V61b | `veredito.py` | `            if parados:⏎` | `            if False:⏎` | vermelho |
+| V62 | `veredito.py` | `            motivo = marca  # estado_base` | `            motivo = None  # estado_base` | vermelho |
+| V63 | `veredito.py` | `            if estado == PASSOU:⏎                estado = SENSIVEL` | `            if False:⏎                estado = SENSIVEL` | vermelho |
+| V64 | `veredito.py` | ` + (f" ({motivo})" if motivo else "")` | (remove) | vermelho |
+| V64b | `veredito.py` | ` + (f" ({motivo})" if motivo else "")` | ` + f" ({motivo})"` | vermelho |
+| V64c | `veredito.py` | `        if sensivel:⏎            marca` | `        if estado == PASSOU and sensivel:⏎            marca` | vermelho |
+| V65 | `veredito.py` | `                if not caminho.is_file() or _sha256(caminho) != sha:` | `                if False:` | vermelho |
+| V65b | `veredito.py` | `                if not caminho.is_file() or _sha256(caminho) != sha:` | `                if _sha256(caminho) != sha:` | vermelho |
+| V66 | `veredito.py` | `g["lidos"] = {os.path.relpath(p.resolve(), base): _sha256(p)` | `g["lidos"] = {str(p.resolve()): _sha256(p)` | vermelho |
+| V67 | `veredito.py` | `lidos = {p for p in list(arquivos.values()) + [revisao] if p.is_file()}` | `lidos = {p for p in list(arquivos.values()) if p.is_file()}` | vermelho |
+| V68 | `veredito.py` | `    lidos.update(c for lista in conferir_entradas(sinc["entradas"], pastas, nome, oficial).values() for c in lista)` | `    conferir_entradas(sinc["entradas"], pastas, nome, oficial)` | vermelho |
+| V69 | `veredito.py` | `    lidos.update(c for k in CORRIDAS for lista in caminhos[k].values() for c in lista)` | `    lidos.update(c for lista in caminhos["d"].values() for c in lista)` | vermelho |
+| V70 | `veredito.py` | `[Path(c).resolve().parent for c in args.rodadas]` | `[Path.cwd() for c in args.rodadas]` | vermelho |
+| V71 | `veredito.py` | `base = Path(args.json).resolve().parent if args.json else Path.cwd()` | `base = Path.cwd()` | vermelho |
+| RV15 | `veredito.py` | `    if comuns[0] != comuns[1] or comuns[0] != comuns[2]:` | `    if comuns[0] != comuns[2] and False:` | vermelho |
+| RV16 | `veredito.py` | `        if papel == "eventos" and arquivo not in` | `        if False and arquivo not in` | vermelho |
+| RV19 | `veredito.py` | `for t, v in ausentes⏎                    if ligado(c, t, amb)]` | `for t, v in ausentes]` | vermelho |
+| RV26 | `veredito.py` | `if r.get("sufixo") or r.get("config") != CONFIG_OFICIAL:` | `if r.get("sufixo"):` | vermelho |
+| RV27 | `veredito.py` | `elif not motivos and estados and all(` | `elif not motivos and all(` | vermelho |
+| RN02 | `nivel.py` | `causa = _ultimo_ate(aceitas, t_app, lambda h: h.t)` | `causa = _ultimo_ate(aceitas, mv["t_ms"], lambda h: h.t)` | vermelho |
+| RN04 | `nivel.py` | `fora = [(t, rms) for t, rms in level if not any(a <= t < b for k in INTERVALOS` | `fora = [(t, rms) for t, rms in level if not any(a <= t < b for k in CORRIGIVEIS` | vermelho |
+| RN11 | `nivel.py` | `aceitas = sorted((h for h in hipoteses if h.aceita and h.kind in ("partial", "final"))` | `aceitas = sorted((h for h in hipoteses if h.aceita and h.kind in ("partial",))` | vermelho |
+| RF08 | `folha.py` | `falados = [i for i in range(pulado, b) if` | `falados = [i for i in range(pulado, b - 1) if` | vermelho |
+| RF12 | `folha.py` | `        if ka is None or kb is None:` | `        if ka is None:` | vermelho |
+| RF12b | `folha.py` | `        if ka is None or kb is None:` | `        if kb is None:` | vermelho |
+| RF13 | `folha.py` | `        if a is None or b is None:` | `        if a is None:` | vermelho |
+| RF13b | `folha.py` | `        if a is None or b is None:` | `        if b is None:` | vermelho |
+| RS03 | `sincronizar.py` | `fatias = [k for k in range(base - raio - SUBS_BLOCO, base + raio) if` | `fatias = [k for k in range(base - raio, base + raio) if` | vermelho |
+| RS03b | `sincronizar.py` | `fatias = [k for k in range(base - raio - SUBS_BLOCO, base + raio) if` | `fatias = [k for k in range(base - raio - SUBS_BLOCO, base + raio + 1) if` | vermelho |
+| RS05 | `sincronizar.py` | `locais = [linha for linha in linhas if abs(linha[0] - t_app) <= JANELA_LOCAL_MS]` | `locais = [linha for linha in linhas if abs(linha[0] - t_app) < JANELA_LOCAL_MS]` | vermelho |
+| RS06 | `sincronizar.py` | `    lo, hi = deslocamento - JANELA_LOCAL_MS, deslocamento + JANELA_LOCAL_MS⏎    d_palma` | `    lo, hi = deslocamento - 2 * JANELA_LOCAL_MS, deslocamento + 2 * JANELA_LOCAL_MS⏎    d_palma` | vermelho |
+| RS13 | `sincronizar.py` | `locais = [linha for linha in linhas if abs(linha[0] - t_app) <= JANELA_LOCAL_MS]` | `locais = [linha for linha in linhas if abs(linha[0] - t_app) <= JANELA_LOCAL_MS // 2]` | vermelho |
+| RS15 | `sincronizar.py` | `        lo, hi = _teto10(faixa[0]), _piso10(faixa[1])` | `        lo, hi = faixa[0], faixa[1]` | vermelho |
+| RS21 | `sincronizar.py` | `        self.centro = math.fsum(t for t, _ in linhas) / len(linhas)` | `        self.centro = linhas[0][0]` | vermelho |
+| RS23 | `sincronizar.py` | ` or w.getsampwidth() != 2` | (remove) | vermelho |
+
+- [ ] **Passo 2: as 145 quebras da Tabela "Quebras propositais" de novo**, contra o código corrigido. Quatro trechos mudaram e entram assim: **V34** remove a linha `    lidos.update(c for lista in conferir_entradas(sinc["entradas"], pastas, nome, oficial).values() for c in lista)⏎`; **V21** `            if estado == PASSOU:⏎                estado = SENSIVEL` → `            if False:⏎                estado = SENSIVEL`; **V33** `    if comuns[0] != comuns[1] or comuns[0] != comuns[2]:` → `    if comuns[0] != comuns[1]:`; **V43** `return round(cf["cursor"] / cf["ultimo_token"], 4)` → `return round(cf["cursor"] / (cf["ultimo_token"] + 1), 4)`. Esperado: 144 vermelhas, 1 verde (S35, o equivalente já aceito pelo revisor). Saída anexada ao mesmo arquivo de evidência.
+- [ ] **Passo 3:** `git status --short` vazio depois das quebras; `git diff a728aae --stat -- etapa0/ferramentas/metricas.py etapa0/ferramentas/alinhar.py etapa0/ferramentas/timestamps.py etapa0/ferramentas/roteiro.py etapa0/ferramentas/folha.py etapa0/ferramentas/sincronizar.py etapa0/ferramentas/nivel.py etapa0/core etapa0/app docs` vazio; `grep -n -E "^(import|from) " etapa0/ferramentas/vizinhas.py` só com `argparse`, `sys`, `pathlib`, `folha`, `metricas`; `grep -n -E "urllib|socket|http|requests|subprocess" etapa0/ferramentas/vizinhas.py etapa0/ferramentas/veredito.py; echo "rc=$?"` → `rc=1`. Saídas em `evidencias/b2-verificacao.txt`.
+- [ ] **Passo 4:** preencher o "Registro da construção (rodada 2)" abaixo e commitar as evidências (`docs(0005): evidências da correção da revisão rodada 1`).
+
+## Mudanças para o QA (scripts; repassar ao qa-publicacao)
+
+O QA aplica na árvore principal, em `work/0005-etapa0-medicao/scripts/`, **depois do merge do worktree com o `code_review.md` APROVADO** (o `vizinhas.py` só existe no branch das ferramentas até lá). Nenhum número das ferramentas entra em relatório antes disso (spec D3).
+
+**Q-C1. `medir.sh`, bloco `metricas)`.** Trocar o bloco inteiro (do `metricas)` até o `done ;;`) por:
+
+```bash
+  metricas)
+    rodada="$2"; nome="$3"; rel="$E0/relatorios/$rodada"
+    traj="$E0/trajetorias/$nome"; ev="$E0/eventos/$nome.events.csv"; saida="$nome"; sincjson="$rel/$nome.sinc.json"
+    folha="$E0/eventos/$nome.folha.events.csv"
+    if [ "${4:-}" = reproducao ]; then
+      rep="$5"; traj="$E0/trajetorias/reproducoes/$rep"; ev="$E0/eventos/reproducoes/$rep.events.csv"
+      rel="$rel/reproducoes"; saida="$rep"; sincjson="$rel/$rep.sinc.json"
+      folha="$E0/eventos/reproducoes/$rep.folha.events.csv"
+    fi
+    d=$(python3 -c "import json,sys;print(json.load(open(sys.argv[1]))['deslocamento_ms'])" "$sincjson")
+    # A folha fica parada no relógio do WAV: cada corrida usa a folha de d com o próprio deslocamento
+    # (impl_plan 0005, Correções da revisão rodada 1, C1). As vizinhas são refeitas sempre, a partir da folha
+    # de d como ela está (com as correções da revisão), e nunca se editam à mão.
+    if [ -e "$folha" ]; then
+      set +e; python3 "$FERR/vizinhas.py" "$folha"; rc=$?; set -e
+      log "vizinhas ${folha##*/}: rc=$rc"
+      rc_aceito "$rc" 0
+    fi
+    for par in ":$d" ".m200:$((d - 200))" ".p200:$((d + 200))"; do
+      suf="${par%%:*}"; desl="${par##*:}"
+      eventos=("$ev"); [ -e "$folha" ] && eventos+=("${folha%.folha.events.csv}$suf.folha.events.csv")
+      set +e; python3 "$FERR/metricas.py" "$traj.trajectory.csv" "$E0/esperado/$nome.expected.csv" "${eventos[@]}" \
+        --deslocamento-ms "$desl" --hipoteses "$traj.hypotheses.csv" --json "$rel/$saida$suf.json" > "$rel/$saida$suf.md"
+      rc=$?; set -e
+      log "metricas $saida$suf (d=$desl, eventos: ${eventos[*]##*/}): rc=$rc"
+      rc_aceito "$rc" 1
+    done ;;
+```
+
+O `rc_aceito "$rc" 0` para o QA em qualquer código diferente de 0 do `vizinhas.py` (2 = folha inválida ou nome fora do padrão). Conferência do bloco: `bash -n work/0005-etapa0-medicao/scripts/medir.sh` sem saída; na primeira gravação com folha, `ls etapa0/eventos/<nome>*.folha.events.csv` lista três arquivos (`.folha`, `.m200.folha`, `.p200.folha`), e `grep -c folha etapa0/relatorios/<rodada>/<nome>.m200.json` acha `<nome>.m200.folha.events.csv` nas entradas.
+
+**Q-C2. Fase F, passo 4 (correções da revisão).** Trocar por: "Com as respostas: corrigir o `expected.csv` ou a folha **de d** (`<nome>.folha.events.csv`; cada mudança vira uma linha na tabela "Correções"). As folhas `<nome>.m200.folha.events.csv` e `<nome>.p200.folha.events.csv` nunca se editam: o `medir.sh metricas` as refaz a partir da folha de d. Se a correção foi no `expected.csv` de T04, T05, T06 ou L30, rodar antes `medir.sh folha` (a folha sai do `expected.csv`) e depois reaplicar à mão as correções que estavam na folha de d. Rodar de novo `medir.sh metricas` e marcar `Revisão concluída: sim`."
+
+**Q-C3. Git.** As três folhas de cada gravação vão juntas para o git (`git add etapa0/eventos/<nome>*.folha.events.csv`), no mesmo commit dos relatórios: o `veredito.py` confere o sha256 delas.
+
+**Q-C4. Veredito.** `veredito.py rodada ... --json <arquivo>` guarda os arquivos lidos com caminho relativo à pasta desse JSON. Não mover nem renomear os `veredito.json` das rodadas depois de gerados; a `final` pode rodar de qualquer pasta. Qualquer arquivo refeito depois da rodada (relatório, folha, `meta.txt`, `revisao.md`) exige rodar a rodada de novo antes da `final` (ela sai com 2 e diz qual). Novos motivos possíveis no `veredito.md`, que vão ao relatório como estão: "o cursor não andou depois de <tipo> (fim em <t> ms do WAV)" (NÃO MEDIDO, C2) e "sensível ao deslocamento: ..." também em REPROVOU (C3).
+
+**Q-C5. Relatórios feitos antes do merge.** Todo `relatorios/**/<nome>.{m200,p200}.json` gerado com o `medir.sh` antigo usou a folha de d nas corridas vizinhas e é inválido: rodar `medir.sh metricas` de novo (o `veredito.py` novo sai com 2 nesses casos, então nada errado passa sem aviso). Até a revisão da rodada 1, a Fase C não gerou relatórios do `metricas.py` de gravação oficial, então a lista deve estar vazia; conferir com `ls etapa0/relatorios/*/*.m200.json 2>/dev/null`.
+
+**Q-C6. Relatório final (OPR-047, C5).** Na seção "Lacunas do protocolo": "A retomada no ponto certo do T07 não é critério de saída (TRD: 'fala durante a pausa sem movimento do texto'). A retomada é medida no L30 (pausa do minuto 12) pelo CS1 e pelo CS2. No T07, a guarda do CS4 exige movimento automático depois do `retoma_toque`." Ao lado, uma tabela por rodada com o T07: `criterios.atraso.ate_3`/`amostras`, `fracao`, `maior_atraso` e `cursor_final` do `relatorios/<rodada>/<nome>.json`, com o rótulo "informativo, fora dos critérios".
+
+**Q-C7. Revisão dos scripts.** O `medir.sh` mudado entra na revisão dos scripts que o revisor já tinha deixado para depois (code_review rodada 1, "Não verificado").
+
+## Registro da construção (rodada 2, correções da revisão; preenchido pelo motor-voz)
+
+**Agente:** motor-voz · **Commit(s):** b96fbe6 (Tarefa 7), 8e3b8fd (Tarefa 8), fff44ae (Tarefa 9); evidências no commit seguinte
+
+- Feito: Tarefa 7 (`vizinhas.py` e `test_vizinhas.py`, copiados do plano por faixa de linhas); Tarefa 8 (patch de testes aplicado, visto falhar com `314 testes, 2 falhas, 113 erros`, igual ao esperado; patch do `veredito.py` aplicado; 314 verdes); Tarefa 9 (patch de testes das lacunas de `nivel`, `folha`, `sincronizar`; passou de primeira, como esperado, porque só acrescenta testes); Tarefa 10 (quebras Q2 e verificação).
+- Testes (esperado 325): 325 testes, 0 falhas, 0 erros, 0 pulados (7 + 37 de veredito/cadeia + 11 de lacunas = 55 novos; 270 -> 325).
+- Quebras Q2: novas **74 de 74 vermelhas** (a tabela do plano tem 74 linhas, não 75; o plano diz 75, diferença registrada, número não ajustado); antigas **144 de 145 vermelhas**, 1 verde (S35, o equivalente já aceito). V34, V21, V33 e V43 com os trechos novos do passo 2. Saída em `evidencias/b2-quebras-q2.txt`.
+- Desvios do plano e motivo: nenhum de lógica. Só a contagem 74 vs 75 acima (a lista de ids Z01-Z09, V40-V71, RV15-27, RN, RF, RS tem 74 itens; nenhuma linha deixou de ser exercida: o runner leu a tabela e reportou 0 "não casa").
+- Comandos rodados e resultado: `testar.py` inteiro -> `325 testes, 0 falhas, 0 erros, 0 pulados`; `git diff a728aae --stat` nos arquivos que não podem mudar -> vazio; imports de `vizinhas.py` só `argparse`, `sys`, `pathlib`, `folha`, `metricas`; grep de rede/subprocess -> `rc=1`; `git status` dos fontes limpo depois das quebras (`evidencias/b2-verificacao.txt`). Gradle não rodado (a tarefa não toca Kotlin).
+
+
 ---
 
 ## Portão automático do plano (checklist do PROCESS.md, conferida pelo arquiteto antes de entregar)
@@ -4657,14 +6159,15 @@ Se a calibração recomendar configuração diferente da D10 (D28): PARAR E PEDI
 - [x] Portões humanos explícitos: portão 6 já respondido (A, só no passo D1); portão 6 condicional (cota do LFS e consentimento) antes do push; portão 3 no fim. As paradas físicas (sessões, escuta, bateria, desbloqueio) são execução do roteiro do spec, não portões.
 - [x] Parâmetros: nenhum número novo de produto. As constantes das ferramentas vêm do spec (200 ms, ±200 ms), do código da 0003 (3.200 amostras, 16 kHz), do formato (1/32768) ou do roteiro (palma até 4 s). Busca local de 1 s, grade de 100/10 ms e empate de `1e-9` são escolhas de método, sem efeito no veredito além da resolução declarada, e estão provadas nos testes.
 - [x] Divergências registradas: A12 (OPR-041 para o analista), A7 (versão do `vosk`), A10 (nome das reproduções).
+- [x] **Rodada 1 (correções da revisão):** testes antes do código (Tarefas 7 e 8 com "ver falhar" medido na prova; Tarefa 9 com as quebras como prova); 75 quebras novas vermelhas e as 145 antigas de novo (144 + S35) na prova; os dois casos do revisor viram SENSÍVEL pela cadeia real; privacidade: o `vizinhas.py` só lê e escreve folhas de eventos (tempos, nomes de evento e índices de token), sem texto do discurso nem áudio, só stdlib e sem rede; nenhum número novo; nenhum portão humano (o esclarecimento do E1 não muda critério, número nem protocolo).
 
 ---
 
 ## Registro da construção (preenchido pelo agente de construção)
 
-**Agente:** motor-voz · **Commit(s):** <hash>
+**Agente:** motor-voz · **Commit(s):** 65c8e54, f67e9ba, 1dc1a78, d965c34, a0709a9 (sincronizar, folha, veredito, nivel, cadeia); evidências no commit seguinte
 
-- Feito: <...>
-- Testes criados: <...>
-- Desvios do plano e motivo: <nenhum | ...>
-- Comandos rodados e resultado: <...>
+- Feito: Tarefas 1 a 6 no worktree `Tribuna-0005-ferramentas` (branch `work/0005-ferramentas`): `sincronizar.py`, `folha.py`, `veredito.py`, `nivel.py` copiados dos blocos do plano sem alterar a lógica (extração por faixa de linhas), mais `testes/sinal.py`. Testes escritos e vistos falhar (`ModuleNotFoundError` previsto, `1 testes, 0 falhas, 1 erros`) antes de cada ferramenta entrar. Só stdlib, sem rede, sem escrita de WAV.
+- Testes criados: `test_sincronizar.py` 32, `test_folha.py` 24, `test_veredito.py` 51, `test_nivel.py` 11, `test_cli_0005.py` 3 = 121 novos; suíte total 270 (149 antigos + 121).
+- Desvios do plano e motivo: nenhum de lógica. Só a mensagem do commit da Tarefa 3 ficou "veredito.py, veredito da Etapa 0 e relatório (spec 0005 C1, C2, D9, E2, E3, F1, F2, H1)" em vez do texto do plano (que citava só D9); mais completa, sem efeito no código.
+- Comandos rodados e resultado: `python3 etapa0/ferramentas/testar.py` -> `270 testes, 0 falhas, 0 erros, 0 pulados` (`evidencias/b-testar.txt`). `grep` de imports -> só stdlib e módulos locais (`evidencias/b-imports.txt`); grep de rede/subprocess: `rc=1`, nada; escritas `open(..., "w")` só de `--json`/`-o` (texto). Quebras Q2: as 145 da tabela rodadas, não só as ★ (script de runner fora do repositório), cada uma sozinha, com `__pycache__` removido, `-B`: 144 vermelhas, 1 verde (S35, o equivalente declarado), `git diff --stat` vazio depois de cada (`evidencias/b-quebras-q2.txt`). Em `etapa0/`: `ANDROID_HOME=$HOME/Library/Android/sdk ./gradlew :core:test verifyMergedManifest` -> BUILD SUCCESSFUL (122 testes `:core`; `local.properties` não foi preciso copiar). Não declaro o código aprovado; falta o REVIEW.

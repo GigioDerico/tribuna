@@ -1,0 +1,145 @@
+S01 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 6 falhas, 0 erros, 0 pulados	restaurado=sim	limite de 200 ms (palma e deriva)
+S02	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	deriva: > vira >=
+S03	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 3 falhas, 0 erros, 0 pulados	restaurado=sim	deriva sem abs
+S04 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 0 erros, 0 pulados	restaurado=sim	palma: <= vira <
+S05	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 0 erros, 0 pulados	restaurado=sim	palma sem abs
+S06	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 0 erros, 0 pulados	restaurado=sim	janela da palma
+S07	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	palma: linha no limite
+S08 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	faixa padrão sem o bloco
+S09	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 0 erros, 0 pulados	restaurado=sim	faixa padrão: t_max -> t_min
+S10	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	arredondamento da faixa trocado
+S11	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	faixa vazia aceita
+S12	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 3 falhas, 0 erros, 0 pulados	restaurado=sim	correlação linear, sem dB
+S13	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	piso do dB
+S14 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 10 falhas, 0 erros, 0 pulados	restaurado=sim	sem grade fina
+S15	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 7 falhas, 0 erros, 0 pulados	restaurado=sim	grade fina só para cima
+S16	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	palma sem o meio do patamar
+S17	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	empate global: maior
+S18	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	meio do patamar par
+S19	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	tolerância do empate
+S20	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	empate exato
+S21	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 0 falhas, 14 erros, 0 pulados	restaurado=sim	y constante aceito
+S22	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 0 falhas, 2 erros, 0 pulados	restaurado=sim	x constante aceito
+S23	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 3 falhas, 0 erros, 0 pulados	restaurado=sim	metades desiguais
+S24 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 3 falhas, 0 erros, 0 pulados	restaurado=sim	deriva sem estender
+S25	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 3 falhas, 0 erros, 0 pulados	restaurado=sim	sinal da deriva
+S26 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 0 erros, 0 pulados	restaurado=sim	borda da metade aceita
+S27	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	só a borda de baixo
+S28	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 3 falhas, 0 erros, 0 pulados	restaurado=sim	janela da metade
+S29	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 2 erros, 0 pulados	restaurado=sim	indeterminada: or -> and
+S30	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 0 erros, 0 pulados	restaurado=sim	bloco de 190 ms
+S31	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 17 erros, 0 pulados	restaurado=sim	fim fora do WAV
+S32	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	dentro: borda de baixo
+S33	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	dentro: borda de cima
+S34	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	fatia incompleta entra
+S35	ocorrências=1	VERDE	previsto=verde (equivalente)	testar.py: 270 testes, 0 falhas, 0 erros, 0 pulados	restaurado=sim	RMS do WAV por fatia
+S38	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	t negativo aceito
+S39	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 1 erros, 0 pulados	restaurado=sim	rms > 1 e inf aceitos
+S52	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	rms negativo aceito
+S53	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 7 falhas, 0 erros, 0 pulados	restaurado=sim	bloco deslocado 200 ms
+S40	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 1 erros, 0 pulados	restaurado=sim	t repetido recusado
+S41	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	t decrescente aceito
+S42	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	mínimo de linhas
+S44	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	linhas fora do WAV
+S45	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 7 falhas, 0 erros, 0 pulados	restaurado=sim	código 1
+S46	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	taxa maior aceita
+S47	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	estéreo aceito
+S48	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 4 falhas, 0 erros, 0 pulados	restaurado=sim	palma ignorada
+S49	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 0 erros, 0 pulados	restaurado=sim	palma no texto todo
+S50	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	palma com todas as linhas
+S51	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 6 falhas, 0 erros, 0 pulados	restaurado=sim	palma sempre confere
+F01 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	improviso: >= vira >
+F02	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	improviso: <= vira <
+F03	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 5 falhas, 0 erros, 0 pulados	restaurado=sim	improviso sem o fim
+F04 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	silêncio: > vira >=
+F05	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	silêncio: < vira <=
+F06	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	t_app zero recusado
+F07	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	t_app negativo aceito
+F08 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 12 falhas, 0 erros, 0 pulados	restaurado=sim	sinal do deslocamento
+F09	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 13 falhas, 0 erros, 0 pulados	restaurado=sim	token antes pula o próprio
+F10	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 14 falhas, 0 erros, 0 pulados	restaurado=sim	token depois pula o próprio
+F11	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	sobreposição aceita
+F12	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 5 falhas, 0 erros, 0 pulados	restaurado=sim	início do improviso
+F13	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 4 falhas, 0 erros, 0 pulados	restaurado=sim	fim do improviso
+F14 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 3 falhas, 0 erros, 0 pulados	restaurado=sim	índice do pulo
+F15	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 4 falhas, 0 erros, 0 pulados	restaurado=sim	pulo_fim no fim do token
+F16	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 4 falhas, 0 erros, 0 pulados	restaurado=sim	silêncio começa no início do token
+F17	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	primeiro pulado com tempo
+F18	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	pulados com tempo ignorados
+F19	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	palavra no silêncio ignorada
+F20	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 0 erros, 0 pulados	restaurado=sim	fronteira aproximada sem aviso
+F21	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 4 falhas, 0 erros, 0 pulados	restaurado=sim	código 1
+F22 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 4 falhas, 0 erros, 0 pulados	restaurado=sim	depois: >= vira >
+F23	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 6 falhas, 0 erros, 0 pulados	restaurado=sim	regra do T06
+F24	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	regra do improviso do L30
+F25	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	regra do silêncio do L30
+F26	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	nota do pulo do L30
+F27	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	nota repetida aceita
+F28	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	esperado de outro texto
+F29	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 4 falhas, 0 erros, 0 pulados	restaurado=sim	pulo sem pular
+V01 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 20 falhas, 36 erros, 0 pulados	restaurado=sim	m200/p200 trocados
+V02 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 5 falhas, 1 erros, 0 pulados	restaurado=sim	T10 fora do CS1
+V03	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 4 falhas, 3 erros, 0 pulados	restaurado=sim	T09 fora do CS2
+V04	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 0 erros, 0 pulados	restaurado=sim	L30 fora do CS3
+V05	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 3 falhas, 1 erros, 0 pulados	restaurado=sim	T07 fora do CS4
+V06	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 0 erros, 0 pulados	restaurado=sim	CS1 no salão
+V07	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	L30 sem silêncio exigido
+V08	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	L30 sem improviso exigido
+V09	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	T07 sem pausa exigida
+V10	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	CS1 com zero amostras
+V11	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	CS2 sem leitura
+V12	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	CS2 com cursor parado
+V13 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	recuo fora do CS2
+V14	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	CS3 sem pulo passa
+V15	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	pausa fora do CS4
+V16	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	improviso no CS4
+V17 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	sincronização ignorada
+V18	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 0 erros, 0 pulados	restaurado=sim	d - 200 ignorado
+V19	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 0 erros, 0 pulados	restaurado=sim	d + 200 ignorado
+V20	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 6 falhas, 0 erros, 0 pulados	restaurado=sim	sensível em não medido
+V21	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 4 falhas, 0 erros, 0 pulados	restaurado=sim	sensível conta como passou
+V22 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	sensível sem revisão
+V23	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	reprovado sem revisão
+V24	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	linha da revisão frouxa
+V25 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 4 falhas, 0 erros, 0 pulados	restaurado=sim	agregar: any -> all
+V26	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 5 falhas, 0 erros, 0 pulados	restaurado=sim	agregar: all -> any
+V27	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 0 erros, 0 pulados	restaurado=sim	ausentes ignorados
+V28	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 0 erros, 0 pulados	restaurado=sim	segunda voz não exigida
+V29	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	salão não exigido no CS2
+V30 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 3 falhas, 0 erros, 0 pulados	restaurado=sim	rodada ausente passa
+V31	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	arquivo de outra gravação
+V32 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 5 falhas, 0 erros, 0 pulados	restaurado=sim	sha256 ignorado
+V33	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	p200 com outros arquivos
+V34	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 0 erros, 0 pulados	restaurado=sim	WAV e level não conferidos
+V35	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	text_id ignorado
+V36	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	limiar fora da configuração oficial
+V37	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 3 falhas, 1 erros, 0 pulados	restaurado=sim	fonte fora da configuração oficial
+V38	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 3 falhas, 0 erros, 0 pulados	restaurado=sim	variante 2 não exigida
+V39	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 3 falhas, 0 erros, 0 pulados	restaurado=sim	L30 exigido na S2
+V40	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	ambiente não conferido
+V41	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	repetido aceito
+V43	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	fração lida
+V45	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 6 falhas, 0 erros, 0 pulados	restaurado=sim	não medido com código 0
+V46	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 6 falhas, 0 erros, 0 pulados	restaurado=sim	eventos não contados
+V47 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 1 erros, 0 pulados	restaurado=sim	reprodução com esperado próprio
+V48	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 0 erros, 0 pulados	restaurado=sim	--config ignorado
+V49	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	revisão da reprodução
+V50	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	final aceita reprodução
+V51	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 0 erros, 0 pulados	restaurado=sim	sufixo com hífen
+V52	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	chave de configuração desconhecida
+N01 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 0 erros, 0 pulados	restaurado=sim	intervalo: começo aberto
+N02	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	intervalo: fim fechado
+N03	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	improviso pede limiar
+N04	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	pausa não pede limiar
+N05	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	recusadas como causa
+N06	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	erro como causa
+N07	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	causa: <= vira <
+N08 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	limite: max -> min
+N09 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 3 falhas, 0 erros, 0 pulados	restaurado=sim	candidato: > vira >=
+N10	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 0 erros, 0 pulados	restaurado=sim	candidato: min -> max
+N11 ★	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	Final no candidato
+N12	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	deslocamento ignorado
+N13	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	leitura abaixo: < vira <=
+N14	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 1 falhas, 0 erros, 0 pulados	restaurado=sim	p95 com floor
+N15	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 3 falhas, 0 erros, 0 pulados	restaurado=sim	código 1
+N16	ocorrências=1	vermelho	previsto=vermelho	testar.py: 270 testes, 2 falhas, 0 erros, 0 pulados	restaurado=sim	candidato sem os níveis
