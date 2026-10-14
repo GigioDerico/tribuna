@@ -41,7 +41,7 @@ class Gravacoes:
         for p in self.pastas.values():
             p.mkdir(parents=True, exist_ok=True)
 
-    def gravacao(self, nome, level, hipoteses, eventos, movimentos=()):
+    def gravacao(self, nome, level, hipoteses, eventos, movimentos=(), deslocamento=D):
         tp = self.pastas["trajetorias"]
         (tp / f"{nome}.level.csv").write_text(level, encoding="utf-8")
         hip = tp / f"{nome}.hypotheses.csv"
@@ -54,9 +54,9 @@ class Gravacoes:
         ev.write_text(s.eventos_csv(eventos), encoding="utf-8")
         entradas = [{"papel": p, "arquivo": c.name, "sha256": _sha(c)}
                     for p, c in (("trajetoria", traj), ("esperado", esp), ("eventos", ev), ("hipoteses", hip))]
-        relatorio = {"deslocamento_ms": D, "entradas": entradas,
+        relatorio = {"deslocamento_ms": deslocamento, "entradas": entradas,
                      "criterios": {"salto_errado": {"por_movimento": [
-                         {"t_ms": t + D, "cursor": 5, "move": "Short", "intervalo": k, "esperado_no_inicio": 4,
+                         {"t_ms": t + deslocamento, "cursor": 5, "move": "Short", "intervalo": k, "esperado_no_inicio": 4,
                           "classe": "alcance"} for t, k in movimentos]}}}
         (self.pastas["relatorios"] / f"{nome}.json").write_text(json.dumps(relatorio), encoding="utf-8")
         return self
@@ -192,6 +192,42 @@ class NivelTest(unittest.TestCase):
         self.assertEqual(0, codigo)
         for termo in ("nomes", "--relatorios", "--trajetorias", "--eventos", "--json"):
             self.assertIn(termo, out)
+
+
+
+class CausaENivelTest(unittest.TestCase):
+    """Achados 5 e 9 da revisão (RN02, RN11, RN04; OPR-046)."""
+
+    def test_D12_causa_no_relogio_do_app_com_deslocamento_grande(self):
+        # movimento em 20.300 ms do app (23.300 do WAV com d = 3.000); a parcial de 21.500 vem depois dele
+        hip = [(20100, "partial", "x", True), (21500, "partial", "y", True)]
+        with Pasta() as p:
+            g = Gravacoes(p.dir).gravacao("T06_giorgio_sala_t1", _level({**PICO, 21400: 0.003}), hip, SILENCIO,
+                                          movimentos=[(20300, "silencio")], deslocamento=3000)
+            _, dados, _, err = g.rodar("T06_giorgio_sala_t1")
+        mv = dados["gravacoes"][0]["movimentos"][0]
+        self.assertEqual((20300, 20100, 0.004), (mv["t_app_ms"], mv["causa_t_ms"], mv["causa_nivel"]), err)
+
+    def test_D12_final_depois_de_parcial_e_a_causa_e_nao_da_candidato(self):
+        hip = [(19000, "partial", "x", True), (20100, "final", "x y", True)]
+        with Pasta() as p:
+            g = Gravacoes(p.dir).gravacao("T06_giorgio_sala_t1", _level({**PICO, 30000: 0.006}), hip, SILENCIO,
+                                          movimentos=[(20300, "silencio")])
+            codigo, dados, _, _ = g.rodar("T06_giorgio_sala_t1")
+        mv = dados["gravacoes"][0]["movimentos"][0]
+        self.assertEqual(("final", 20100), (mv["causa_kind"], mv["causa_t_ms"]))
+        self.assertEqual(1, codigo)
+        self.assertIsNone(dados["recomendacao"]["candidato"])
+        self.assertIn("Final", dados["recomendacao"]["motivo"])
+
+    def test_F4_leitura_nao_inclui_o_improviso(self):
+        eventos = [(10000, "improviso_inicio", ""), (40000, "improviso_fim", "")]
+        with Pasta() as p:
+            g = Gravacoes(p.dir).gravacao("T04_giorgio_sala_t1", _level({20000: 0.9}), [], eventos)
+            _, dados, _, _ = g.rodar("T04_giorgio_sala_t1")
+        n = dados["gravacoes"][0]["niveis"]
+        self.assertEqual((150, 0.9), (n["improviso"]["n"], n["improviso"]["maximo"]))
+        self.assertEqual((299 - 150, 0.05), (n["leitura"]["n"], n["leitura"]["maximo"]))
 
 
 if __name__ == "__main__":

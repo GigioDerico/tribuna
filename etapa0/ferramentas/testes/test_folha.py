@@ -281,5 +281,32 @@ class EntradaTest(unittest.TestCase):
             self.assertIn(termo, out)
 
 
+
+class GuardasTest(unittest.TestCase):
+    """Achado 7 da revisão (RF08, RF12, RF13; OPR-044)."""
+
+    def test_sem_token_com_tempo_antes_ou_depois_da_fronteira_sai_com_2(self):
+        for nome, sem_tempo in (("antes", range(0, 135)), ("depois", range(135, N))):
+            with self.subTest(lado=nome):
+                codigo, linhas, err = _rodar("T06", _tempos(N, 134, sem_tempo=set(sem_tempo), gap=30000))
+                self.assertEqual((2, []), (codigo, linhas))
+                self.assertIn("silencio: nenhum token com tempo antes do token 134 ou depois do token 135", err)
+
+    def test_nota_no_comeco_ou_no_fim_do_texto_sai_com_erro(self):
+        base = roteiro.ler_texto("T06").replace("// SILÊNCIO", "// NOTA")
+        for texto in ("// SILÊNCIO de 30 s\n\n" + base, base + "\n\n// SILÊNCIO de 30 s\n"):
+            with self.subTest(texto=texto[:20]):
+                with self.assertRaises(folha.ErroEntrada) as erro:
+                    folha.fronteiras("T06", texto, roteiro.tokenizar(texto))
+                self.assertIn("não fica entre dois tokens", str(erro.exception))
+
+    def test_D7_ultimo_token_pulado_com_tempo_avisa(self):
+        tempos = PuloTest()._tempos_t05()
+        tempos[90] = (tempos[91][0] - 200, tempos[91][0] - 100)
+        codigo, _, err = _rodar("T05", tempos)
+        self.assertEqual(1, codigo)
+        self.assertIn("aviso: pulo: 1 token(s) do parágrafo pulado com tempo (primeiro: token 90)", err)
+
+
 if __name__ == "__main__":
     unittest.main()

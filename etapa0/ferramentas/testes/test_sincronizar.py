@@ -310,5 +310,68 @@ class SaidaTest(unittest.TestCase):
             self.assertIn(termo, out)
 
 
+
+class LacunasTest(unittest.TestCase):
+    """Achado 6 da revisão (RS03, RS05, RS06, RS13, RS15, RS21, RS23; OPR-043)."""
+
+    LEVEL = "t_ms,rms\n1000,0.001\n2000,0.5\n2990,0.002\n3000,0.003\n3010,0.001\n1010,0.004\n"
+
+    def _palma(self, energias, linhas=None, d=1000):
+        linhas = linhas or [(1000, 0.001), (2000, 0.5), (2600, 0.002), (3000, 0.003)]
+        chamadas = []
+
+        def buscar(serie, _wav, lo, hi, meio_do_empate=False):
+            chamadas.append((serie.linhas, lo, hi, meio_do_empate))
+            return d, 0.9
+
+        with mock.patch.object(sincronizar, "buscar", side_effect=buscar):
+            res = sincronizar.palma(linhas, sincronizar.Wav(energias), d, 4000)
+        return res, chamadas
+
+    def test_D4_janela_do_pico_da_palma_no_wav(self):
+        # linha da palma em 2.000 ms do app, d = 1.000: bloco termina na fatia 300; janela = fatias [180, 400)
+        for pico, esperado in ((180, 1800), (179, 2500), (399, 3990), (400, 2500)):
+            with self.subTest(pico=pico):
+                energias = [1] * 500
+                energias[250] = 50
+                energias[pico] = 100
+                res, _ = self._palma(energias)
+                self.assertEqual(esperado, res["wav_pico_ms"])
+
+    def test_D4_palma_usa_as_linhas_a_ate_1_s_e_busca_a_ate_1_s(self):
+        linhas = [(900, 0.001), (1000, 0.002), (1600, 0.004), (2000, 0.5), (2500, 0.003), (3000, 0.002),
+                  (3010, 0.001)]
+        _, chamadas = self._palma([1] * 500, linhas)
+        locais, lo, hi, meio = chamadas[0]
+        self.assertEqual([1000, 1600, 2000, 2500, 3000], [t for t, _ in locais])
+        self.assertEqual((0, 2000, True), (lo, hi, meio))
+
+    def test_faixa_fora_da_grade_de_10_ms_vai_para_dentro(self):
+        level = sinal.level_csv(AMOSTRAS, -40, 41000, ganho=0.5)
+        codigo, dados, _, _ = _rodar(level, "--faixa-ms", "-1005", "1005")
+        self.assertEqual(0, codigo)
+        self.assertEqual([-1000, 1000], dados["faixa_ms"])
+        self.assertEqual(0, dados["deslocamento_ms"] % 10)
+
+    def test_centro_e_a_media_dos_instantes(self):
+        serie = sincronizar.Serie([(0, 0.1), (100, 0.2), (1000, 0.3)])
+        self.assertAlmostEqual(1100 / 3, serie.centro)
+
+    def test_wav_de_8_ou_24_bits_sai_com_2(self):
+        import random
+        import wave
+        for largura in (1, 3):
+            with self.subTest(largura=largura), Pasta() as p:
+                caminho = p.dir / "l.wav"
+                with wave.open(str(caminho), "wb") as w:
+                    w.setnchannels(1)
+                    w.setsampwidth(largura)
+                    w.setframerate(16000)
+                    w.writeframes(random.Random(5).randbytes(16000 * 90 * largura))  # 90 s: lido como 16 bits, cobre
+                codigo, dados, out, err = _rodar(sinal.level_csv(AMOSTRAS, D, 38000), wav=str(caminho))
+                self.assertEqual((2, None, ""), (codigo, dados, out))
+                self.assertIn("16 kHz, mono, PCM 16 bits", err)
+
+
 if __name__ == "__main__":
     unittest.main()
