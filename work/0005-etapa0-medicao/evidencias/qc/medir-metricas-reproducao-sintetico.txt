@@ -1,0 +1,6 @@
+T04_giorgio_sala_t1_r_normal_off_novo_l0000.m200.folha.events.csv: +200 ms
+T04_giorgio_sala_t1_r_normal_off_novo_l0000.p200.folha.events.csv: -200 ms
+2026-10-14T19:34:13 vizinhas T04_giorgio_sala_t1_r_normal_off_novo_l0000.folha.events.csv: rc=0
+2026-10-14T19:34:13 metricas T04_giorgio_sala_t1_r_normal_off_novo_l0000 (d=2500, eventos: T04_giorgio_sala_t1_r_normal_off_novo_l0000.events.csv T04_giorgio_sala_t1_r_normal_off_novo_l0000.folha.events.csv): rc=0
+2026-10-14T19:34:13 metricas T04_giorgio_sala_t1_r_normal_off_novo_l0000.m200 (d=2300, eventos: T04_giorgio_sala_t1_r_normal_off_novo_l0000.events.csv T04_giorgio_sala_t1_r_normal_off_novo_l0000.m200.folha.events.csv): rc=0
+2026-10-14T19:34:13 metricas T04_giorgio_sala_t1_r_normal_off_novo_l0000.p200 (d=2700, eventos: T04_giorgio_sala_t1_r_normal_off_novo_l0000.events.csv T04_giorgio_sala_t1_r_normal_off_novo_l0000.p200.folha.events.csv): rc=1

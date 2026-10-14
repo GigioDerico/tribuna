@@ -60,20 +60,28 @@ case "$cmd" in
   metricas)
     rodada="$2"; nome="$3"; rel="$E0/relatorios/$rodada"
     traj="$E0/trajetorias/$nome"; ev="$E0/eventos/$nome.events.csv"; saida="$nome"; sincjson="$rel/$nome.sinc.json"
+    folha="$E0/eventos/$nome.folha.events.csv"
     if [ "${4:-}" = reproducao ]; then
       rep="$5"; traj="$E0/trajetorias/reproducoes/$rep"; ev="$E0/eventos/reproducoes/$rep.events.csv"
       rel="$rel/reproducoes"; saida="$rep"; sincjson="$rel/$rep.sinc.json"
+      folha="$E0/eventos/reproducoes/$rep.folha.events.csv"
     fi
     d=$(python3 -c "import json,sys;print(json.load(open(sys.argv[1]))['deslocamento_ms'])" "$sincjson")
-    folha="$E0/eventos/$nome.folha.events.csv"
-    [ "${4:-}" = reproducao ] && folha="$E0/eventos/reproducoes/$5.folha.events.csv"
-    eventos=("$ev"); [ -e "$folha" ] && eventos+=("$folha")
+    # A folha fica parada no relógio do WAV: cada corrida usa a folha de d com o próprio deslocamento
+    # (impl_plan 0005, Correções da revisão rodada 1, C1). As vizinhas são refeitas sempre, a partir da folha
+    # de d como ela está (com as correções da revisão), e nunca se editam à mão.
+    if [ -e "$folha" ]; then
+      set +e; python3 "$FERR/vizinhas.py" "$folha"; rc=$?; set -e
+      log "vizinhas ${folha##*/}: rc=$rc"
+      rc_aceito "$rc" 0
+    fi
     for par in ":$d" ".m200:$((d - 200))" ".p200:$((d + 200))"; do
       suf="${par%%:*}"; desl="${par##*:}"
+      eventos=("$ev"); [ -e "$folha" ] && eventos+=("${folha%.folha.events.csv}$suf.folha.events.csv")
       set +e; python3 "$FERR/metricas.py" "$traj.trajectory.csv" "$E0/esperado/$nome.expected.csv" "${eventos[@]}" \
         --deslocamento-ms "$desl" --hipoteses "$traj.hypotheses.csv" --json "$rel/$saida$suf.json" > "$rel/$saida$suf.md"
       rc=$?; set -e
-      log "metricas $saida$suf (d=$desl): rc=$rc"
+      log "metricas $saida$suf (d=$desl, eventos: ${eventos[*]##*/}): rc=$rc"
       rc_aceito "$rc" 1
     done ;;
   *) echo "uso: ver o cabeçalho" >&2; exit 2 ;;
