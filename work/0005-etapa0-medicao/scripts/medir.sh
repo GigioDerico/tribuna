@@ -7,6 +7,20 @@
 source "$(dirname "$0")/comum.sh"
 cmd="${1:-}"
 rc_aceito() { [ "$1" -le "$2" ] || { echo "PARAR: código $1 (entrada inválida); ver stderr acima" >&2; exit 1; }; }
+# Uma corrida do metricas.py só é aceita se deixou o .md com conteúdo e o .json legível, com o veredito que o código
+# anuncia (0 = PASSA, 1 = outro). Uma exceção não tratada também sai com 1 e deixa o .md vazio ou o .json ausente
+# ou cortado (impl_plan 0005, Correções da revisão rodada 4, R4-1; OPR-056).
+saida_completa() {  # <caminho sem extensão> <código>; diz o que falta na saída padrão
+  [ -s "$1.md" ] || { echo "${1##*/}.md vazio ou ausente"; return 1; }
+  python3 -c 'import json, sys
+p, rc = sys.argv[1], int(sys.argv[2]); n = p.rsplit("/", 1)[-1]
+try:
+    v = json.load(open(p, encoding="utf-8"))["veredito"]
+except (OSError, ValueError, KeyError, TypeError) as e:
+    sys.exit(f"{n} ausente, vazio ou ilegível ({type(e).__name__})")
+if (v == "PASSA") != (rc == 0):
+    sys.exit(f"{n} com veredito {v}, que não bate com o código {rc}")' "$1.json" "$2" 2>&1
+}
 
 case "$cmd" in
   converter)
@@ -88,6 +102,12 @@ case "$cmd" in
       log "metricas $saida$suf (d=$desl, eventos: ${eventos[*]##*/}): rc=$rc"
       [ "$rc" -le 1 ] || log "metricas $saida: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)"
       rc_aceito "$rc" 1
+      if ! motivo="$(saida_completa "$tmp/$saida$suf" "$rc")"; then
+        log "metricas $saida$suf: saída recusada ($motivo)"
+        log "metricas $saida: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)"
+        echo "PARAR: metricas.py saiu com código $rc, mas o .md e o .json não estão completos e coerentes (exceção não tratada?); ver stderr acima" >&2
+        exit 1
+      fi
     done
     for suf in "" .m200 .p200; do mv -f -- "$tmp/$saida$suf.md" "$tmp/$saida$suf.json" "$rel/"; done
     log "metricas $saida: seis relatórios trocados (d, .m200, .p200) em ${rel#"$RAIZ"/}" ;;

@@ -11,6 +11,7 @@ de `etapa0/ferramentas/` e dados sintéticos do caso T04 (improviso; `testes/tes
 - `medir-reproducao-salto.txt`: ramo `reproducao` com as linhas de Salto errado PASSA, PASSA, REPROVA (OPR-054, achado 2b).
 - `folha-invalida-rc2.txt`: folha com cabeçalho diferente; `vizinhas.py` sai com 2 e o `medir.sh` para (ele mesmo sai com 1) com "PARAR: código 2"; nenhuma corrida roda (OPR-054, achado 2a).
 - Q-C5: `ls etapa0/relatorios/*/*.m200.json` não acha arquivo (lista vazia).
+- `r3-medir-troca-junta.txt`: R3-2 (OPR-055, achado 4). Com código 2 em qualquer corrida, nenhum dos seis relatórios muda. Com sucesso, os seis trocam juntos e batem com o `metricas.py` direto. Versão antiga e duas quebras em vermelho.
+- `r4-medir-saida-completa.txt`: R4-1 (OPR-056). Uma corrida que sai com 0 ou 1 sem deixar o `.md` com conteúdo e o `.json` legível e coerente com o código faz o `medir.sh` parar sem trocar nenhum dos seis relatórios. Seis sondas verdes, versão anterior vermelha em S1 a S5, seis quebras vermelhas no ponto previsto.
 
 Origem do `level.csv` do C11 parcial (`../b8-sinc-reproducao.txt`; OPR-054, achado 1): arquivo da reprodução de 2026-10-12 12:28, feita com o APK release instalado (C10), não com o debug que o C11 manda. O C11 não foi refeito aqui; fica para o item 0 com o aparelho.
-- `r3-medir-troca-junta.txt`: R3-2 (OPR-055, achado 4). Com código 2 em qualquer corrida, nenhum dos seis relatórios muda. Com sucesso, os seis trocam juntos e batem com o `metricas.py` direto. Versão antiga e duas quebras em vermelho.
