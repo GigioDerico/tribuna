@@ -1,0 +1,153 @@
+# R3-2 (OPR-055, achado 4): troca atômica dos relatórios em medir.sh metricas
+## sha256
+2abacc87f2156fea34ae2709163eac9bd7949793a4dcc907e49536dab76543c9  r3-ensaio.sh
+bd3804a0877c212fb70bbe2e228fd1432be1fa5e53e42c6b2dcc26d0a7d37a0d  medir.antigo.sh
+9af077c606c642ae9bae0236f6db36190855611d1ccb2ce4e7427257906bbcfb  work/0005-etapa0-medicao/scripts/medir.sh
+
+## Passo 3: versão antiga (r3-antigo.txt)
+revisar: improviso_inicio em 25300 ms do WAV (22800 ms do app), primeira palavra do improviso, entre 'conversa' (token 46) e 'Isso' (token 47)
+revisar: improviso_fim em 33200 ms do WAV (30700 ms do app), última palavra do improviso, entre 'conversa' (token 46) e 'Isso' (token 47)
+=== ANTIGO: bd3804a0877c ===
+--- T1: hipóteses inválidas (kind x): código 2 na corrida d
+T04_giorgio_sala_t1.m200.folha.events.csv: +200 ms
+T04_giorgio_sala_t1.p200.folha.events.csv: -200 ms
+2026-10-15T00:05:26 vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=0
+metricas.py: hipóteses: linha 1 com kind ou accepted inválido
+2026-10-15T00:05:26 metricas T04_giorgio_sala_t1 (d=2500, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.folha.events.csv): rc=2
+PARAR: código 2 (entrada inválida); ver stderr acima
+medir.sh rc=1
+T1: RELATÓRIOS MUDARAM
+T1: T04_giorgio_sala_t1.md com 0 bytes; pastas temporárias restantes: 0
+--- T2: folha de d corrigida (22800 -> 22900) e código 2 forçado na corrida d+200
+T04_giorgio_sala_t1.m200.folha.events.csv: +200 ms
+T04_giorgio_sala_t1.p200.folha.events.csv: -200 ms
+2026-10-15T00:05:27 vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=0
+2026-10-15T00:05:27 metricas T04_giorgio_sala_t1 (d=2500, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.folha.events.csv): rc=0
+2026-10-15T00:05:27 metricas T04_giorgio_sala_t1.m200 (d=2300, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.m200.folha.events.csv): rc=0
+metricas.py: falha forçada do ensaio
+2026-10-15T00:05:27 metricas T04_giorgio_sala_t1.p200 (d=2700, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.p200.folha.events.csv): rc=2
+PARAR: código 2 (entrada inválida); ver stderr acima
+medir.sh rc=1
+T2: RELATÓRIOS MUDARAM:
+T2:   trocado T04_giorgio_sala_t1.md
+T2:   trocado T04_giorgio_sala_t1.json
+T2:   trocado T04_giorgio_sala_t1.m200.md
+T2:   trocado T04_giorgio_sala_t1.m200.json
+T2:   trocado T04_giorgio_sala_t1.p200.md
+T2: pastas temporárias restantes: 0
+--- T3: folha de d corrigida, sem falha: os seis trocam juntos e batem com o metricas.py direto
+T04_giorgio_sala_t1.m200.folha.events.csv: +200 ms
+T04_giorgio_sala_t1.p200.folha.events.csv: -200 ms
+2026-10-15T00:05:27 vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=0
+2026-10-15T00:05:27 metricas T04_giorgio_sala_t1 (d=2500, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.folha.events.csv): rc=0
+2026-10-15T00:05:27 metricas T04_giorgio_sala_t1.m200 (d=2300, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.m200.folha.events.csv): rc=0
+2026-10-15T00:05:27 metricas T04_giorgio_sala_t1.p200 (d=2700, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.p200.folha.events.csv): rc=1
+medir.sh rc=0
+T3: relatórios trocados: 6
+T3: T04_giorgio_sala_t1.md e .json iguais ao metricas.py direto
+T3: T04_giorgio_sala_t1.m200.md e .json iguais ao metricas.py direto
+T3: T04_giorgio_sala_t1.p200.md e .json iguais ao metricas.py direto
+T3: pastas temporárias restantes: 0
+T3: git status fora de etapa0/relatorios, etapa0/eventos e evidencias: 0
+
+## Passo 5: versão nova (r3-novo.txt)
+revisar: improviso_inicio em 25300 ms do WAV (22800 ms do app), primeira palavra do improviso, entre 'conversa' (token 46) e 'Isso' (token 47)
+revisar: improviso_fim em 33200 ms do WAV (30700 ms do app), última palavra do improviso, entre 'conversa' (token 46) e 'Isso' (token 47)
+=== NOVO: 9af077c606c6 ===
+--- T1: hipóteses inválidas (kind x): código 2 na corrida d
+T04_giorgio_sala_t1.m200.folha.events.csv: +200 ms
+T04_giorgio_sala_t1.p200.folha.events.csv: -200 ms
+2026-10-15T00:05:31 vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=0
+metricas.py: hipóteses: linha 1 com kind ou accepted inválido
+2026-10-15T00:05:31 metricas T04_giorgio_sala_t1 (d=2500, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.folha.events.csv): rc=2
+2026-10-15T00:05:31 metricas T04_giorgio_sala_t1: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)
+PARAR: código 2 (entrada inválida); ver stderr acima
+medir.sh rc=1
+T1: os seis relatórios iguais aos de antes
+T1: T04_giorgio_sala_t1.md com 1391 bytes; pastas temporárias restantes: 0
+--- T2: folha de d corrigida (22800 -> 22900) e código 2 forçado na corrida d+200
+T04_giorgio_sala_t1.m200.folha.events.csv: +200 ms
+T04_giorgio_sala_t1.p200.folha.events.csv: -200 ms
+2026-10-15T00:05:32 vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=0
+2026-10-15T00:05:32 metricas T04_giorgio_sala_t1 (d=2500, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.folha.events.csv): rc=0
+2026-10-15T00:05:32 metricas T04_giorgio_sala_t1.m200 (d=2300, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.m200.folha.events.csv): rc=0
+metricas.py: falha forçada do ensaio
+2026-10-15T00:05:32 metricas T04_giorgio_sala_t1.p200 (d=2700, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.p200.folha.events.csv): rc=2
+2026-10-15T00:05:32 metricas T04_giorgio_sala_t1: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)
+PARAR: código 2 (entrada inválida); ver stderr acima
+medir.sh rc=1
+T2: os seis relatórios iguais aos de antes
+T2: pastas temporárias restantes: 0
+--- T3: folha de d corrigida, sem falha: os seis trocam juntos e batem com o metricas.py direto
+T04_giorgio_sala_t1.m200.folha.events.csv: +200 ms
+T04_giorgio_sala_t1.p200.folha.events.csv: -200 ms
+2026-10-15T00:05:32 vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=0
+2026-10-15T00:05:32 metricas T04_giorgio_sala_t1 (d=2500, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.folha.events.csv): rc=0
+2026-10-15T00:05:32 metricas T04_giorgio_sala_t1.m200 (d=2300, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.m200.folha.events.csv): rc=0
+2026-10-15T00:05:32 metricas T04_giorgio_sala_t1.p200 (d=2700, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.p200.folha.events.csv): rc=1
+2026-10-15T00:05:32 metricas T04_giorgio_sala_t1: seis relatórios trocados (d, .m200, .p200) em etapa0/relatorios/S1
+medir.sh rc=0
+T3: relatórios trocados: 6
+T3: T04_giorgio_sala_t1.md e .json iguais ao metricas.py direto
+T3: T04_giorgio_sala_t1.m200.md e .json iguais ao metricas.py direto
+T3: T04_giorgio_sala_t1.p200.md e .json iguais ao metricas.py direto
+T3: pastas temporárias restantes: 0
+T3: git status fora de etapa0/relatorios, etapa0/eventos e evidencias: 0
+
+## Passo 6: quebras (r3-quebras.txt)
+=== quebra1: 4c1a5d229664 ===
+T1: os seis relatórios iguais aos de antes
+T1: T04_giorgio_sala_t1.md com 1391 bytes; pastas temporárias restantes: 0
+T2: RELATÓRIOS MUDARAM:
+T2:   trocado T04_giorgio_sala_t1.md
+T2:   trocado T04_giorgio_sala_t1.json
+T2:   trocado T04_giorgio_sala_t1.m200.md
+T2:   trocado T04_giorgio_sala_t1.m200.json
+T2: pastas temporárias restantes: 0
+T3: relatórios trocados: 6
+T3: T04_giorgio_sala_t1.md e .json iguais ao metricas.py direto
+T3: T04_giorgio_sala_t1.m200.md e .json iguais ao metricas.py direto
+T3: T04_giorgio_sala_t1.p200.md e .json iguais ao metricas.py direto
+T3: pastas temporárias restantes: 0
+T3: git status fora de etapa0/relatorios, etapa0/eventos e evidencias: 0
+=== quebra2: c730c9c7f43f ===
+T1: os seis relatórios iguais aos de antes
+T1: T04_giorgio_sala_t1.md com 1391 bytes; pastas temporárias restantes: 2
+T2: os seis relatórios iguais aos de antes
+T2: pastas temporárias restantes: 3
+T3: relatórios trocados: 6
+T3: T04_giorgio_sala_t1.md e .json iguais ao metricas.py direto
+T3: T04_giorgio_sala_t1.m200.md e .json iguais ao metricas.py direto
+T3: T04_giorgio_sala_t1.p200.md e .json iguais ao metricas.py direto
+T3: pastas temporárias restantes: 4
+T3: git status fora de etapa0/relatorios, etapa0/eventos e evidencias: 0
+
+## git diff HEAD -- medir.sh
+diff --git a/work/0005-etapa0-medicao/scripts/medir.sh b/work/0005-etapa0-medicao/scripts/medir.sh
+index d1a8db4..d22698c 100755
+--- a/work/0005-etapa0-medicao/scripts/medir.sh
++++ b/work/0005-etapa0-medicao/scripts/medir.sh
+@@ -75,14 +75,21 @@ case "$cmd" in
+       log "vizinhas ${folha##*/}: rc=$rc"
+       rc_aceito "$rc" 0
+     fi
++    # As três corridas escrevem numa pasta temporária fora do repositório; os seis relatórios só trocam juntos,
++    # depois da última corrida aceita (impl_plan 0005, Correções da revisão rodada 3, R3-2; OPR-055). Com código 2
++    # em qualquer corrida, nada em $rel muda.
++    tmp="$(mktemp -d "$TMPD/metricas.XXXXXX")"; trap 'rm -r -- "$tmp"' EXIT
+     for par in ":$d" ".m200:$((d - 200))" ".p200:$((d + 200))"; do
+       suf="${par%%:*}"; desl="${par##*:}"
+       eventos=("$ev"); [ -e "$folha" ] && eventos+=("${folha%.folha.events.csv}$suf.folha.events.csv")
+       set +e; python3 "$FERR/metricas.py" "$traj.trajectory.csv" "$E0/esperado/$nome.expected.csv" "${eventos[@]}" \
+-        --deslocamento-ms "$desl" --hipoteses "$traj.hypotheses.csv" --json "$rel/$saida$suf.json" > "$rel/$saida$suf.md"
++        --deslocamento-ms "$desl" --hipoteses "$traj.hypotheses.csv" --json "$tmp/$saida$suf.json" > "$tmp/$saida$suf.md"
+       rc=$?; set -e
+       log "metricas $saida$suf (d=$desl, eventos: ${eventos[*]##*/}): rc=$rc"
++      [ "$rc" -le 1 ] || log "metricas $saida: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)"
+       rc_aceito "$rc" 1
+-    done ;;
++    done
++    for suf in "" .m200 .p200; do mv -f -- "$tmp/$saida$suf.md" "$tmp/$saida$suf.json" "$rel/"; done
++    log "metricas $saida: seis relatórios trocados (d, .m200, .p200) em ${rel#"$RAIZ"/}" ;;
+   *) echo "uso: ver o cabeçalho" >&2; exit 2 ;;
+ esac

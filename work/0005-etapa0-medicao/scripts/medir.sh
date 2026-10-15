@@ -75,14 +75,21 @@ case "$cmd" in
       log "vizinhas ${folha##*/}: rc=$rc"
       rc_aceito "$rc" 0
     fi
+    # As três corridas escrevem numa pasta temporária fora do repositório; os seis relatórios só trocam juntos,
+    # depois da última corrida aceita (impl_plan 0005, Correções da revisão rodada 3, R3-2; OPR-055). Com código 2
+    # em qualquer corrida, nada em $rel muda.
+    tmp="$(mktemp -d "$TMPD/metricas.XXXXXX")"; trap 'rm -r -- "$tmp"' EXIT
     for par in ":$d" ".m200:$((d - 200))" ".p200:$((d + 200))"; do
       suf="${par%%:*}"; desl="${par##*:}"
       eventos=("$ev"); [ -e "$folha" ] && eventos+=("${folha%.folha.events.csv}$suf.folha.events.csv")
       set +e; python3 "$FERR/metricas.py" "$traj.trajectory.csv" "$E0/esperado/$nome.expected.csv" "${eventos[@]}" \
-        --deslocamento-ms "$desl" --hipoteses "$traj.hypotheses.csv" --json "$rel/$saida$suf.json" > "$rel/$saida$suf.md"
+        --deslocamento-ms "$desl" --hipoteses "$traj.hypotheses.csv" --json "$tmp/$saida$suf.json" > "$tmp/$saida$suf.md"
       rc=$?; set -e
       log "metricas $saida$suf (d=$desl, eventos: ${eventos[*]##*/}): rc=$rc"
+      [ "$rc" -le 1 ] || log "metricas $saida: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)"
       rc_aceito "$rc" 1
-    done ;;
+    done
+    for suf in "" .m200 .p200; do mv -f -- "$tmp/$saida$suf.md" "$tmp/$saida$suf.json" "$rel/"; done
+    log "metricas $saida: seis relatórios trocados (d, .m200, .p200) em ${rel#"$RAIZ"/}" ;;
   *) echo "uso: ver o cabeçalho" >&2; exit 2 ;;
 esac

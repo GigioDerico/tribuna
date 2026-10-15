@@ -13,3 +13,4 @@ de `etapa0/ferramentas/` e dados sintéticos do caso T04 (improviso; `testes/tes
 - Q-C5: `ls etapa0/relatorios/*/*.m200.json` não acha arquivo (lista vazia).
 
 Origem do `level.csv` do C11 parcial (`../b8-sinc-reproducao.txt`; OPR-054, achado 1): arquivo da reprodução de 2026-10-12 12:28, feita com o APK release instalado (C10), não com o debug que o C11 manda. O C11 não foi refeito aqui; fica para o item 0 com o aparelho.
+- `r3-medir-troca-junta.txt`: R3-2 (OPR-055, achado 4). Com código 2 em qualquer corrida, nenhum dos seis relatórios muda. Com sucesso, os seis trocam juntos e batem com o `metricas.py` direto. Versão antiga e duas quebras em vermelho.
