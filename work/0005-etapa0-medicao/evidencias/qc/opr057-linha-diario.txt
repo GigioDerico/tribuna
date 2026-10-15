@@ -1,0 +1,75 @@
+# OPR-057: asserção da linha do diário 'nenhum relatório trocado' (sem aparelho, caso sintético T04)
+# ensaio: opr057-ensaio.sh (sha256 169bd3a5ad1bb65504cbef7b5278621ca7f02a7861f294489285237641f82858); fica em $TMPDIR/tribuna-0005/, como r3-ensaio.sh e r4-ensaio.sh, que ele chama sem editar
+# medir.sh do repositório: e35a59dbf6fd2a4e7efae8878bd031aab71289ebdf3fabfbc76eca31be582c0a
+# regra de contagem: T1 e T2 = linhas do trecho do caso na saída do r3-ensaio.sh (exatamente 1); S0 a S5 = campo 'linhas ... trocado' do r4-ensaio.sh (exatamente 1). 8 casos.
+
+## 1. Antes da quebra (medir.sh do repositório): verde
+=== OPR-057 original: e35a59dbf6fd ===
+T1: linha 'nenhum relatório trocado' presente (1): OK
+T2: linha 'nenhum relatório trocado' presente (1): OK
+S0: linha 'nenhum relatório trocado' presente (1): OK
+S1: linha 'nenhum relatório trocado' presente (1): OK
+S2: linha 'nenhum relatório trocado' presente (1): OK
+S3: linha 'nenhum relatório trocado' presente (1): OK
+S4: linha 'nenhum relatório trocado' presente (1): OK
+S5: linha 'nenhum relatório trocado' presente (1): OK
+casos verificados: 8 (T1, T2, S0 a S5); falhas: 0
+RESULTADO: VERDE
+
+## 2. Quebra a: cópia sem a linha 103 (a do código 2, achado 2 da revisão); diff e saída
+103d102
+<       [ "$rc" -le 1 ] || log "metricas $saida: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)"
+=== OPR-057 quebra-a: dd47ffae7ac3 ===
+T1: linha 'nenhum relatório trocado' x0 (esperado 1): FALHOU
+T2: linha 'nenhum relatório trocado' x0 (esperado 1): FALHOU
+S0: linha 'nenhum relatório trocado' ausente ou repetida: FALHOU
+S1: linha 'nenhum relatório trocado' presente (1): OK
+S2: linha 'nenhum relatório trocado' presente (1): OK
+S3: linha 'nenhum relatório trocado' presente (1): OK
+S4: linha 'nenhum relatório trocado' presente (1): OK
+S5: linha 'nenhum relatório trocado' presente (1): OK
+casos verificados: 8 (T1, T2, S0 a S5); falhas: 3
+RESULTADO: VERMELHO
+
+## 3. Quebra b: cópia sem a linha 107 (a da saída recusada); diff e saída
+107d106
+<         log "metricas $saida: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)"
+=== OPR-057 quebra-b: e2d51f4cd68d ===
+T1: linha 'nenhum relatório trocado' presente (1): OK
+T2: linha 'nenhum relatório trocado' presente (1): OK
+S0: linha 'nenhum relatório trocado' presente (1): OK
+S1: linha 'nenhum relatório trocado' ausente ou repetida: FALHOU
+S2: linha 'nenhum relatório trocado' ausente ou repetida: FALHOU
+S3: linha 'nenhum relatório trocado' ausente ou repetida: FALHOU
+S4: linha 'nenhum relatório trocado' ausente ou repetida: FALHOU
+S5: linha 'nenhum relatório trocado' ausente ou repetida: FALHOU
+casos verificados: 8 (T1, T2, S0 a S5); falhas: 5
+RESULTADO: VERMELHO
+
+## Nota: a primeira versão do ensaio deu 6 falhas por erro de padrão do grep nas sondas S0 a S5 (aspas e o prefixo 'medir.sh rc=1;'); corrigido antes das provas acima.
+## O medir.sh do repositório não foi alterado; as quebras são cópias descartáveis em $TMPDIR.
+
+## Texto do opr057-ensaio.sh (sha256 acima)
+#!/usr/bin/env bash
+# opr057-ensaio.sh <raiz do Tribuna> <pasta nova, fora do repositório> <medir.sh a testar> <rótulo>
+# OPR-057: confere a linha do diário "nenhum relatório trocado" onde a troca é recusada. Roda r3-ensaio.sh (T1, T2) e
+# r4-ensaio.sh (S0 a S5) sem editá-los e exige a linha uma vez em cada caso. Sai com 1 se algum caso não a tiver.
+set -uo pipefail
+TRIB="$1"; P="$2"; MEDIR="$3"; ROT="$4"; AQUI="$(cd "$(dirname "$0")" && pwd)"
+[ -e "$P" ] && { echo "PARAR: $P já existe; use uma pasta nova" >&2; exit 2; }
+mkdir -p "$P"
+bash "$AQUI/r3-ensaio.sh" "$TRIB" "$P/r3" "$MEDIR" "$ROT" > "$P/r3.txt" 2>&1
+bash "$AQUI/r4-ensaio.sh" "$TRIB" "$P/r4" "$MEDIR" "$ROT" > "$P/r4.txt" 2>&1
+echo "=== OPR-057 $ROT: $(shasum -a 256 "$MEDIR" | cut -c1-12) ==="
+falhas=0; L='nenhum relatório trocado'
+for c in T1 T2; do   # trecho de cada caso: da linha "--- Tn" até a próxima "--- "
+  n=$(awk -v c="--- $c:" 'index($0,"--- ")==1{em=(index($0,c)==1);next} em' "$P/r3.txt" | grep -c "$L")
+  if [ "$n" = 1 ]; then echo "$c: linha '$L' presente (1): OK"; else echo "$c: linha '$L' x$n (esperado 1): FALHOU"; falhas=$((falhas+1)); fi
+done
+for c in S0 S1 S2 S3 S4 S5; do
+  n=$(grep -c "^$c: medir.sh rc=1; linhas 'nenhum relatório trocado': 1;" "$P/r4.txt")
+  if [ "$n" = 1 ]; then echo "$c: linha '$L' presente (1): OK"; else echo "$c: linha '$L' ausente ou repetida: FALHOU"; falhas=$((falhas+1)); fi
+done
+echo "casos verificados: 8 (T1, T2, S0 a S5); falhas: $falhas"
+[ "$falhas" = 0 ] && echo "RESULTADO: VERDE" || echo "RESULTADO: VERMELHO"
+[ "$falhas" = 0 ]
