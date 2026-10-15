@@ -6362,6 +6362,282 @@ for j in sys.argv[1:]:
 | R3-1 | passo 9, na Fase G | `lidos no git: rc=0` em cada tabela de calibração |
 | R3-3 | `grep -n -E "7[5] quebras|7[5] vermelhas" work/0005-etapa0-medicao/impl_plan.md; echo "rc=$?"` | `rc=1` (sem saída; a classe `[5]` impede que esta linha case consigo mesma) |
 
+## Correções da revisão rodada 4 (OPR-056; arquiteto, 2026-10-15)
+
+Fonte: `code_review_medir_troca_opr055.md`, achado 1 (MENOR, OPR-056), com as sondas do revisor. De passagem, a sonda S0 e a quebra `qF` cobrem o achado 2 (OPR-057), e o passo 7 corrige o achado 3 (OPR-057). Esta seção completa o R3-2 da rodada 3; o resto da rodada 3 continua valendo.
+
+**Fora de portão humano, confirmado.** Nada aqui muda contrato do TRD (`SpeechEngine`, `SpeechEvent`, `SessionId`, `Token`, `Aligner`/`AlignState`, `PrompterUiState`, `ReadingPhase`), manifesto, chave do DataStore ou regra inegociável do `CLAUDE.md`. Também não muda critério, número, protocolo do spec nem ferramenta da 0004: o `metricas.py` fica como está. Muda só um script de condução da medição (`work/0005-etapa0-medicao/scripts/medir.sh`). Não há CIA.
+
+### Decisões
+
+**R4-1. Uma corrida do `metricas.py` só é aceita se deixou o `.md` com conteúdo e o `.json` legível e coerente com o código de saída.**
+- *Problema (achado 1, reproduzido na prova de 2026-10-15, sonda S1 abaixo):* uma exceção não tratada no `metricas.py` faz o Python sair com 1, o mesmo código da reprovação. O `rc_aceito "$rc" 1` aceita, as outras corridas seguem e o laço de `mv` move o `.md` vazio da corrida e para no `.json` que não existe (`mv: rename …p200.json …: No such file or directory`). O `set -e` encerra o script com 1, sem `PARAR` e sem a linha "nenhum relatório trocado". Resultado: cinco relatórios trocados, `p200.md` com 0 byte e `p200.json` antigo, ou seja, o conjunto misto que o R3-2 queria impedir.
+- *Decisão 1, o que se confere:* depois do `rc_aceito` de cada corrida, ainda dentro do laço e, portanto, antes de qualquer `mv`, a função nova `saida_completa` confere os dois arquivos daquela corrida:
+  1. o `.md` existe e não está vazio (`[ -s ]`);
+  2. o `.json` existe e é lido como JSON com a chave `veredito` (um `json.load` no `python3`; vazio, cortado ou ausente falham aqui);
+  3. o `veredito` bate com o código: 0 se e só se `PASSA` (contrato do `metricas.py`, `main`, linha 547: `return 0 if resultado["veredito"] == "PASSA" else 1`).
+  Se algo falhar, o script registra o motivo, registra "nenhum relatório trocado", imprime `PARAR` e sai com 1. As corridas seguintes não rodam, e nenhum arquivo de `$rel` muda. Como as três corridas passam pela conferência antes do laço de `mv`, os seis arquivos (`.md` e `.json` de d, `.m200` e `.p200`) estão conferidos quando a troca começa. A regra do R3-2 (os seis juntos ou nenhum) fica de pé.
+- *Por que dentro do laço e não num laço único antes do `mv`:* a garantia é a mesma, porque o `mv` só roda depois do laço. Conferindo em cada corrida, a mensagem diz qual corrida falhou, o script para logo e a conferência tem à mão o código daquela corrida, que a regra 3 precisa. O `/bin/bash` do Mac é o 3.2 (`GNU bash, version 3.2.57`), sem vetor associativo para guardar três códigos até o fim.
+- *Decisão 2, o código 1 continua aceito.* O código 1 é a saída normal de uma corrida que reprova, e isso é comum nas corridas d±200 da calibração (na base sintética da prova, `d.p200` sai `REPROVA`). Recusá-lo pararia a medição legítima. A exceção é distinguida pela saída, sem mudar o `metricas.py`. Pelo contrato da ferramenta (linhas 538-547), uma corrida legítima escreve o `.md` inteiro, depois o `.json` inteiro, e só então devolve 0 ou 1 conforme o veredito. Uma exceção deixa uma marca em cada ponto em que pode acontecer:
+  - antes do `sys.stdout.write`: `.md` vazio e `.json` ausente (S1; pega na regra 1);
+  - no meio do `stdout.write`: `.md` parcial e `.json` ausente (pega na regra 2);
+  - no meio do `json.dump`: `.json` cortado (S4; pega na regra 2);
+  - depois do `.json` gravado, com veredito `PASSA`: código 1 com `PASSA` (S5; pega na regra 3);
+  - depois do `.json` gravado, com veredito `REPROVA`: não se distingue de uma reprovação, mas também não faz mal, porque os dois arquivos estão completos e são exatamente o que a ferramenta calculou.
+- *Opções descartadas:*
+  - (a) Procurar `Traceback` no stderr. Exigiria guardar o stderr num arquivo e reemiti-lo, o que muda a ordem do que o humano vê, e dependeria do texto do interpretador.
+  - (b) Um código próprio (≥ 3) para exceção no `metricas.py`. Muda ferramenta da 0004, fora do escopo, e é desnecessário com (1)-(3).
+  - (c) Só `[ -s ]` no `.json`. Não pega o `.json` cortado (S4); a quebra `qC` prova isso.
+- *O que muda no comportamento visível:*
+  - Sucesso (códigos 0 ou 1 com saída completa e coerente): nada muda. São os mesmos seis arquivos, com o mesmo conteúdo, o `medir.sh` sai com 0 e o diário tem as mesmas linhas. O ensaio da rodada 3 dá o mesmo T3 (`relatórios trocados: 6`, três "iguais ao metricas.py direto"). O custo é uma chamada a `python3` por corrida.
+  - Código 2 em qualquer corrida: nada muda (S0; T1 e T2 da rodada 3).
+  - Código 0 ou 1 com saída incompleta ou incoerente (novo): o `medir.sh` sai com **1**, como no `PARAR` do código 2. O diário ganha duas linhas, `metricas <saida><suf>: saída recusada (<motivo>)` e `metricas <saida>: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)`. O stderr ganha `PARAR: metricas.py saiu com código <rc>, mas o .md e o .json não estão completos e coerentes (exceção não tratada?); ver stderr acima`, logo depois do traceback do Python. O `<motivo>` é um de três: `<arquivo>.md vazio ou ausente`, `<arquivo>.json ausente, vazio ou ilegível (<tipo da exceção>)` ou `<arquivo>.json com veredito <PASSA|REPROVA>, que não bate com o código <rc>`. Nenhum arquivo de `$rel` muda, e a pasta temporária sai pelo `trap` do R3-2. Antes, o script saía com 1 por causa do `mv`, sem `PARAR`, e deixava o conjunto misto.
+- *O que continua sem cobertura (fora do OPR-056, sem mudança aqui):* um sinal (Ctrl-C, `SIGTERM`) entre os três `mv` do fim ainda pode deixar um conjunto misto. A janela é de milissegundos, e o revisor deixou o caso como "Não verificado", sem achado. Se acontecer, a regra de processo já cobre: refazer `medir.sh metricas` da gravação (Q-C4, Q-C5).
+- *Privacidade (Q6):* o diário recebe só o nome do arquivo da gravação de teste, o nome do tipo da exceção (por exemplo, `JSONDecodeError`) e a palavra do veredito. Nunca recebe conteúdo do `.json`, texto do relatório nem mensagem de exceção. Não há caminho novo de escrita: a conferência só lê os arquivos da pasta temporária do R3-2. Também não entra dependência nova, porque `json` é da stdlib e o `python3` já é usado pelo script.
+
+### Testes: sondas e quebras (provados em 2026-10-15 num repositório descartável no scratchpad)
+
+O ensaio `r4-ensaio.sh` monta o mesmo repositório descartável do `r3-ensaio.sh` (caso sintético T04, `etapa0/textos/T04.txt`). Depois roda seis sondas, e cada uma muda só a cópia descartável do `metricas.py`, numa única corrida. Toda sonda corrige antes a folha de d, para que uma troca indevida apareça nos sha256. Uma sonda fica **VERDE** quando juntam as cinco condições: `medir.sh rc=1`, exatamente 1 linha "nenhum relatório trocado", exatamente 1 linha `PARAR`, os seis relatórios iguais aos de antes e 0 pasta temporária.
+
+| Sonda | O que a cópia do `metricas.py` faz | `medir.sh` atual (`9af077c6…`) | `medir.sh` corrigido (`e35a59db…`) |
+|---|---|---|---|
+| S0 | código 2 na corrida d+200 (linha do diário do R3-2; OPR-057, achado 2) | VERDE | VERDE |
+| S1 | `raise` antes de escrever, na d+200 (o caso do achado 1): `.md` vazio, `.json` ausente, código 1 | VERMELHO: `rc=1` pelo `mv`, 0 `PARAR`, 5 `trocado`, `p200.md` com 0 byte | VERDE (motivo: `….p200.md vazio ou ausente`) |
+| S2 | `.md` vazio com `.json` bom, na d+200 | VERMELHO: `rc=0`, 6 `trocado`, `p200.md` com 0 byte | VERDE (`.md vazio ou ausente`) |
+| S3 | `.md` bom e `.json` não gravado, na d+200 | VERMELHO: `rc=1` pelo `mv`, 5 `trocado` | VERDE (`….p200.json ausente, vazio ou ilegível (FileNotFoundError)`) |
+| S4 | `.json` cortado (`{"veredito": "PA`) e `raise`, na d+200 | VERMELHO: `rc=0`, 6 `trocado` | VERDE (`… (JSONDecodeError)`) |
+| S5 | `raise` depois de gravar os dois, na corrida d (veredito `PASSA`) | VERMELHO: `rc=0`, 6 `trocado` | VERDE (`….json com veredito PASSA, que não bate com o código 1`) |
+
+Quebras (Q2), cada uma uma troca de texto no `medir.sh` corrigido, gerada pelo `r4-quebras.py`:
+
+| Quebra | O que tira | Sonda que fica vermelha (as outras ficam verdes) |
+|---|---|---|
+| `qA` | a checagem de `.md` vazio (`[ -s "$1.md" ]` → `[ -e "$1.md" ]`) | S2 |
+| `qB` | a checagem de `.json` ausente (o `python3` só roda se o `.json` existir) | S3 |
+| `qC` | a leitura do `.json` (troca o `python3` inteiro por `[ -s "$1.json" ]`) | S4 e S5 |
+| `qD` | a coerência entre veredito e código | S5 |
+| `qE` | a chamada da `saida_completa` (volta ao comportamento atual) | S1, S2, S3, S4 e S5 |
+| `qF` | a linha do diário "nenhum relatório trocado" do código 2 (OPR-057, achado 2) | S0 |
+
+Na prova, o mesmo resultado saiu também numa pasta com espaço e `$` no caminho, e o `r3-ensaio.sh` com o `medir.sh` corrigido deu T1, T2 e T3 iguais aos do passo 5 da rodada 3.
+
+### Tarefa para o QA (qa-publicacao), na árvore principal
+
+Arquivos que mudam: `work/0005-etapa0-medicao/scripts/medir.sh` (R4-1), `work/0005-etapa0-medicao/evidencias/qc/r4-medir-saida-completa.txt` (novo) e `work/0005-etapa0-medicao/evidencias/qc/LEIA-ME.md` (uma linha nova e uma linha movida). Rodar da raiz do repositório, em bash ou zsh. Os scripts são chamados com `bash`, e as pastas `r4-*` precisam ser novas: o ensaio para se a pasta já existir.
+
+1. **Guardar a versão atual antes de mudar:** `mkdir -p "$TMPDIR/tribuna-0005" && git show HEAD:work/0005-etapa0-medicao/scripts/medir.sh > "$TMPDIR/tribuna-0005/medir.r3.sh" && shasum -a 256 "$TMPDIR/tribuna-0005/medir.r3.sh"`. Esperado: `9af077c606c642ae9bae0236f6db36190855611d1ccb2ce4e7427257906bbcfb` (o `medir.sh` do commit `100a021`). Com outro valor, PARAR e avisar o arquiteto. O nome é `medir.r3.sh` para não sobrescrever o `medir.antigo.sh` da rodada 3, que é outro arquivo.
+2. **Criar o ensaio e o gerador de quebras** fora do repositório, com o conteúdo exato abaixo: `$TMPDIR/tribuna-0005/r4-ensaio.sh` (sha256 esperado `d46aa6c8da9061eb355c62e0348c3a6e9c856037072d1c7d4567a00ab33a4d8d`) e `$TMPDIR/tribuna-0005/r4-quebras.py` (sha256 esperado `b25be3f4bd9a5e57471ca6b406159c9d4bfd5d1b37096f6ca9dde91fbdd848bc`). Conferir também `shasum -a 256 "$TMPDIR/tribuna-0005/r3-ensaio.sh"` → `2abacc87f2156fea34ae2709163eac9bd7949793a4dcc907e49536dab76543c9`. Se ele não existir mais, recriá-lo do passo 2 da rodada 3.
+
+```bash
+#!/usr/bin/env bash
+# r4-ensaio.sh <raiz do Tribuna> <pasta nova, fora do repositório> <medir.sh a testar> <rótulo>
+# Prova do R4-1 (impl_plan 0005, Correções da revisão rodada 4; OPR-056) num repositório descartável, caso sintético
+# T04. Cada sonda muda só a cópia descartável do metricas.py, e só numa corrida: d+200 (2700 ms), ou d (2500) na S5.
+set -uo pipefail
+TRIB="$1"; P="$2"; MEDIR="$3"; ROT="$4"
+R="$P/repo"; N=T04_giorgio_sala_t1; REL="$R/etapa0/relatorios/S1"; S="$R/work/0005-etapa0-medicao/scripts"
+M="$R/etapa0/ferramentas/metricas.py"
+export TMPDIR="$P/tmp"; export PYTHONDONTWRITEBYTECODE=1
+[ -e "$P" ] && { echo "PARAR: $P já existe; use uma pasta nova" >&2; exit 2; }
+mkdir -p "$R/etapa0" "$S" "$TMPDIR"
+git -C "$R" init -q . && printf '__pycache__/\n' > "$R/.gitignore"
+cp -R "$TRIB/etapa0/ferramentas" "$TRIB/etapa0/textos" "$R/etapa0/"
+cp "$TRIB/work/0005-etapa0-medicao/scripts/comum.sh" "$S/"
+mkdir -p "$R"/etapa0/{esperado,trajetorias,eventos,relatorios/S1}
+python3 -B - "$R" <<'PY'
+import json, sys
+from pathlib import Path
+R = Path(sys.argv[1]); E = R / "etapa0"; sys.path.insert(0, str(E / "ferramentas"))
+from testes import sintetico as s
+from testes.test_cli_0005 import _caso_t04, _words, D_VIVO
+import folha
+nome, tempos, extras, traj, _ = _caso_t04()
+(E / "esperado" / f"{nome}.expected.csv").write_text(s.esperado_csv("T04", tempos), encoding="utf-8")
+(E / "esperado" / f"{nome}.words.csv").write_text(_words("T04", tempos, extras), encoding="utf-8")
+(E / "trajetorias" / f"{nome}.trajectory.csv").write_text(s.trajetoria_csv(traj), encoding="utf-8")
+(E / "trajetorias" / f"{nome}.hypotheses.csv").write_text("t_ms,session,kind,words,accepted\n", encoding="utf-8")
+(E / "eventos" / f"{nome}.events.csv").write_text(s.eventos_csv([]), encoding="utf-8")
+(E / "relatorios" / "S1" / f"{nome}.sinc.json").write_text(json.dumps({"deslocamento_ms": D_VIVO}), encoding="utf-8")
+sys.exit(folha.main([str(E / "textos" / "T04.txt"), str(E / "esperado" / f"{nome}.expected.csv"),
+                     str(E / "esperado" / f"{nome}.words.csv"), "--deslocamento-ms", str(D_VIVO),
+                     "-o", str(E / "eventos" / f"{nome}.folha.events.csv")]))
+PY
+cp "$MEDIR" "$S/medir.sh"
+bash "$S/medir.sh" metricas S1 $N > /dev/null || { echo "PARAR: a primeira corrida (base) falhou" >&2; exit 2; }
+git -C "$R" add -A && git -C "$R" -c user.name=ensaio -c user.email=ensaio@invalid commit -qm base
+seis() { (cd "$REL" && shasum -a 256 $N.md $N.json $N.m200.md $N.m200.json $N.p200.md $N.p200.json 2>&1); }
+restaura() { git -C "$R" checkout -q -- . && git -C "$R" clean -q -f -- etapa0; }
+corrige_folha() { sed -i '' 's/^22800,improviso_inicio,$/22900,improviso_inicio,/' "$R/etapa0/eventos/$N.folha.events.csv"; }
+temporarias() { ls -d "$TMPDIR"/tribuna-0005/metricas.* 2>/dev/null | wc -l | tr -d ' '; }
+muda() {  # <antes> <depois>: troca uma vez, só na cópia descartável do metricas.py
+  python3 -B - "$M" "$1" "$2" <<'PY'
+import sys
+p, a, b = sys.argv[1:]; s = open(p, encoding="utf-8").read()
+assert s.count(a) == 1, "a sonda não casa com o metricas.py"
+open(p, "w", encoding="utf-8").write(s.replace(a, b))
+PY
+}
+sonda() {  # <id> <descrição> <antes> <depois>
+  local id="$1" antes rc nenhum parar iguais=0 tmps; echo "--- $id: $2"
+  restaura; antes="$(seis)"; corrige_folha; muda "$3" "$4" || { echo "$id: SONDA NÃO CASA"; return; }
+  bash "$S/medir.sh" metricas S1 $N > "$P/$id.saida.txt" 2>&1; rc=$?
+  sed -E 's/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9:]{8} //' "$P/$id.saida.txt" | sed "s/^/$id|  /"
+  nenhum=$(grep -c 'nenhum relatório trocado' "$P/$id.saida.txt"); parar=$(grep -c '^PARAR:' "$P/$id.saida.txt")
+  echo "$id: medir.sh rc=$rc; linhas 'nenhum relatório trocado': $nenhum; linhas PARAR: $parar"
+  if [ "$antes" = "$(seis)" ]; then iguais=1; echo "$id: os seis relatórios iguais aos de antes"
+  else echo "$id: RELATÓRIOS MUDARAM:"; diff <(echo "$antes") <(seis) | grep '^>' | sed "s/^> [0-9a-f]* */$id:   trocado /"; fi
+  tmps="$(temporarias)"
+  echo "$id: $N.p200.md com $(wc -c < "$REL/$N.p200.md" | tr -d ' ') bytes; pastas temporárias restantes: $tmps"
+  if [ "$rc" = 1 ] && [ "$nenhum" = 1 ] && [ "$parar" = 1 ] && [ "$iguais" = 1 ] && [ "$tmps" = 0 ]; then echo "$id: VERDE"
+  else echo "$id: VERMELHO"; fi
+}
+A='    args = parser.parse_args(argv)
+'
+echo "=== $ROT: $(shasum -a 256 "$MEDIR" | cut -c1-12) ==="
+echo "--- vereditos da base: $(cd "$REL" && for k in "" .m200 .p200; do python3 -c 'import json,sys;print(sys.argv[2]+"="+json.load(open(sys.argv[1]))["veredito"], end=" ")' "$N$k.json" "d$k"; done)"
+sonda S0 "código 2 na corrida d+200 (a linha do diário do R3-2)" "$A" "$A"'    if args.deslocamento_ms == 2700:
+        print("metricas.py: falha forçada do ensaio", file=sys.stderr)
+        return 2
+'
+sonda S1 "exceção antes de escrever (achado 1 da revisão do OPR-055): .md vazio, .json ausente, código 1" "$A" "$A"'    if args.deslocamento_ms == 2700:
+        raise ValueError("sonda S1")
+'
+sonda S2 ".md vazio com .json bom" '    sys.stdout.write(texto)
+' '    sys.stdout.write("" if args.deslocamento_ms == 2700 else texto)
+'
+sonda S3 ".md bom e .json ausente" '    if args.json:
+' '    if args.json and args.deslocamento_ms != 2700:
+'
+sonda S4 "exceção no meio do json.dump: .json cortado, código 1" '            json.dump(resultado, f,' '            if args.deslocamento_ms == 2700:
+                f.write("{\"veredito\": \"PA")
+                raise ValueError("sonda S4")
+            json.dump(resultado, f,'
+sonda S5 "exceção na corrida d (veredito PASSA) depois de gravar os dois: código 1" '    return 0 if resultado["veredito"] == "PASSA" else 1
+' '    if args.deslocamento_ms == 2500:
+        raise ValueError("sonda S5")
+    return 0 if resultado["veredito"] == "PASSA" else 1
+'
+restaura
+```
+
+```python
+import sys
+s = open(sys.argv[1], encoding="utf-8").read(); t = sys.argv[2]
+py0 = "  python3 -c 'import json, sys\n"
+coer = '''if (v == "PASSA") != (rc == 0):
+    sys.exit(f"{n} com veredito {v}, que não bate com o código {rc}")' "$1.json" "$2" 2>&1
+'''
+bloco = '''      if ! motivo="$(saida_completa "$tmp/$saida$suf" "$rc")"; then
+        log "metricas $saida$suf: saída recusada ($motivo)"
+        log "metricas $saida: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)"
+        echo "PARAR: metricas.py saiu com código $rc, mas o .md e o .json não estão completos e coerentes (exceção não tratada?); ver stderr acima" >&2
+        exit 1
+      fi
+'''
+log2 = '''      [ "$rc" -le 1 ] || log "metricas $saida: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)"
+'''
+i, j = s.index(py0), s.index(coer) + len(coer)
+trocas = {
+    "qA": ('[ -s "$1.md" ]', '[ -e "$1.md" ]'),                    # .md vazio passa
+    "qB": (py0, '  [ ! -e "$1.json" ] || ' + py0.lstrip()),          # .json ausente passa
+    "qC": (s[i:j], '  [ -s "$1.json" ] || { echo "${1##*/}.json vazio ou ausente"; return 1; }\n'),  # só tamanho
+    "qD": (coer, "' \"$1.json\" \"$2\" 2>&1\n"),                      # sem coerência veredito x código
+    "qE": (bloco, ""),                                                # sem chamar saida_completa
+    "qF": (log2, ""),                                                 # sem a linha do diário do código 2 (OPR-057)
+}
+for q, (a, b) in trocas.items():
+    assert s.count(a) == 1, q
+    open(f"{t}/medir.{q}.sh", "w", encoding="utf-8").write(s.replace(a, b))
+```
+
+3. **Ver falhar com a versão atual (teste antes da mudança):** `bash "$TMPDIR/tribuna-0005/r4-ensaio.sh" "$PWD" "$TMPDIR/tribuna-0005/r4-atual" "$TMPDIR/tribuna-0005/medir.r3.sh" ATUAL 2>&1 | tee "$TMPDIR/tribuna-0005/r4-atual.txt" | grep -E "^(===|S[0-5]: (VERDE|VERMELHO))"`. Esperado:
+   - `=== ATUAL: 9af077c606c6 ===`, `S0: VERDE` e `S1` a `S5` em `VERMELHO`;
+   - no arquivo completo, S1 com `mv: rename …p200.json …: No such file or directory`, `linhas PARAR: 0`, 5 linhas `trocado` e `T04_giorgio_sala_t1.p200.md com 0 bytes`, que é o achado 1 reproduzido.
+   O ensaio imprime antes duas linhas `revisar:` do `folha.py` (a base sintética); elas são esperadas. Se aparecer `SONDA NÃO CASA`, PARAR: o `metricas.py` da árvore não é o da prova.
+4. **Aplicar a correção** com o patch abaixo (`git apply --check` passou contra o `medir.sh` de sha `9af077c6…` na prova): salvar em `$TMPDIR/tribuna-0005/medir-r4.patch` e rodar `git apply --check "$TMPDIR/tribuna-0005/medir-r4.patch" && git apply "$TMPDIR/tribuna-0005/medir-r4.patch"`, depois `bash -n work/0005-etapa0-medicao/scripts/medir.sh`, que não imprime nada. Esperado: `shasum -a 256 work/0005-etapa0-medicao/scripts/medir.sh` → `e35a59dbf6fd2a4e7efae8878bd031aab71289ebdf3fabfbc76eca31be582c0a`.
+
+```diff
+--- a/work/0005-etapa0-medicao/scripts/medir.sh
++++ b/work/0005-etapa0-medicao/scripts/medir.sh
+@@ -7,6 +7,20 @@
+ source "$(dirname "$0")/comum.sh"
+ cmd="${1:-}"
+ rc_aceito() { [ "$1" -le "$2" ] || { echo "PARAR: código $1 (entrada inválida); ver stderr acima" >&2; exit 1; }; }
++# Uma corrida do metricas.py só é aceita se deixou o .md com conteúdo e o .json legível, com o veredito que o código
++# anuncia (0 = PASSA, 1 = outro). Uma exceção não tratada também sai com 1 e deixa o .md vazio ou o .json ausente
++# ou cortado (impl_plan 0005, Correções da revisão rodada 4, R4-1; OPR-056).
++saida_completa() {  # <caminho sem extensão> <código>; diz o que falta na saída padrão
++  [ -s "$1.md" ] || { echo "${1##*/}.md vazio ou ausente"; return 1; }
++  python3 -c 'import json, sys
++p, rc = sys.argv[1], int(sys.argv[2]); n = p.rsplit("/", 1)[-1]
++try:
++    v = json.load(open(p, encoding="utf-8"))["veredito"]
++except (OSError, ValueError, KeyError, TypeError) as e:
++    sys.exit(f"{n} ausente, vazio ou ilegível ({type(e).__name__})")
++if (v == "PASSA") != (rc == 0):
++    sys.exit(f"{n} com veredito {v}, que não bate com o código {rc}")' "$1.json" "$2" 2>&1
++}
+ 
+ case "$cmd" in
+   converter)
+@@ -88,6 +102,12 @@
+       log "metricas $saida$suf (d=$desl, eventos: ${eventos[*]##*/}): rc=$rc"
+       [ "$rc" -le 1 ] || log "metricas $saida: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)"
+       rc_aceito "$rc" 1
++      if ! motivo="$(saida_completa "$tmp/$saida$suf" "$rc")"; then
++        log "metricas $saida$suf: saída recusada ($motivo)"
++        log "metricas $saida: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)"
++        echo "PARAR: metricas.py saiu com código $rc, mas o .md e o .json não estão completos e coerentes (exceção não tratada?); ver stderr acima" >&2
++        exit 1
++      fi
+     done
+     for suf in "" .m200 .p200; do mv -f -- "$tmp/$saida$suf.md" "$tmp/$saida$suf.json" "$rel/"; done
+     log "metricas $saida: seis relatórios trocados (d, .m200, .p200) em ${rel#"$RAIZ"/}" ;;
+```
+
+5. **Ver passar com a versão nova:**
+   - `bash "$TMPDIR/tribuna-0005/r4-ensaio.sh" "$PWD" "$TMPDIR/tribuna-0005/r4-novo" "$PWD/work/0005-etapa0-medicao/scripts/medir.sh" NOVO 2>&1 | tee "$TMPDIR/tribuna-0005/r4-novo.txt" | grep -E "^(===|S[0-5]: (VERDE|VERMELHO))"`. Esperado: `=== NOVO: e35a59dbf6fd ===` e `S0` a `S5` em `VERDE`. No arquivo completo, cada S1-S5 tem a linha `saída recusada (…)` com o motivo da tabela, seguida de `nenhum relatório trocado` e do `PARAR: metricas.py saiu com código …`.
+   - Regressão da rodada 3: `bash "$TMPDIR/tribuna-0005/r3-ensaio.sh" "$PWD" "$TMPDIR/tribuna-0005/r4-r3novo" "$PWD/work/0005-etapa0-medicao/scripts/medir.sh" NOVO 2>&1 | tee "$TMPDIR/tribuna-0005/r4-r3novo.txt"`. Esperado: o mesmo do passo 5 da rodada 3, com T1 e T2 em "os seis relatórios iguais aos de antes", T3 com `medir.sh rc=0`, a linha `seis relatórios trocados (d, .m200, .p200) em etapa0/relatorios/S1`, `relatórios trocados: 6`, três `iguais ao metricas.py direto` e todos os contadores em 0.
+6. **Quebras Q2 da correção:**
+
+```bash
+T="$TMPDIR/tribuna-0005"
+python3 "$T/r4-quebras.py" "$PWD/work/0005-etapa0-medicao/scripts/medir.sh" "$T"
+for q in qA qB qC qD qE qF; do
+  bash "$T/r4-ensaio.sh" "$PWD" "$T/r4-$q" "$T/medir.$q.sh" "$q" 2>&1 | grep -E "^(===|S[0-5]: (VERDE|VERMELHO))" | tr '\n' ' '; echo
+done | tee "$T/r4-quebras.txt"
+```
+
+   Esperado, linha por linha, como na prova (o hash curto de cada quebra vem depois do nome):
+   - `qA`: S2 `VERMELHO`, as outras `VERDE`;
+   - `qB`: S3 `VERMELHO`;
+   - `qC`: S4 e S5 `VERMELHO`;
+   - `qD`: S5 `VERMELHO`;
+   - `qE`: S1 a S5 `VERMELHO`, S0 `VERDE`;
+   - `qF`: S0 `VERMELHO`, as outras `VERDE`.
+   Se uma quebra ficar toda verde, ou ficar vermelha numa sonda que não está nesta lista, PARAR e avisar o arquiteto.
+7. **Evidência:** juntar em `work/0005-etapa0-medicao/evidencias/qc/r4-medir-saida-completa.txt` o seguinte:
+   - `shasum -a 256` do `r4-ensaio.sh`, do `r4-quebras.py`, do `r3-ensaio.sh`, do `medir.r3.sh` e do `medir.sh` novo;
+   - as saídas `r4-atual.txt`, `r4-novo.txt`, `r4-r3novo.txt` e `r4-quebras.txt`, nessa ordem;
+   - o `git diff HEAD -- work/0005-etapa0-medicao/scripts/medir.sh`.
+   No `evidencias/qc/LEIA-ME.md`, mover a linha que começa com "- `r3-medir-troca-junta.txt`" para logo depois da linha que começa com "- Q-C5:", que é o OPR-057, achado 3. Logo abaixo dela, acrescentar: "- `r4-medir-saida-completa.txt`: R4-1 (OPR-056). Uma corrida que sai com 0 ou 1 sem deixar o `.md` com conteúdo e o `.json` legível e coerente com o código faz o `medir.sh` parar sem trocar nenhum dos seis relatórios. Seis sondas verdes, versão anterior vermelha em S1 a S5, seis quebras vermelhas no ponto previsto." Os repositórios descartáveis ficam em `$TMPDIR/tribuna-0005/` e saem na limpeza da Fase L.
+8. **Conferências na árvore principal:**
+   - `git status --short` mostra só `medir.sh`, `LEIA-ME.md` e `r4-medir-saida-completa.txt`, além do que já estava sujo antes de começar e não é desta tarefa;
+   - `git diff --stat HEAD -- etapa0 docs` fica vazio;
+   - `PYTHONDONTWRITEBYTECODE=1 python3 -B etapa0/ferramentas/testar.py | tail -1` → `329 testes, 0 falhas, 0 erros, 0 pulados`, porque nenhuma ferramenta mudou.
+   Commit: `fix(0005): medir.sh metricas recusa saída incompleta do metricas.py antes de trocar (OPR-056; impl_plan rodada 4, R4-1)`. Depois, o orquestrador chama o revisor, que confere o diff contra este patch: aplica o patch sobre `100a021:work/0005-etapa0-medicao/scripts/medir.sh` num diretório descartável e compara com `cmp`. O revisor também refaz os passos 5 e 6. Fechar o OPR-056 e o OPR-057 é decisão do orquestrador depois do REVIEW.
+
+### Verificação desta rodada (o que conta como sucesso)
+
+| Item | Comando | Sucesso |
+|---|---|---|
+| R4-1 falha antes | passo 3 | S0 verde; S1 a S5 vermelhas; S1 com `p200.md` de 0 byte e erro do `mv` |
+| R4-1 passa depois | passo 5, primeiro comando | S0 a S5 verdes |
+| Sem regressão do R3-2 | passo 5, segundo comando | T1, T2 e T3 iguais ao passo 5 da rodada 3 |
+| Quebras da correção | passo 6 | `qA` a `qF` vermelhas exatamente nas sondas da lista |
+| Nada fora do escopo | passo 8 | `git diff --stat HEAD -- etapa0 docs` vazio; `testar.py` com 329 e 0 falhas |
+| Patch igual ao plano | passo 4 e REVIEW | sha256 `e35a59db…` e `cmp` sem diferença |
+
 ---
 
 ## Portão automático do plano (checklist do PROCESS.md, conferida pelo arquiteto antes de entregar)
@@ -6376,6 +6652,7 @@ for j in sys.argv[1:]:
 - [x] Divergências registradas: A12 (OPR-041 para o analista), A7 (versão do `vosk`), A10 (nome das reproduções).
 - [x] **Rodada 1 (correções da revisão):** testes antes do código (Tarefas 7 e 8 com "ver falhar" medido na prova; Tarefa 9 com as quebras como prova); 74 quebras novas vermelhas (o texto original dizia 75; R3-3) e as 145 antigas de novo (144 + S35) na prova; os dois casos do revisor viram SENSÍVEL pela cadeia real; privacidade: o `vizinhas.py` só lê e escreve folhas de eventos (tempos, nomes de evento e índices de token), sem texto do discurso nem áudio, só stdlib e sem rede; nenhum número novo; nenhum portão humano (o esclarecimento do E1 não muda critério, número nem protocolo).
 - [x] **Rodada 3 (OPR-055 e contagem):** sem contrato, manifesto, DataStore ou regra inegociável, então sem CIA nem portão humano. Teste antes da mudança no R3-2: o ensaio falha com o `medir.sh` atual (passo 3), passa com o patch (passo 5) e duas quebras ficam vermelhas (passo 6), tudo medido na prova de 2026-10-14. Privacidade: o R3-1 versiona só folhas e saídas das reproduções (tempos, eventos e índices de token de textos de teste), sem WAV no git comum, e o R3-2 escreve temporários em `$TMPDIR/tribuna-0005/`, fora do repositório, apagados na saída. Nenhum número novo.
+- [x] **Rodada 4 (OPR-056):** sem contrato, manifesto, DataStore, regra inegociável nem ferramenta da 0004, então sem CIA nem portão humano. Teste antes da mudança: o `r4-ensaio.sh` falha com o `medir.sh` atual em S1 a S5 (passo 3), passa com o patch (passo 5), o ensaio da rodada 3 não regride e seis quebras ficam vermelhas no ponto previsto (passo 6), tudo medido na prova de 2026-10-15. Privacidade: a conferência só lê os temporários do R3-2, e o diário recebe só nome de arquivo, tipo de exceção e palavra do veredito. Nenhum número novo.
 
 ---
 
