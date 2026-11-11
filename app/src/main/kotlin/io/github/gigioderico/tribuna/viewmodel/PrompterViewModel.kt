@@ -21,6 +21,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -58,6 +59,10 @@ class PrompterViewModel(
                 _uiState.update { it.copy(micAvailable = state != EngineState.Failed) }
             }
         }
+
+        viewModelScope.launch {
+            speechEngine.prepare()
+        }
     }
 
     fun setText(newText: String) {
@@ -80,7 +85,21 @@ class PrompterViewModel(
     }
 
     fun startReading() {
-        dispatch(ReadingEvent.Start)
+        if (speechEngine.state.value == EngineState.Ready) {
+            dispatch(ReadingEvent.Start)
+        } else {
+            viewModelScope.launch {
+                if (speechEngine.state.value == EngineState.Idle) {
+                    speechEngine.prepare()
+                }
+                if (speechEngine.state.value == EngineState.Preparing) {
+                    speechEngine.state.first { it != EngineState.Preparing }
+                }
+                if (speechEngine.state.value == EngineState.Ready) {
+                    dispatch(ReadingEvent.Start)
+                }
+            }
+        }
     }
 
     fun pauseReading() {

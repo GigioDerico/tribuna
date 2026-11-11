@@ -129,4 +129,15 @@ class PrompterViewModelTest {
         viewModel.onActivityStop(isChangingConfigurations = false)
         assertEquals(ReadingPhase.Paused, viewModel.uiState.value.phase)
     }
+
+    @Test
+    fun startReading_whenEngineIdle_preparesAndStartsReading() =
+        runBlocking {
+            val unreadyEngine = FakeSpeechEngine()
+            val vm = PrompterViewModel(unreadyEngine, fakeSettings)
+            vm.setText("Teste de preparo do motor")
+            vm.startReading()
+            assertEquals(ReadingPhase.Reading, vm.uiState.value.phase)
+            assertEquals(EngineState.Recognizing, unreadyEngine.state.value)
+        }
 }
