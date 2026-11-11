@@ -1,0 +1,6 @@
+1	724	instalação 334 ms · prepare 643 ms · beginSession 26 ms · 1º parcial 6237 ms
+2	708	instalação 273 ms · prepare 515 ms · beginSession 27 ms · 1º parcial - ms
+3	730	instalação 265 ms · prepare 520 ms · beginSession 26 ms · 1º parcial - ms
+TotalTime ms: n=3, mediana=724, máximo=730
+prepare ms: n=3, mediana=520, máximo=643
+instalação ms: n=3, mediana=273, máximo=334

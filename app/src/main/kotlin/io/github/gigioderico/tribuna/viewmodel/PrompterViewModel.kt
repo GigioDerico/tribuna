@@ -1,0 +1,244 @@
+package io.github.gigioderico.tribuna.viewmodel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import io.github.gigioderico.tribuna.align.AlignConstants
+import io.github.gigioderico.tribuna.align.AlignPresets
+import io.github.gigioderico.tribuna.align.AlignState
+import io.github.gigioderico.tribuna.align.Aligner
+import io.github.gigioderico.tribuna.align.Move
+import io.github.gigioderico.tribuna.align.PartialReconciler
+import io.github.gigioderico.tribuna.align.Tokenizer
+import io.github.gigioderico.tribuna.data.AppSettings
+import io.github.gigioderico.tribuna.data.ScrollMode
+import io.github.gigioderico.tribuna.data.SettingsRepository
+import io.github.gigioderico.tribuna.speech.EngineState
+import io.github.gigioderico.tribuna.speech.SessionId
+import io.github.gigioderico.tribuna.speech.SpeechEngine
+import io.github.gigioderico.tribuna.speech.SpeechEvent
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+
+class PrompterViewModel(
+    private val speechEngine: SpeechEngine,
+    private val settingsRepository: SettingsRepository,
+) : ViewModel() {
+    private val _uiState = MutableStateFlow(PrompterUiState())
+    val uiState: StateFlow<PrompterUiState> = _uiState.asStateFlow()
+
+    private var activeSessionId: SessionId? = null
+    private var aligner: Aligner? = null
+    private var alignState = AlignState(0, 0, 0, Move.Stay, 0.0)
+    private var reconciler = PartialReconciler()
+    private val tail = ArrayDeque<String>()
+    private var timerJob: Job? = null
+    private var appSettings = AppSettings()
+
+    init {
+        viewModelScope.launch {
+            settingsRepository.settings.collect { settings ->
+                appSettings = settings
+                updateAlignerParams()
+            }
+        }
+
+        viewModelScope.launch {
+            speechEngine.events.collect { event ->
+                handleSpeechEvent(event)
+            }
+        }
+
+        viewModelScope.launch {
+            speechEngine.state.collect { state ->
+                _uiState.update { it.copy(micAvailable = state != EngineState.Failed) }
+            }
+        }
+    }
+
+    fun setText(newText: String) {
+        val tokens = Tokenizer.tokenize(newText)
+        _uiState.update {
+            it.copy(
+                text = newText,
+                tokens = tokens,
+                cursor = 0,
+            )
+        }
+        updateAlignerParams()
+    }
+
+    private fun updateAlignerParams() {
+        val tokens = _uiState.value.tokens
+        val params = AlignPresets.getOrDefault(appSettings.sensitivity)
+        aligner = Aligner(tokens, params)
+        alignState = AlignState(0, 0, 0, Move.Stay, 0.0)
+    }
+
+    fun startReading() {
+        dispatch(ReadingEvent.Start)
+    }
+
+    fun pauseReading() {
+        dispatch(ReadingEvent.Pause)
+    }
+
+    fun resumeReading() {
+        dispatch(ReadingEvent.Resume)
+    }
+
+    fun reposition(tokenIndex: Int) {
+        dispatch(ReadingEvent.Reposition(tokenIndex))
+    }
+
+    fun finishReading() {
+        dispatch(ReadingEvent.Finish)
+    }
+
+    fun endReading() {
+        dispatch(ReadingEvent.End)
+    }
+
+    fun changeMode(newMode: ScrollMode) {
+        dispatch(ReadingEvent.ModeChanged(newMode))
+    }
+
+    fun onActivityStop(isChangingConfigurations: Boolean) {
+        if (!isChangingConfigurations) {
+            dispatch(ReadingEvent.BackgroundChanged(isBackground = true))
+        }
+    }
+
+    fun onActivityStart() {
+        dispatch(ReadingEvent.BackgroundChanged(isBackground = false))
+    }
+
+    private fun dispatch(event: ReadingEvent) {
+        val current = _uiState.value
+        val result = ReadingStateMachine.transition(current.phase, current.mode, event)
+
+        _uiState.update {
+            it.copy(
+                phase = result.newPhase,
+                mode = result.newMode,
+            )
+        }
+
+        executeSideEffects(result.sideEffects)
+        manageTimer(result.newPhase)
+    }
+
+    private fun executeSideEffects(effects: List<SideEffect>) {
+        effects.forEach { effect ->
+            when (effect) {
+                is SideEffect.StartCapture -> {
+                    speechEngine.startCapture()
+                }
+
+                is SideEffect.StopCapture -> {
+                    speechEngine.stopCapture()
+                }
+
+                is SideEffect.BeginSession -> {
+                    val vocab =
+                        _uiState.value.tokens
+                            .flatMap { it.spoken.flatten() }
+                            .distinct()
+                    val sessionId = speechEngine.beginSession(vocab)
+                    activeSessionId = sessionId
+                    reconciler = PartialReconciler()
+                    tail.clear()
+                }
+
+                is SideEffect.EndSession -> {
+                    speechEngine.endSession()
+                    activeSessionId = null
+                    reconciler = PartialReconciler()
+                    tail.clear()
+                }
+
+                is SideEffect.ResetPosition -> {
+                    aligner?.let {
+                        alignState = it.reposition(effect.tokenIndex)
+                        tail.clear()
+                        _uiState.update { s -> s.copy(cursor = alignState.cursor) }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun handleSpeechEvent(event: SpeechEvent) {
+        when (event) {
+            is SpeechEvent.Level -> {
+                _uiState.update { it.copy(micLevel = event.rms) }
+            }
+
+            is SpeechEvent.Partial -> {
+                if (event.session != activeSessionId) return
+                if (_uiState.value.phase != ReadingPhase.Reading) return
+                val words = reconciler.onPartial(event.words)
+                if (words.isNotEmpty()) {
+                    advanceCursor(words)
+                }
+            }
+
+            is SpeechEvent.Final -> {
+                if (event.session != activeSessionId) return
+                if (_uiState.value.phase != ReadingPhase.Reading) return
+                val words = reconciler.onFinal(event.words)
+                if (words.isNotEmpty()) {
+                    advanceCursor(words)
+                }
+            }
+
+            is SpeechEvent.Error -> {
+                if (event.session == activeSessionId) {
+                    dispatch(ReadingEvent.Pause)
+                }
+            }
+        }
+    }
+
+    private fun advanceCursor(fresh: List<String>) {
+        val currentAligner = aligner ?: return
+        fresh.forEach(tail::addLast)
+        val keep = maxOf(AlignPresets.getOrDefault(appSettings.sensitivity).k, AlignConstants.RECOVERY_WORDS)
+        while (tail.size > keep) tail.removeFirst()
+        alignState = currentAligner.advance(alignState, tail.toList())
+        _uiState.update { it.copy(cursor = alignState.cursor) }
+
+        if (alignState.cursor >= _uiState.value.tokens.size - 1 && _uiState.value.tokens.isNotEmpty()) {
+            finishReading()
+        }
+    }
+
+    private fun manageTimer(phase: ReadingPhase) {
+        if (phase is ReadingPhase.Reading) {
+            if (timerJob == null || timerJob?.isActive != true) {
+                timerJob =
+                    viewModelScope.launch {
+                        while (true) {
+                            delay(100L)
+                            _uiState.update { it.copy(elapsedMs = it.elapsedMs + 100L) }
+                        }
+                    }
+            }
+        } else if (phase !is ReadingPhase.Paused) {
+            timerJob?.cancel()
+            timerJob = null
+            if (phase is ReadingPhase.Idle) {
+                _uiState.update { it.copy(elapsedMs = 0L) }
+            }
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        speechEngine.release()
+    }
+}

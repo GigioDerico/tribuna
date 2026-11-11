@@ -1,0 +1,13 @@
+# Sincronização
+
+Veredito: **SENSÍVEL AO DESLOCAMENTO**
+
+- deslocamento: -970 ms (t_wav = t_app + deslocamento); correlação 0.9395; faixa -5000 a 0 ms; 559 linhas do level.csv, 100 fora do WAV; WAV de 92000 ms
+- palma: não conferida (sem variância em volta da palma)
+- deriva: começo -960 ms, fim -980 ms, diferença entre as metades 20 ms, estendida à gravação 40 ms (limite 200)
+- motivo: palma não confere (sem variância em volta da palma)
+
+## Proveniência
+
+- wav: T01_ensaio_sala_t1.wav sha256=896912b02fba89fd5b9b8d16c38a5cf93dc111957f81c2f4ba103a9fdb667ec1
+- level: T01_ensaio_sala_t1.level.csv sha256=d5b26dea13cfe8e64f1850df65024ae783e6ef60b69a93f7f3d60e6d1202a42d

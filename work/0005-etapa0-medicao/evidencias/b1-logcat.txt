@@ -1,0 +1,16 @@
+linhas do logcat:     9123
+linhas do pacote io.github.gigioderico.tribuna.etapa0: 337
+FATAL EXCEPTION: 0
+palavra rodeios: 0
+palavra conselhos: 0
+palavra estiagem: 0
+palavra agricultor: 0
+palavra perfeccionismo: 0
+palavra escondida: 0
+palavra paciência: 0
+palavra paciencia: 0
+palavra agradecer: 0
+palavra coríntios: 0
+palavra corintios: 0
+palavra subestimado: 0
+PASSA

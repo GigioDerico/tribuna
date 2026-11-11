@@ -1,0 +1,337 @@
+# R4-1 (OPR-056): evidência do QA, 2026-10-15, sem aparelho
+## sha256
+d46aa6c8da9061eb355c62e0348c3a6e9c856037072d1c7d4567a00ab33a4d8d  r4-ensaio.sh
+b25be3f4bd9a5e57471ca6b406159c9d4bfd5d1b37096f6ca9dde91fbdd848bc  r4-quebras.py
+2abacc87f2156fea34ae2709163eac9bd7949793a4dcc907e49536dab76543c9  r3-ensaio.sh
+9af077c606c642ae9bae0236f6db36190855611d1ccb2ce4e7427257906bbcfb  medir.r3.sh
+e35a59dbf6fd2a4e7efae8878bd031aab71289ebdf3fabfbc76eca31be582c0a  work/0005-etapa0-medicao/scripts/medir.sh
+
+## r4-atual.txt
+revisar: improviso_inicio em 25300 ms do WAV (22800 ms do app), primeira palavra do improviso, entre 'conversa' (token 46) e 'Isso' (token 47)
+revisar: improviso_fim em 33200 ms do WAV (30700 ms do app), última palavra do improviso, entre 'conversa' (token 46) e 'Isso' (token 47)
+=== ATUAL: 9af077c606c6 ===
+--- vereditos da base: d=PASSA d.m200=PASSA d.p200=REPROVA 
+--- S0: código 2 na corrida d+200 (a linha do diário do R3-2)
+S0|  T04_giorgio_sala_t1.m200.folha.events.csv: +200 ms
+S0|  T04_giorgio_sala_t1.p200.folha.events.csv: -200 ms
+S0|  vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=0
+S0|  metricas T04_giorgio_sala_t1 (d=2500, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.folha.events.csv): rc=0
+S0|  metricas T04_giorgio_sala_t1.m200 (d=2300, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.m200.folha.events.csv): rc=0
+S0|  metricas.py: falha forçada do ensaio
+S0|  metricas T04_giorgio_sala_t1.p200 (d=2700, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.p200.folha.events.csv): rc=2
+S0|  metricas T04_giorgio_sala_t1: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)
+S0|  PARAR: código 2 (entrada inválida); ver stderr acima
+S0: medir.sh rc=1; linhas 'nenhum relatório trocado': 1; linhas PARAR: 1
+S0: os seis relatórios iguais aos de antes
+S0: T04_giorgio_sala_t1.p200.md com 1493 bytes; pastas temporárias restantes: 0
+S0: VERDE
+--- S1: exceção antes de escrever (achado 1 da revisão do OPR-055): .md vazio, .json ausente, código 1
+S1|  T04_giorgio_sala_t1.m200.folha.events.csv: +200 ms
+S1|  T04_giorgio_sala_t1.p200.folha.events.csv: -200 ms
+S1|  vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=0
+S1|  metricas T04_giorgio_sala_t1 (d=2500, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.folha.events.csv): rc=0
+S1|  metricas T04_giorgio_sala_t1.m200 (d=2300, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.m200.folha.events.csv): rc=0
+S1|  Traceback (most recent call last):
+S1|    File "/private/var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T/tribuna-0005/r4-atual/repo/etapa0/ferramentas/metricas.py", line 553, in <module>
+S1|      sys.exit(main())
+S1|               ~~~~^^
+S1|    File "/private/var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T/tribuna-0005/r4-atual/repo/etapa0/ferramentas/metricas.py", line 538, in main
+S1|      raise ValueError("sonda S1")
+S1|  ValueError: sonda S1
+S1|  metricas T04_giorgio_sala_t1.p200 (d=2700, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.p200.folha.events.csv): rc=1
+S1|  mv: rename /var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T/tribuna-0005/r4-atual/tmp/tribuna-0005/metricas.nQdri6/T04_giorgio_sala_t1.p200.json to /private/var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T/tribuna-0005/r4-atual/repo/etapa0/relatorios/S1/T04_giorgio_sala_t1.p200.json: No such file or directory
+S1: medir.sh rc=1; linhas 'nenhum relatório trocado': 0; linhas PARAR: 0
+S1: RELATÓRIOS MUDARAM:
+S1:   trocado T04_giorgio_sala_t1.md
+S1:   trocado T04_giorgio_sala_t1.json
+S1:   trocado T04_giorgio_sala_t1.m200.md
+S1:   trocado T04_giorgio_sala_t1.m200.json
+S1:   trocado T04_giorgio_sala_t1.p200.md
+S1: T04_giorgio_sala_t1.p200.md com 0 bytes; pastas temporárias restantes: 0
+S1: VERMELHO
+--- S2: .md vazio com .json bom
+S2|  T04_giorgio_sala_t1.m200.folha.events.csv: +200 ms
+S2|  T04_giorgio_sala_t1.p200.folha.events.csv: -200 ms
+S2|  vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=0
+S2|  metricas T04_giorgio_sala_t1 (d=2500, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.folha.events.csv): rc=0
+S2|  metricas T04_giorgio_sala_t1.m200 (d=2300, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.m200.folha.events.csv): rc=0
+S2|  metricas T04_giorgio_sala_t1.p200 (d=2700, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.p200.folha.events.csv): rc=1
+S2|  metricas T04_giorgio_sala_t1: seis relatórios trocados (d, .m200, .p200) em etapa0/relatorios/S1
+S2: medir.sh rc=0; linhas 'nenhum relatório trocado': 0; linhas PARAR: 0
+S2: RELATÓRIOS MUDARAM:
+S2:   trocado T04_giorgio_sala_t1.md
+S2:   trocado T04_giorgio_sala_t1.json
+S2:   trocado T04_giorgio_sala_t1.m200.md
+S2:   trocado T04_giorgio_sala_t1.m200.json
+S2:   trocado T04_giorgio_sala_t1.p200.md
+S2:   trocado T04_giorgio_sala_t1.p200.json
+S2: T04_giorgio_sala_t1.p200.md com 0 bytes; pastas temporárias restantes: 0
+S2: VERMELHO
+--- S3: .md bom e .json ausente
+S3|  T04_giorgio_sala_t1.m200.folha.events.csv: +200 ms
+S3|  T04_giorgio_sala_t1.p200.folha.events.csv: -200 ms
+S3|  vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=0
+S3|  metricas T04_giorgio_sala_t1 (d=2500, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.folha.events.csv): rc=0
+S3|  metricas T04_giorgio_sala_t1.m200 (d=2300, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.m200.folha.events.csv): rc=0
+S3|  metricas T04_giorgio_sala_t1.p200 (d=2700, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.p200.folha.events.csv): rc=1
+S3|  mv: rename /var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T/tribuna-0005/r4-atual/tmp/tribuna-0005/metricas.Ikgc7q/T04_giorgio_sala_t1.p200.json to /private/var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T/tribuna-0005/r4-atual/repo/etapa0/relatorios/S1/T04_giorgio_sala_t1.p200.json: No such file or directory
+S3: medir.sh rc=1; linhas 'nenhum relatório trocado': 0; linhas PARAR: 0
+S3: RELATÓRIOS MUDARAM:
+S3:   trocado T04_giorgio_sala_t1.md
+S3:   trocado T04_giorgio_sala_t1.json
+S3:   trocado T04_giorgio_sala_t1.m200.md
+S3:   trocado T04_giorgio_sala_t1.m200.json
+S3:   trocado T04_giorgio_sala_t1.p200.md
+S3: T04_giorgio_sala_t1.p200.md com 1493 bytes; pastas temporárias restantes: 0
+S3: VERMELHO
+--- S4: exceção no meio do json.dump: .json cortado, código 1
+S4|  T04_giorgio_sala_t1.m200.folha.events.csv: +200 ms
+S4|  T04_giorgio_sala_t1.p200.folha.events.csv: -200 ms
+S4|  vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=0
+S4|  metricas T04_giorgio_sala_t1 (d=2500, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.folha.events.csv): rc=0
+S4|  metricas T04_giorgio_sala_t1.m200 (d=2300, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.m200.folha.events.csv): rc=0
+S4|  Traceback (most recent call last):
+S4|    File "/private/var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T/tribuna-0005/r4-atual/repo/etapa0/ferramentas/metricas.py", line 554, in <module>
+S4|      sys.exit(main())
+S4|               ~~~~^^
+S4|    File "/private/var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T/tribuna-0005/r4-atual/repo/etapa0/ferramentas/metricas.py", line 547, in main
+S4|      raise ValueError("sonda S4")
+S4|  ValueError: sonda S4
+S4|  metricas T04_giorgio_sala_t1.p200 (d=2700, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.p200.folha.events.csv): rc=1
+S4|  metricas T04_giorgio_sala_t1: seis relatórios trocados (d, .m200, .p200) em etapa0/relatorios/S1
+S4: medir.sh rc=0; linhas 'nenhum relatório trocado': 0; linhas PARAR: 0
+S4: RELATÓRIOS MUDARAM:
+S4:   trocado T04_giorgio_sala_t1.md
+S4:   trocado T04_giorgio_sala_t1.json
+S4:   trocado T04_giorgio_sala_t1.m200.md
+S4:   trocado T04_giorgio_sala_t1.m200.json
+S4:   trocado T04_giorgio_sala_t1.p200.md
+S4:   trocado T04_giorgio_sala_t1.p200.json
+S4: T04_giorgio_sala_t1.p200.md com 1493 bytes; pastas temporárias restantes: 0
+S4: VERMELHO
+--- S5: exceção na corrida d (veredito PASSA) depois de gravar os dois: código 1
+S5|  T04_giorgio_sala_t1.m200.folha.events.csv: +200 ms
+S5|  T04_giorgio_sala_t1.p200.folha.events.csv: -200 ms
+S5|  vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=0
+S5|  Traceback (most recent call last):
+S5|    File "/private/var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T/tribuna-0005/r4-atual/repo/etapa0/ferramentas/metricas.py", line 553, in <module>
+S5|      sys.exit(main())
+S5|               ~~~~^^
+S5|    File "/private/var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T/tribuna-0005/r4-atual/repo/etapa0/ferramentas/metricas.py", line 548, in main
+S5|      raise ValueError("sonda S5")
+S5|  ValueError: sonda S5
+S5|  metricas T04_giorgio_sala_t1 (d=2500, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.folha.events.csv): rc=1
+S5|  metricas T04_giorgio_sala_t1.m200 (d=2300, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.m200.folha.events.csv): rc=0
+S5|  metricas T04_giorgio_sala_t1.p200 (d=2700, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.p200.folha.events.csv): rc=1
+S5|  metricas T04_giorgio_sala_t1: seis relatórios trocados (d, .m200, .p200) em etapa0/relatorios/S1
+S5: medir.sh rc=0; linhas 'nenhum relatório trocado': 0; linhas PARAR: 0
+S5: RELATÓRIOS MUDARAM:
+S5:   trocado T04_giorgio_sala_t1.md
+S5:   trocado T04_giorgio_sala_t1.json
+S5:   trocado T04_giorgio_sala_t1.m200.md
+S5:   trocado T04_giorgio_sala_t1.m200.json
+S5:   trocado T04_giorgio_sala_t1.p200.md
+S5:   trocado T04_giorgio_sala_t1.p200.json
+S5: T04_giorgio_sala_t1.p200.md com 1493 bytes; pastas temporárias restantes: 0
+S5: VERMELHO
+
+## r4-novo.txt
+revisar: improviso_inicio em 25300 ms do WAV (22800 ms do app), primeira palavra do improviso, entre 'conversa' (token 46) e 'Isso' (token 47)
+revisar: improviso_fim em 33200 ms do WAV (30700 ms do app), última palavra do improviso, entre 'conversa' (token 46) e 'Isso' (token 47)
+=== NOVO: e35a59dbf6fd ===
+--- vereditos da base: d=PASSA d.m200=PASSA d.p200=REPROVA 
+--- S0: código 2 na corrida d+200 (a linha do diário do R3-2)
+S0|  T04_giorgio_sala_t1.m200.folha.events.csv: +200 ms
+S0|  T04_giorgio_sala_t1.p200.folha.events.csv: -200 ms
+S0|  vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=0
+S0|  metricas T04_giorgio_sala_t1 (d=2500, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.folha.events.csv): rc=0
+S0|  metricas T04_giorgio_sala_t1.m200 (d=2300, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.m200.folha.events.csv): rc=0
+S0|  metricas.py: falha forçada do ensaio
+S0|  metricas T04_giorgio_sala_t1.p200 (d=2700, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.p200.folha.events.csv): rc=2
+S0|  metricas T04_giorgio_sala_t1: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)
+S0|  PARAR: código 2 (entrada inválida); ver stderr acima
+S0: medir.sh rc=1; linhas 'nenhum relatório trocado': 1; linhas PARAR: 1
+S0: os seis relatórios iguais aos de antes
+S0: T04_giorgio_sala_t1.p200.md com 1493 bytes; pastas temporárias restantes: 0
+S0: VERDE
+--- S1: exceção antes de escrever (achado 1 da revisão do OPR-055): .md vazio, .json ausente, código 1
+S1|  T04_giorgio_sala_t1.m200.folha.events.csv: +200 ms
+S1|  T04_giorgio_sala_t1.p200.folha.events.csv: -200 ms
+S1|  vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=0
+S1|  metricas T04_giorgio_sala_t1 (d=2500, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.folha.events.csv): rc=0
+S1|  metricas T04_giorgio_sala_t1.m200 (d=2300, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.m200.folha.events.csv): rc=0
+S1|  Traceback (most recent call last):
+S1|    File "/private/var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T/tribuna-0005/r4-novo/repo/etapa0/ferramentas/metricas.py", line 553, in <module>
+S1|      sys.exit(main())
+S1|               ~~~~^^
+S1|    File "/private/var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T/tribuna-0005/r4-novo/repo/etapa0/ferramentas/metricas.py", line 538, in main
+S1|      raise ValueError("sonda S1")
+S1|  ValueError: sonda S1
+S1|  metricas T04_giorgio_sala_t1.p200 (d=2700, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.p200.folha.events.csv): rc=1
+S1|  metricas T04_giorgio_sala_t1.p200: saída recusada (T04_giorgio_sala_t1.p200.md vazio ou ausente)
+S1|  metricas T04_giorgio_sala_t1: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)
+S1|  PARAR: metricas.py saiu com código 1, mas o .md e o .json não estão completos e coerentes (exceção não tratada?); ver stderr acima
+S1: medir.sh rc=1; linhas 'nenhum relatório trocado': 1; linhas PARAR: 1
+S1: os seis relatórios iguais aos de antes
+S1: T04_giorgio_sala_t1.p200.md com 1493 bytes; pastas temporárias restantes: 0
+S1: VERDE
+--- S2: .md vazio com .json bom
+S2|  T04_giorgio_sala_t1.m200.folha.events.csv: +200 ms
+S2|  T04_giorgio_sala_t1.p200.folha.events.csv: -200 ms
+S2|  vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=0
+S2|  metricas T04_giorgio_sala_t1 (d=2500, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.folha.events.csv): rc=0
+S2|  metricas T04_giorgio_sala_t1.m200 (d=2300, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.m200.folha.events.csv): rc=0
+S2|  metricas T04_giorgio_sala_t1.p200 (d=2700, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.p200.folha.events.csv): rc=1
+S2|  metricas T04_giorgio_sala_t1.p200: saída recusada (T04_giorgio_sala_t1.p200.md vazio ou ausente)
+S2|  metricas T04_giorgio_sala_t1: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)
+S2|  PARAR: metricas.py saiu com código 1, mas o .md e o .json não estão completos e coerentes (exceção não tratada?); ver stderr acima
+S2: medir.sh rc=1; linhas 'nenhum relatório trocado': 1; linhas PARAR: 1
+S2: os seis relatórios iguais aos de antes
+S2: T04_giorgio_sala_t1.p200.md com 1493 bytes; pastas temporárias restantes: 0
+S2: VERDE
+--- S3: .md bom e .json ausente
+S3|  T04_giorgio_sala_t1.m200.folha.events.csv: +200 ms
+S3|  T04_giorgio_sala_t1.p200.folha.events.csv: -200 ms
+S3|  vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=0
+S3|  metricas T04_giorgio_sala_t1 (d=2500, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.folha.events.csv): rc=0
+S3|  metricas T04_giorgio_sala_t1.m200 (d=2300, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.m200.folha.events.csv): rc=0
+S3|  metricas T04_giorgio_sala_t1.p200 (d=2700, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.p200.folha.events.csv): rc=1
+S3|  metricas T04_giorgio_sala_t1.p200: saída recusada (T04_giorgio_sala_t1.p200.json ausente, vazio ou ilegível (FileNotFoundError))
+S3|  metricas T04_giorgio_sala_t1: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)
+S3|  PARAR: metricas.py saiu com código 1, mas o .md e o .json não estão completos e coerentes (exceção não tratada?); ver stderr acima
+S3: medir.sh rc=1; linhas 'nenhum relatório trocado': 1; linhas PARAR: 1
+S3: os seis relatórios iguais aos de antes
+S3: T04_giorgio_sala_t1.p200.md com 1493 bytes; pastas temporárias restantes: 0
+S3: VERDE
+--- S4: exceção no meio do json.dump: .json cortado, código 1
+S4|  T04_giorgio_sala_t1.m200.folha.events.csv: +200 ms
+S4|  T04_giorgio_sala_t1.p200.folha.events.csv: -200 ms
+S4|  vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=0
+S4|  metricas T04_giorgio_sala_t1 (d=2500, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.folha.events.csv): rc=0
+S4|  metricas T04_giorgio_sala_t1.m200 (d=2300, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.m200.folha.events.csv): rc=0
+S4|  Traceback (most recent call last):
+S4|    File "/private/var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T/tribuna-0005/r4-novo/repo/etapa0/ferramentas/metricas.py", line 554, in <module>
+S4|      sys.exit(main())
+S4|               ~~~~^^
+S4|    File "/private/var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T/tribuna-0005/r4-novo/repo/etapa0/ferramentas/metricas.py", line 547, in main
+S4|      raise ValueError("sonda S4")
+S4|  ValueError: sonda S4
+S4|  metricas T04_giorgio_sala_t1.p200 (d=2700, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.p200.folha.events.csv): rc=1
+S4|  metricas T04_giorgio_sala_t1.p200: saída recusada (T04_giorgio_sala_t1.p200.json ausente, vazio ou ilegível (JSONDecodeError))
+S4|  metricas T04_giorgio_sala_t1: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)
+S4|  PARAR: metricas.py saiu com código 1, mas o .md e o .json não estão completos e coerentes (exceção não tratada?); ver stderr acima
+S4: medir.sh rc=1; linhas 'nenhum relatório trocado': 1; linhas PARAR: 1
+S4: os seis relatórios iguais aos de antes
+S4: T04_giorgio_sala_t1.p200.md com 1493 bytes; pastas temporárias restantes: 0
+S4: VERDE
+--- S5: exceção na corrida d (veredito PASSA) depois de gravar os dois: código 1
+S5|  T04_giorgio_sala_t1.m200.folha.events.csv: +200 ms
+S5|  T04_giorgio_sala_t1.p200.folha.events.csv: -200 ms
+S5|  vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=0
+S5|  Traceback (most recent call last):
+S5|    File "/private/var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T/tribuna-0005/r4-novo/repo/etapa0/ferramentas/metricas.py", line 553, in <module>
+S5|      sys.exit(main())
+S5|               ~~~~^^
+S5|    File "/private/var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T/tribuna-0005/r4-novo/repo/etapa0/ferramentas/metricas.py", line 548, in main
+S5|      raise ValueError("sonda S5")
+S5|  ValueError: sonda S5
+S5|  metricas T04_giorgio_sala_t1 (d=2500, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.folha.events.csv): rc=1
+S5|  metricas T04_giorgio_sala_t1: saída recusada (T04_giorgio_sala_t1.json com veredito PASSA, que não bate com o código 1)
+S5|  metricas T04_giorgio_sala_t1: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)
+S5|  PARAR: metricas.py saiu com código 1, mas o .md e o .json não estão completos e coerentes (exceção não tratada?); ver stderr acima
+S5: medir.sh rc=1; linhas 'nenhum relatório trocado': 1; linhas PARAR: 1
+S5: os seis relatórios iguais aos de antes
+S5: T04_giorgio_sala_t1.p200.md com 1493 bytes; pastas temporárias restantes: 0
+S5: VERDE
+
+## r4-r3novo.txt
+revisar: improviso_inicio em 25300 ms do WAV (22800 ms do app), primeira palavra do improviso, entre 'conversa' (token 46) e 'Isso' (token 47)
+revisar: improviso_fim em 33200 ms do WAV (30700 ms do app), última palavra do improviso, entre 'conversa' (token 46) e 'Isso' (token 47)
+=== NOVO: e35a59dbf6fd ===
+--- T1: hipóteses inválidas (kind x): código 2 na corrida d
+T04_giorgio_sala_t1.m200.folha.events.csv: +200 ms
+T04_giorgio_sala_t1.p200.folha.events.csv: -200 ms
+2026-10-15T00:31:07 vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=0
+metricas.py: hipóteses: linha 1 com kind ou accepted inválido
+2026-10-15T00:31:07 metricas T04_giorgio_sala_t1 (d=2500, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.folha.events.csv): rc=2
+2026-10-15T00:31:07 metricas T04_giorgio_sala_t1: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)
+PARAR: código 2 (entrada inválida); ver stderr acima
+medir.sh rc=1
+T1: os seis relatórios iguais aos de antes
+T1: T04_giorgio_sala_t1.md com 1391 bytes; pastas temporárias restantes: 0
+--- T2: folha de d corrigida (22800 -> 22900) e código 2 forçado na corrida d+200
+T04_giorgio_sala_t1.m200.folha.events.csv: +200 ms
+T04_giorgio_sala_t1.p200.folha.events.csv: -200 ms
+2026-10-15T00:31:07 vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=0
+2026-10-15T00:31:07 metricas T04_giorgio_sala_t1 (d=2500, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.folha.events.csv): rc=0
+2026-10-15T00:31:07 metricas T04_giorgio_sala_t1.m200 (d=2300, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.m200.folha.events.csv): rc=0
+metricas.py: falha forçada do ensaio
+2026-10-15T00:31:07 metricas T04_giorgio_sala_t1.p200 (d=2700, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.p200.folha.events.csv): rc=2
+2026-10-15T00:31:07 metricas T04_giorgio_sala_t1: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)
+PARAR: código 2 (entrada inválida); ver stderr acima
+medir.sh rc=1
+T2: os seis relatórios iguais aos de antes
+T2: pastas temporárias restantes: 0
+--- T3: folha de d corrigida, sem falha: os seis trocam juntos e batem com o metricas.py direto
+T04_giorgio_sala_t1.m200.folha.events.csv: +200 ms
+T04_giorgio_sala_t1.p200.folha.events.csv: -200 ms
+2026-10-15T00:31:07 vizinhas T04_giorgio_sala_t1.folha.events.csv: rc=0
+2026-10-15T00:31:07 metricas T04_giorgio_sala_t1 (d=2500, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.folha.events.csv): rc=0
+2026-10-15T00:31:07 metricas T04_giorgio_sala_t1.m200 (d=2300, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.m200.folha.events.csv): rc=0
+2026-10-15T00:31:07 metricas T04_giorgio_sala_t1.p200 (d=2700, eventos: T04_giorgio_sala_t1.events.csv T04_giorgio_sala_t1.p200.folha.events.csv): rc=1
+2026-10-15T00:31:07 metricas T04_giorgio_sala_t1: seis relatórios trocados (d, .m200, .p200) em etapa0/relatorios/S1
+medir.sh rc=0
+T3: relatórios trocados: 6
+T3: T04_giorgio_sala_t1.md e .json iguais ao metricas.py direto
+T3: T04_giorgio_sala_t1.m200.md e .json iguais ao metricas.py direto
+T3: T04_giorgio_sala_t1.p200.md e .json iguais ao metricas.py direto
+T3: pastas temporárias restantes: 0
+T3: git status fora de etapa0/relatorios, etapa0/eventos e evidencias: 0
+
+## r4-quebras.txt
+=== qA: 2054b2c4a159 === S0: VERDE S1: VERDE S2: VERMELHO S3: VERDE S4: VERDE S5: VERDE 
+=== qB: 196e78748928 === S0: VERDE S1: VERDE S2: VERDE S3: VERMELHO S4: VERDE S5: VERDE 
+=== qC: 6a06037d607e === S0: VERDE S1: VERDE S2: VERDE S3: VERDE S4: VERMELHO S5: VERMELHO 
+=== qD: 4cff9d6d524c === S0: VERDE S1: VERDE S2: VERDE S3: VERDE S4: VERDE S5: VERMELHO 
+=== qE: 7e3a684f268b === S0: VERDE S1: VERMELHO S2: VERMELHO S3: VERMELHO S4: VERMELHO S5: VERMELHO 
+=== qF: dd47ffae7ac3 === S0: VERMELHO S1: VERDE S2: VERDE S3: VERDE S4: VERDE S5: VERDE 
+
+## git diff HEAD -- medir.sh
+diff --git a/work/0005-etapa0-medicao/scripts/medir.sh b/work/0005-etapa0-medicao/scripts/medir.sh
+index d22698c..d7ed683 100755
+--- a/work/0005-etapa0-medicao/scripts/medir.sh
++++ b/work/0005-etapa0-medicao/scripts/medir.sh
+@@ -7,6 +7,20 @@
+ source "$(dirname "$0")/comum.sh"
+ cmd="${1:-}"
+ rc_aceito() { [ "$1" -le "$2" ] || { echo "PARAR: código $1 (entrada inválida); ver stderr acima" >&2; exit 1; }; }
++# Uma corrida do metricas.py só é aceita se deixou o .md com conteúdo e o .json legível, com o veredito que o código
++# anuncia (0 = PASSA, 1 = outro). Uma exceção não tratada também sai com 1 e deixa o .md vazio ou o .json ausente
++# ou cortado (impl_plan 0005, Correções da revisão rodada 4, R4-1; OPR-056).
++saida_completa() {  # <caminho sem extensão> <código>; diz o que falta na saída padrão
++  [ -s "$1.md" ] || { echo "${1##*/}.md vazio ou ausente"; return 1; }
++  python3 -c 'import json, sys
++p, rc = sys.argv[1], int(sys.argv[2]); n = p.rsplit("/", 1)[-1]
++try:
++    v = json.load(open(p, encoding="utf-8"))["veredito"]
++except (OSError, ValueError, KeyError, TypeError) as e:
++    sys.exit(f"{n} ausente, vazio ou ilegível ({type(e).__name__})")
++if (v == "PASSA") != (rc == 0):
++    sys.exit(f"{n} com veredito {v}, que não bate com o código {rc}")' "$1.json" "$2" 2>&1
++}
+ 
+ case "$cmd" in
+   converter)
+@@ -88,6 +102,12 @@ case "$cmd" in
+       log "metricas $saida$suf (d=$desl, eventos: ${eventos[*]##*/}): rc=$rc"
+       [ "$rc" -le 1 ] || log "metricas $saida: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)"
+       rc_aceito "$rc" 1
++      if ! motivo="$(saida_completa "$tmp/$saida$suf" "$rc")"; then
++        log "metricas $saida$suf: saída recusada ($motivo)"
++        log "metricas $saida: nenhum relatório trocado (os seis anteriores, se havia, ficam como estavam)"
++        echo "PARAR: metricas.py saiu com código $rc, mas o .md e o .json não estão completos e coerentes (exceção não tratada?); ver stderr acima" >&2
++        exit 1
++      fi
+     done
+     for suf in "" .m200 .p200; do mv -f -- "$tmp/$saida$suf.md" "$tmp/$saida$suf.json" "$rel/"; done
+     log "metricas $saida: seis relatórios trocados (d, .m200, .p200) em ${rel#"$RAIZ"/}" ;;

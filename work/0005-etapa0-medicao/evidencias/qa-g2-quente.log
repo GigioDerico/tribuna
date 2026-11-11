@@ -1,0 +1,13 @@
+1	852	instalação 30 ms · prepare 526 ms · beginSession 36 ms · 1º parcial - ms
+2	735	instalação 6 ms · prepare 368 ms · beginSession 24 ms · 1º parcial - ms
+3	718	instalação 1 ms · prepare 314 ms · beginSession 32 ms · 1º parcial - ms
+4	631	instalação 1 ms · prepare 291 ms · beginSession 27 ms · 1º parcial - ms
+5	749	instalação 1 ms · prepare 325 ms · beginSession 27 ms · 1º parcial - ms
+6	744	instalação 1 ms · prepare 312 ms · beginSession 26 ms · 1º parcial - ms
+7	600	instalação 2 ms · prepare 280 ms · beginSession 27 ms · 1º parcial 3029 ms
+8	722	instalação 1 ms · prepare 286 ms · beginSession 25 ms · 1º parcial - ms
+9	731	instalação 1 ms · prepare 277 ms · beginSession 27 ms · 1º parcial - ms
+10	729	instalação 1 ms · prepare 281 ms · beginSession 27 ms · 1º parcial - ms
+TotalTime ms: n=10, mediana=730.0, máximo=852
+prepare ms: n=10, mediana=301.5, máximo=526
+instalação ms: n=10, mediana=1.0, máximo=30

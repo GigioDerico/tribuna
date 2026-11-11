@@ -1,0 +1,6 @@
+# dumpsys package io.github.gigioderico.tribuna.etapa0 (filtrado: só as permissões; o resto do dump tem pacotes de outros apps e não entra, A11)
+    requested permissions:
+      android.permission.RECORD_AUDIO
+-- linhas com INTERNET|WAKE_LOCK|NETWORK_STATE no dump: 0
+-- permissões de execução:
+        android.permission.RECORD_AUDIO: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]

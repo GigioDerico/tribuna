@@ -1,0 +1,17 @@
+# Ramo reproducao, Salto errado das três corridas (OPR-054, achado 2b)
+# Repositório descartável no scratchpad, sem aparelho. Caso sintético T04 (etapa0/textos/T04.txt, test_cli_0005._caso_t04, d=2500), mesmo procedimento de t04-tres-corridas.txt, com os dados copiados para trajetorias/reproducoes e eventos/reproducoes (hypotheses.csv só com cabeçalho).
+$ medir.sh metricas S1 T04_giorgio_sala_t1 reproducao T04_giorgio_sala_t1_r_normal_off_novo_l0000
+T04_giorgio_sala_t1_r_normal_off_novo_l0000.m200.folha.events.csv: +200 ms
+T04_giorgio_sala_t1_r_normal_off_novo_l0000.p200.folha.events.csv: -200 ms
+2026-10-14T20:21:47 vizinhas T04_giorgio_sala_t1_r_normal_off_novo_l0000.folha.events.csv: rc=0
+2026-10-14T20:21:47 metricas T04_giorgio_sala_t1_r_normal_off_novo_l0000 (d=2500, eventos: T04_giorgio_sala_t1_r_normal_off_novo_l0000.events.csv T04_giorgio_sala_t1_r_normal_off_novo_l0000.folha.events.csv): rc=0
+2026-10-14T20:21:47 metricas T04_giorgio_sala_t1_r_normal_off_novo_l0000.m200 (d=2300, eventos: T04_giorgio_sala_t1_r_normal_off_novo_l0000.events.csv T04_giorgio_sala_t1_r_normal_off_novo_l0000.m200.folha.events.csv): rc=0
+2026-10-14T20:21:47 metricas T04_giorgio_sala_t1_r_normal_off_novo_l0000.p200 (d=2700, eventos: T04_giorgio_sala_t1_r_normal_off_novo_l0000.events.csv T04_giorgio_sala_t1_r_normal_off_novo_l0000.p200.folha.events.csv): rc=1
+medir.sh rc=0
+$ grep "Salto errado" relatorios/S1/reproducoes/<rep>{,.m200,.p200}.md
+==
+- Salto errado: **PASSA**, 0 ocorrência(s)
+== .m200
+- Salto errado: **PASSA**, 0 ocorrência(s)
+== .p200
+- Salto errado: **REPROVA**, 1 ocorrência(s)

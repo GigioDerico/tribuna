@@ -14,3 +14,5 @@ Na 0004 (Python): snapshot dos arquivos provados, `q2.py` com a lista de trocas 
 **Why:** na 0002 a prova achou erro de algoritmo do TRD (A2), testes mal desenhados (T03 refrão, hífen em maiúsculas, "capítulo" solto) e formatação do ktlint antes de chegar ao construtor; cada um seria uma falha na escada.
 
 **How to apply:** repetir em PLAN com lógica não trivial; declarar no plano a seção "Prova do plano" com contagens reais; um protótipo em Python no scratchpad é bom para explorar o algoritmo antes do Kotlin. Ver [[align-decisoes-0002]].
+
+Na 0005 (Python + aparelho): `q2.py` tem de validar que cada trecho aparece 1 vez ANTES de rodar, e falhar se o testar.py não rodar (um caminho relativo com cwd errado deu 0 testes = "vermelho" falso em 140 quebras); rodar com `-B`/`PYTHONDONTWRITEBYTECODE`; nunca encadear `cd x && ...; comando` (com `;` o resto roda no repo real: criou um symlink em etapa0/). Ver [[medicao-aparelho-0005]].

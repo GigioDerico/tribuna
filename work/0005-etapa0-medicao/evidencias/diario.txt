@@ -1,0 +1,21 @@
+2026-10-12T11:13:47 logcat limpo
+2026-10-12T11:17:46 logcat limpo
+2026-10-12T11:19:12 preparado T01
+11:24:12 rotação travada em retrato (accelerometer_rotation=0 user_rotation=0); o aparelho estava em paisagem
+2026-10-12T11:45:10 logcat limpo
+2026-10-12T11:45:14 preparado T01
+2026-10-12T11:56:32 puxado T01_ensaio_sala_t1: app_version=0.0.1 vosk_android_version=0.3.75 model_id=vosk-model-small-pt-0.3 sha256=6e1ce909032e1afa7a88e68a3d628ecafff302bdf195befab308826c395e93b7 text_id=T01 preset=Normal vocabulary=off recognizer_strategy=NewPerSession audio_source=mic wav_name= level_threshold=0.0 animation_ms=375 install_ms=6 prepare_ms=422 device_model=samsung SM-S911B android_version=16 (API 36) 
+       1 /var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T//tribuna-0005/ensaio/T01_ensaio_sala_t1.events.csv
+     559 /var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T//tribuna-0005/ensaio/T01_ensaio_sala_t1.hypotheses.csv
+     560 /var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T//tribuna-0005/ensaio/T01_ensaio_sala_t1.level.csv
+     103 /var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T//tribuna-0005/ensaio/T01_ensaio_sala_t1.trajectory.csv
+       1 /var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T//tribuna-0005/ensaio/T01_ensaio_sala_t1.events.csv
+    1224 total
+12:14:54 B3, B5, B6 e B7-instalação feitos; adb perdeu o S23 durante B7 (reproduzir.py); ajustes aplicados NÃO restaurados (H-cabo); release instalado
+2026-10-12T12:28:39 puxado T01_ensaio_sala_t1_r_normal_off_novo_l0000: app_version=0.0.1 vosk_android_version=0.3.75 model_id=vosk-model-small-pt-0.3 sha256=6e1ce909032e1afa7a88e68a3d628ecafff302bdf195befab308826c395e93b7 text_id=T01 preset=Normal vocabulary=off recognizer_strategy=NewPerSession audio_source=wav wav_name=T01_ensaio_sala_t1.wav level_threshold=0.0 animation_ms=375 install_ms=7 prepare_ms=426 device_model=samsung SM-S911B android_version=16 (API 36) 
+       1 /var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T//tribuna-0005/ensaio/T01_ensaio_sala_t1_r_normal_off_novo_l0000.events.csv
+     531 /var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T//tribuna-0005/ensaio/T01_ensaio_sala_t1_r_normal_off_novo_l0000.hypotheses.csv
+     532 /var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T//tribuna-0005/ensaio/T01_ensaio_sala_t1_r_normal_off_novo_l0000.level.csv
+     148 /var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T//tribuna-0005/ensaio/T01_ensaio_sala_t1_r_normal_off_novo_l0000.trajectory.csv
+       1 /var/folders/rr/0yxx3xw179x32l7jzy37npb40000gn/T//tribuna-0005/ensaio/T01_ensaio_sala_t1_r_normal_off_novo_l0000.events.csv
+    1213 total

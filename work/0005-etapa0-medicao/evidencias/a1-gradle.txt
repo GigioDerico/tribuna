@@ -1,0 +1,233 @@
+> Task :build-logic:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :build-logic:pluginDescriptors
+> Task :build-logic:processResources
+> Task :build-logic:compileKotlin
+> Task :build-logic:compileJava NO-SOURCE
+> Task :build-logic:classes
+> Task :build-logic:jar
+> Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :build-logic:pluginUnderTestMetadata
+> Task :build-logic:processTestResources NO-SOURCE
+> Task :core:processResources NO-SOURCE
+> Task :core:processTestFixturesResources NO-SOURCE
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugBuildConfig
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :app:processDebugNavigationResources
+> Task :app:javaPreCompileDebug
+> Task :app:mapDebugSourceSetPaths
+> Task :app:compileDebugNavigationResources
+> Task :app:checkDebugAarMetadata
+> Task :app:parseDebugLocalResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileDebugUnitTest
+> Task :core:processTestResources
+> Task :app:preDebugAndroidTestBuild SKIPPED
+> Task :core:writeJvmLintModelMetadata
+> Task :app:extractProguardFiles
+> Task :app:generateDebugRFile
+
+> Task :app:verifyDebugMergedManifest
+verifyDebugMergedManifest: OK /Users/giorgioderico/Projetos/Tribuna/etapa0/app/build/intermediates/merged_manifest/debug/processDebugMainManifest/AndroidManifest.xml -> android.permission.RECORD_AUDIO
+
+> Task :app:preReleaseBuild UP-TO-DATE
+> Task :app:extractDeepLinksRelease
+> Task :app:processReleaseMainManifest
+
+> Task :app:verifyReleaseMergedManifest
+verifyReleaseMergedManifest: OK /Users/giorgioderico/Projetos/Tribuna/etapa0/app/build/intermediates/merged_manifest/release/processReleaseMainManifest/AndroidManifest.xml -> android.permission.RECORD_AUDIO
+
+> Task :app:verifyMergedManifest
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:testTextsAssets
+> Task :app:mergeDebugResources
+> Task :build-logic:compileTestKotlin
+> Task :build-logic:compileTestJava NO-SOURCE
+> Task :build-logic:testClasses UP-TO-DATE
+> Task :app:loadKtlintReporters
+> Task :core:loadKtlintReporters
+> Task :app:mergeDebugAssets
+> Task :app:runKtlintCheckOverAndroidTestDebugSourceSet NO-SOURCE
+> Task :app:ktlintAndroidTestDebugSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverAndroidTestReleaseSourceSet NO-SOURCE
+> Task :app:ktlintAndroidTestReleaseSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverAndroidTestSourceSet NO-SOURCE
+> Task :app:ktlintAndroidTestSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverDebugSourceSet NO-SOURCE
+> Task :app:ktlintDebugSourceSetCheck SKIPPED
+> Task :app:processDebugManifestForPackage
+> Task :app:runKtlintCheckOverReleaseSourceSet NO-SOURCE
+> Task :app:ktlintReleaseSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverTestDebugSourceSet NO-SOURCE
+> Task :app:ktlintTestDebugSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverTestFixturesDebugSourceSet NO-SOURCE
+> Task :app:ktlintTestFixturesDebugSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverTestFixturesReleaseSourceSet NO-SOURCE
+> Task :app:ktlintTestFixturesReleaseSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverTestFixturesSourceSet NO-SOURCE
+> Task :app:ktlintTestFixturesSourceSetCheck SKIPPED
+> Task :app:runKtlintCheckOverTestReleaseSourceSet NO-SOURCE
+> Task :app:ktlintTestReleaseSourceSetCheck SKIPPED
+> Task :app:processDebugResources
+> Task :build-logic:test
+> Task :testDebugUnitTest
+> Task :core:compileKotlin
+> Task :app:compressDebugAssets
+> Task :core:runKtlintCheckOverKotlinScripts
+> Task :app:runKtlintCheckOverKotlinScripts
+> Task :core:runKtlintCheckOverTestFixturesSourceSet
+> Task :app:generateDebugGlobalSynthetics
+> Task :core:compileJava NO-SOURCE
+> Task :core:classes UP-TO-DATE
+> Task :core:jar
+> Task :core:generateJvmMainLintModel
+> Task :app:ktlintKotlinScriptCheck
+> Task :core:ktlintKotlinScriptCheck
+> Task :core:ktlintTestFixturesSourceSetCheck
+> Task :app:desugarDebugFileDependencies
+> Task :app:mergeDebugJniLibFolders
+> Task :app:validateSigningDebug
+> Task :app:writeDebugAppMetadata
+> Task :app:checkDebugDuplicateClasses
+> Task :app:writeDebugSigningConfigVersions
+> Task :app:mergeLibDexDebug
+> Task :app:mergeReleaseJniLibFolders
+> Task :app:mergeDebugNativeLibs
+> Task :app:mergeReleaseNativeLibs
+> Task :core:compileTestFixturesKotlin
+> Task :core:runKtlintCheckOverMainSourceSet
+> Task :core:compileTestFixturesJava NO-SOURCE
+> Task :core:testFixturesClasses UP-TO-DATE
+> Task :core:testFixturesJar
+> Task :core:generateJvmTestLintModel
+> Task :core:ktlintMainSourceSetCheck
+
+> Task :app:stripDebugDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libjnidispatch.so, libvosk.so. Run with --info option to learn more.
+
+> Task :app:checkReleaseDuplicateClasses
+> Task :app:generateReleaseBuildConfig
+> Task :app:generateReleaseResources
+> Task :app:packageReleaseResources
+> Task :app:processReleaseNavigationResources
+> Task :app:parseReleaseLocalResources
+> Task :app:generateReleaseRFile
+
+> Task :app:stripReleaseDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libjnidispatch.so, libvosk.so. Run with --info option to learn more.
+
+> Task :app:extractReleaseNativeSymbolTables
+> Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
+> Task :app:javaPreCompileRelease
+> Task :app:mergeReleaseArtProfile
+> Task :app:checkReleaseAarMetadata
+> Task :app:mapReleaseSourceSetPaths
+> Task :app:compileReleaseNavigationResources
+> Task :core:runKtlintCheckOverTestSourceSet
+> Task :app:runKtlintCheckOverMainSourceSet
+> Task :core:ktlintTestSourceSetCheck
+> Task :core:ktlintCheck
+> Task :app:createReleaseCompatibleScreenManifests
+> Task :app:processReleaseManifest
+> Task :app:mergeReleaseResources
+> Task :app:mergeReleaseStartupProfile
+> Task :app:generateReleaseAssets UP-TO-DATE
+> Task :app:ktlintMainSourceSetCheck
+> Task :app:runKtlintCheckOverTestSourceSet
+> Task :app:mergeReleaseAssets
+> Task :app:processReleaseManifestForPackage
+> Task :app:ktlintTestSourceSetCheck
+> Task :app:extractReleaseVersionControlInfo
+> Task :app:ktlintCheck
+> Task :app:processReleaseResources
+> Task :core:generateLintVitalJvmMainLintModel
+> Task :app:collectReleaseDependencies
+> Task :app:sdkReleaseDependencyData
+> Task :app:validateSigningRelease
+> Task :app:writeReleaseAppMetadata
+> Task :app:writeReleaseSigningConfigVersions
+> Task :app:compressReleaseAssets
+> Task :core:compileTestKotlin
+> Task :core:compileTestJava NO-SOURCE
+> Task :core:testClasses
+> Task :core:test
+> Task :core:testDebugUnitTest
+> Task :app:mergeExtDexDebug
+> Task :app:compileDebugKotlin
+> Task :app:compileReleaseKotlin
+> Task :app:compileDebugJavaWithJavac
+> Task :app:processDebugJavaRes
+> Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:generateDebugLintReportModel
+> Task :app:generateDebugAndroidTestLintModel
+> Task :app:generateDebugUnitTestLintModel
+> Task :app:mergeDebugJavaResource
+> Task :core:lintVitalAnalyzeJvmMain
+> Task :app:dexBuilderDebug
+> Task :app:mergeProjectDexDebug
+> Task :app:compileReleaseJavaWithJavac
+> Task :app:mergeReleaseGeneratedProguardFiles
+> Task :app:processReleaseJavaRes
+> Task :app:generateReleaseLintVitalReportModel
+> Task :app:mergeReleaseJavaResource
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect
+> Task :app:assembleDebug
+> Task :app:expandReleaseArtProfileWildcards
+> Task :app:lintAnalyzeDebugAndroidTest
+> Task :app:produceReleaseComposeMapping
+> Task :app:reportReleaseComposeMappingErrors
+
+> Task :app:compileDebugUnitTestKotlin
+w: file:///Users/giorgioderico/Projetos/Tribuna/etapa0/app/src/test/kotlin/io/github/gigioderico/tribuna/etapa0/speech/EngineHarness.kt:22:30 This declaration needs opt-in. Its usage should be marked with '@kotlinx.coroutines.ExperimentalCoroutinesApi' or '@OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)'
+w: file:///Users/giorgioderico/Projetos/Tribuna/etapa0/app/src/test/kotlin/io/github/gigioderico/tribuna/etapa0/speech/EngineHarness.kt:27:38 This declaration needs opt-in. Its usage should be marked with '@kotlinx.coroutines.ExperimentalCoroutinesApi' or '@OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)'
+w: file:///Users/giorgioderico/Projetos/Tribuna/etapa0/app/src/test/kotlin/io/github/gigioderico/tribuna/etapa0/speech/VoskEngineRobustnessTest.kt:56:34 This declaration needs opt-in. Its usage should be marked with '@kotlinx.coroutines.ExperimentalCoroutinesApi' or '@OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)'
+w: file:///Users/giorgioderico/Projetos/Tribuna/etapa0/app/src/test/kotlin/io/github/gigioderico/tribuna/etapa0/speech/VoskEngineRobustnessTest.kt:58:32 This declaration needs opt-in. Its usage should be marked with '@kotlinx.coroutines.ExperimentalCoroutinesApi' or '@OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)'
+w: file:///Users/giorgioderico/Projetos/Tribuna/etapa0/app/src/test/kotlin/io/github/gigioderico/tribuna/etapa0/speech/VoskEngineRobustnessTest.kt:128:47 This declaration needs opt-in. Its usage should be marked with '@kotlinx.coroutines.ExperimentalCoroutinesApi' or '@OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)'
+
+> Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processDebugUnitTestJavaRes
+> Task :core:lintAnalyzeJvmMain
+> Task :app:testDebugUnitTest
+> Task :core:lintAnalyzeJvmTest
+
+> Task :core:lintReportJvm
+Wrote HTML report to file:///Users/giorgioderico/Projetos/Tribuna/etapa0/core/build/reports/lint-results.html
+Wrote SARIF report to file:///Users/giorgioderico/Projetos/Tribuna/etapa0/core/build/reports/lint-results.sarif
+
+> Task :core:lintJvm
+> Task :core:lint
+> Task :app:lintVitalAnalyzeRelease
+> Task :app:lintVitalReportRelease SKIPPED
+> Task :app:lintVitalRelease SKIPPED
+> Task :app:lintAnalyzeDebugUnitTest
+> Task :app:lintAnalyzeDebug
+
+> Task :app:lintReportDebug
+Wrote HTML report to file:///Users/giorgioderico/Projetos/Tribuna/etapa0/app/build/reports/lint-results-debug.html
+Wrote SARIF report to file:///Users/giorgioderico/Projetos/Tribuna/etapa0/app/build/reports/lint-results-debug.sarif
+
+> Task :app:lintDebug
+> Task :app:lint
+> Task :app:minifyReleaseWithR8
+> Task :app:mergeReleaseComposeMapping
+> Task :app:convertShrunkResourcesToBinaryRelease
+> Task :app:optimizeReleaseResources
+> Task :app:compileReleaseArtProfile
+> Task :app:packageRelease
+> Task :app:createReleaseApkListingFileRedirect
+> Task :app:assembleRelease
+
+[Incubating] Problems report is available at: file:///Users/giorgioderico/Projetos/Tribuna/etapa0/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 59s
+144 actionable tasks: 144 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.7.1/userguide/configuration_cache_enabling.html

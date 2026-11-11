@@ -1,0 +1,9 @@
+# arquivos do app no fim do ensaio (externo e interno), com tamanho
+-rw-rw---- 1 u0_a429 ext_data_rw    20 2026-10-12 11:50 /sdcard/Android/data/io.github.gigioderico.tribuna.etapa0/files/exportacoes/T01_ensaio_sala_t1.events.csv
+-rw-rw---- 1 u0_a429 ext_data_rw 59124 2026-10-12 11:50 /sdcard/Android/data/io.github.gigioderico.tribuna.etapa0/files/exportacoes/T01_ensaio_sala_t1.hypotheses.csv
+-rw-rw---- 1 u0_a429 ext_data_rw  8401 2026-10-12 11:50 /sdcard/Android/data/io.github.gigioderico.tribuna.etapa0/files/exportacoes/T01_ensaio_sala_t1.level.csv
+-rw-rw---- 1 u0_a429 ext_data_rw   376 2026-10-12 11:50 /sdcard/Android/data/io.github.gigioderico.tribuna.etapa0/files/exportacoes/T01_ensaio_sala_t1.meta.txt
+-rw-rw---- 1 u0_a429 ext_data_rw  2326 2026-10-12 11:50 /sdcard/Android/data/io.github.gigioderico.tribuna.etapa0/files/exportacoes/T01_ensaio_sala_t1.trajectory.csv
+./shared_prefs/android.app.ActivityThread.IDS.xml
+./files/profileInstalled
+# extensões de áudio fora de wav/ (esperado: nenhuma):

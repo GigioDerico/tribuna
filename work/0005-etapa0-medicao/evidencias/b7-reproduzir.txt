@@ -1,0 +1,2 @@
+ui.py: 'Normal' não está na tela (ou aparece mais de uma vez)
+reproduzir.py: não consegui tocar em 'Normal'

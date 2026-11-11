@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <!-- Remove permissão dinâmica injetada por androidx.core para conformidade com a regra 1 -->
+    <permission
+        android:name="${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        tools:node="remove" />
+    <uses-permission
+        android:name="${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        tools:node="remove" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@android:drawable/sym_def_app_icon"
+        android:label="Tribuna"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.Material.NoActionBar">
+    </application>
+
+</manifest>
+

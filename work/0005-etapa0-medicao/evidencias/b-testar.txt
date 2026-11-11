@@ -1,0 +1,1 @@
+testar.py: 270 testes, 0 falhas, 0 erros, 0 pulados
