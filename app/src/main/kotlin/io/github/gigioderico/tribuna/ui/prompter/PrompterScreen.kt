@@ -3,8 +3,10 @@ package io.github.gigioderico.tribuna.ui.prompter
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -13,6 +15,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -73,6 +76,11 @@ fun PrompterScreen(
                 .fillMaxSize()
                 .background(settings.theme.backgroundColor),
     ) {
+        val totalSeconds = uiState.elapsedMs / 1000
+        val minutes = totalSeconds / 60
+        val seconds = totalSeconds % 60
+        val formattedTime = String.format(Locale.ROOT, "%02d:%02d", minutes, seconds)
+
         val containerHeightPx = constraints.maxHeight.toFloat()
         val readingLineRatio = (settings.readingLinePercent / 100f).coerceIn(0.1f, 0.9f)
         val readingLineY = containerHeightPx * readingLineRatio
@@ -154,75 +162,8 @@ fun PrompterScreen(
                 modifier = Modifier.fillMaxWidth(),
             )
 
-            Spacer(modifier = Modifier.height(48.dp))
-
-            // Card no final da leitura com botão claro para sair/voltar ao editor
-            Column(
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(16.dp))
-                        .background(settings.theme.textColor.copy(alpha = 0.08f))
-                        .padding(20.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Text(
-                    text = "Fim do Discurso",
-                    fontSize = 17.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = settings.theme.highlightColor,
-                    maxLines = 1,
-                )
-
-                Spacer(modifier = Modifier.height(14.dp))
-
-                Button(
-                    onClick = onFinish,
-                    colors =
-                        ButtonDefaults.buttonColors(
-                            containerColor = settings.theme.highlightColor,
-                            contentColor = settings.theme.backgroundColor,
-                        ),
-                    shape = RoundedCornerShape(12.dp),
-                    modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .height(48.dp),
-                ) {
-                    Text(
-                        text = "Voltar ao Editor",
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.Bold,
-                        maxLines = 1,
-                        softWrap = false,
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                OutlinedButton(
-                    onClick = onRestart,
-                    colors =
-                        ButtonDefaults.outlinedButtonColors(
-                            contentColor = settings.theme.textColor,
-                        ),
-                    shape = RoundedCornerShape(12.dp),
-                    modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .height(44.dp),
-                ) {
-                    Text(
-                        text = "Reiniciar do Início",
-                        fontSize = 13.sp,
-                        maxLines = 1,
-                        softWrap = false,
-                    )
-                }
-            }
-
-            // Espaçador inferior para permitir rolagem até o final do texto
-            Spacer(modifier = Modifier.height(with(density) { (containerHeightPx - readingLineY).toDp() }))
+            // Espaçador inferior para permitir rolagem até a linha guia e espaço para a barra fixa
+            Spacer(modifier = Modifier.height(with(density) { (containerHeightPx - readingLineY + 120).toDp() }))
         }
 
         // Barra superior discreta: cronômetro, indicador de microfone e botão de saída rápido
@@ -268,11 +209,6 @@ fun PrompterScreen(
             Spacer(modifier = Modifier.weight(1f))
 
             // Cronômetro decorrido
-            val totalSeconds = uiState.elapsedMs / 1000
-            val minutes = totalSeconds / 60
-            val seconds = totalSeconds % 60
-            val formattedTime = String.format(Locale.ROOT, "%02d:%02d", minutes, seconds)
-
             Text(
                 text = formattedTime,
                 color = settings.theme.textColor.copy(alpha = 0.75f),
@@ -346,14 +282,101 @@ fun PrompterScreen(
             )
         }
 
-        // Overlay de fim da leitura
-        if (uiState.phase is ReadingPhase.Finished) {
-            FinishedOverlay(
-                elapsedMs = uiState.elapsedMs,
-                theme = settings.theme,
-                onRestart = onRestart,
-                onFinish = onFinish,
-            )
+        // Barra inferior fixa no final da leitura (presa na parte de baixo da tela)
+        val isAtEnd =
+            uiState.phase is ReadingPhase.Finished ||
+                (uiState.tokens.isNotEmpty() && uiState.cursor >= uiState.tokens.size - 1)
+
+        if (isAtEnd && uiState.phase !is ReadingPhase.Paused) {
+            Box(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.BottomCenter)
+                        .background(settings.theme.backgroundColor.copy(alpha = 0.96f))
+                        .border(
+                            width = 1.dp,
+                            color = settings.theme.textColor.copy(alpha = 0.15f),
+                            shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
+                        ).clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                        .navigationBarsPadding()
+                        .padding(horizontal = 16.dp, vertical = 14.dp),
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(
+                            text = "Fim do Discurso",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = settings.theme.highlightColor,
+                        )
+                        Text(
+                            text = formattedTime,
+                            fontSize = 14.sp,
+                            fontFamily = FontFamily.Monospace,
+                            fontWeight = FontWeight.Medium,
+                            color = settings.theme.textColor.copy(alpha = 0.75f),
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    ) {
+                        OutlinedButton(
+                            onClick = onRestart,
+                            shape = RoundedCornerShape(12.dp),
+                            colors =
+                                ButtonDefaults.outlinedButtonColors(
+                                    contentColor = settings.theme.textColor,
+                                ),
+                            modifier =
+                                Modifier
+                                    .weight(1f)
+                                    .height(48.dp),
+                        ) {
+                            Text(
+                                text = "Reiniciar",
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                maxLines = 1,
+                                softWrap = false,
+                            )
+                        }
+
+                        Button(
+                            onClick = onFinish,
+                            shape = RoundedCornerShape(12.dp),
+                            colors =
+                                ButtonDefaults.buttonColors(
+                                    containerColor = settings.theme.highlightColor,
+                                    contentColor = settings.theme.backgroundColor,
+                                ),
+                            modifier =
+                                Modifier
+                                    .weight(1.3f)
+                                    .height(48.dp),
+                        ) {
+                            Text(
+                                text = "Voltar ao Editor",
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Bold,
+                                maxLines = 1,
+                                softWrap = false,
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -92,8 +92,10 @@ fun TribunaApp(
                     currentScreen = Screen.Editor
                 },
                 onWordClick = { tokenIndex ->
-                    viewModel.pauseReading()
                     viewModel.reposition(tokenIndex)
+                    if (uiState.phase is ReadingPhase.Paused) {
+                        viewModel.resumeReading()
+                    }
                 },
                 onToggleMode = {
                     val nextMode = if (uiState.mode == ScrollMode.Voice) ScrollMode.Constant else ScrollMode.Voice
