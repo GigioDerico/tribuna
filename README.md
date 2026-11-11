@@ -1,5 +1,7 @@
 # Tribuna
 
+[![Download APK](https://img.shields.io/badge/Download-APK%20(v0.1.0)-success?style=for-the-badge&logo=android)](https://github.com/GigioDerico/tribuna/releases/latest)
+
 > **Teleprompter inteligente que acompanha a voz do orador em tempo real, 100% offline e com privacidade absoluta.**
 
 O **Tribuna** é um aplicativo Android moderno desenvolvido em Kotlin e Jetpack Compose. Utilizando processamento de linguagem natural e reconhecimento de voz *on-device* com Vosk, o app escuta a sua fala e sincroniza automaticamente a rolagem do roteiro com o seu ritmo natural — sem depender de conexões de rede, servidores externos ou velocidades fixas pré-definidas.
