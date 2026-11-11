@@ -92,5 +92,16 @@ class ModelInstaller(
     companion object {
         const val MODEL_DIR = "model-pt"
         const val UUID = "uuid"
+
+        fun isInstalled(context: android.content.Context): Boolean {
+            val target = File(context.filesDir, MODEL_DIR)
+            val uuidFile = File(target, UUID)
+            return uuidFile.isFile
+        }
+
+        fun installIfNeeded(context: android.content.Context): Result<InstalledModel> =
+            runCatching {
+                ModelInstaller(AndroidAssetTree(context.assets), context.filesDir).install()
+            }
     }
 }

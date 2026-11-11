@@ -39,3 +39,4 @@
 ## Não testado
 
 Testes com toque físico no aparelho.
+

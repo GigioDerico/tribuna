@@ -45,3 +45,4 @@
 ## Não verificado
 
 Interação manual em dispositivo físico/emulador (requer hardware real).
+
