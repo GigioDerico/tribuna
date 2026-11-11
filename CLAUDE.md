@@ -8,8 +8,9 @@ O que segue é complemento para Claude Code: estado atual do projeto e orientaç
 
 ## Estado atual
 
-- `app/` só começa depois da Etapa 0 aprovada.
-- `verifyMergedManifest` e `verify16kAlignment` são tarefas do projeto: se ainda não existirem, criá-las é parte da primeira entrega (TRD, Qualidade de código).
+- Etapa 0 concluída e arquitetura aprovada (Portão 3).
+- Desenvolvimento do app principal em `app/` iniciado na Onda 1 (MVP funcional: P0 + temas prontos).
+- `verifyMergedManifest` e `verify16kAlignment` (focado em ABIs de 64 bits: arm64-v8a e x86_64 conforme OPR-024) são tarefas do projeto na entrega de `app/`.
 
 ## Orquestrador
 

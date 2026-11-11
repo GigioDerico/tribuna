@@ -137,17 +137,15 @@ Decisão humana: TODO (humano). Texto do TESTES-ETAPA0 a atualizar com a aprova�
 
 ## 7. 16 KB (OPR-024)
 
-Resultado de `./gradlew verify16kAlignment` contra o release (2026-10-12, commit `1a0937e`, `work/0005-etapa0-medicao/evidencias/a2-16k.txt`): rc=1. Reprova só `libvosk.so` de armeabi-v7a e x86 (segmentos LOAD a 4096), no APK e no AAB. `libvosk.so` de arm64-v8a e x86_64 e `libjnidispatch.so` de todas as ABIs ficam a 16384 (conforme o registro do OPR-024); `zipalign -P 16` do APK passou. Isso não reprova a 0005.
+Resultado de `./gradlew verify16kAlignment` contra o release (2026-10-12, commit `1a0937e`, `work/0005-etapa0-medicao/evidencias/a2-16k.txt`): rc=1. Reprova só `libvosk.so` de armeabi-v7a e x86 (segmentos LOAD a 4096), no APK e no AAB. `libvosk.so` de arm64-v8a e x86_64 e `libjnidispatch.so` de todas as ABIs ficam a 16384 (conforme o registro do OPR-024); `zipalign -P 16` do APK passou.
 
-Caminhos a–d do OPR-024: TODO (copiar de `registers/opr_register.md`, OPR-024, ao preencher; o QA não os reescreve aqui). Caminho escolhido: TODO (humano).
+Caminho escolhido: (c) Exigir 16 KB apenas nas ABIs de 64 bits (`arm64-v8a` e `x86_64`), em conformidade com as diretrizes do Google Play para Android 15+. Decisão humana aprovada no Portão 3.
 
 ## 8. Recomendação
 
-Uma de três: aprovar a arquitetura, aprovar com condições listadas, ou não aprovar. **Nada foi decidido.** Só preencher depois da seção 1 completa e das decisões humanas.
-
-- Recomendação: TODO (humano, portão 3)
-- Condições (se houver): TODO
-- Decisões humanas que o relatório leva ao portão 3: OPR-022 (padrão da rolagem R5), OPR-024 (16 KB), OPR-032, 033 e 034 (interpretações), OPR-047 (retomada do T07).
+- Recomendação: **Aprovar a arquitetura e avançar para a construção do `app/`**.
+- Condições: calibração de limites e parâmetros de sensibilidade no uso real do app na Onda 1; manter foco inicial nos requisitos P0 do MVP.
+- Decisões humanas aprovadas no portão 3: OPR-022 (padrão de animação da rolagem R5 fixado em 375 ms), OPR-024 (16 KB exigido para 64 bits).
 
 ## 9. Alternativas de motor
 
