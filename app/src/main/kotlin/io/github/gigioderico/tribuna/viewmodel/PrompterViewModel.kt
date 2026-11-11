@@ -163,26 +163,25 @@ class PrompterViewModel(
                 }
 
                 is SideEffect.BeginSession -> {
-                    val vocab =
-                        _uiState.value.tokens
-                            .flatMap { it.spoken.flatten() }
-                            .distinct()
-                    val sessionId = speechEngine.beginSession(vocab)
+                    // Configuração oficial calibrada na Etapa 0 (D10): vocabulary=off (null)
+                    // Vocabulário restrito com gramática Kaldi prejudica fala contínua natural
+                    val sessionId = speechEngine.beginSession(vocabulary = null)
                     activeSessionId = sessionId
-                    reconciler = PartialReconciler()
+                    reconciler.reset()
                     tail.clear()
                 }
 
                 is SideEffect.EndSession -> {
                     speechEngine.endSession()
                     activeSessionId = null
-                    reconciler = PartialReconciler()
+                    reconciler.reset()
                     tail.clear()
                 }
 
                 is SideEffect.ResetPosition -> {
                     aligner?.let {
                         alignState = it.reposition(effect.tokenIndex)
+                        reconciler.reset()
                         tail.clear()
                         _uiState.update { s -> s.copy(cursor = alignState.cursor) }
                     }
