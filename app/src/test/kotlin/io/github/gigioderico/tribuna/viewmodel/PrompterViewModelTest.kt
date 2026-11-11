@@ -140,4 +140,12 @@ class PrompterViewModelTest {
             assertEquals(ReadingPhase.Reading, vm.uiState.value.phase)
             assertEquals(EngineState.Recognizing, unreadyEngine.state.value)
         }
+
+    @Test
+    fun targetTime_updatesTargetMsAndCalculatesWarnings() =
+        runBlocking {
+            fakeSettings.update { it.copy(targetTimeMinutes = 10) }
+            assertEquals(10 * 60 * 1000L, viewModel.uiState.value.targetMs)
+            assertEquals(TimeWarning.None, viewModel.uiState.value.warning)
+        }
 }

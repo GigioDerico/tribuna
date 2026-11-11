@@ -1,9 +1,11 @@
 package io.github.gigioderico.tribuna.ui.prompter
 
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import io.github.gigioderico.tribuna.align.Tokenizer
 import io.github.gigioderico.tribuna.data.AppTheme
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -63,5 +65,39 @@ class PromptStylingTest {
             )
         assertEquals(text, annotated.text)
         assertTrue(annotated.spanStyles.isEmpty())
+    }
+
+    @Test
+    fun buildPromptText_stageNotes_appliedItalicAndAmberColor() {
+        val text = "// [Pausa dramática]\nOlá amigos"
+        val tokens = Tokenizer.tokenize(text)
+        assertEquals(2, tokens.size)
+
+        // No início da leitura (cursor = 0, antes de avançar)
+        val annotatedStart =
+            PromptStyling.buildPromptText(
+                text = text,
+                tokens = tokens,
+                cursorIndex = 0,
+                theme = AppTheme.DarkTealMint,
+                readOpacity = 0.4f,
+            )
+        val noteSpanStart = annotatedStart.spanStyles.firstOrNull { it.start == 0 && it.end == 20 }
+        assertNotNull(noteSpanStart)
+        assertEquals(FontStyle.Italic, noteSpanStart?.item?.fontStyle)
+        assertEquals(PromptStyling.STAGE_NOTE_COLOR.copy(alpha = 0.95f), noteSpanStart?.item?.color)
+
+        // Após avançar para o próximo token além da nota (cursor = 1)
+        val annotatedAdvanced =
+            PromptStyling.buildPromptText(
+                text = text,
+                tokens = tokens,
+                cursorIndex = 1,
+                theme = AppTheme.DarkTealMint,
+                readOpacity = 0.4f,
+            )
+        val noteSpanAdvanced = annotatedAdvanced.spanStyles.firstOrNull { it.start == 0 && it.end == 20 }
+        assertNotNull(noteSpanAdvanced)
+        assertEquals(PromptStyling.STAGE_NOTE_COLOR.copy(alpha = 0.4f), noteSpanAdvanced?.item?.color)
     }
 }

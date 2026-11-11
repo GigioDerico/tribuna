@@ -47,6 +47,11 @@ class PrompterViewModel(
             settingsRepository.settings.collect { settings ->
                 appSettings = settings
                 updateAlignerParams()
+                _uiState.update { current ->
+                    current.copy(
+                        targetMs = if (settings.targetTimeMinutes > 0) settings.targetTimeMinutes * 60 * 1000L else null,
+                    )
+                }
             }
         }
 
@@ -245,7 +250,25 @@ class PrompterViewModel(
                     viewModelScope.launch {
                         while (true) {
                             delay(100L)
-                            _uiState.update { it.copy(elapsedMs = it.elapsedMs + 100L) }
+                            _uiState.update { current ->
+                                val newElapsed = current.elapsedMs + 100L
+                                val target = current.targetMs
+                                val warning =
+                                    if (target != null && target > 0) {
+                                        val remaining = target - newElapsed
+                                        when {
+                                            remaining <= 60_000L -> TimeWarning.OneMin
+                                            remaining <= 300_000L -> TimeWarning.FiveMin
+                                            else -> TimeWarning.None
+                                        }
+                                    } else {
+                                        TimeWarning.None
+                                    }
+                                current.copy(
+                                    elapsedMs = newElapsed,
+                                    warning = warning,
+                                )
+                            }
                         }
                     }
             }
@@ -253,7 +276,7 @@ class PrompterViewModel(
             timerJob?.cancel()
             timerJob = null
             if (phase is ReadingPhase.Idle) {
-                _uiState.update { it.copy(elapsedMs = 0L) }
+                _uiState.update { it.copy(elapsedMs = 0L, warning = TimeWarning.None) }
             }
         }
     }

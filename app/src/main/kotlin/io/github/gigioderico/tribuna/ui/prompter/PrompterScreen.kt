@@ -1,6 +1,9 @@
 package io.github.gigioderico.tribuna.ui.prompter
 
+import android.app.Activity
+import android.view.WindowManager
 import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -28,6 +31,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,6 +41,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.font.FontFamily
@@ -47,6 +52,7 @@ import io.github.gigioderico.tribuna.data.AppSettings
 import io.github.gigioderico.tribuna.data.ScrollMode
 import io.github.gigioderico.tribuna.viewmodel.PrompterUiState
 import io.github.gigioderico.tribuna.viewmodel.ReadingPhase
+import io.github.gigioderico.tribuna.viewmodel.TimeWarning
 import kotlinx.coroutines.isActive
 import java.util.Locale
 import kotlin.math.max
@@ -69,6 +75,16 @@ fun PrompterScreen(
     val scrollState = rememberScrollState()
     var layoutResult by remember { mutableStateOf<TextLayoutResult?>(null) }
     val density = LocalDensity.current
+    val context = LocalContext.current
+
+    // Manter a tela sempre ligada durante o teleprompter (PRD D4 - FLAG_KEEP_SCREEN_ON sem WAKE_LOCK)
+    DisposableEffect(Unit) {
+        val activity = context as? Activity
+        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        onDispose {
+            activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        }
+    }
 
     BoxWithConstraints(
         modifier =
@@ -80,6 +96,48 @@ fun PrompterScreen(
         val minutes = totalSeconds / 60
         val seconds = totalSeconds % 60
         val formattedTime = String.format(Locale.ROOT, "%02d:%02d", minutes, seconds)
+
+        // Tempo-alvo e alertas silenciosos (PRD D3)
+        val targetMinutes = settings.targetTimeMinutes
+        val timerText =
+            if (targetMinutes > 0) {
+                val targetMs = targetMinutes * 60 * 1000L
+                val remainingMs = max(0L, targetMs - uiState.elapsedMs)
+                val remSecTotal = remainingMs / 1000
+                val remMin = remSecTotal / 60
+                val remSec = remSecTotal % 60
+                val formattedRem = String.format(Locale.ROOT, "%02d:%02d", remMin, remSec)
+                "$formattedTime (-$formattedRem)"
+            } else {
+                formattedTime
+            }
+
+        val timerColor =
+            when (uiState.warning) {
+                TimeWarning.OneMin -> Color(0xFFE5483A)
+                TimeWarning.FiveMin -> Color(0xFFF2B705)
+                TimeWarning.None -> settings.theme.textColor.copy(alpha = 0.75f)
+            }
+
+        val warningBorderColor =
+            when (uiState.warning) {
+                TimeWarning.OneMin -> Color(0xFFE5483A)
+                TimeWarning.FiveMin -> Color(0xFFF2B705)
+                TimeWarning.None -> null
+            }
+
+        // Progresso do discurso para a barra superior (PRD D5)
+        val progress =
+            if (uiState.tokens.isNotEmpty()) {
+                (uiState.cursor.toFloat() / (uiState.tokens.size - 1).coerceAtLeast(1)).coerceIn(0f, 1f)
+            } else {
+                0f
+            }
+        val animatedProgress by animateFloatAsState(
+            targetValue = progress,
+            animationSpec = tween(durationMillis = 200),
+            label = "PrompterProgress",
+        )
 
         val containerHeightPx = constraints.maxHeight.toFloat()
         val readingLineRatio = (settings.readingLinePercent / 100f).coerceIn(0.1f, 0.9f)
@@ -166,6 +224,24 @@ fun PrompterScreen(
             Spacer(modifier = Modifier.height(with(density) { (containerHeightPx - readingLineY + 120).toDp() }))
         }
 
+        // Barra fina de progressão no topo da tela (PRD D5)
+        Box(
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(3.dp)
+                    .align(Alignment.TopCenter)
+                    .background(settings.theme.textColor.copy(alpha = 0.12f)),
+        ) {
+            Box(
+                modifier =
+                    Modifier
+                        .fillMaxWidth(animatedProgress)
+                        .height(3.dp)
+                        .background(settings.theme.highlightColor),
+            )
+        }
+
         // Barra superior discreta: cronômetro, indicador de microfone e botão de saída rápido
         Row(
             modifier =
@@ -208,11 +284,11 @@ fun PrompterScreen(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            // Cronômetro decorrido
+            // Cronômetro decorrido e tempo restante (PRD D3)
             Text(
-                text = formattedTime,
-                color = settings.theme.textColor.copy(alpha = 0.75f),
-                fontSize = 14.sp,
+                text = timerText,
+                color = timerColor,
+                fontSize = 13.sp,
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.Medium,
             )
@@ -377,6 +453,16 @@ fun PrompterScreen(
                     }
                 }
             }
+        }
+
+        // Moldura de alerta silencioso nas bordas da tela (PRD D3)
+        if (warningBorderColor != null) {
+            Box(
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .border(width = 6.dp, color = warningBorderColor),
+            )
         }
     }
 }

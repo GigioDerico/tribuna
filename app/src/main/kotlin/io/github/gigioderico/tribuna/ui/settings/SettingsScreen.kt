@@ -358,6 +358,111 @@ fun SettingsScreen(
                 )
             }
 
+            Spacer(modifier = Modifier.height(20.dp))
+
+            // Tempo-Alvo do Discurso com Alerta Silencioso (PRD D3)
+            Text(
+                text = "Tempo-Alvo do Discurso",
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = theme.textColor,
+            )
+            Spacer(modifier = Modifier.height(2.dp))
+            Text(
+                text = "Alertas silenciosos nas bordas da tela avisando o tempo restante",
+                fontSize = 12.sp,
+                color = theme.textColor.copy(alpha = 0.6f),
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // Linha 1 de chips: Livre, 5 min, 10 min, 15 min
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                listOf(0 to "Livre", 5 to "5 min", 10 to "10 min", 15 to "15 min").forEach { (minutes, label) ->
+                    val isSelected = settings.targetTimeMinutes == minutes
+                    FilterChip(
+                        selected = isSelected,
+                        onClick = { onUpdateSettings { it.copy(targetTimeMinutes = minutes) } },
+                        label = {
+                            Text(
+                                text = label,
+                                fontSize = 12.sp,
+                                maxLines = 1,
+                                softWrap = false,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        },
+                        colors =
+                            FilterChipDefaults.filterChipColors(
+                                selectedContainerColor = theme.highlightColor,
+                                selectedLabelColor = theme.backgroundColor,
+                                labelColor = theme.textColor,
+                            ),
+                        modifier = Modifier.weight(1f),
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(6.dp))
+
+            // Linha 2 de chips: 20 min, 30 min, 45 min, 60 min
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                listOf(20 to "20 min", 30 to "30 min", 45 to "45 min", 60 to "60 min").forEach { (minutes, label) ->
+                    val isSelected = settings.targetTimeMinutes == minutes
+                    FilterChip(
+                        selected = isSelected,
+                        onClick = { onUpdateSettings { it.copy(targetTimeMinutes = minutes) } },
+                        label = {
+                            Text(
+                                text = label,
+                                fontSize = 12.sp,
+                                maxLines = 1,
+                                softWrap = false,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        },
+                        colors =
+                            FilterChipDefaults.filterChipColors(
+                                selectedContainerColor = theme.highlightColor,
+                                selectedLabelColor = theme.backgroundColor,
+                                labelColor = theme.textColor,
+                            ),
+                        modifier = Modifier.weight(1f),
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            val targetDescription =
+                if (settings.targetTimeMinutes == 0) {
+                    "⏱️ Modo Livre: O cronômetro conta o tempo sem limite nem alertas."
+                } else {
+                    "⏳ Alerta Silencioso: Borda âmbar a 5 min do fim e borda vermelha " +
+                        "a 1 min do fim (${settings.targetTimeMinutes} min configurados)."
+                }
+
+            Box(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(theme.textColor.copy(alpha = 0.06f))
+                        .padding(horizontal = 12.dp, vertical = 8.dp),
+            ) {
+                Text(
+                    text = targetDescription,
+                    fontSize = 12.sp,
+                    color = theme.textColor.copy(alpha = 0.8f),
+                    lineHeight = 16.sp,
+                )
+            }
+
             Spacer(modifier = Modifier.height(16.dp))
         }
     }

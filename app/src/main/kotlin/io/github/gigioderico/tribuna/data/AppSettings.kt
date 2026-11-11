@@ -52,4 +52,5 @@ data class AppSettings(
     val scrollDurationMs: Long = 375L, // OPR-022 aprovado
     val theme: AppTheme = AppTheme.DarkTealMint,
     val sensitivity: String = AlignPresets.NORMAL_NAME,
+    val targetTimeMinutes: Int = 0, // 0 = desativado/livre (PRD D3)
 )

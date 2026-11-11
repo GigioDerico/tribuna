@@ -30,6 +30,7 @@ class SettingsRepositoryImpl(
         val SCROLL_DURATION_MS = longPreferencesKey("scroll_duration_ms")
         val THEME_NAME = stringPreferencesKey("theme_name")
         val SENSITIVITY = stringPreferencesKey("sensitivity")
+        val TARGET_TIME_MINUTES = intPreferencesKey("target_time_minutes")
     }
 
     override val settings: Flow<AppSettings> =
@@ -53,6 +54,7 @@ class SettingsRepositoryImpl(
                 scrollDurationMs = preferences[PreferencesKeys.SCROLL_DURATION_MS] ?: default.scrollDurationMs,
                 theme = theme,
                 sensitivity = preferences[PreferencesKeys.SENSITIVITY] ?: default.sensitivity,
+                targetTimeMinutes = preferences[PreferencesKeys.TARGET_TIME_MINUTES] ?: default.targetTimeMinutes,
             )
         }
 
@@ -78,6 +80,7 @@ class SettingsRepositoryImpl(
                     scrollDurationMs = preferences[PreferencesKeys.SCROLL_DURATION_MS] ?: default.scrollDurationMs,
                     theme = theme,
                     sensitivity = preferences[PreferencesKeys.SENSITIVITY] ?: default.sensitivity,
+                    targetTimeMinutes = preferences[PreferencesKeys.TARGET_TIME_MINUTES] ?: default.targetTimeMinutes,
                 )
 
             val updated = transform(current)
@@ -92,6 +95,7 @@ class SettingsRepositoryImpl(
             preferences[PreferencesKeys.SCROLL_DURATION_MS] = updated.scrollDurationMs
             preferences[PreferencesKeys.THEME_NAME] = updated.theme.name
             preferences[PreferencesKeys.SENSITIVITY] = updated.sensitivity
+            preferences[PreferencesKeys.TARGET_TIME_MINUTES] = updated.targetTimeMinutes
         }
     }
 }
