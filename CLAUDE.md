@@ -9,8 +9,8 @@ O que segue é complemento para Claude Code: estado atual do projeto e orientaç
 ## Estado atual
 
 - Etapa 0 concluída e arquitetura aprovada (Portão 3).
-- Desenvolvimento do app principal em `app/` iniciado na Onda 1 (MVP funcional: P0 + temas prontos).
-- `verifyMergedManifest` e `verify16kAlignment` (focado em ABIs de 64 bits: arm64-v8a e x86_64 conforme OPR-024) são tarefas do projeto na entrega de `app/`.
+- Tarefa `0006-app-fundacao` concluída: `:core` e `:app` configurados, `align/` e `speech/` integrados, `SettingsRepository` (DataStore), `ReadingStateMachine` e `PrompterViewModel` com 132 testes unitários passando verdes; `verifyMergedManifest`, `verify16kAlignment`, `ktlintCheck` e `lint` 100% aprovados.
+- Próxima tarefa: `0007-app-teleprompter` (Onda 1 - MVP): implementação de `PromptText` (BasicText + AnnotatedString com destaque do cursor, opacidade de lido, espelhamento, hit-test seguro `getBoundingBox`), `PrompterScreen`, `PauseOverlay` e animação suave de rolagem (375 ms).
 
 ## Orquestrador
 

@@ -30,3 +30,7 @@ __pycache__/
 # Claude Code: só o que é pessoal. .claude/agents/ e .claude/agent-memory/ vão para o git.
 .claude/settings.local.json
 .claude/agent-memory-local/
+
+# Local portable tools
+.tools/
+

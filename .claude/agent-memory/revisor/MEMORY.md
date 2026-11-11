@@ -4,3 +4,5 @@
 - [Q2: limiar repetido e coleção trocada](feedback_q2_constante_compartilhada.md) — 0004: ATRASO_MAX na recuperação e _salto(normais) verdes; quebre cada uso no local
 - [Sensibilidade com entrada no relógio errado](feedback_sensibilidade_entrada_derivada.md) — 0005: d±200 com a mesma folha é cego; CS4 sem guarda de cursor parado (Q3)
 - [Equivalência por diferencial precisa de estrutura](feedback_equivalencia_por_diferencial.md) — 0004 r2: 0/5000 aleatório não provou; roteiro repetido e índice [-1] derrubaram uma equivalência
+- [IDs de OPR colidem entre branches](feedback_opr_ids_entre_branches.md) — 0005 r2: worktree e principal usaram OPR-043..045 para coisas diferentes; olhe os dois registros
+- [Scripts do QA: cadeia até o veredito](feedback_scripts_qa_cadeia_ate_veredito.md) — 0005 scripts: medir.sh sem teste; quebra só aparece no veredito.py; conferir origem de artefato reaproveitado

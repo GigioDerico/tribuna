@@ -9,3 +9,4 @@
 - [Aparelho e Mac na 0005](medicao_aparelho_0005.md) — S23 4 KB, uiautomator 2,3 s, vosk 0.3.45 sem wheel mac (usar 0.3.44), zsh/bash, .pyc velho na Q2
 - [Sincronização e veredito da 0005](sincronizacao_e_veredito_0005.md) — 4 ferramentas na própria tarefa, Pearson em dB, palma no meio do patamar, reproduções _r_
 - [Correção da revisão 0005 r1](correcao_revisao_0005_r1.md) — relógio de cada entrada nas corridas ±200, guarda motor vivo depois, patch git no plano
+- [Saída completa do medir.sh, 0005 r4](medir_saida_completa_0005_r4.md) — código 1 ambíguo (reprova/exceção), conferir artefatos pelo contrato; bash 3.2 do Mac
