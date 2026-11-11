@@ -9,8 +9,9 @@ O que segue é complemento para Claude Code: estado atual do projeto e orientaç
 ## Estado atual
 
 - Etapa 0 concluída e arquitetura aprovada (Portão 3).
-- Tarefa `0006-app-fundacao` concluída: `:core` e `:app` configurados, `align/` e `speech/` integrados, `SettingsRepository` (DataStore), `ReadingStateMachine` e `PrompterViewModel` com 132 testes unitários passando verdes; `verifyMergedManifest`, `verify16kAlignment`, `ktlintCheck` e `lint` 100% aprovados.
-- Próxima tarefa: `0007-app-teleprompter` (Onda 1 - MVP): implementação de `PromptText` (BasicText + AnnotatedString com destaque do cursor, opacidade de lido, espelhamento, hit-test seguro `getBoundingBox`), `PrompterScreen`, `PauseOverlay` e animação suave de rolagem (375 ms).
+- Tarefa `0006-app-fundacao` concluída: fundação `:core` e `:app`, `SettingsRepository`, `ReadingStateMachine` e `PrompterViewModel`.
+- Tarefa `0007-app-teleprompter` concluída: `PromptText` (BasicText + AnnotatedString com estilos por token, espelhamento, hit-test seguro com `getBoundingBox` + 8 dp), `PrompterScreen`, `PauseOverlay` e rolagem suave de 375 ms (OPR-022) validados; 137 testes unitários verdes.
+- Próxima tarefa: `0008-app-telas` (Onda 1 - MVP): `EditorScreen` (colar, limpar, contagem de palavras, botão iniciar), `OnboardingScreen`, `QuickSettingsSheet` (4 temas prontos) e navegação principal (`AppNavHost` em `MainActivity`).
 
 ## Orquestrador
 

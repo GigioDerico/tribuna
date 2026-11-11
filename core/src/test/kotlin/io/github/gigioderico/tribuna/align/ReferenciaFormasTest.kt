@@ -54,8 +54,8 @@ class ReferenciaFormasTest {
         val stream = javaClass.getResourceAsStream("/referencia/$arquivo")
         assertNotNull("referência $arquivo ausente: regenere (impl_plan 0004)", stream)
         val versionado = stream!!.use { it.readBytes().toString(Charsets.UTF_8) }
-        val esperado = versionado.split('\n')
-        val obtido = gerado.split('\n')
+        val esperado = versionado.replace("\r\n", "\n").split('\n')
+        val obtido = gerado.replace("\r\n", "\n").split('\n')
         for (i in 0 until minOf(esperado.size, obtido.size)) {
             assertEquals("$arquivo linha ${i + 1} (referência × Kotlin)", esperado[i], obtido[i])
         }
