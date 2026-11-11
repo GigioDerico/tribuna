@@ -10,8 +10,9 @@ O que segue é complemento para Claude Code: estado atual do projeto e orientaç
 
 - Etapa 0 concluída e arquitetura aprovada (Portão 3).
 - Tarefa `0006-app-fundacao` concluída: fundação `:core` e `:app`, `SettingsRepository`, `ReadingStateMachine` e `PrompterViewModel`.
-- Tarefa `0007-app-teleprompter` concluída: `PromptText` (BasicText + AnnotatedString com estilos por token, espelhamento, hit-test seguro com `getBoundingBox` + 8 dp), `PrompterScreen`, `PauseOverlay` e rolagem suave de 375 ms (OPR-022) validados; 137 testes unitários verdes.
-- Próxima tarefa: `0008-app-telas` (Onda 1 - MVP): `EditorScreen` (colar, limpar, contagem de palavras, botão iniciar), `OnboardingScreen`, `QuickSettingsSheet` (4 temas prontos) e navegação principal (`AppNavHost` em `MainActivity`).
+- Tarefa `0007-app-teleprompter` concluída: `PromptText` (BasicText + AnnotatedString com estilos por token, espelhamento, hit-test seguro com `getBoundingBox` + 8 dp), `PrompterScreen`, `PauseOverlay` e rolagem suave de 375 ms (OPR-022).
+- Tarefa `0008-app-telas` concluída: `EditorScreen` (colar, limpar, contagem de palavras e estimativa de duração a 130 ppm), `OnboardingScreen` (privacidade offline e instalação do modelo), `SettingsScreen` (4 temas prontos, tamanho de fonte, espelhamento, sensibilidade), `MainActivity` launcher e navegação Compose (`TribunaApp`).
+- **Onda 1 (MVP funcional) 100% concluída e entregue!** Todas as verificações de conformidade (`verifyMergedManifest`, `verify16kAlignment`, `ktlintCheck`, `lint`) e 141 testes unitários passam verdes. Binários de release (APK e AAB) gerados com sucesso.
 
 ## Orquestrador
 
