@@ -3,6 +3,7 @@ package io.github.gigioderico.tribuna.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.gigioderico.tribuna.align.AlignConstants
+import io.github.gigioderico.tribuna.align.AlignParams
 import io.github.gigioderico.tribuna.align.AlignPresets
 import io.github.gigioderico.tribuna.align.AlignState
 import io.github.gigioderico.tribuna.align.Aligner
@@ -24,6 +25,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class PrompterViewModel(
     private val speechEngine: SpeechEngine,
@@ -79,7 +81,7 @@ class PrompterViewModel(
 
     private fun updateAlignerParams() {
         val tokens = _uiState.value.tokens
-        val params = AlignPresets.getOrDefault(appSettings.sensitivity)
+        val params = resolveSensitivityParams(appSettings.sensitivity)
         aligner = Aligner(tokens, params)
         alignState = AlignState(0, 0, 0, Move.Stay, 0.0)
     }
@@ -225,7 +227,8 @@ class PrompterViewModel(
     private fun advanceCursor(fresh: List<String>) {
         val currentAligner = aligner ?: return
         fresh.forEach(tail::addLast)
-        val keep = maxOf(AlignPresets.getOrDefault(appSettings.sensitivity).k, AlignConstants.RECOVERY_WORDS)
+        val params = resolveSensitivityParams(appSettings.sensitivity)
+        val keep = maxOf(params.k, AlignConstants.RECOVERY_WORDS)
         while (tail.size > keep) tail.removeFirst()
         alignState = currentAligner.advance(alignState, tail.toList())
         _uiState.update { it.copy(cursor = alignState.cursor) }
@@ -258,5 +261,18 @@ class PrompterViewModel(
     override fun onCleared() {
         super.onCleared()
         speechEngine.release()
+    }
+
+    companion object {
+        /**
+         * Parâmetros calibrados para fala natural contínua no celular Android.
+         * Reduz a latência inicial para 2 palavras no modo Normal e tolera pequenas variações fonéticas.
+         */
+        fun resolveSensitivityParams(sensitivity: String): AlignParams =
+            when (sensitivity.lowercase(Locale.ROOT)) {
+                "ágil", "agil" -> AlignParams(k = 2, window = 60, shortThreshold = 0.50, longThreshold = 0.78)
+                "conservador" -> AlignParams(k = 3, window = 30, shortThreshold = 0.65, longThreshold = 0.88)
+                else -> AlignParams(k = 2, window = 45, shortThreshold = 0.55, longThreshold = 0.82)
+            }
     }
 }

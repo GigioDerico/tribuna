@@ -218,6 +218,33 @@ fun SettingsScreen(
                     ),
             )
 
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Seção: Altura da Linha de Leitura (PRD A4)
+            Text(
+                text = "Altura da Linha de Leitura: ${settings.readingLinePercent.toInt()}%",
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = theme.textColor,
+            )
+            Spacer(modifier = Modifier.height(2.dp))
+            Text(
+                text = "Posição vertical onde a leitura ativa é mantida (20% a 70% da tela)",
+                fontSize = 12.sp,
+                color = theme.textColor.copy(alpha = 0.6f),
+            )
+            Slider(
+                value = settings.readingLinePercent,
+                onValueChange = { newVal -> onUpdateSettings { it.copy(readingLinePercent = newVal) } },
+                valueRange = 20f..70f,
+                steps = 9,
+                colors =
+                    SliderDefaults.colors(
+                        thumbColor = theme.highlightColor,
+                        activeTrackColor = theme.highlightColor,
+                    ),
+            )
+
             Spacer(modifier = Modifier.height(20.dp))
 
             // Espelhamento Horizontal
@@ -295,6 +322,42 @@ fun SettingsScreen(
                 }
             }
 
+            Spacer(modifier = Modifier.height(8.dp))
+
+            val sensitivityDescription =
+                when (settings.sensitivity.lowercase(Locale.ROOT)) {
+                    "ágil", "agil" -> {
+                        "⚡ Ágil: Resposta ultra rápida (avança a cada 2 palavras). " +
+                            "Ideal para fala dinâmica, acelerada ou improvisos."
+                    }
+
+                    "conservador" -> {
+                        "🛡️ Conservador: Movimento firme e ponderado. " +
+                            "Ideal para discursos formais, leituras solenes e ritmo pausado."
+                    }
+
+                    else -> {
+                        "🎯 Normal (Recomendado): Resposta fluida e ágil calibrada " +
+                            "para o ritmo natural da fala cotidiana."
+                    }
+                }
+
+            Box(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(theme.textColor.copy(alpha = 0.06f))
+                        .padding(horizontal = 12.dp, vertical = 8.dp),
+            ) {
+                Text(
+                    text = sensitivityDescription,
+                    fontSize = 12.sp,
+                    color = theme.textColor.copy(alpha = 0.8f),
+                    lineHeight = 16.sp,
+                )
+            }
+
             Spacer(modifier = Modifier.height(16.dp))
         }
     }
@@ -309,9 +372,12 @@ private fun ReadingPreviewCard(
     modifier: Modifier = Modifier,
 ) {
     val theme = settings.theme
-    val previewFontSize = (settings.fontSizeSp * 0.55f).coerceIn(16f, 36f)
+    val previewFontSize = (settings.fontSizeSp * 0.48f).coerceIn(14f, 30f)
     val previewLineHeight = (previewFontSize * settings.lineSpacingMultiplier)
     val previewMarginPercent = (settings.horizontalMarginPercent / 100f).coerceIn(0.02f, 0.25f)
+    val linePercent = settings.readingLinePercent.coerceIn(20f, 70f)
+    val previewCardHeight = 140.dp
+    val guideTopOffset = previewCardHeight * (linePercent / 100f)
 
     Box(
         modifier =
@@ -346,6 +412,13 @@ private fun ReadingPreviewCard(
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
+                    text = "Linha: ${linePercent.toInt()}%",
+                    color = theme.highlightColor,
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.SemiBold,
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
                     text = "00:42",
                     color = theme.textColor.copy(alpha = 0.7f),
                     fontSize = 11.sp,
@@ -354,61 +427,102 @@ private fun ReadingPreviewCard(
                 )
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
-            // Texto com estilos simulando palavras lidas, palavra ativa e palavras seguintes
-            val previewText =
-                buildAnnotatedString {
-                    // Trecho já lido com opacidade reduzida
-                    withStyle(
-                        style =
-                            SpanStyle(
-                                color = theme.textColor.copy(alpha = settings.readTextOpacity),
-                            ),
-                    ) {
-                        append("Ouvir com atenção é o ")
-                    }
-
-                    // Palavra ativa destacada com a cor de destaque do tema
-                    withStyle(
-                        style =
-                            SpanStyle(
-                                color = theme.highlightColor,
-                                fontWeight = FontWeight.Bold,
-                            ),
-                    ) {
-                        append("primeiro passo")
-                    }
-
-                    // Próximas palavras a serem lidas
-                    withStyle(
-                        style =
-                            SpanStyle(
-                                color = theme.textColor,
-                            ),
-                    ) {
-                        append(" para uma fala clara e confiante diante do público.")
-                    }
-                }
-
+            // Área de exibição simulada com linha guia interativa
             Box(
                 modifier =
                     Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = (100 * previewMarginPercent).dp)
-                        .then(
-                            if (settings.mirrorHorizontal) {
-                                Modifier.graphicsLayer(scaleX = -1f)
-                            } else {
-                                Modifier
-                            },
-                        ),
+                        .height(previewCardHeight)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(theme.textColor.copy(alpha = 0.04f)),
             ) {
-                Text(
-                    text = previewText,
-                    fontSize = previewFontSize.sp,
-                    lineHeight = previewLineHeight.sp,
-                )
+                // Linha guia visual proporcional
+                Box(
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(top = guideTopOffset),
+                    contentAlignment = Alignment.CenterStart,
+                ) {
+                    Box(
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .height(1.dp)
+                                .background(theme.highlightColor.copy(alpha = 0.35f)),
+                    )
+                    Text(
+                        text = "▶",
+                        color = theme.highlightColor,
+                        fontSize = 9.sp,
+                        modifier =
+                            Modifier
+                                .align(Alignment.CenterStart)
+                                .padding(start = 4.dp),
+                    )
+                    Text(
+                        text = "◀",
+                        color = theme.highlightColor,
+                        fontSize = 9.sp,
+                        modifier =
+                            Modifier
+                                .align(Alignment.CenterEnd)
+                                .padding(end = 4.dp),
+                    )
+                }
+
+                // Texto do teleprompter simulado alinhado na linha de leitura
+                val previewText =
+                    buildAnnotatedString {
+                        withStyle(
+                            style =
+                                SpanStyle(
+                                    color = theme.textColor.copy(alpha = settings.readTextOpacity),
+                                ),
+                        ) {
+                            append("Ouvir com atenção é o ")
+                        }
+                        withStyle(
+                            style =
+                                SpanStyle(
+                                    color = theme.highlightColor,
+                                    fontWeight = FontWeight.Bold,
+                                ),
+                        ) {
+                            append("primeiro passo")
+                        }
+                        withStyle(
+                            style =
+                                SpanStyle(
+                                    color = theme.textColor,
+                                ),
+                        ) {
+                            append(" para uma fala clara e confiante diante do público.")
+                        }
+                    }
+
+                Box(
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .padding(top = guideTopOffset)
+                            .padding(horizontal = (100 * previewMarginPercent).dp)
+                            .then(
+                                if (settings.mirrorHorizontal) {
+                                    Modifier.graphicsLayer(scaleX = -1f)
+                                } else {
+                                    Modifier
+                                },
+                            ),
+                ) {
+                    Text(
+                        text = previewText,
+                        fontSize = previewFontSize.sp,
+                        lineHeight = previewLineHeight.sp,
+                    )
+                }
             }
         }
     }

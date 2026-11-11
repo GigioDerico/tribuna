@@ -40,3 +40,4 @@
 ## Não testado
 
 Testes manuais em aparelho físico.
+

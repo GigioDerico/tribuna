@@ -89,7 +89,7 @@ fun PrompterScreen(
             if (charIndex in 0 until layout.layoutInput.text.length) {
                 val lineIndex = layout.getLineForOffset(charIndex)
                 val lineTop = layout.getLineTop(lineIndex)
-                val targetScroll = max(0f, lineTop - readingLineY).toInt()
+                val targetScroll = max(0f, lineTop).toInt()
 
                 scrollState.animateScrollTo(
                     value = targetScroll,
@@ -296,6 +296,41 @@ fun PrompterScreen(
                         .clip(RoundedCornerShape(6.dp))
                         .clickable { onFinish() }
                         .padding(horizontal = 8.dp, vertical = 4.dp),
+            )
+        }
+
+        // Linha guia visual sutil indicando a altura configurada de leitura (PRD A4)
+        Box(
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(top = with(density) { readingLineY.toDp() }),
+            contentAlignment = Alignment.CenterStart,
+        ) {
+            Box(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(1.dp)
+                        .background(settings.theme.highlightColor.copy(alpha = 0.22f)),
+            )
+            Text(
+                text = "▶",
+                color = settings.theme.highlightColor.copy(alpha = 0.50f),
+                fontSize = 11.sp,
+                modifier =
+                    Modifier
+                        .align(Alignment.CenterStart)
+                        .padding(start = 6.dp),
+            )
+            Text(
+                text = "◀",
+                color = settings.theme.highlightColor.copy(alpha = 0.50f),
+                fontSize = 11.sp,
+                modifier =
+                    Modifier
+                        .align(Alignment.CenterEnd)
+                        .padding(end = 6.dp),
             )
         }
 
