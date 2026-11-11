@@ -16,11 +16,13 @@ import io.github.gigioderico.tribuna.ui.editor.EditorScreen
 import io.github.gigioderico.tribuna.ui.onboarding.OnboardingScreen
 import io.github.gigioderico.tribuna.ui.prompter.PrompterScreen
 import io.github.gigioderico.tribuna.ui.settings.SettingsScreen
+import io.github.gigioderico.tribuna.ui.splash.SplashScreen
 import io.github.gigioderico.tribuna.viewmodel.PrompterViewModel
 import io.github.gigioderico.tribuna.viewmodel.ReadingPhase
 import kotlinx.coroutines.launch
 
 enum class Screen {
+    Splash,
     Onboarding,
     Editor,
     Prompter,
@@ -36,14 +38,23 @@ fun TribunaApp(
     settingsRepository: SettingsRepository,
     modifier: Modifier = Modifier,
     initialScreen: Screen = Screen.Editor,
+    showSplash: Boolean = false,
 ) {
-    var currentScreen by remember { mutableStateOf(initialScreen) }
+    var currentScreen by remember { mutableStateOf(if (showSplash) Screen.Splash else initialScreen) }
     val scope = rememberCoroutineScope()
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val settings by settingsRepository.settings.collectAsStateWithLifecycle(initialValue = AppSettings())
 
     when (currentScreen) {
+        Screen.Splash -> {
+            SplashScreen(
+                theme = settings.theme,
+                onFinished = { currentScreen = initialScreen },
+                modifier = modifier,
+            )
+        }
+
         Screen.Onboarding -> {
             OnboardingScreen(
                 theme = settings.theme,

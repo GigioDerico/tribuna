@@ -64,6 +64,7 @@ class MainActivity : ComponentActivity() {
                 viewModel = prompterViewModel,
                 settingsRepository = settingsRepository,
                 initialScreen = initialScreen,
+                showSplash = savedInstanceState == null,
             )
         }
     }

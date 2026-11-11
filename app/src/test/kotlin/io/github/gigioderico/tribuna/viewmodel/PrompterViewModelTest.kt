@@ -2,8 +2,10 @@ package io.github.gigioderico.tribuna.viewmodel
 
 import io.github.gigioderico.tribuna.data.AppSettings
 import io.github.gigioderico.tribuna.data.SettingsRepository
+import io.github.gigioderico.tribuna.speech.EngineError
 import io.github.gigioderico.tribuna.speech.EngineState
 import io.github.gigioderico.tribuna.speech.FakeSpeechEngine
+import io.github.gigioderico.tribuna.speech.SpeechEngine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -15,6 +17,7 @@ import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -148,4 +151,66 @@ class PrompterViewModelTest {
             assertEquals(10 * 60 * 1000L, viewModel.uiState.value.targetMs)
             assertEquals(TimeWarning.None, viewModel.uiState.value.warning)
         }
+
+    @Test
+    fun startReading_whenEngineFailedOnce_retriesPrepareAndStartsReading() =
+        runBlocking {
+            val delegate = FakeSpeechEngine()
+            var failPrepare = true
+            val stateFlow = MutableStateFlow(EngineState.Idle)
+            val engine =
+                object : SpeechEngine by delegate {
+                    override val state = stateFlow.asStateFlow()
+
+                    override suspend fun prepare(): Result<Unit> =
+                        if (failPrepare) {
+                            stateFlow.value = EngineState.Failed
+                            Result.failure(RuntimeException("falha na primeira tentativa"))
+                        } else {
+                            delegate.prepare().also { stateFlow.value = delegate.state.value }
+                        }
+
+                    override fun startCapture() {
+                        delegate.startCapture()
+                        stateFlow.value = delegate.state.value
+                    }
+
+                    override fun beginSession(vocabulary: List<String>?) =
+                        delegate.beginSession(vocabulary).also {
+                            stateFlow.value = delegate.state.value
+                        }
+                }
+            val vm = PrompterViewModel(engine, fakeSettings)
+            assertEquals(EngineState.Failed, engine.state.value)
+            assertFalse(vm.uiState.value.micAvailable)
+
+            // Na segunda tentativa (ao tocar em Iniciar Leitura), prepare() funciona
+            failPrepare = false
+            vm.setText("Discurso apos recuperacao do motor")
+            vm.startReading()
+
+            assertEquals(ReadingPhase.Reading, vm.uiState.value.phase)
+            assertEquals(EngineState.Recognizing, engine.state.value)
+            assertTrue(vm.uiState.value.micAvailable)
+        }
+
+    @Test
+    fun startReading_whenStartCaptureFails_pausesGracefullyWithoutCrashing() {
+        val delegate = FakeSpeechEngine()
+        runBlocking { delegate.prepare() }
+        val engine =
+            object : SpeechEngine by delegate {
+                override fun startCapture() {
+                    // Simula falha ao abrir AudioRecord: permanece em Ready e emite erro
+                    delegate.emitCaptureError(EngineError.PermissionRevoked)
+                }
+            }
+        val vm = PrompterViewModel(engine, fakeSettings)
+        vm.setText("Texto sem permissao de microfone")
+
+        vm.startReading()
+
+        assertEquals(ReadingPhase.Paused, vm.uiState.value.phase)
+        assertFalse(vm.uiState.value.micAvailable)
+    }
 }

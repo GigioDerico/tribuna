@@ -92,11 +92,12 @@ class PrompterViewModel(
     }
 
     fun startReading() {
-        if (speechEngine.state.value == EngineState.Ready) {
+        if (_uiState.value.mode == ScrollMode.Constant || speechEngine.state.value == EngineState.Ready) {
             dispatch(ReadingEvent.Start)
         } else {
             viewModelScope.launch {
-                if (speechEngine.state.value == EngineState.Idle) {
+                val currentState = speechEngine.state.value
+                if (currentState == EngineState.Idle || currentState == EngineState.Failed) {
                     speechEngine.prepare()
                 }
                 if (speechEngine.state.value == EngineState.Preparing) {
@@ -159,17 +160,34 @@ class PrompterViewModel(
     }
 
     private fun executeSideEffects(effects: List<SideEffect>) {
-        effects.forEach { effect ->
+        for (effect in effects) {
             when (effect) {
                 is SideEffect.StartCapture -> {
                     speechEngine.startCapture()
+                    val ok = speechEngine.state.value == EngineState.Capturing
+                    _uiState.update { it.copy(micAvailable = ok) }
+                    if (!ok) {
+                        _uiState.update { it.copy(phase = ReadingPhase.Paused) }
+                        return
+                    }
                 }
 
                 is SideEffect.StopCapture -> {
-                    speechEngine.stopCapture()
+                    val state = speechEngine.state.value
+                    if (state == EngineState.Capturing || state == EngineState.Recognizing) {
+                        speechEngine.stopCapture()
+                    }
                 }
 
                 is SideEffect.BeginSession -> {
+                    if (speechEngine.state.value == EngineState.Ready) {
+                        speechEngine.startCapture()
+                    }
+                    if (speechEngine.state.value != EngineState.Capturing) {
+                        _uiState.update { it.copy(micAvailable = false, phase = ReadingPhase.Paused) }
+                        return
+                    }
+                    _uiState.update { it.copy(micAvailable = true) }
                     // Configuração oficial calibrada na Etapa 0 (D10): vocabulary=off (null)
                     // Vocabulário restrito com gramática Kaldi prejudica fala contínua natural
                     val sessionId = speechEngine.beginSession(vocabulary = null)
@@ -222,7 +240,10 @@ class PrompterViewModel(
             }
 
             is SpeechEvent.Error -> {
-                if (event.session == activeSessionId) {
+                if (event.session == null || event.session == activeSessionId) {
+                    if (event.session == null) {
+                        _uiState.update { it.copy(micAvailable = false) }
+                    }
                     dispatch(ReadingEvent.Pause)
                 }
             }

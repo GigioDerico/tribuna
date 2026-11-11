@@ -53,18 +53,26 @@ class VoskModelLoader(
     private val context: Context,
 ) : ModelLoader {
     override fun load(): DecoderFactory {
+        val installer = ModelInstaller(AndroidAssetTree(context.assets), context.filesDir)
         val installStart = System.nanoTime()
-        val installed = ModelInstaller(AndroidAssetTree(context.assets), context.filesDir).install()
+        var installed = installer.install()
         val loadStart = System.nanoTime()
         val model =
             try {
-                // -2: sÃƒÂ³ erros. Os avisos do Kaldi citam palavras do vocabulÃƒÂ¡rio, que vÃƒÂªm do texto (Q6).
+                // -2: só erros. Os avisos do Kaldi citam palavras do vocabulário, que vêm do texto (Q6).
                 LibVosk.vosk_set_log_level(KALDI_ERRORS_ONLY)
-                Model(installed.dir.absolutePath)
+                try {
+                    Model(installed.dir.absolutePath)
+                } catch (firstError: IOException) {
+                    // Se o diretório instalado estiver corrompido/truncado, apaga e reinstala uma vez
+                    installed.dir.deleteRecursively()
+                    installed = installer.install()
+                    Model(installed.dir.absolutePath)
+                }
             } catch (e: IOException) {
-                throw ModelLoadException(EngineError.ModelCorrupt, "o Vosk nÃƒÂ£o carregou o modelo", e)
+                throw ModelLoadException(EngineError.ModelCorrupt, "o Vosk não carregou o modelo", e)
             } catch (e: UnsatisfiedLinkError) {
-                throw ModelLoadException(EngineError.ModelCorrupt, "biblioteca nativa do Vosk nÃƒÂ£o carregou", e)
+                throw ModelLoadException(EngineError.ModelCorrupt, "biblioteca nativa do Vosk não carregou", e)
             }
         val done = System.nanoTime()
         val grammarFst = File(installed.dir, "Gr.fst")

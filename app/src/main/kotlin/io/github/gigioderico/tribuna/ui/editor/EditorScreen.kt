@@ -1,5 +1,9 @@
 package io.github.gigioderico.tribuna.ui.editor
 
+import android.Manifest
+import android.content.pm.PackageManager
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -35,10 +39,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import io.github.gigioderico.tribuna.data.AppTheme
 import io.github.gigioderico.tribuna.data.ScrollMode
 
@@ -62,10 +68,20 @@ fun EditorScreen(
     theme: AppTheme,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
     val clipboardManager = LocalClipboardManager.current
     val wordCount = remember(text) { EditorEstimates.countWords(text) }
     val durationSeconds = remember(wordCount) { EditorEstimates.estimateDurationSeconds(wordCount) }
     val formattedDuration = remember(durationSeconds) { EditorEstimates.formatDuration(durationSeconds) }
+
+    val permissionLauncher =
+        rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.RequestPermission(),
+        ) { granted ->
+            if (granted) {
+                onStartReading()
+            }
+        }
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -177,7 +193,18 @@ fun EditorScreen(
 
                 // Botão de Iniciar Leitura
                 Button(
-                    onClick = onStartReading,
+                    onClick = {
+                        val hasAudioPermission =
+                            ContextCompat.checkSelfPermission(
+                                context,
+                                Manifest.permission.RECORD_AUDIO,
+                            ) == PackageManager.PERMISSION_GRANTED
+                        if (mode == ScrollMode.Voice && !hasAudioPermission) {
+                            permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+                        } else {
+                            onStartReading()
+                        }
+                    },
                     enabled = text.isNotBlank(),
                     colors =
                         ButtonDefaults.buttonColors(

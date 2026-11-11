@@ -36,29 +36,44 @@ class ModelInstaller(
     private val filesDir: File,
     private val assetDir: String = MODEL_DIR,
 ) {
-    fun install(): InstalledModel {
-        val sourceUuid =
+    fun install(): InstalledModel =
+        synchronized(installLock) {
+            val sourceUuid =
+                try {
+                    assets.open("$assetDir/$UUID").use(::firstLine)
+                } catch (e: IOException) {
+                    throw ModelLoadException(EngineError.ModelMissing, "modelo ausente nos assets", e)
+                } ?: throw ModelLoadException(EngineError.ModelMissing, "uuid do modelo vazio")
+            val target = File(filesDir, assetDir)
+            val targetUuidFile = File(target, UUID)
+            val targetUuid = if (targetUuidFile.isFile) targetUuidFile.inputStream().use(::firstLine) else null
+            if (!ModelVersion.needsCopy(sourceUuid, targetUuid) && isTreeComplete(assetDir, target)) {
+                return InstalledModel(target, sourceUuid.trim(), copied = false)
+            }
+            val temp = File(filesDir, "$assetDir.tmp")
             try {
-                assets.open("$assetDir/$UUID").use(::firstLine)
+                temp.deleteRecursively()
+                copyTree(assetDir, temp)
+                copyFile("$assetDir/$UUID", File(temp, UUID))
+                target.deleteRecursively()
+                if (!temp.renameTo(target)) throw IOException("não foi possível mover ${temp.name} para ${target.name}")
             } catch (e: IOException) {
-                throw ModelLoadException(EngineError.ModelMissing, "modelo ausente nos assets", e)
-            } ?: throw ModelLoadException(EngineError.ModelMissing, "uuid do modelo vazio")
-        val target = File(filesDir, assetDir)
-        val targetUuidFile = File(target, UUID)
-        val targetUuid = if (targetUuidFile.isFile) targetUuidFile.inputStream().use(::firstLine) else null
-        if (!ModelVersion.needsCopy(sourceUuid, targetUuid)) return InstalledModel(target, sourceUuid.trim(), copied = false)
-        val temp = File(filesDir, "$assetDir.tmp")
-        try {
-            temp.deleteRecursively()
-            copyTree(assetDir, temp)
-            copyFile("$assetDir/$UUID", File(temp, UUID))
-            target.deleteRecursively()
-            if (!temp.renameTo(target)) throw IOException("nÃƒÂ£o foi possÃƒÂ­vel mover ${temp.name} para ${target.name}")
-        } catch (e: IOException) {
-            temp.deleteRecursively()
-            throw ModelLoadException(EngineError.ModelCorrupt, "falha na cÃƒÂ³pia do modelo", e)
+                temp.deleteRecursively()
+                throw ModelLoadException(EngineError.ModelCorrupt, "falha na cópia do modelo", e)
+            }
+            return InstalledModel(target, sourceUuid.trim(), copied = true)
         }
-        return InstalledModel(target, sourceUuid.trim(), copied = true)
+
+    private fun isTreeComplete(
+        path: String,
+        destination: File,
+    ): Boolean {
+        val children = assets.list(path)
+        if (children.isEmpty()) {
+            val targetFile = File(destination, path.removePrefix("$assetDir/"))
+            return targetFile.isFile && targetFile.length() > 0L
+        }
+        return children.all { child -> isTreeComplete("$path/$child", destination) }
     }
 
     private fun copyTree(
@@ -92,6 +107,7 @@ class ModelInstaller(
     companion object {
         const val MODEL_DIR = "model-pt"
         const val UUID = "uuid"
+        private val installLock = Any()
 
         fun isInstalled(context: android.content.Context): Boolean {
             val target = File(context.filesDir, MODEL_DIR)
