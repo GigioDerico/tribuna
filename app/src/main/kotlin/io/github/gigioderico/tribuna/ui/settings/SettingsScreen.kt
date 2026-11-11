@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -33,7 +34,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.gigioderico.tribuna.align.AlignPresets
@@ -88,7 +96,26 @@ fun SettingsScreen(
                     .verticalScroll(scrollState)
                     .padding(horizontal = 20.dp, vertical = 12.dp),
         ) {
-            // Seção Temas
+            // Seção: Prévia da Leitura Real
+            Text(
+                text = "Prévia da Leitura",
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                color = theme.highlightColor,
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = "Veja em tempo real como o texto aparecerá no teleprompter:",
+                fontSize = 12.sp,
+                color = theme.textColor.copy(alpha = 0.7f),
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+
+            ReadingPreviewCard(settings = settings)
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // Seção: Tema Visual
             Text(
                 text = "Tema Visual",
                 fontSize = 16.sp,
@@ -101,17 +128,17 @@ fun SettingsScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                AppTheme.entries.take(4).forEach { itemTheme ->
+                AppTheme.entries.forEach { itemTheme ->
                     val isSelected = theme == itemTheme
                     Box(
                         modifier =
                             Modifier
-                                .size(56.dp)
+                                .size(52.dp)
                                 .clip(CircleShape)
                                 .background(itemTheme.backgroundColor)
                                 .border(
                                     width = if (isSelected) 3.dp else 1.dp,
-                                    color = if (isSelected) itemTheme.highlightColor else theme.textColor.copy(alpha = 0.3f),
+                                    color = if (isSelected) itemTheme.highlightColor else theme.textColor.copy(alpha = 0.35f),
                                     shape = CircleShape,
                                 ).clickable { onUpdateSettings { it.copy(theme = itemTheme) } },
                         contentAlignment = Alignment.Center,
@@ -120,15 +147,17 @@ fun SettingsScreen(
                             text = "Aa",
                             color = itemTheme.textColor,
                             fontWeight = FontWeight.Bold,
-                            fontSize = 16.sp,
+                            fontSize = 15.sp,
+                            maxLines = 1,
+                            softWrap = false,
                         )
                     }
                 }
             }
 
-            Spacer(modifier = Modifier.height(28.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
-            // Seção Tamanho da Fonte
+            // Seção: Tamanho da Fonte
             Text(
                 text = "Tamanho da Fonte: ${settings.fontSizeSp.toInt()} sp",
                 fontSize = 15.sp,
@@ -147,9 +176,9 @@ fun SettingsScreen(
                     ),
             )
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-            // Seção Espaçamento entre Linhas
+            // Seção: Espaçamento entre Linhas
             Text(
                 text = String.format(Locale.ROOT, "Espaçamento entre Linhas: %.1fx", settings.lineSpacingMultiplier),
                 fontSize = 15.sp,
@@ -168,9 +197,9 @@ fun SettingsScreen(
                     ),
             )
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-            // Seção Margem Lateral
+            // Seção: Margem Lateral
             Text(
                 text = "Margem Lateral: ${settings.horizontalMarginPercent.toInt()}%",
                 fontSize = 15.sp,
@@ -189,7 +218,7 @@ fun SettingsScreen(
                     ),
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
             // Espelhamento Horizontal
             Row(
@@ -197,12 +226,14 @@ fun SettingsScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                Column {
+                Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = "Espelhar Texto (Horizontal)",
                         fontSize = 15.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = theme.textColor,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                     )
                     Text(
                         text = "Para uso com vidros de reflexão / teleprompter",
@@ -210,6 +241,8 @@ fun SettingsScreen(
                         color = theme.textColor.copy(alpha = 0.6f),
                     )
                 }
+
+                Spacer(modifier = Modifier.width(12.dp))
 
                 Switch(
                     checked = settings.mirrorHorizontal,
@@ -222,7 +255,7 @@ fun SettingsScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.height(28.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             // Sensibilidade do Motor de Voz
             Text(
@@ -242,7 +275,15 @@ fun SettingsScreen(
                     FilterChip(
                         selected = isSelected,
                         onClick = { onUpdateSettings { it.copy(sensitivity = presetName) } },
-                        label = { Text(presetName) },
+                        label = {
+                            Text(
+                                text = presetName,
+                                fontSize = 12.sp,
+                                maxLines = 1,
+                                softWrap = false,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        },
                         colors =
                             FilterChipDefaults.filterChipColors(
                                 selectedContainerColor = theme.highlightColor,
@@ -252,6 +293,122 @@ fun SettingsScreen(
                         modifier = Modifier.weight(1f),
                     )
                 }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+    }
+}
+
+/**
+ * Card de prévia interativa que simula o teleprompter com as configurações atuais.
+ */
+@Composable
+private fun ReadingPreviewCard(
+    settings: AppSettings,
+    modifier: Modifier = Modifier,
+) {
+    val theme = settings.theme
+    val previewFontSize = (settings.fontSizeSp * 0.55f).coerceIn(16f, 36f)
+    val previewLineHeight = (previewFontSize * settings.lineSpacingMultiplier)
+    val previewMarginPercent = (settings.horizontalMarginPercent / 100f).coerceIn(0.02f, 0.25f)
+
+    Box(
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(14.dp))
+                .background(theme.backgroundColor)
+                .border(
+                    width = 1.5.dp,
+                    color = theme.textColor.copy(alpha = 0.25f),
+                    shape = RoundedCornerShape(14.dp),
+                ).padding(12.dp),
+    ) {
+        Column {
+            // Barra superior simulada da prévia
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Box(
+                    modifier =
+                        Modifier
+                            .size(8.dp)
+                            .background(color = Color(0xFF4CAF50), shape = CircleShape),
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+                Text(
+                    text = "VOZ",
+                    color = theme.textColor.copy(alpha = 0.5f),
+                    fontSize = 9.sp,
+                    fontWeight = FontWeight.Bold,
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = "00:42",
+                    color = theme.textColor.copy(alpha = 0.7f),
+                    fontSize = 11.sp,
+                    fontFamily = FontFamily.Monospace,
+                    fontWeight = FontWeight.Medium,
+                )
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // Texto com estilos simulando palavras lidas, palavra ativa e palavras seguintes
+            val previewText =
+                buildAnnotatedString {
+                    // Trecho já lido com opacidade reduzida
+                    withStyle(
+                        style =
+                            SpanStyle(
+                                color = theme.textColor.copy(alpha = settings.readTextOpacity),
+                            ),
+                    ) {
+                        append("Ouvir com atenção é o ")
+                    }
+
+                    // Palavra ativa destacada com a cor de destaque do tema
+                    withStyle(
+                        style =
+                            SpanStyle(
+                                color = theme.highlightColor,
+                                fontWeight = FontWeight.Bold,
+                            ),
+                    ) {
+                        append("primeiro passo")
+                    }
+
+                    // Próximas palavras a serem lidas
+                    withStyle(
+                        style =
+                            SpanStyle(
+                                color = theme.textColor,
+                            ),
+                    ) {
+                        append(" para uma fala clara e confiante diante do público.")
+                    }
+                }
+
+            Box(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = (100 * previewMarginPercent).dp)
+                        .then(
+                            if (settings.mirrorHorizontal) {
+                                Modifier.graphicsLayer(scaleX = -1f)
+                            } else {
+                                Modifier
+                            },
+                        ),
+            ) {
+                Text(
+                    text = previewText,
+                    fontSize = previewFontSize.sp,
+                    lineHeight = previewLineHeight.sp,
+                )
             }
         }
     }

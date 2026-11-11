@@ -18,7 +18,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -28,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextLayoutResult
@@ -149,11 +154,78 @@ fun PrompterScreen(
                 modifier = Modifier.fillMaxWidth(),
             )
 
+            Spacer(modifier = Modifier.height(48.dp))
+
+            // Card no final da leitura com botão claro para sair/voltar ao editor
+            Column(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(settings.theme.textColor.copy(alpha = 0.08f))
+                        .padding(20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Text(
+                    text = "Fim do Discurso",
+                    fontSize = 17.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = settings.theme.highlightColor,
+                    maxLines = 1,
+                )
+
+                Spacer(modifier = Modifier.height(14.dp))
+
+                Button(
+                    onClick = onFinish,
+                    colors =
+                        ButtonDefaults.buttonColors(
+                            containerColor = settings.theme.highlightColor,
+                            contentColor = settings.theme.backgroundColor,
+                        ),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .height(48.dp),
+                ) {
+                    Text(
+                        text = "Voltar ao Editor",
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Bold,
+                        maxLines = 1,
+                        softWrap = false,
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                OutlinedButton(
+                    onClick = onRestart,
+                    colors =
+                        ButtonDefaults.outlinedButtonColors(
+                            contentColor = settings.theme.textColor,
+                        ),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .height(44.dp),
+                ) {
+                    Text(
+                        text = "Reiniciar do Início",
+                        fontSize = 13.sp,
+                        maxLines = 1,
+                        softWrap = false,
+                    )
+                }
+            }
+
             // Espaçador inferior para permitir rolagem até o final do texto
             Spacer(modifier = Modifier.height(with(density) { (containerHeightPx - readingLineY).toDp() }))
         }
 
-        // Barra superior discreta: cronômetro e indicador de microfone
+        // Barra superior discreta: cronômetro, indicador de microfone e botão de saída rápido
         Row(
             modifier =
                 Modifier
@@ -208,6 +280,23 @@ fun PrompterScreen(
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.Medium,
             )
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            // Botão de saída rápido na barra superior
+            Text(
+                text = "✕ Sair",
+                color = settings.theme.textColor.copy(alpha = 0.75f),
+                fontSize = 13.sp,
+                fontWeight = FontWeight.SemiBold,
+                maxLines = 1,
+                softWrap = false,
+                modifier =
+                    Modifier
+                        .clip(RoundedCornerShape(6.dp))
+                        .clickable { onFinish() }
+                        .padding(horizontal = 8.dp, vertical = 4.dp),
+            )
         }
 
         // Overlay de pausa
@@ -219,6 +308,16 @@ fun PrompterScreen(
                 onRestart = onRestart,
                 onFinish = onFinish,
                 onToggleMode = onToggleMode,
+            )
+        }
+
+        // Overlay de fim da leitura
+        if (uiState.phase is ReadingPhase.Finished) {
+            FinishedOverlay(
+                elapsedMs = uiState.elapsedMs,
+                theme = settings.theme,
+                onRestart = onRestart,
+                onFinish = onFinish,
             )
         }
     }

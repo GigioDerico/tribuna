@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -82,13 +83,14 @@ fun EditorScreen(
                     if (text.isNotEmpty()) {
                         OutlinedButton(
                             onClick = { onTextChanged("") },
+                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
                             colors =
                                 ButtonDefaults.outlinedButtonColors(
                                     contentColor = theme.textColor.copy(alpha = 0.7f),
                                 ),
-                            modifier = Modifier.padding(end = 8.dp),
+                            modifier = Modifier.padding(end = 6.dp),
                         ) {
-                            Text("Limpar", fontSize = 12.sp)
+                            Text("Limpar", fontSize = 12.sp, maxLines = 1, softWrap = false)
                         }
                     }
 
@@ -99,13 +101,14 @@ fun EditorScreen(
                                 onTextChanged(clipText)
                             }
                         },
+                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
                         colors =
                             ButtonDefaults.outlinedButtonColors(
                                 contentColor = theme.highlightColor,
                             ),
-                        modifier = Modifier.padding(end = 8.dp),
+                        modifier = Modifier.padding(end = 6.dp),
                     ) {
-                        Text("Colar", fontSize = 12.sp)
+                        Text("Colar", fontSize = 12.sp, maxLines = 1, softWrap = false)
                     }
 
                     IconButton(onClick = onOpenSettings) {
@@ -137,13 +140,14 @@ fun EditorScreen(
                         color = theme.textColor.copy(alpha = 0.75f),
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Medium,
+                        maxLines = 1,
                     )
 
                     Row {
                         FilterChip(
                             selected = mode == ScrollMode.Voice,
                             onClick = { onModeChanged(ScrollMode.Voice) },
-                            label = { Text("Voz", fontSize = 12.sp) },
+                            label = { Text("Voz", fontSize = 12.sp, maxLines = 1, softWrap = false) },
                             colors =
                                 FilterChipDefaults.filterChipColors(
                                     selectedContainerColor = theme.highlightColor,
@@ -156,7 +160,7 @@ fun EditorScreen(
                         FilterChip(
                             selected = mode == ScrollMode.Constant,
                             onClick = { onModeChanged(ScrollMode.Constant) },
-                            label = { Text("Constante", fontSize = 12.sp) },
+                            label = { Text("Constante", fontSize = 12.sp, maxLines = 1, softWrap = false) },
                             colors =
                                 FilterChipDefaults.filterChipColors(
                                     selectedContainerColor = theme.highlightColor,
