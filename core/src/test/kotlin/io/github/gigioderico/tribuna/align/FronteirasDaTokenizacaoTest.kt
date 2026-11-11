@@ -19,7 +19,7 @@ class FronteirasDaTokenizacaoTest {
     fun fronteiras_batemComAReferencia() {
         val stream = javaClass.getResourceAsStream("/referencia/fronteiras.tsv")
         assertNotNull("referência fronteiras.tsv ausente: regenere (impl_plan 0004)", stream)
-        val linhas = stream!!.use { it.readBytes().toString(Charsets.UTF_8) }.split('\n')
+        val linhas = stream!!.use { it.readBytes().toString(Charsets.UTF_8) }.replace("\r\n", "\n").split('\n')
         assertEquals("", linhas.last())
         val casos = linhas.drop(1).dropLast(1).map { it.substringBefore('\t') }
         assertEquals("#fronteiras=${casos.size}", linhas.first())

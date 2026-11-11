@@ -47,3 +47,4 @@ Desvios do plano: Nenhum desvio não justificado. A verificação de 16 KB nas b
 ## Não verificado
 
 Telas de UI (Compose) e testes instrumentados com emulador/dispositivo físico não pertencem à 0006 e serão implementados e testados nas tarefas 0007 e 0008.
+

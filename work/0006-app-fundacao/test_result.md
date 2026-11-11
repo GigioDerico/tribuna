@@ -42,3 +42,4 @@
 ## Não testado
 
 Telas e interação de UI no dispositivo físico (escopo reservado para 0007 e 0008).
+
